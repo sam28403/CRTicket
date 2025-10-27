@@ -1,0 +1,264 @@
+.main-center {
+    display: flex;
+    width: 100%;
+    flex-direction: column;      /* 竖向排列：车票 + 按钮 */
+    justify-content: center;      /* 垂直居中 */
+    align-items: center;          /* 水平居中 */
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.ticket-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
+/* 外层容器控制缩放比例 */
+.ticket-container {
+    width: 430px; /* 可以调整预览大小，真实比例会保持 */
+    aspect-ratio: 86 / 54; /* 保持8.6:5.4比例 */
+    position: relative;
+}
+
+/* 车票背景 */
+.ticket-bg {
+    width: 100%;
+    height: 100%;
+    /* ✅ background-image 已被内联样式接管，这里不再需要 */
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px; /* 四角圆角 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+}
+
+/* 文字区域 */
+@font-face {
+    font-family: "FZCDXK";
+    src: url("public/FZCDXK.TTF") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "OCRB";
+    src: url("public/OCRB.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.ticket-number {
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    font-size: 20px;
+    font-family: "FZCDXK",sans-serif;
+    letter-spacing: 2px;
+    color: #f00;
+}
+
+.date-time {
+    position: absolute;
+    top: 38%;
+    left: 8%;
+    font-size: 16px;
+    font-family: "OCRB",SimSun, sans-serif;
+}
+
+.price {
+    position: absolute;
+    top: 46%;
+    left: 8%;
+    font-size: 16px;
+    font-family: "OCRB",SimSun, sans-serif;
+}
+
+.tip {
+    position: absolute;
+    top: 54%;
+    left: 8%;
+    font-size: 16px;
+    font-family: SimSun, sans-serif;
+}
+
+.seat {
+    position: absolute;
+    top: 38%;
+    right: 10%;
+    justify-content: right;
+    font-size: 16px;
+    font-family: "OCRB",SimSun, sans-serif;
+}
+
+.seat-class {
+    position: absolute;
+    top: 46%;
+    right: 8%;
+    font-size: 16px;
+    font-family: DengXian, sans-serif;
+    justify-content: right;
+}
+
+.ticket-gate {
+    position: absolute;
+    top: 3%;
+    right: 3%;
+    font-size: 16px;
+    font-family: SimSun,sans-serif;
+    font-weight: bold;
+    justify-content: end;
+}
+
+/* 🔹 起点、终点、车次与箭头区域 */
+.station-block {
+    position: absolute;
+    top: 7%;
+    bottom: 58%;
+    left: 6%;
+    right: 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "FZCDXK", sans-serif;
+}
+
+.station-left {
+    width: 60%;
+    text-align: center;
+}
+.station-right {
+    width: 60%;
+    text-align: center;
+}
+
+.station-middle {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.station-name {
+    font-size: 24px;
+    font-family: "FZCDXK", sans-serif;
+}
+
+.station-name .small {
+    font-size: 16px;
+    margin-left: 2px;
+    font-family: SimSun, sans-serif;
+    font-weight: bold;
+}
+
+.station-en {
+    font-size: 14px;
+    font-family: SimSun, sans-serif;
+    margin-top: 2px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.train-no {
+    position: absolute;
+    top: -15px; /* 调整与箭头间距 */
+    font-size: 24px;
+    font-family: Times, sans-serif;
+    letter-spacing: 1px;
+}
+
+/* 右箭头（上半部分） */
+/* 箭头主体 */
+.arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 10px;
+}
+
+/* 横线部分 */
+.arrow .line {
+    width: 80px;  /* 固定长度，你可改成 60px~140px 调整 */
+    height: 2px;
+    background-color: #000;
+}
+
+/* 箭头头部 */
+.arrow .head {
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid #000;
+    border-right: 2px solid #000;
+    transform: rotate(45deg);
+    margin-left: -12px; /* 让线与箭头无缝衔接 */
+}
+
+/* 🔹 提示语区域 */
+.ticket-message {
+    position: absolute;
+    top: 75%;            /* 上边界距离票面顶部x% */
+    left: 6%;             /* 左右留白6% */
+    right: 30%;           /* 或使用 width: 64%; 与左右对应 */
+    width: 64%;           /* 对应从6%到70% */
+    padding: 6px 10px;
+    border: 1px dashed #000; /* 虚线边框 */
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.ticket-message p {
+    font-family: SimSun, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: pre-line; /* 保留换行 */
+    text-align: center;
+    margin: 0;
+}
+
+/* 🔹 右下角二维码 */
+.ticket-qrcode {
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    width: 20%;   /* 大小可调整为x% */
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticket-qrcode img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.sell-place {
+    position: absolute;
+    bottom: 0%;
+    right: 50%;
+    font-family: SimSun, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.download-buttons {
+    margin-top: 20px;       /* 与车票保持间距 */
+    display: flex;
+    justify-content: center;
+    gap: 20px;              /* 两个按钮的间距 */
+}
+
+/* 在缩小时等比例缩放所有内容 */
+@media (max-width: 800px) {
+    .ticket-container {
+        width: 300px;
+    }
+}
