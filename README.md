@@ -50,6 +50,14 @@
 
 可以下载到PDF或者PNG文件。
 
+## 样例
+
+<img src="E535975368.png" alt="E535975368" style="zoom:50%;" />
+
+<img src="E576498644.png" alt="E576498644" style="zoom:50%;" />
+
+<img src="E758819832.png" alt="E758819832" style="zoom:50%;" />
+
 ## 构建
 
 以下为主要依赖项及其用途说明：

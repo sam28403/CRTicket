@@ -441,6 +441,10 @@ const themeOptions = [
     id: 'DF7C.jpg',
     label: '小橘子',
   },
+  {
+    id: 'Blank.jpg',
+    label: '空白底',
+  },
 ]
 
 function formatStationName(name) {
