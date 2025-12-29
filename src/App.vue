@@ -117,7 +117,7 @@
 
       </el-form>
       <h3 style="font-family: Consolas,serif">Version 251229</h3>
-      <h3 style="font-family: Consolas,serif">Station Version 10099</h3>
+      <h3 style="font-family: Consolas,serif">Station Version 10100</h3>
     </el-aside>
 
     <el-main class="main-center">
