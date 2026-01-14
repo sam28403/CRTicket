@@ -36,7 +36,7 @@
         <el-form-item label="车次" prop="trainNo">
           <el-input
               v-model="ticket.trainNo"
-              placeholder="例如：G21 或 1461"
+              placeholder="例如：G25 或 1461"
           />
         </el-form-item>
 
@@ -65,7 +65,6 @@
 
         <el-form-item label="席位名称">
           <el-select
-              label="席位名称"
               v-model="ticket.seatType"
               placeholder="Select"
           >
@@ -78,12 +77,22 @@
           </el-select>
         </el-form-item>
 
+        <el-form-item label="空调选择">
+          <el-switch
+              v-model="value3"
+              :disabled="airSwitchDisabled"
+              inline-prompt
+              :active-icon="Check"
+              :inactive-icon="Close"
+          />
+        </el-form-item>
+
         <el-form-item label="座位号">
-          <el-input v-model="ticket.seatNo" placeholder="03车12A"></el-input>
+          <el-input v-model="ticket.seatNo" placeholder="03车12A号"></el-input>
         </el-form-item>
 
         <el-form-item label="售票地点">
-          <el-input v-model="ticket.sellPlace" placeholder="上海虹桥站"></el-input>
+          <el-input v-model="ticket.sellPlace" placeholder="XX站"></el-input>
         </el-form-item>
 
         <el-form-item label="检票口">
@@ -116,8 +125,8 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas,serif">Version 260101</h3>
-      <h3 style="font-family: Consolas,serif">Station Version 10101</h3>
+      <h3 style="font-family: Consolas,serif">Version 260114</h3>
+      <h3 style="font-family: Consolas,serif">Station Version 10102</h3>
     </el-aside>
 
     <el-main class="main-center">
@@ -158,7 +167,7 @@
 
             <div class="seat">{{ticket.seatNo}}</div>
 
-            <div class="seat-class">{{ticket.seatType}}</div>
+            <div class="seat-class">{{finalSeatType}}</div>
 
             <div class="ticket-message">
               <p>{{ ticket.message }}</p>
@@ -190,13 +199,14 @@
 </template>
 
 <script setup>
-import {onMounted, watch, reactive, ref} from 'vue'
+import {onMounted, watch, reactive, ref, computed} from 'vue'
 import { ElMessage } from 'element-plus'
 import stationData from '/src/station_name.js' // 你的站点数据
 import QRCode from 'qrcode'
 import html2canvas from 'html2canvas'
 import jsPDF from "jspdf";
 import {Document, Picture} from "@element-plus/icons-vue";
+import { Check, Close } from '@element-plus/icons-vue'
 
 //解析站点数据
 
@@ -298,19 +308,19 @@ const rules = {
 
 const options = [
   {
-    value: '新空调硬座',
+    value: '硬座',
     label: '硬座',
   },
   {
-    value: '新空调软座',
+    value: '软座',
     label: '软座',
   },
   {
-    value: '新空调硬卧',
+    value: '硬卧',
     label: '硬卧',
   },
   {
-    value: '新空调软卧',
+    value: '软卧',
     label: '软卧',
   },
   {
@@ -346,11 +356,11 @@ const options = [
     label: '一等卧',
   },
   {
-    value: '新空调一等软座',
+    value: '一等软座',
     label: '一等软座',
   },
   {
-    value: '新空调二等软座',
+    value: '二等软座',
     label: '二等软座',
   },
   {
@@ -358,7 +368,7 @@ const options = [
     label: '包厢硬卧',
   },
   {
-    value: '新空调高级软卧',
+    value: '高级软卧',
     label: '高级软卧',
   },
   {
@@ -406,6 +416,48 @@ const options = [
     label: '棚车',
   },
 ]
+
+const value3 = ref(false)
+
+const disableAirSeats = [
+  '二等座',
+  '一等座',
+  '特等座',
+  '优选一等座',
+  '商务座',
+  '无座',
+  '多功能座',
+  '动卧',
+  '高级动卧',
+  '一等卧',
+  '二等卧',
+  '棚车',
+]
+
+// el-switch 是否禁用
+const airSwitchDisabled = computed(() => {
+  return disableAirSeats.includes(ticket.seatType)
+})
+
+// 最终返回值
+const finalSeatType = computed(() => {
+  if (!ticket.seatType) return ''
+
+  if (value3.value && !airSwitchDisabled.value) {
+    return `新空调${ticket.seatType}`
+  }
+  return ticket.seatType
+})
+
+// 如果切换席位后变成不可用，自动关闭空调
+watch(
+    () => ticket.seatType,
+    () => {
+      if (airSwitchDisabled.value) {
+        value3.value = false
+      }
+    }
+)
 
 // 修改主题选项，id直接对应图片文件名
 const themeOptions = [
