@@ -97,46 +97,48 @@
 
           <el-card class="statistics-card" shadow="never">
             <h3>个人运转数据</h3>
-            <el-row :gutter="20" v-loading="statisticsLoading">
-              <el-col :span="24">
-                <div ref="statisticsChartRef" class="chart-container"></div>
-              </el-col>
-            </el-row>
-            <el-row :gutter="20">
-              <el-col :xs="24" :sm="24" :md="12">
-                <div ref="cityChartRef" class="chart-container"></div>
-              </el-col>
-              <el-col :xs="24" :sm="24" :md="12">
-                <div class="calendar-wrapper">
-                  <div class="calendar-header">
-                    <span>月度运转日历</span>
-                    <el-date-picker
-                      v-model="selectedMonth"
-                      type="month"
-                      placeholder="选择月份"
-                      format="YYYY-MM"
-                      value-format="YYYY-MM"
-                      :clearable="false"
-                      size="small"
-                      @change="loadMonthlyData"
-                    />
-                  </div>
-                  <div ref="calendarChartRef" class="calendar-container"></div>
-                </div>
-              </el-col>
-            </el-row>
-            <el-empty v-if="!statisticsLoading && statisticsData.departures.length === 0 && statisticsData.arrivals.length === 0" description="暂无运转数据"></el-empty>
-
-            <!-- 运转轨迹地图 -->
-            <div class="map-section">
-              <h4>历史运转轨迹</h4>
-              <el-row :gutter="20">
+            <template v-if="hasTicketData">
+              <el-row :gutter="20" v-loading="statisticsLoading">
                 <el-col :span="24">
-                  <div ref="mapChartRef" class="map-container" v-loading="mapLoading"></div>
+                  <div ref="statisticsChartRef" class="chart-container"></div>
                 </el-col>
               </el-row>
-              <el-empty v-if="!mapLoading && ticketHistory.length === 0" description="暂无轨迹数据"></el-empty>
-            </div>
+              <el-row :gutter="20">
+                <el-col :xs="24" :sm="24" :md="12">
+                  <div ref="cityChartRef" class="chart-container"></div>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="12">
+                  <div class="calendar-wrapper">
+                    <div class="calendar-header">
+                      <span>月度运转日历</span>
+                      <el-date-picker
+                        v-model="selectedMonth"
+                        type="month"
+                        placeholder="选择月份"
+                        format="YYYY-MM"
+                        value-format="YYYY-MM"
+                        :clearable="false"
+                        size="small"
+                        @change="loadMonthlyData"
+                      />
+                    </div>
+                    <div ref="calendarChartRef" class="calendar-container"></div>
+                  </div>
+                </el-col>
+              </el-row>
+
+              <!-- 运转轨迹地图 -->
+              <div class="map-section">
+                <h4>历史运转轨迹</h4>
+                <el-row :gutter="20">
+                  <el-col :span="24">
+                    <div ref="mapChartRef" class="map-container" v-loading="mapLoading"></div>
+                  </el-col>
+                </el-row>
+                <el-empty v-if="!mapLoading && ticketHistory.length === 0" description="暂无轨迹数据"></el-empty>
+              </div>
+            </template>
+            <el-empty v-else-if="!statisticsLoading && !mapLoading" description="暂无运转数据"></el-empty>
           </el-card>
         </el-main>
       </el-container>
@@ -203,6 +205,14 @@ const ticketHistory = ref([])
 const selectedMonth = ref('')
 const monthlyData = ref([])
 
+const hasTicketData = computed(() => {
+  return (
+    statisticsData.value.departures.length > 0 ||
+    statisticsData.value.arrivals.length > 0 ||
+    ticketHistory.value.length > 0
+  );
+})
+
 const getStationName = (code) => {
   const station = stations.find(s => s.code === code)
   return station ? station.name : code
@@ -257,13 +267,20 @@ async function loadMonthlyData() {
   try {
     const response = await api.get(`/user/monthly-tickets?userId=${user.id}&year=${year}&month=${month}`);
     if (response.data.success) {
-      monthlyData.value = response.data.data.tickets;
+      monthlyData.value = response.data.data.tickets.map(t => ({
+        ...t,
+        travel_date: t.travel_date.replace(/(\d{4})年(\d{2})月(\d{2})日/, '$1-$2-$3')
+      }));
       await nextTick();
       renderCalendarChart();
     }
   } catch (err) {
     console.error(err);
   }
+}
+
+function toCalendarDateKey(year, month, day) {
+  return `${year}年${String(month).padStart(2, '0')}月${String(day).padStart(2, '0')}日`;
 }
 
 async function loadTicketHistory() {
@@ -496,14 +513,15 @@ function renderCalendarChart() {
       calculable: false,
       show: false,
       inRange: {
-        color: ['#ebedee', '#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de']
+        color: ['#ebedee', '#c3d6f2', '#86a8e7', '#5470c6', '#23448e']
       }
     },
     calendar: {
+      orient: 'vertical',
       top: 50,
       left: 30,
       right: 20,
-      cellSize: [Math.floor((container.offsetWidth - 50) / 7), 35],
+      cellSize: [Math.floor((container.offsetWidth - 50) / 7), 50],
       range: selectedMonth.value,
       itemStyle: {
         borderWidth: 0.5,
@@ -518,6 +536,7 @@ function renderCalendarChart() {
       },
       yearLabel: { show: false },
       monthLabel: {
+        show: false,
         color: '#333',
         fontSize: 11,
         nameMap: 'ZH'
@@ -535,10 +554,24 @@ function renderCalendarChart() {
       label: {
         show: true,
         formatter: (params) => {
-          return params.data[0].split('-')[2];
+          const count = params.data[1];
+          const maxCount = monthlyData.value.length > 0
+            ? Math.max(...monthlyData.value.map(t => t.count))
+            : 3;
+          const ratio = maxCount > 0 ? count / maxCount : 0;
+          const style = ratio > 0.5 ? 'light' : 'dark';
+          return `{${style}|${params.data[0].split('-')[2]}}`;
         },
-        fontSize: 10,
-        color: '#333'
+        rich: {
+          light: {
+            fontSize: 14,
+            color: '#ffffff'
+          },
+          dark: {
+            fontSize: 14,
+            color: '#333333'
+          }
+        }
       },
       emphasis: {
         itemStyle: {
@@ -1020,7 +1053,7 @@ async function handleDeleteAccount() {
 
 .calendar-container {
   width: 100%;
-  height: 260px;
+  height: 300px;
 }
 
 .map-section {

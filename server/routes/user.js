@@ -239,21 +239,17 @@ router.get("/monthly-tickets", (req, res) => {
 
     const y = parseInt(year) || new Date().getFullYear();
     const m = parseInt(month) || new Date().getMonth() + 1;
-
-    // 计算月份的起始和结束日期
-    const startDate = `${y}-${String(m).padStart(2, '0')}-01`;
-    const endDate = new Date(y, m, 0).toISOString().split('T')[0];
+    const prefix = `${y}年${String(m).padStart(2, '0')}月`;
 
     try {
         const tickets = db.prepare(`
             SELECT travel_date, COUNT(*) as count
             FROM tickets
             WHERE user_id = ?
-              AND travel_date >= ?
-              AND travel_date <= ?
+              AND travel_date LIKE ?
             GROUP BY travel_date
             ORDER BY travel_date
-        `).all(userId, startDate, endDate);
+        `).all(userId, `${prefix}%`);
 
         return res.json({
             success: true,
