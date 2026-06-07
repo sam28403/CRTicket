@@ -4,11 +4,17 @@
 
 **目前中国铁路要求持个人有效证件乘车，不再接受纸质车票。这个网站生成的车票无法作为乘车凭证使用！！！**
 
+## 项目截图
+
 ![Screenshot](Screenshot1.png)
 
 ![Screenshot](Screenshot2.png)
 
 ![Screenshot](Screenshot3.png)
+
+![Screenshot](Screenshot4.png)
+
+![Screenshot](Screenshot5.png)
 
 ## 优点
 
@@ -102,11 +108,11 @@
 
 点击按钮，经过确认后可注销用户，注销后所有数据从数据库中删除，此过程不可逆！
 
-### 用户运转图标
+### 用户运转图表
 
 展示最常到达车站、最常到达城市、点亮城市、运转日期等信息。
 
-## 样例
+## 车票生成样例
 
 <img src="E535975368.png" alt="E535975368" style="zoom:50%;" />
 

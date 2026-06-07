@@ -137,8 +137,8 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260525</h3>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10109</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260607</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10110</h3>
 
       <el-button type="primary" @click="note">更新内容</el-button>
 
@@ -324,8 +324,8 @@ onMounted(() => {
 
 const note = () => {
   ElNotification({
-    title: '现在可以存储历史车票了！',
-    message: '更新内容：请参阅项目的README与版本更新说明，以了解最新功能。',
+    title: '现在可以查看运转数据图表和删除账户了',
+    message: '更新内容：登录后可以在用户界面查看个人运转数据，也可以在该界面删除账户。车站列表更新为10110。',
     type: 'info',
     position: 'bottom-right'
   })

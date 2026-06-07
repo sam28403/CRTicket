@@ -63,7 +63,7 @@
             </el-card>
           </div>
 
-          <el-dialog v-model="deleteDialogVisible" title="删除账户" width="450px" :close-on-click-modal="false">
+          <el-dialog v-model="deleteDialogVisible" title="删除账户" width="450px" :close-on-click-modal="false" size="large">
             <el-alert
               title="删除账户后，所有数据将被永久清除且无法恢复"
               type="error"
@@ -374,7 +374,7 @@ function renderMapChart() {
 
     const option = {
       title: {
-        text: '中老铁路运转轨迹',
+        text: '全部铁路运转轨迹',
         left: 'center',
         textStyle: { fontSize: 16, fontWeight: 'normal', color: '#17324d' }
       },
