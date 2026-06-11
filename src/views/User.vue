@@ -318,6 +318,7 @@ function renderMapChart() {
   if (!mapChartRef.value || ticketHistory.value.length === 0) return;
 
   const chart = echarts.init(mapChartRef.value);
+  const hiddenStationNames = new Set(['南海诸岛']);
 
   // 收集所有有坐标的车站（用 Map 正确计数）
   const stationMap = new Map(); // key: "经度,纬度", value: { name, value, count }
@@ -327,7 +328,7 @@ function renderMapChart() {
     const departureCoords = getStationCoords(ticket.departureStation);
     const arrivalCoords = getStationCoords(ticket.arrivalStation);
 
-    if (departureCoords) {
+    if (departureCoords && !hiddenStationNames.has(ticket.departureStation)) {
       const key = `${departureCoords[0]},${departureCoords[1]}`;
       if (stationMap.has(key)) {
         stationMap.get(key).count += 1;
@@ -354,7 +355,12 @@ function renderMapChart() {
     }
 
     // 如果出发和到达都有坐标，添加轨迹线
-    if (departureCoords && arrivalCoords) {
+    if (
+      departureCoords &&
+      arrivalCoords &&
+      !hiddenStationNames.has(ticket.departureStation) &&
+      !hiddenStationNames.has(ticket.arrivalStation)
+    ) {
       lines.push({
         coords: [departureCoords, arrivalCoords]
       });

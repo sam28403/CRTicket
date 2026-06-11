@@ -1,0 +1,4070 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-06-11T01:54:13Z",
+    "timestamp_areas_base": "2026-06-10T13:06:20Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 1586077503,
+  "lat": 31.5446908,
+  "lon": 107.6540938,
+  "tags": {
+    "name": "宣汉",
+    "name:en": "Xuanhan",
+    "name:zh": "宣汉",
+    "operator": "中国铁路西安局集团有限公司",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "29942",
+    "station": "train",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2300682654,
+  "lat": 22.5836966,
+  "lon": 113.9494381,
+  "tags": {
+    "name": "西丽",
+    "name:en": "Xili",
+    "proposed": "station",
+    "railway": "proposed"
+  }
+},
+{
+  "type": "node",
+  "id": 2558452597,
+  "lat": 28.6237759,
+  "lon": 115.9377651,
+  "tags": {
+    "construction": "station",
+    "name": "昌南大市场（规划）",
+    "railway": "construction"
+  }
+},
+{
+  "type": "node",
+  "id": 2657252071,
+  "lat": 28.6181297,
+  "lon": 116.0244022,
+  "tags": {
+    "construction": "station",
+    "name": "罗家镇",
+    "railway": "construction"
+  }
+},
+{
+  "type": "node",
+  "id": 2657252078,
+  "lat": 28.6233890,
+  "lon": 115.9520933,
+  "tags": {
+    "construction": "station",
+    "railway": "construction"
+  }
+},
+{
+  "type": "node",
+  "id": 3514662412,
+  "lat": 22.7283741,
+  "lon": 113.7875052,
+  "tags": {
+    "construction": "station",
+    "name": "海上田园",
+    "name:en": "Haishang Tianyuan",
+    "railway": "construction"
+  }
+},
+{
+  "type": "node",
+  "id": 4732069401,
+  "lat": 34.1529132,
+  "lon": 113.9179532,
+  "tags": {
+    "construction": "station",
+    "railway": "construction"
+  }
+},
+{
+  "type": "node",
+  "id": 6172569921,
+  "lat": 31.3686042,
+  "lon": 120.5308960,
+  "tags": {
+    "construction": "station",
+    "name": "保丰",
+    "old_name": "城际路",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6172569932,
+  "lat": 31.3047429,
+  "lon": 120.6330347,
+  "tags": {
+    "construction": "station",
+    "name": "望星桥苏大",
+    "old_name": "苏州大学",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6172569943,
+  "lat": 31.2753296,
+  "lon": 120.7867394,
+  "tags": {
+    "construction": "station",
+    "name": "华云",
+    "old_name": "新庆路",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6610744414,
+  "lat": 22.3042356,
+  "lon": 114.1666014,
+  "tags": {
+    "brand": "港鐵 MTR",
+    "brand:en": "MTR",
+    "brand:ref": "MTR",
+    "brand:wikidata": "Q14751",
+    "brand:zh": "港鐵",
+    "name": "柯士甸 Austin",
+    "name:en": "Austin",
+    "name:zh": "柯士甸",
+    "name:zh-Hans": "柯士甸",
+    "name:zh-Hant": "柯士甸",
+    "network": "港鐵 MTR",
+    "network:en": "MTR",
+    "network:ref": "MTR",
+    "network:wikidata": "Q14751",
+    "network:zh": "港鐵",
+    "not:public_transport": "station",
+    "operator": "港鐵公司 MTR Corporation",
+    "operator:en": "MTR Corporation",
+    "operator:official_name": "香港鐵路有限公司 MTR Corporation Limited",
+    "operator:official_name:en": "MTR Corporation Limited",
+    "operator:official_name:zh": "香港鐵路有限公司",
+    "operator:ref": "MTR",
+    "operator:short_name": "港鐵 MTRCL",
+    "operator:short_name:en": "MTRCL",
+    "operator:short_name:zh": "港鐵",
+    "operator:wikidata": "Q1479375",
+    "operator:zh": "港鐵公司",
+    "owner": "九鐵公司 KCR Corporation",
+    "owner:en": "KCR Corporation",
+    "owner:official_name": "九廣鐵路公司 Kowloon-Canton Railway Corporation",
+    "owner:official_name:en": "Kowloon-Canton Railway Corporation",
+    "owner:official_name:zh": "九廣鐵路公司",
+    "owner:ref": "KCR",
+    "owner:short_name": "九鐵 KCRC",
+    "owner:short_name:en": "KCRC",
+    "owner:short_name:zh": "九鐵",
+    "owner:wikidata": "Q838436",
+    "owner:zh": "九鐵公司",
+    "platforms": "1",
+    "public_transport": "yes",
+    "railway": "station",
+    "ref": "AUS",
+    "ref:note": "Common use in MTR app indoor navigation labels, station shop units, etc",
+    "station": "train",
+    "subway": "yes",
+    "tracks": "2",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7056598532,
+  "lat": 22.7283702,
+  "lon": 113.7875628,
+  "tags": {
+    "construction": "station",
+    "name": "海上田园",
+    "name:en": "Haishang Tianyuan",
+    "railway": "construction"
+  }
+},
+{
+  "type": "node",
+  "id": 7161813537,
+  "lat": 30.8321923,
+  "lon": 121.3635716,
+  "tags": {
+    "covered": "no",
+    "int_name": "Jinshan Yuanqu",
+    "name": "金山园区",
+    "name:en": "Jinshanyuanqu",
+    "name:zh": "金山园区",
+    "network": "中国铁路",
+    "old_name": "阮巷",
+    "operator": "上海金山铁路发展有限公司",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q22098802"
+  }
+},
+{
+  "type": "node",
+  "id": 7197704006,
+  "lat": 32.0727760,
+  "lon": 118.9011573,
+  "tags": {
+    "name": "紫金山东",
+    "name:en": "Zijinshan East",
+    "name:zh": "紫金山东",
+    "official_name:en": "Zijinshan East Railway Station",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q15892293",
+    "wikipedia": "zh:紫金山东站"
+  }
+},
+{
+  "type": "node",
+  "id": 7742242697,
+  "lat": 31.0614034,
+  "lon": 121.3191462,
+  "tags": {
+    "covered": "no",
+    "name": "新桥",
+    "name:en": "Xinqiao",
+    "name:zh": "新桥",
+    "network": "中国铁路",
+    "operator": "上海金山铁路发展有限公司",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "train",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7900305742,
+  "lat": 22.3029008,
+  "lon": 114.1822480,
+  "tags": {
+    "brand": "港鐵 MTR",
+    "brand:en": "MTR",
+    "brand:zh": "港鐵",
+    "name": "紅磡 Hung Hom",
+    "name:en": "Hung Hom",
+    "name:zh": "紅磡",
+    "network": "港鐵 MTR",
+    "network:en": "MTR",
+    "network:wikidata": "Q14751",
+    "network:zh": "港鐵",
+    "not:public_transport": "station",
+    "operator": "港鐵公司 MTR Corporation",
+    "operator:en": "MTR Corporation",
+    "operator:official_name": "香港鐵路有限公司 MTR Corporation Limited",
+    "operator:official_name:en": "MTR Corporation Limited",
+    "operator:official_name:zh": "香港鐵路有限公司",
+    "operator:ref": "MTR",
+    "operator:short": "港鐵 MTRCL",
+    "operator:short:en": "MTRCL",
+    "operator:short:zh": "港鐵",
+    "operator:short_name": "港鐵 MTRCL",
+    "operator:short_name:en": "MTRCL",
+    "operator:short_name:zh": "港鐵",
+    "operator:wikidata": "Q1479375",
+    "operator:zh": "港鐵公司",
+    "owner": "九鐵公司 KCR Corporation",
+    "owner:en": "KCR Corporation",
+    "owner:official_name": "九廣鐵路公司 Kowloon-Canton Railway Corporation",
+    "owner:official_name:en": "Kowloon-Canton Railway Corporation",
+    "owner:official_name:zh": "九廣鐵路公司",
+    "owner:ref": "KCR",
+    "owner:short_name": "九鐵 KCRC",
+    "owner:short_name:en": "KCRC",
+    "owner:short_name:zh": "九鐵",
+    "owner:wikidata": "Q838436",
+    "owner:zh": "九鐵公司",
+    "ownership": "public",
+    "platforms": "7",
+    "public_transport": "yes",
+    "railway": "station",
+    "ref": "HUH",
+    "ref:note": "Common use in MTR app indoor navigation labels, station shop units, etc",
+    "start_date": "1975-11-30",
+    "station": "train",
+    "subway": "yes",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q996591",
+    "wikipedia": "zh:紅磡站"
+  }
+},
+{
+  "type": "node",
+  "id": 8036807177,
+  "lat": 39.1193706,
+  "lon": 117.6429541,
+  "tags": {
+    "construction": "station",
+    "name": "欣���园东",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 8242742761,
+  "lat": 39.1248507,
+  "lon": 117.6272931,
+  "tags": {
+    "construction": "station",
+    "name": "欣嘉园",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 8323727916,
+  "lat": 30.4495066,
+  "lon": 120.5104011,
+  "tags": {
+    "construction": "station",
+    "construction_date": "2028",
+    "name": "海宁观潮",
+    "name:en": "Hainingguanchao",
+    "name:zh": "海宁观潮",
+    "public_transport": "station",
+    "railway": "construction",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 8581515317,
+  "lat": 31.4322493,
+  "lon": 120.5520270,
+  "tags": {
+    "construction": "station",
+    "name": "春丰路",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 8637592992,
+  "lat": 36.6485091,
+  "lon": 116.9923595,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "八一立交桥（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 8637593000,
+  "lat": 36.6567959,
+  "lon": 117.0954200,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "转山西路（万象城）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 8637597996,
+  "lat": 36.6681476,
+  "lon": 117.1592781,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "林家庄（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 8637597998,
+  "lat": 36.6713590,
+  "lon": 117.1872143,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "文旅城",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 8868542170,
+  "lat": 22.3169748,
+  "lon": 114.1876486,
+  "tags": {
+    "brand": "港鐵 MTR",
+    "brand:en": "MTR",
+    "brand:zh": "港鐵",
+    "name": "土瓜灣 To Kwa Wan",
+    "name:en": "To Kwa Wan",
+    "name:zh": "土瓜灣",
+    "network": "港鐵 MTR",
+    "network:en": "MTR",
+    "network:wikidata": "Q14751",
+    "network:zh": "港鐵",
+    "operator": "香港鐵路有限公司 MTR Corporation Limited",
+    "operator:en": "MTR Corporation Limited",
+    "operator:wikidata": "Q1479375",
+    "operator:zh": "香港鐵路有限公司",
+    "owner": "九廣鐵路公司 Kowloon-Canton Railway Corporation",
+    "owner:en": "Kowloon-Canton Railway Corporation",
+    "owner:wikidata": "Q838436",
+    "owner:zh": "九廣鐵路公司",
+    "ownership": "public",
+    "platforms": "2",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "TKW",
+    "ref:note": "Common use in MTR app indoor navigation labels, station shop units, etc",
+    "start_date": "2021-06-27",
+    "station": "train",
+    "subway": "yes",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9150216945,
+  "lat": 39.9145679,
+  "lon": 116.4721115,
+  "tags": {
+    "construction": "station",
+    "name": "红庙",
+    "name:en": "Hongmiao",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q26261976",
+    "wikipedia": "en:Hongmiao station"
+  }
+},
+{
+  "type": "node",
+  "id": 9227040954,
+  "lat": 36.7440226,
+  "lon": 117.1945460,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "梁王东(在建)",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9227041009,
+  "lat": 36.6750933,
+  "lon": 117.1252896,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "软件园(在建)",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9227261313,
+  "lat": 36.6742532,
+  "lon": 117.0011680,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "济安街(在建)",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9228984128,
+  "lat": 36.6687660,
+  "lon": 116.8888253,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "济南西站（在建）",
+    "note": "济南轨道交通6号线济南西站",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9228984137,
+  "lat": 36.6790538,
+  "lon": 116.8535006,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "位里庄（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9228984138,
+  "lat": 36.6724700,
+  "lon": 116.8613993,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "孟王庄（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9228984140,
+  "lat": 36.6689336,
+  "lon": 116.8719853,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "于家庄（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9228984141,
+  "lat": 36.6688141,
+  "lon": 116.9042717,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "文化中心（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9228984142,
+  "lat": 36.6689517,
+  "lon": 116.9140802,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "中央公园（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9228984143,
+  "lat": 36.6689625,
+  "lon": 116.9245163,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "会展中心（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9228984144,
+  "lat": 36.6649269,
+  "lon": 116.9485326,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "老屯（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9228984146,
+  "lat": 36.6612429,
+  "lon": 116.9642491,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "商埠区西（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9228984147,
+  "lat": 36.6645490,
+  "lon": 116.9763954,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "经一纬六（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9436112295,
+  "lat": 29.5289060,
+  "lon": 106.4359275,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "新桥",
+    "name:en": "Xinqiao",
+    "name:zh": "新桥",
+    "network": "重庆轨��交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "ref": "9/01",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9436243353,
+  "lat": 29.6231249,
+  "lon": 106.5872614,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "邮轮母港",
+    "name:en": "Cruise Port",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "ref": "9/20",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9611172377,
+  "lat": 34.5511133,
+  "lon": 105.8771431,
+  "tags": {
+    "construction": "station",
+    "name": "电力公司",
+    "railway": "construction",
+    "station": "tram"
+  }
+},
+{
+  "type": "node",
+  "id": 9628985362,
+  "lat": 36.8018888,
+  "lon": 117.0218520,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "济北（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9628985398,
+  "lat": 36.6882582,
+  "lon": 117.0784872,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "花园东路（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030434,
+  "lat": 36.6850432,
+  "lon": 117.0909816,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "华能路（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030435,
+  "lat": 36.6849928,
+  "lon": 117.0665844,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "洪家楼（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030436,
+  "lat": 36.6839325,
+  "lon": 117.0600767,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "洪楼广场（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030437,
+  "lat": 36.6818088,
+  "lon": 117.0492306,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "山大路（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030438,
+  "lat": 36.6884185,
+  "lon": 117.0379078,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "历山路（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030439,
+  "lat": 36.6956596,
+  "lon": 117.0368224,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "水屯北路（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030440,
+  "lat": 36.7026235,
+  "lon": 117.0375305,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "清河北路（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030441,
+  "lat": 36.7121383,
+  "lon": 117.0363906,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "翻译学院（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030442,
+  "lat": 36.7245643,
+  "lon": 117.0380884,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "二环北路（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030443,
+  "lat": 36.7380824,
+  "lon": 117.0345023,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "黄河南岸（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030446,
+  "lat": 36.6498796,
+  "lon": 117.0948082,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "牧牛山公园（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030447,
+  "lat": 36.6495659,
+  "lon": 117.1094513,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "龙奥大厦（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030448,
+  "lat": 36.6494843,
+  "lon": 117.1190566,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "奥体东路（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9629030449,
+  "lat": 36.6451612,
+  "lon": 117.1395207,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "气象局（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9630761683,
+  "lat": 36.6475415,
+  "lon": 117.1517577,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "凤凰南路（在建）",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9778895214,
+  "lat": 31.4380991,
+  "lon": 120.5850780,
+  "tags": {
+    "construction": "station",
+    "name": "石港路",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9778895215,
+  "lat": 31.4432458,
+  "lon": 120.5704138,
+  "tags": {
+    "construction": "station",
+    "name": "永昌路",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9778895233,
+  "lat": 31.4399066,
+  "lon": 120.5572130,
+  "tags": {
+    "construction": "station",
+    "name": "春光路",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9778896826,
+  "lat": 31.4806034,
+  "lon": 120.6582658,
+  "tags": {
+    "construction": "station",
+    "name": "爱格豪路",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9778896827,
+  "lat": 31.4700538,
+  "lon": 120.6565365,
+  "tags": {
+    "construction": "station",
+    "name": "珍珠湖路",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9778896828,
+  "lat": 31.4626533,
+  "lon": 120.6556052,
+  "tags": {
+    "construction": "station",
+    "name": "渭中路",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9778896829,
+  "lat": 31.4514879,
+  "lon": 120.6548327,
+  "tags": {
+    "construction": "station",
+    "name": "朗力福大道",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10120264002,
+  "lat": 47.7244074,
+  "lon": 128.7513757,
+  "tags": {
+    "construction": "station",
+    "name": "伊春西",
+    "railway": "construction"
+  }
+},
+{
+  "type": "node",
+  "id": 10763746073,
+  "lat": 29.6012799,
+  "lon": 106.3035728,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "虎溪",
+    "name:en": "Huxi",
+    "name:zh": "虎溪",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10763746083,
+  "lat": 29.6004555,
+  "lon": 106.3268201,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "重庆科技大学",
+    "name:en": "Daxuechengnan",
+    "name:zh": "大学城南",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10763746086,
+  "lat": 29.6019123,
+  "lon": 106.3455554,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "寨山坪",
+    "name:en": "Zhaishanping",
+    "name:zh": "寨山坪",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10763752107,
+  "lat": 29.6017919,
+  "lon": 106.3663820,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "西永",
+    "name:en": "Xiyong",
+    "name:zh": "西永",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10763752128,
+  "lat": 29.5795780,
+  "lon": 106.4418687,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "磁器口",
+    "name:en": "Ciqikou",
+    "name:zh": "磁器口",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10767569977,
+  "lat": 29.5583637,
+  "lon": 106.4564321,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "沙坪坝",
+    "name:en": "Shapingba",
+    "name:zh": "沙坪坝",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10767569998,
+  "lat": 29.5333722,
+  "lon": 106.4817240,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "石桥铺",
+    "name:en": "Shiqiaopu",
+    "name:zh": "石桥铺",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重��轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10767570001,
+  "lat": 29.5378231,
+  "lon": 106.5070661,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "重医",
+    "name:en": "Chongqing Medical University",
+    "name:zh": "重医",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10769980282,
+  "lat": 29.5505401,
+  "lon": 106.5405769,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "重庆站",
+    "name:en": "Chongqing Railway Station",
+    "name:zh": "重庆站",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10769980285,
+  "lat": 29.5430785,
+  "lon": 106.5691722,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "南滨路",
+    "name:en": "Nanbin Road",
+    "name:zh": "南滨路",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10770007912,
+  "lat": 29.5272470,
+  "lon": 106.5691675,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "南坪",
+    "name:en": "Nanping",
+    "name:zh": "南坪",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10770007946,
+  "lat": 29.4979017,
+  "lon": 106.6379773,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "广福大道",
+    "name:en": "Guangfu Avenue",
+    "name:zh": "广福大道",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10770007977,
+  "lat": 29.4670942,
+  "lon": 106.6996702,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "惠民",
+    "name:en": "Huimin",
+    "name:zh": "惠民",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11039819033,
+  "lat": 22.2811256,
+  "lon": 113.9342024,
+  "tags": {
+    "construction": "station",
+    "construction:public_transport": "station",
+    "construction:railway": "station",
+    "name": "東涌西 Tung Chung West",
+    "name:en": "Tung Chung West",
+    "name:zh": "東涌西",
+    "name:zh-Hans": "东涌西",
+    "name:zh-Hant": "東涌西",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11039819034,
+  "lat": 22.2972245,
+  "lon": 113.9586238,
+  "tags": {
+    "construction": "station",
+    "construction:public_transport": "station",
+    "construction:railway": "station",
+    "name": "東涌東 Tung Chung East",
+    "name:en": "Tung Chung East",
+    "name:zh": "東涌東",
+    "name:zh-Hans": "东涌东",
+    "name:zh-Hant": "東涌東",
+    "note": "tentative name",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11136998899,
+  "lat": 30.2946501,
+  "lon": 120.5162612,
+  "tags": {
+    "construction": "station",
+    "construction_date": "2028",
+    "name": "钱塘",
+    "name:en": "Qiantang",
+    "name:zh": "钱塘",
+    "public_transport": "station",
+    "railway": "construction",
+    "train": "yes",
+    "wikidata": "Q130146331",
+    "wikipedia": "zh:钱塘站"
+  }
+},
+{
+  "type": "node",
+  "id": 11561150475,
+  "lat": 29.4653772,
+  "lon": 106.6203220,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "鹿角北",
+    "name:en": "Lujiao North",
+    "name:zh": "鹿角北",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11561150476,
+  "lat": 29.4653379,
+  "lon": 106.6300107,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "况家塘",
+    "name:en": "Kuangjiatang",
+    "name:zh": "况家塘",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11561150477,
+  "lat": 29.4759801,
+  "lon": 106.6433774,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "竹园村",
+    "name:en": "Zhuyuancun",
+    "name:zh": "竹园村",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11561150478,
+  "lat": 29.5005390,
+  "lon": 106.6710927,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "地龙湾",
+    "name:en": "Delongwan",
+    "name:zh": "地龙湾",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11571347193,
+  "lat": 29.5622564,
+  "lon": 106.7373340,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "广阳湾",
+    "name:en": "Guangyang Bay",
+    "name:zh": "广阳湾",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11571347194,
+  "lat": 29.5380244,
+  "lon": 106.7241089,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "商贸城北",
+    "name:en": "Trade City North",
+    "name:zh": "商贸城北",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11571347195,
+  "lat": 29.5288510,
+  "lon": 106.7155487,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "迎龙",
+    "name:en": "Yinglong",
+    "name:zh": "迎龙",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11571347196,
+  "lat": 29.5215141,
+  "lon": 106.7106620,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "商贸城",
+    "name:en": "Trade City",
+    "name:zh": "商贸城",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11571347197,
+  "lat": 29.5153990,
+  "lon": 106.6943091,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "茶涪路",
+    "name:en": "Chafu Road",
+    "name:zh": "茶涪路",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11571347198,
+  "lat": 29.5129124,
+  "lon": 106.6775190,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "瓦子坝",
+    "name:en": "Waziba",
+    "name:zh": "瓦子坝",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11572781048,
+  "lat": 29.5917532,
+  "lon": 106.4550146,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "顺水寺公园",
+    "name:en": "Shunshuisi Park",
+    "name:zh": "顺水寺公园",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "operator": "重庆轨道四号线建设运营有限公司",
+    "operator:wikidata": "Q138502000",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11580374687,
+  "lat": 29.2720565,
+  "lon": 106.2725066,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "鼎山",
+    "name:en": "Dingshan",
+    "name:zh": "鼎山",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "operator": "重庆江跳线轨道交通运营管理有限公司",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11580374688,
+  "lat": 29.2882031,
+  "lon": 106.2617042,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "几江",
+    "name:en": "Jijiang",
+    "name:zh": "几江",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "operator": "重庆江跳线轨道交通运营管��有限公司",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12140828498,
+  "lat": 31.2665551,
+  "lon": 121.6210511,
+  "tags": {
+    "construction": "station",
+    "name": "金吉路",
+    "name:en": "Jinji Road",
+    "network": "上海地铁",
+    "public_transport": "station",
+    "railway": "construction"
+  }
+},
+{
+  "type": "node",
+  "id": 12215649511,
+  "lat": 34.7755523,
+  "lon": 113.5156935,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "须水",
+    "name:en": "Xushui",
+    "public_transport": "construction",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12430686957,
+  "lat": 30.7432291,
+  "lon": 104.0903767,
+  "tags": {
+    "construction": "station",
+    "name": "白仁店",
+    "name:en": "Bairendian",
+    "name:zh": "白仁店",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12446573859,
+  "lat": 39.1275636,
+  "lon": 117.6101441,
+  "tags": {
+    "construction": "station",
+    "name": "欣嘉园北",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12446573860,
+  "lat": 39.1225394,
+  "lon": 117.6008170,
+  "tags": {
+    "construction": "station",
+    "name": "欣嘉园西",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12453071730,
+  "lat": 29.6437780,
+  "lon": 106.5444472,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "金福路",
+    "name:en": "Jinfu Road",
+    "name:zh": "金福路",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12453071733,
+  "lat": 29.6451568,
+  "lon": 106.5634158,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "金童路",
+    "name:en": "Jintonglu",
+    "name:zh": "金童路",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12520206097,
+  "lat": 30.2343126,
+  "lon": 120.4281659,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "萧山机场",
+    "public_transport": "station",
+    "railway": "construction",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12640934290,
+  "lat": 29.6779144,
+  "lon": 106.4703397,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "礼学路",
+    "name:en": "Lixuelu",
+    "name:zh": "礼学路",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12712336080,
+  "lat": 23.2504281,
+  "lon": 113.3499583,
+  "tags": {
+    "name": "大源",
+    "name:en": "Dayuan",
+    "name:zh": "大源",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q130528592"
+  }
+},
+{
+  "type": "node",
+  "id": 12971058395,
+  "lat": 29.7903946,
+  "lon": 121.5837029,
+  "tags": {
+    "construction": "station",
+    "name": "下应南",
+    "name:en": "Xiaying South",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13256201561,
+  "lat": 22.5806225,
+  "lon": 113.6410705,
+  "tags": {
+    "addr:city": "广州市",
+    "addr:district": "南沙区",
+    "addr:province": "广东省",
+    "construction": "station",
+    "name": "二十涌（在建）",
+    "name:en": "Ershichong",
+    "name:zh": "二十涌",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q117029018",
+    "wikipedia": "zh:二十涌站"
+  }
+},
+{
+  "type": "node",
+  "id": 13355765955,
+  "lat": 29.5100415,
+  "lon": 106.3112207,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "斑竹林",
+    "name:en": "Banzhulin",
+    "name:zh": "斑竹林",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13355765956,
+  "lat": 29.5236725,
+  "lon": 106.3117418,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "高龙大道",
+    "name:en": "Gaolong Avenue",
+    "name:zh": "高龙大道",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13355765958,
+  "lat": 29.5348718,
+  "lon": 106.3104319,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "金凤北",
+    "name:en": "Jinfeng North",
+    "name:zh": "金凤北",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13355765973,
+  "lat": 29.4950904,
+  "lon": 106.3133547,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "石家院子",
+    "name:en": "Shijiayuanzi",
+    "name:zh": "石家院子",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13355766008,
+  "lat": 29.5484278,
+  "lon": 106.3042935,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "双龙村",
+    "name:en": "Shuanglongcun",
+    "name:zh": "双龙村",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13355766011,
+  "lat": 29.5598196,
+  "lon": 106.3038860,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "彭家院子",
+    "name:en": "Pengjiayuanzi",
+    "name:zh": "彭家院子",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13355766017,
+  "lat": 29.5771048,
+  "lon": 106.3032999,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "重庆城市管理职业学院",
+    "name:zh": "重庆城市管理职业学院",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13355766026,
+  "lat": 29.5907461,
+  "lon": 106.3032532,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "思贤路",
+    "name:en": "Sixian Road",
+    "name:zh": "思贤路",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13355766042,
+  "lat": 29.6002851,
+  "lon": 106.3035774,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "虎溪",
+    "name:en": "Huxi",
+    "name:zh": "虎溪",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13355766045,
+  "lat": 29.6101816,
+  "lon": 106.3038103,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "大学城",
+    "name:en": "Daxuecheng",
+    "name:zh": "大学城",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084305,
+  "lat": 29.6995623,
+  "lon": 106.3636401,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "科学城",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084307,
+  "lat": 29.6879546,
+  "lon": 106.3607203,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "物流园枢纽",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084312,
+  "lat": 29.6649045,
+  "lon": 106.3577401,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "五云新城",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084315,
+  "lat": 29.6520147,
+  "lon": 106.3613124,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "物流园南",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084318,
+  "lat": 29.6438514,
+  "lon": 106.3569532,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "飞雪寺",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084321,
+  "lat": 29.6259836,
+  "lon": 106.3578689,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "西井大道",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084328,
+  "lat": 29.5877547,
+  "lon": 106.3675174,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "西永南",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084331,
+  "lat": 29.5766240,
+  "lon": 106.3668709,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "中柱村",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084334,
+  "lat": 29.5516484,
+  "lon": 106.3615229,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "童善桥",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084337,
+  "lat": 29.5433695,
+  "lon": 106.3569580,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "宝洪山",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084340,
+  "lat": 29.5285656,
+  "lon": 106.3519108,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "含谷",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084343,
+  "lat": 29.5202822,
+  "lon": 106.3516113,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "科学会堂",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084349,
+  "lat": 29.5140900,
+  "lon": 106.3244544,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "石门坝",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084354,
+  "lat": 29.5097800,
+  "lon": 106.2971508,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "金凤",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084355,
+  "lat": 29.5555318,
+  "lon": 106.2939042,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "曾家",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084368,
+  "lat": 29.6475181,
+  "lon": 106.3379249,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "张家湾",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084369,
+  "lat": 29.6273026,
+  "lon": 106.3268796,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "重庆电子科技职业大学",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084372,
+  "lat": 29.6636274,
+  "lon": 106.4486394,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "井口",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084379,
+  "lat": 29.6511873,
+  "lon": 106.5134582,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "重光立交",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084384,
+  "lat": 29.6497988,
+  "lon": 106.5817198,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "果塘路",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084388,
+  "lat": 29.6676781,
+  "lon": 106.5925750,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "西南政法大学",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084393,
+  "lat": 29.7074603,
+  "lon": 106.6208245,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "绣湖路",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084398,
+  "lat": 29.6832596,
+  "lon": 106.7546641,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "龙骏大道",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084401,
+  "lat": 29.6697155,
+  "lon": 106.7693007,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "两江大道",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084404,
+  "lat": 29.6727074,
+  "lon": 106.8110570,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "现代大道",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084407,
+  "lat": 29.6919785,
+  "lon": 106.8192126,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "两江影视城",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084410,
+  "lat": 29.5556099,
+  "lon": 106.5778695,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "凯旋路",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084413,
+  "lat": 29.5519409,
+  "lon": 106.5668495,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "十八梯",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084444,
+  "lat": 29.5403965,
+  "lon": 106.5264680,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "菜袁路",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084447,
+  "lat": 29.5374086,
+  "lon": 106.5204169,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "黄沙溪",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084450,
+  "lat": 29.5423165,
+  "lon": 106.5104433,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "大坪西",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084497,
+  "lat": 29.5163457,
+  "lon": 106.3650091,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "白市驿",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084502,
+  "lat": 29.5068641,
+  "lon": 106.3359695,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "九里村",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084507,
+  "lat": 29.4953601,
+  "lon": 106.2985776,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "金凤西",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084510,
+  "lat": 29.4959065,
+  "lon": 106.2303132,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "青杠",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084513,
+  "lat": 29.4353913,
+  "lon": 106.2032378,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "来凤",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084516,
+  "lat": 29.4125556,
+  "lon": 106.1576597,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "丁家",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084517,
+  "lat": 29.3982341,
+  "lon": 106.1112228,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "正兴机场",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084520,
+  "lat": 29.3585131,
+  "lon": 105.9868902,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "科技生态城",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084523,
+  "lat": 29.3395795,
+  "lon": 105.9658593,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "陈食",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084526,
+  "lat": 29.3492708,
+  "lon": 105.9345971,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "体育中心",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084529,
+  "lat": 29.3575470,
+  "lon": 105.9192290,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "汇龙",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084530,
+  "lat": 29.3677736,
+  "lon": 105.8905127,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "永川西",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084533,
+  "lat": 29.3701541,
+  "lon": 106.0055330,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "大安",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363084536,
+  "lat": 29.4716786,
+  "lon": 106.2122696,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "青杠西",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363639830,
+  "lat": 29.5141847,
+  "lon": 106.3422191,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "西城公园",
+    "name:en": "Xicheng Park",
+    "name:zh": "西城公园",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13363639837,
+  "lat": 29.5139115,
+  "lon": 106.3423236,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "西城公园",
+    "name:en": "Xicheng Park",
+    "name:zh": "西城公园",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13373810221,
+  "lat": 29.6110124,
+  "lon": 106.3577108,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "微电园",
+    "name:en": "Weidianyuan",
+    "name:zh": "微电园",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13679670782,
+  "lat": 29.3001559,
+  "lon": 106.2536622,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "圣泉",
+    "public_transport": "station",
+    "railway": "construction"
+  }
+},
+{
+  "type": "node",
+  "id": 13686651604,
+  "lat": 25.0570329,
+  "lon": 102.6933798,
+  "tags": {
+    "construction": "station",
+    "name": "一二一大街",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway"
+  }
+},
+{
+  "type": "node",
+  "id": 13686651605,
+  "lat": 25.0767320,
+  "lon": 102.6918912,
+  "tags": {
+    "construction": "station",
+    "name": "教场北路",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway"
+  }
+},
+{
+  "type": "node",
+  "id": 13686651639,
+  "lat": 25.0105716,
+  "lon": 102.7197432,
+  "tags": {
+    "construction": "station",
+    "name": "南坝",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway"
+  }
+},
+{
+  "type": "node",
+  "id": 13686651644,
+  "lat": 25.0048205,
+  "lon": 102.7210200,
+  "tags": {
+    "construction": "station",
+    "name": "玉龙",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway"
+  }
+},
+{
+  "type": "node",
+  "id": 13686651647,
+  "lat": 24.9967256,
+  "lon": 102.7203763,
+  "tags": {
+    "construction": "station",
+    "name": "小街",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway"
+  }
+},
+{
+  "type": "node",
+  "id": 13686651648,
+  "lat": 24.9791533,
+  "lon": 102.7172327,
+  "tags": {
+    "construction": "station",
+    "name": "广福路",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway"
+  }
+},
+{
+  "type": "node",
+  "id": 13686651649,
+  "lat": 24.9723150,
+  "lon": 102.7142474,
+  "tags": {
+    "construction": "station",
+    "name": "叶家村",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway"
+  }
+},
+{
+  "type": "node",
+  "id": 13686651654,
+  "lat": 24.9655408,
+  "lon": 102.7086456,
+  "tags": {
+    "construction": "station",
+    "name": "六甲",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway"
+  }
+},
+{
+  "type": "node",
+  "id": 13686651655,
+  "lat": 24.9582105,
+  "lon": 102.7004394,
+  "tags": {
+    "construction": "station",
+    "name": "龚家村",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway"
+  }
+},
+{
+  "type": "node",
+  "id": 13686651688,
+  "lat": 24.9250056,
+  "lon": 102.7340542,
+  "tags": {
+    "construction": "station",
+    "name": "海东公园",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway"
+  }
+},
+{
+  "type": "node",
+  "id": 13709938931,
+  "lat": 29.2706735,
+  "lon": 106.3273238,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "西彭",
+    "public_transport": "station",
+    "railway": "construction"
+  }
+},
+{
+  "type": "node",
+  "id": 13719622109,
+  "lat": 29.5787629,
+  "lon": 106.3036505,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "重庆城市管理职业学院",
+    "name:zh": "重庆城市管理职业学院",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13724629632,
+  "lat": 29.5514526,
+  "lon": 106.5398523,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "construction:station": "subway",
+    "name": "重庆站",
+    "name:en": "Chongqing Railway Station",
+    "name:zh": "重庆站",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "public_transport": "station",
+    "railway": "construction",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13729918015,
+  "lat": 29.5029167,
+  "lon": 106.4370089,
+  "tags": {
+    "construction": "station",
+    "construction:railway": "station",
+    "name": "重庆西站",
+    "name:en": "Chongqing West Railway Station",
+    "network": "重庆轨道交通",
+    "network:en": "Chongqing Rail Transit",
+    "network:short": "CRT",
+    "network:wikidata": "Q1190894",
+    "network:zh": "重庆轨道交通",
+    "operator": "重庆轨道交通运营有限公司",
+    "operator:wikidata": "Q136485962",
+    "public_transport": "station",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q105299163"
+  }
+},
+{
+  "type": "way",
+  "id": 41707454,
+  "center": {
+    "lat": 22.4462228,
+    "lon": 114.0352862
+  },
+  "tags": {
+    "brand": "港鐵 MTR",
+    "brand:en": "MTR",
+    "brand:ref": "MTR",
+    "brand:wikidata": "Q14751",
+    "brand:zh": "港鐵",
+    "building": "train_station",
+    "building:function": "podium",
+    "building:levels": "3",
+    "height": "25",
+    "layer": "1",
+    "name": "元朗 Yuen Long",
+    "name:en": "Yuen Long",
+    "name:zh": "元朗",
+    "network": "港鐵 MTR",
+    "network:en": "MTR",
+    "network:ref": "MTR",
+    "network:wikidata": "Q14751",
+    "network:zh": "港鐵",
+    "network:zh-Hans": "港铁",
+    "network:zh-Hant": "港鐵",
+    "operator": "香港鐵路有限公司 MTR Corporation Limited",
+    "operator:en": "MTR Corporation Limited",
+    "operator:wikidata": "Q1479375",
+    "operator:zh": "香港鐵路有限公司",
+    "operator:zh-Hans": "香港铁路有限公司",
+    "operator:zh-Hant": "香港鐵路有限公司",
+    "owner": "九廣鐵路公司 Kowloon-Canton Railway Corporation",
+    "owner:en": "Kowloon-Canton Railway Corporation",
+    "owner:wikidata": "Q838436",
+    "owner:zh": "九廣鐵路公司",
+    "ownership": "public",
+    "platforms": "2",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "YUL",
+    "start_date": "2003-12-07",
+    "station": "train",
+    "subway": "yes",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q842071",
+    "wikipedia": "zh:元朗站 (西鐵綫)"
+  }
+},
+{
+  "type": "way",
+  "id": 561166199,
+  "center": {
+    "lat": 30.8972041,
+    "lon": 121.3543315
+  },
+  "tags": {
+    "building": "no",
+    "covered": "no",
+    "name": "亭林",
+    "name:en": "Tinglin",
+    "name:zh": "亭林",
+    "network": "中国铁路",
+    "operator": "上海金山铁路发展有限公司",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q24833829"
+  }
+},
+{
+  "type": "way",
+  "id": 561175159,
+  "center": {
+    "lat": 30.9423007,
+    "lon": 121.3252365
+  },
+  "tags": {
+    "building": "no",
+    "covered": "no",
+    "name": "叶榭",
+    "name:en": "Yexie",
+    "name:zh": "叶榭",
+    "network": "中国铁路",
+    "operator": "上海金山铁路发展有限公司",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q10916393"
+  }
+},
+{
+  "type": "way",
+  "id": 561190446,
+  "center": {
+    "lat": 31.0073898,
+    "lon": 121.3164738
+  },
+  "tags": {
+    "covered": "no",
+    "name": "车墩",
+    "name:en": "Chedun",
+    "name:zh": "车墩",
+    "network": "中国铁路",
+    "old_name": "闵行西",
+    "operator": "上海金山铁路发展有限公司",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q22100317"
+  }
+},
+{
+  "type": "way",
+  "id": 772168466,
+  "center": {
+    "lat": 22.3304987,
+    "lon": 114.1993672
+  },
+  "tags": {
+    "air_conditioning": "district_cooling",
+    "brand": "港鐵 MTR",
+    "brand:en": "MTR",
+    "brand:ref": "MTR",
+    "brand:wikidata": "Q14751",
+    "brand:zh": "港鐵",
+    "building": "train_station",
+    "building:levels": "0",
+    "layer": "-2",
+    "location": "underground",
+    "name": "啟德 Kai Tak",
+    "name:en": "Kai Tak",
+    "name:zh": "啟德",
+    "network": "港鐵 MTR",
+    "network:en": "MTR",
+    "network:ref": "MTR",
+    "network:wikidata": "Q14751",
+    "network:zh": "港鐵",
+    "operator": "香港鐵路有限公司 MTR Corporation Limited",
+    "operator:en": "MTR Corporation Limited",
+    "operator:wikidata": "Q1479375",
+    "operator:zh": "香港鐵路有限公司",
+    "owner": "九廣鐵路公司 Kowloon-Canton Railway Corporation",
+    "owner:en": "Kowloon-Canton Railway Corporation",
+    "owner:wikidata": "Q838436",
+    "owner:zh": "九廣鐵路公司",
+    "ownership": "public",
+    "platforms": "2",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "KAT",
+    "start_date": "2020-02-14",
+    "station": "train",
+    "subway": "yes",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q6347506"
+  }
+},
+{
+  "type": "way",
+  "id": 891180463,
+  "center": {
+    "lat": 39.8676723,
+    "lon": 116.3269039
+  },
+  "tags": {
+    "construction": "station",
+    "layer": "-4",
+    "name": "丽泽商务区",
+    "public_transport": "construction",
+    "railway": "construction",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 899361044,
+  "center": {
+    "lat": 30.6497636,
+    "lon": 104.2178937
+  },
+  "tags": {
+    "building": "yes",
+    "name": "西河",
+    "name:en": "Xihe",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "train",
+    "subway": "yes",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 899361045,
+  "center": {
+    "lat": 30.6507233,
+    "lon": 104.1941130
+  },
+  "tags": {
+    "building": "yes",
+    "layer": "1",
+    "name": "明蜀王陵",
+    "name:en": "Mingshuwangling",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "train",
+    "subway": "yes",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 970662761,
+  "center": {
+    "lat": 22.3258962,
+    "lon": 114.1913268
+  },
+  "tags": {
+    "air_conditioning": "district_cooling",
+    "brand": "港鐵 MTR",
+    "brand:en": "MTR",
+    "brand:zh": "港鐵",
+    "building": "train_station",
+    "building:levels": "0",
+    "layer": "-1",
+    "location": "underground",
+    "name": "宋皇臺 Sung Wong Toi",
+    "name:en": "Sung Wong Toi",
+    "name:zh": "宋皇臺",
+    "network": "港鐵 MTR",
+    "network:en": "MTR",
+    "network:wikidata": "Q14751",
+    "network:zh": "港鐵",
+    "network:zh-Hans": "港铁",
+    "network:zh-Hant": "港鐵",
+    "operator": "香港鐵路有限公司 MTR Corporation Limited",
+    "operator:en": "MTR Corporation Limited",
+    "operator:wikidata": "Q1479375",
+    "operator:zh": "香港鐵路有限公司",
+    "operator:zh-Hans": "香港铁路有限公司",
+    "operator:zh-Hant": "香港鐵路有限公司",
+    "owner": "九廣鐵路公司 Kowloon-Canton Railway Corporation",
+    "owner:en": "Kowloon-Canton Railway Corporation",
+    "owner:wikidata": "Q838436",
+    "owner:zh": "九廣鐵路公司",
+    "ownership": "public",
+    "platforms": "2",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "SUW",
+    "start_date": "2021-06-27",
+    "station": "train",
+    "subway": "yes",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q7811004"
+  }
+},
+{
+  "type": "way",
+  "id": 1358994205,
+  "center": {
+    "lat": 31.0862738,
+    "lon": 121.4404560
+  },
+  "tags": {
+    "name": "虹建路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1358994217,
+  "center": {
+    "lat": 31.1135696,
+    "lon": 121.4364993
+  },
+  "tags": {
+    "name": "景洪路",
+    "old_name": "华泾西",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359021315,
+  "center": {
+    "lat": 31.1221400,
+    "lon": 121.4505934
+  },
+  "tags": {
+    "name": "华泾路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359266580,
+  "center": {
+    "lat": 31.1411872,
+    "lon": 121.4830494
+  },
+  "tags": {
+    "name": "凌兆新村",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359266607,
+  "center": {
+    "lat": 31.1582472,
+    "lon": 121.4767293
+  },
+  "tags": {
+    "name": "东方体育中心",
+    "note": "19号线",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359273456,
+  "center": {
+    "lat": 31.1663353,
+    "lon": 121.4735714
+  },
+  "tags": {
+    "name": "德州路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359273476,
+  "center": {
+    "lat": 31.1845975,
+    "lon": 121.4894136
+  },
+  "tags": {
+    "name": "中华艺术宫南",
+    "note": "特殊形状车站 穿过世博轴B1",
+    "old_name": "世博",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359488767,
+  "center": {
+    "lat": 31.1935512,
+    "lon": 121.5018643
+  },
+  "tags": {
+    "name": "华丰路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359488773,
+  "center": {
+    "lat": 31.2135634,
+    "lon": 121.5132278
+  },
+  "tags": {
+    "name": "塘桥",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359488785,
+  "center": {
+    "lat": 31.2378155,
+    "lon": 121.5079018
+  },
+  "tags": {
+    "name": "浦东南路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359488791,
+  "center": {
+    "lat": 31.2330166,
+    "lon": 121.5105036
+  },
+  "tags": {
+    "name": "商城路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359591069,
+  "center": {
+    "lat": 31.2566386,
+    "lon": 121.5004803
+  },
+  "tags": {
+    "name": "提篮桥",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359591082,
+  "center": {
+    "lat": 31.2620296,
+    "lon": 121.4864994
+  },
+  "tags": {
+    "name": "海伦路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359748139,
+  "center": {
+    "lat": 31.3451742,
+    "lon": 121.4592921
+  },
+  "tags": {
+    "name": "呼玛路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359772211,
+  "center": {
+    "lat": 31.3784579,
+    "lon": 121.4569322
+  },
+  "tags": {
+    "name": "兰岗路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1359772230,
+  "center": {
+    "lat": 31.3942346,
+    "lon": 121.4479505
+  },
+  "tags": {
+    "name": "铁通路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1383701253,
+  "center": {
+    "lat": 31.3172747,
+    "lon": 121.5419438
+  },
+  "tags": {
+    "name": "共青森林公园",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1383701256,
+  "center": {
+    "lat": 31.3180895,
+    "lon": 121.5771367
+  },
+  "tags": {
+    "name": "浦东北路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1383701263,
+  "center": {
+    "lat": 31.3184282,
+    "lon": 121.5867464
+  },
+  "tags": {
+    "name": "张扬北路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1383701266,
+  "center": {
+    "lat": 31.3183226,
+    "lon": 121.6042092
+  },
+  "tags": {
+    "name": "台南西路",
+    "old_name": "杨高北路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1383701267,
+  "center": {
+    "lat": 31.3224490,
+    "lon": 121.6259673
+  },
+  "tags": {
+    "name": "北新园路",
+    "old_name": "新园路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1383725122,
+  "center": {
+    "lat": 31.3167891,
+    "lon": 121.5263801
+  },
+  "tags": {
+    "name": "嫩江路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1383725124,
+  "center": {
+    "lat": 31.3168071,
+    "lon": 121.5186188
+  },
+  "tags": {
+    "name": "上海体育大学",
+    "old_name": "国和路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1383725134,
+  "center": {
+    "lat": 31.3150138,
+    "lon": 121.5060831
+  },
+  "tags": {
+    "name": "三门路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1383725140,
+  "center": {
+    "lat": 31.3099936,
+    "lon": 121.4936524
+  },
+  "tags": {
+    "name": "上海财经大学",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1383725146,
+  "center": {
+    "lat": 31.3099360,
+    "lon": 121.4824874
+  },
+  "tags": {
+    "name": "江湾镇",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1383725148,
+  "center": {
+    "lat": 31.3032297,
+    "lon": 121.4713948
+  },
+  "tags": {
+    "name": "万安路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1383725150,
+  "center": {
+    "lat": 31.2948691,
+    "lon": 121.4725324
+  },
+  "tags": {
+    "name": "车站南路",
+    "planned": "station",
+    "planned:public_transport": "station",
+    "railway": "planned",
+    "station": "subway",
+    "subway": "yes"
+  }
+}
+
+  ]
+}
