@@ -382,7 +382,7 @@ function renderMapChart() {
       title: {
         text: '全部铁路运转轨迹',
         left: 'center',
-        textStyle: { fontSize: 16, fontWeight: 'normal', color: '#17324d' }
+        textStyle: { fontSize: 24, fontWeight: 'bold', color: '#17324d' }
       },
       tooltip: {
         trigger: 'item',
