@@ -137,8 +137,8 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260607</h3>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10110</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260615</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10111</h3>
 
       <el-button type="primary" @click="note">更新内容</el-button>
 
@@ -324,8 +324,8 @@ onMounted(() => {
 
 const note = () => {
   ElNotification({
-    title: '现在可以查看运转数据图表和删除账户了',
-    message: '更新内容：登录后可以在用户界面查看个人运转数据，也可以在该界面删除账户。车站列表更新为10110。',
+    title: '更新车站列表至10111',
+    message: '2026Q3调图在2026.07.01执行，应该新增和删除了一些站点。',
     type: 'info',
     position: 'bottom-right'
   })
