@@ -96,7 +96,43 @@
           </el-dialog>
 
           <el-card class="statistics-card" shadow="never">
-            <h3>个人运转数据</h3>
+            <template #header>
+              <div class="statistics-card-header">
+                <h3>个人运转数据</h3>
+                <div class="statistics-actions">
+                  <el-button
+                    type="primary"
+                    :loading="exportingExcel"
+                    @click="handleExportToExcel"
+                  >
+                    <el-icon><Download /></el-icon>
+                    导出数据到Excel
+                  </el-button>
+                  <el-button
+                    :loading="exportingBackup"
+                    @click="handleExportBackup"
+                  >
+                    <el-icon><Download /></el-icon>
+                    导出备份
+                  </el-button>
+                  <el-button
+                    type="success"
+                    :loading="importingBackup"
+                    @click="triggerBackupImport"
+                  >
+                    <el-icon><Upload /></el-icon>
+                    导入备份
+                  </el-button>
+                </div>
+              </div>
+            </template>
+            <input
+              ref="backupFileInput"
+              class="backup-file-input"
+              type="file"
+              accept=".json,application/json"
+              @change="handleBackupFileChange"
+            />
             <template v-if="hasTicketData">
               <el-row :gutter="20" v-loading="statisticsLoading">
                 <el-col :span="24">
@@ -150,12 +186,14 @@
 import { useRouter } from "vue-router";
 import { onMounted, ref, nextTick, computed } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { Delete } from "@element-plus/icons-vue";
+import { Delete, Download, Upload } from "@element-plus/icons-vue";
 import * as echarts from "echarts";
+import * as XLSX from "xlsx";
 import api from "@/api.js";
 import { drawCaptcha, generateCaptcha } from "@/utils/captcha.js";
 import stationNamesData from "@/station_name.js";
 import stationCoordinates, { loadChinaMap } from "@/utils/stationCoordinates.js";
+import { buildTicketPayload } from "@/utils/ticketShared.js";
 
 const router = useRouter()
 const goHome = () => {
@@ -163,6 +201,17 @@ const goHome = () => {
 }
 const goHistory = () => {
   router.push('/history')
+}
+
+const getCurrentUser = () => {
+  const userRaw = localStorage.getItem("user");
+  if (!userRaw) return null;
+
+  try {
+    return JSON.parse(userRaw);
+  } catch {
+    return null;
+  }
 }
 
 // 解析站点数据
@@ -198,8 +247,12 @@ const statisticsChartRef = ref(null)
 const cityChartRef = ref(null)
 const calendarChartRef = ref(null)
 const mapChartRef = ref(null)
+const backupFileInput = ref(null)
 const statisticsLoading = ref(false)
 const mapLoading = ref(false)
+const exportingExcel = ref(false)
+const exportingBackup = ref(false)
+const importingBackup = ref(false)
 const statisticsData = ref({ departures: [], arrivals: [] })
 const ticketHistory = ref([])
 const selectedMonth = ref('')
@@ -223,15 +276,8 @@ const getCityName = (stationName) => {
 }
 
 async function loadStatistics() {
-  const userRaw = localStorage.getItem("user");
-  if (!userRaw) return;
-
-  let user;
-  try {
-    user = JSON.parse(userRaw);
-  } catch {
-    return;
-  }
+  const user = getCurrentUser();
+  if (!user) return;
 
   try {
     statisticsLoading.value = true;
@@ -252,15 +298,8 @@ async function loadStatistics() {
 async function loadMonthlyData() {
   if (!selectedMonth.value) return;
 
-  const userRaw = localStorage.getItem("user");
-  if (!userRaw) return;
-
-  let user;
-  try {
-    user = JSON.parse(userRaw);
-  } catch {
-    return;
-  }
+  const user = getCurrentUser();
+  if (!user) return;
 
   const [year, month] = selectedMonth.value.split('-');
 
@@ -284,15 +323,8 @@ function toCalendarDateKey(year, month, day) {
 }
 
 async function loadTicketHistory() {
-  const userRaw = localStorage.getItem("user");
-  if (!userRaw) return;
-
-  let user;
-  try {
-    user = JSON.parse(userRaw);
-  } catch {
-    return;
-  }
+  const user = getCurrentUser();
+  if (!user) return;
 
   try {
     mapLoading.value = true;
@@ -306,6 +338,363 @@ async function loadTicketHistory() {
     console.error(err);
   } finally {
     mapLoading.value = false;
+  }
+}
+
+async function loadAllTicketRecords() {
+  const user = getCurrentUser();
+  if (!user) {
+    ElMessage.error("登录状态失效，请重新登录");
+    router.push("/login");
+    return [];
+  }
+
+  const response = await api.get(`/ticket/list/${user.id}`);
+  const tickets = Array.isArray(response?.data?.data)
+    ? response.data.data
+    : (Array.isArray(response?.data) ? response.data : []);
+
+  return tickets;
+}
+
+const buildBackupTicket = (ticket) => ({
+  ticket_number: ticket.ticket_number ?? "",
+  train_no: ticket.train_no ?? "",
+  departure_station: ticket.departure_station ?? "",
+  arrival_station: ticket.arrival_station ?? "",
+  travel_date: ticket.travel_date ?? "",
+  departure_time: ticket.departure_time ?? "",
+  price: ticket.price ?? "",
+  use_credit: ticket.use_credit ?? 0,
+  seat_type: ticket.seat_type ?? "",
+  has_conditioner: ticket.has_conditioner ?? 0,
+  seat_no: ticket.seat_no ?? "",
+  sell_place: ticket.sell_place ?? "",
+  gate_info: ticket.gate_info ?? "",
+  message: ticket.message ?? "",
+  theme: ticket.theme ?? "",
+  distance: ticket.distance ?? 0,
+})
+
+const BACKUP_FINGERPRINT_FIELDS = [
+  "ticket_number",
+  "train_no",
+  "departure_station",
+  "arrival_station",
+  "travel_date",
+  "departure_time",
+  "price",
+  "use_credit",
+  "seat_type",
+  "has_conditioner",
+  "seat_no",
+  "sell_place",
+  "gate_info",
+  "message",
+  "theme",
+  "distance",
+]
+
+const normalizeFingerprintValue = (value) => {
+  if (value === null || value === undefined) {
+    return ""
+  }
+  return String(value)
+}
+
+const buildTicketFingerprint = (ticket) => {
+  return BACKUP_FINGERPRINT_FIELDS
+    .map((field) => normalizeFingerprintValue(ticket[field]))
+    .join("||")
+}
+
+const toCurrentTicketFingerprint = (ticket) => buildTicketFingerprint({
+  ticket_number: ticket.ticket_number,
+  train_no: ticket.train_no,
+  departure_station: ticket.departure_station,
+  arrival_station: ticket.arrival_station,
+  travel_date: ticket.travel_date,
+  departure_time: ticket.departure_time,
+  price: ticket.price,
+  use_credit: ticket.use_credit,
+  seat_type: ticket.seat_type,
+  has_conditioner: ticket.has_conditioner,
+  seat_no: ticket.seat_no,
+  sell_place: ticket.sell_place,
+  gate_info: ticket.gate_info,
+  message: ticket.message,
+  theme: ticket.theme,
+  distance: ticket.distance,
+})
+
+const mapBackupTicketToTicketForm = (ticket) => ({
+  number: ticket.ticket_number ?? "",
+  trainNo: ticket.train_no ?? "",
+  from: ticket.departure_station ?? "",
+  to: ticket.arrival_station ?? "",
+  date: ticket.travel_date ?? "",
+  time: ticket.departure_time ?? "",
+  price: ticket.price ?? "",
+  seatType: ticket.seat_type ?? "",
+  seatNo: ticket.seat_no ?? "",
+  sellPlace: ticket.sell_place ?? "",
+  gate: ticket.gate_info ?? "",
+  message: ticket.message ?? "",
+  theme: ticket.theme ?? "",
+  distance: ticket.distance ?? 0,
+})
+
+const buildBackupPayload = (tickets) => {
+  const user = getCurrentUser()
+  return {
+    schemaVersion: 1,
+    exportedAt: new Date().toISOString(),
+    app: "CRTicket",
+    user: user ? {
+      id: user.id,
+      username: user.username,
+    } : null,
+    tickets: tickets.map(buildBackupTicket),
+  }
+}
+
+const buildExcelRows = (tickets) => {
+  return tickets.map((ticket) => ({
+    "票号/订单号": ticket.ticket_number ?? "",
+    "车次": ticket.train_no ?? "",
+    "出发站": ticket.departure_station ?? "",
+    "到达站": ticket.arrival_station ?? "",
+    "乘车日期": ticket.travel_date ?? "",
+    "开车时间": ticket.departure_time ?? "",
+    "票价": ticket.price ?? "",
+    "使用积分": Number(ticket.use_credit) === 1 ? "是" : "否",
+    "席位": ticket.seat_type ?? "",
+    "空调": Number(ticket.has_conditioner) === 1 ? "有" : "无",
+    "座位号": ticket.seat_no ?? "",
+    "售票地点": ticket.sell_place ?? "",
+    "检票/候车位置": ticket.gate_info ?? "",
+    "提示语": ticket.message ?? "",
+    "主题": ticket.theme ?? "",
+    "里程": ticket.distance ?? "",
+    "创建时间": ticket.created_at ?? "",
+  }))
+}
+
+const downloadBlob = (blob, fileName) => {
+  const link = document.createElement("a")
+  const url = URL.createObjectURL(blob)
+  link.href = url
+  link.download = fileName
+  document.body.appendChild(link)
+  link.click()
+  link.remove()
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000)
+}
+
+const getExportFileStamp = () => {
+  const now = new Date()
+  const pad = (value) => String(value).padStart(2, "0")
+  return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`
+}
+
+async function handleExportToExcel() {
+  const user = getCurrentUser()
+  if (!user) {
+    ElMessage.error("登录状态失效，请重新登录")
+    router.push("/login")
+    return
+  }
+
+  try {
+    exportingExcel.value = true
+    const tickets = await loadAllTicketRecords()
+    if (!tickets.length) {
+      ElMessage.warning("暂无可导出的运转数据")
+      return
+    }
+
+    const rows = buildExcelRows(tickets)
+    const worksheet = XLSX.utils.json_to_sheet(rows)
+    worksheet["!cols"] = [
+      { wch: 18 },
+      { wch: 12 },
+      { wch: 16 },
+      { wch: 16 },
+      { wch: 14 },
+      { wch: 12 },
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 12 },
+      { wch: 10 },
+      { wch: 12 },
+      { wch: 14 },
+      { wch: 18 },
+      { wch: 28 },
+      { wch: 14 },
+      { wch: 10 },
+      { wch: 18 },
+    ]
+
+    const workbook = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workbook, worksheet, "运转数据")
+    const fileName = `CRTicket-运转数据-${user.username || "user"}-${getExportFileStamp()}.xlsx`
+    XLSX.writeFile(workbook, fileName)
+    ElMessage.success("Excel 导出成功")
+  } catch (err) {
+    console.error(err)
+    ElMessage.error("导出 Excel 失败")
+  } finally {
+    exportingExcel.value = false
+  }
+}
+
+async function handleExportBackup() {
+  const user = getCurrentUser()
+  if (!user) {
+    ElMessage.error("登录状态失效，请重新登录")
+    router.push("/login")
+    return
+  }
+
+  try {
+    exportingBackup.value = true
+    const tickets = await loadAllTicketRecords()
+    if (!tickets.length) {
+      ElMessage.warning("暂无可导出的备份数据")
+      return
+    }
+
+    const payload = buildBackupPayload(tickets)
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8" })
+    const fileName = `CRTicket-backup-${user.username || "user"}-${getExportFileStamp()}.json`
+    downloadBlob(blob, fileName)
+    ElMessage.success("备份导出成功")
+  } catch (err) {
+    console.error(err)
+    ElMessage.error("导出备份失败")
+  } finally {
+    exportingBackup.value = false
+  }
+}
+
+function triggerBackupImport() {
+  backupFileInput.value?.click()
+}
+
+async function handleBackupFileChange(event) {
+  const file = event?.target?.files?.[0]
+  if (event?.target) {
+    event.target.value = ""
+  }
+
+  if (!file) {
+    return
+  }
+
+  const user = getCurrentUser()
+  if (!user) {
+    ElMessage.error("登录状态失效，请重新登录")
+    router.push("/login")
+    return
+  }
+
+  try {
+    importingBackup.value = true
+    const text = await file.text()
+    const parsed = JSON.parse(text)
+    const tickets = Array.isArray(parsed)
+      ? parsed
+      : Array.isArray(parsed?.tickets)
+        ? parsed.tickets
+        : null
+
+    if (!tickets) {
+      ElMessage.error("备份文件中没有找到车票数据")
+      return
+    }
+
+    await ElMessageBox.confirm(
+      `将导入 ${tickets.length} 条车票记录，数据库中完全相同的记录会自动略过。是否继续？`,
+      "导入备份",
+      {
+        confirmButtonText: "开始导入",
+        cancelButtonText: "取消",
+        type: "info",
+      }
+    )
+
+    const currentTickets = await loadAllTicketRecords()
+    const existingSet = new Set(currentTickets.map(toCurrentTicketFingerprint))
+    const userTickets = Array.isArray(tickets) ? tickets : []
+
+    let imported = 0
+    let skipped = 0
+    let invalid = 0
+
+    for (const rawTicket of userTickets) {
+      const mapped = rawTicket && typeof rawTicket === "object"
+        ? mapBackupTicketToTicketForm(rawTicket)
+        : null
+
+      if (!mapped || !mapped.number || !mapped.trainNo || !mapped.from || !mapped.to || !mapped.date || !mapped.time || !mapped.seatType || !mapped.seatNo || !mapped.price) {
+        invalid += 1
+        continue
+      }
+
+      const ticketPayload = buildTicketPayload(mapped, {
+        userId: user.id,
+        useCredit: Number(rawTicket.use_credit) === 1,
+        finalSeatType: rawTicket.seat_type ?? mapped.seatType,
+        hasConditioner: Number(rawTicket.has_conditioner) === 1,
+        distance: rawTicket.distance ?? mapped.distance ?? 0,
+      })
+
+      const fingerprint = buildTicketFingerprint({
+        ticket_number: ticketPayload.ticket_number,
+        train_no: ticketPayload.train_no,
+        departure_station: ticketPayload.departure_station,
+        arrival_station: ticketPayload.arrival_station,
+        travel_date: ticketPayload.travel_date,
+        departure_time: ticketPayload.departure_time,
+        price: ticketPayload.price,
+        use_credit: ticketPayload.use_credit,
+        seat_type: ticketPayload.seat_type,
+        has_conditioner: ticketPayload.has_conditioner,
+        seat_no: ticketPayload.seat_no,
+        sell_place: ticketPayload.sell_place,
+        gate_info: ticketPayload.gate_info,
+        message: ticketPayload.message,
+        theme: ticketPayload.theme,
+        distance: ticketPayload.distance,
+      })
+
+      if (existingSet.has(fingerprint)) {
+        skipped += 1
+        continue
+      }
+
+      const addResponse = await api.post("/ticket/add", ticketPayload)
+      if (addResponse?.data?.success) {
+        existingSet.add(fingerprint)
+        imported += 1
+      } else {
+        invalid += 1
+      }
+    }
+
+    ElMessage.success(`导入完成：新增 ${imported} 条，略过 ${skipped} 条，未处理 ${invalid} 条`)
+    await Promise.all([
+      loadStatistics(),
+      loadMonthlyData(),
+      loadTicketHistory(),
+    ])
+  } catch (err) {
+    if (err !== "cancel" && err !== "close") {
+      console.error(err)
+      ElMessage.error(err?.message || "导入备份失败")
+    }
+  } finally {
+    importingBackup.value = false
   }
 }
 
@@ -1028,8 +1417,26 @@ async function handleDeleteAccount() {
   background: rgba(255, 255, 255, 0.4);
 }
 
+.statistics-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .statistics-card h3 {
-  margin: 0 0 16px;
+  margin: 0;
+}
+
+.statistics-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.backup-file-input {
+  display: none;
 }
 
 .chart-container {
@@ -1084,6 +1491,14 @@ async function handleDeleteAccount() {
 @media (max-width: 900px) {
   .user-content-grid {
     grid-template-columns: 1fr;
+  }
+
+  .statistics-card-header {
+    align-items: flex-start;
+  }
+
+  .statistics-actions {
+    width: 100%;
   }
 }
 </style>

@@ -3,6 +3,77 @@ const router = express.Router();
 import db from "../db/db.js";
 import bcrypt from "bcryptjs";
 
+const BACKUP_TICKET_FIELDS = [
+    "ticket_number",
+    "train_no",
+    "departure_station",
+    "arrival_station",
+    "travel_date",
+    "departure_time",
+    "price",
+    "use_credit",
+    "seat_type",
+    "has_conditioner",
+    "seat_no",
+    "sell_place",
+    "gate_info",
+    "message",
+    "theme",
+    "distance",
+];
+
+const normalizeComparableValue = (value) => {
+    if (value === null || value === undefined) {
+        return "";
+    }
+    return String(value);
+};
+
+const ticketFingerprint = (ticket) => {
+    return BACKUP_TICKET_FIELDS.map((field) => normalizeComparableValue(ticket[field])).join("||");
+};
+
+const toNullableText = (value) => {
+    if (value === null || value === undefined || value === "") {
+        return null;
+    }
+    return String(value);
+};
+
+const toNullableNumber = (value) => {
+    if (value === null || value === undefined || value === "") {
+        return null;
+    }
+
+    const num = Number(value);
+    return Number.isFinite(num) ? num : null;
+};
+
+const mapBackupTicket = (ticket) => {
+    if (!ticket || typeof ticket !== "object") {
+        return null;
+    }
+
+    return {
+        ticket_number: toNullableText(ticket.ticket_number ?? ticket.number),
+        train_no: toNullableText(ticket.train_no ?? ticket.trainNo),
+        departure_station: toNullableText(ticket.departure_station ?? ticket.departureStation ?? ticket.from),
+        arrival_station: toNullableText(ticket.arrival_station ?? ticket.arrivalStation ?? ticket.to),
+        travel_date: toNullableText(ticket.travel_date ?? ticket.travelDate ?? ticket.date),
+        departure_time: toNullableText(ticket.departure_time ?? ticket.departureTime ?? ticket.time),
+        price: toNullableNumber(ticket.price),
+        use_credit: toNullableNumber(ticket.use_credit ?? ticket.useCredit) ?? 0,
+        seat_type: toNullableText(ticket.seat_type ?? ticket.seatType),
+        has_conditioner: toNullableNumber(ticket.has_conditioner ?? ticket.hasConditioner) ?? 0,
+        seat_no: toNullableText(ticket.seat_no ?? ticket.seatNo),
+        sell_place: toNullableText(ticket.sell_place ?? ticket.sellPlace),
+        gate_info: toNullableText(ticket.gate_info ?? ticket.gate),
+        message: toNullableText(ticket.message),
+        theme: toNullableText(ticket.theme),
+        distance: toNullableNumber(ticket.distance) ?? 0,
+    };
+};
+
 // 注册接口
 router.post("/register", (req, res) => {
     const { username, password } = req.body;
@@ -262,6 +333,135 @@ router.get("/monthly-tickets", (req, res) => {
     } catch (err) {
         console.error(err);
         return res.json({ success: false, message: "获取月度数据失败" });
+    }
+});
+
+// 导入备份数据，完全相同的车票记录自动略过
+router.post("/import-backup", (req, res) => {
+    const { userId, backup } = req.body;
+
+    if (!userId) {
+        return res.json({ success: false, message: "缺少用户ID" });
+    }
+
+    const user = db.prepare("SELECT id FROM users WHERE id = ?").get(userId);
+    if (!user) {
+        return res.json({ success: false, message: "用户不存在" });
+    }
+
+    let payload = backup;
+    if (typeof payload === "string") {
+        try {
+            payload = JSON.parse(payload);
+        } catch (err) {
+            return res.json({ success: false, message: "备份文件格式错误" });
+        }
+    }
+
+    const sourceTickets = Array.isArray(payload)
+        ? payload
+        : Array.isArray(payload?.tickets)
+            ? payload.tickets
+            : null;
+
+    if (!sourceTickets) {
+        return res.json({ success: false, message: "未找到可导入的车票数据" });
+    }
+
+    try {
+        const existingTickets = db.prepare(`
+            SELECT
+                ticket_number,
+                train_no,
+                departure_station,
+                arrival_station,
+                travel_date,
+                departure_time,
+                price,
+                use_credit,
+                seat_type,
+                has_conditioner,
+                seat_no,
+                sell_place,
+                gate_info,
+                message,
+                theme,
+                distance
+            FROM tickets
+            WHERE user_id = ?
+        `).all(userId);
+
+        const existingSet = new Set(existingTickets.map(ticketFingerprint));
+        const insertStmt = db.prepare(`
+            INSERT INTO tickets (
+                user_id, ticket_number, train_no,
+                departure_station, arrival_station,
+                travel_date, departure_time,
+                price, use_credit,
+                seat_type, has_conditioner,
+                seat_no, sell_place, gate_info,
+                message, theme, distance
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `);
+
+        let imported = 0;
+        let skipped = 0;
+        let invalid = 0;
+
+        const insertMany = db.transaction((tickets) => {
+            for (const rawTicket of tickets) {
+                const ticket = mapBackupTicket(rawTicket);
+                if (!ticket) {
+                    invalid += 1;
+                    continue;
+                }
+
+                const fingerprint = ticketFingerprint(ticket);
+                if (existingSet.has(fingerprint)) {
+                    skipped += 1;
+                    continue;
+                }
+
+                insertStmt.run(
+                    userId,
+                    ticket.ticket_number,
+                    ticket.train_no,
+                    ticket.departure_station,
+                    ticket.arrival_station,
+                    ticket.travel_date,
+                    ticket.departure_time,
+                    ticket.price,
+                    ticket.use_credit,
+                    ticket.seat_type,
+                    ticket.has_conditioner,
+                    ticket.seat_no,
+                    ticket.sell_place,
+                    ticket.gate_info,
+                    ticket.message,
+                    ticket.theme,
+                    ticket.distance
+                );
+
+                existingSet.add(fingerprint);
+                imported += 1;
+            }
+        });
+
+        insertMany(sourceTickets);
+
+        return res.json({
+            success: true,
+            message: "备份导入完成",
+            data: {
+                imported,
+                skipped,
+                invalid,
+                total: sourceTickets.length,
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        return res.json({ success: false, message: "导入备份失败" });
     }
 });
 
