@@ -7,6 +7,9 @@ export const useUserStore = defineStore('user', () => {
     const setLogin = (val) => {
         isLogin.value = val
         localStorage.setItem('login', val ? 'true' : 'false')
+        if (!val) {
+            localStorage.removeItem('user')
+        }
     }
 
     const init = () => {

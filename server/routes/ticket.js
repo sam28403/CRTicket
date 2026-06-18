@@ -1,10 +1,15 @@
 import express from "express";
 const router = express.Router();
 import db from "../db/db.js";  // 确保 db.js 也改成了 ES 模块语法
+import { requireSession } from "../auth.js";
 
 // 添加车票
 router.post("/add", (req, res) => {
     const t = req.body;
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) {
+        return;
+    }
 
     try {
         const stmt = db.prepare(`
@@ -20,7 +25,7 @@ router.post("/add", (req, res) => {
         `);
 
         stmt.run(
-            t.user_id,
+            sessionUser.userId,
             t.ticket_number,
             t.train_no,
             t.departure_station,
@@ -53,11 +58,19 @@ router.post("/add", (req, res) => {
 // 查询车票
 router.get("/list/:userId", (req, res) => {
     const userId = req.params.userId;
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) {
+        return;
+    }
+
+    if (String(sessionUser.userId) !== String(userId)) {
+        return res.status(403).json({ success: false, message: "无权访问该用户数据" });
+    }
 
     const list = db.prepare(`
         SELECT * FROM tickets WHERE user_id = ?
         ORDER BY created_at DESC
-    `).all(userId);
+    `).all(sessionUser.userId);
 
     res.json(list);
 });
@@ -65,8 +78,12 @@ router.get("/list/:userId", (req, res) => {
 // 删除车票
 router.delete("/delete/:id", (req, res) => {
     const id = req.params.id;
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) {
+        return;
+    }
 
-    db.prepare(`DELETE FROM tickets WHERE id = ?`).run(id);
+    db.prepare(`DELETE FROM tickets WHERE id = ? AND user_id = ?`).run(id, sessionUser.userId);
 
     res.json({ success: true });
 });
@@ -74,6 +91,10 @@ router.delete("/delete/:id", (req, res) => {
 const updateTicketHandler = (req, res) => {
     const id = req.params.id;
     const t = req.body;
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) {
+        return;
+    }
 
     try {
         const stmt = db.prepare(`
@@ -115,7 +136,7 @@ const updateTicketHandler = (req, res) => {
             t.theme,
             t.distance,
             id,
-            t.user_id
+            sessionUser.userId
         );
 
         if (result.changes > 0) {

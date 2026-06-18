@@ -388,12 +388,21 @@ const loginValue = computed({
   set: (val) => userStore.setLogin(val)
 })
 
-const logout = () => {
-  loginValue.value = false
-  ElMessage({
-    message: '登出账户成功',
-    type: 'success',
-  })
+const logout = async () => {
+  try {
+    await api.post("/user/logout")
+  } catch (err) {
+    console.error(err)
+  } finally {
+    loginValue.value = false
+    localStorage.removeItem("user")
+    localStorage.removeItem("login")
+    ElMessage({
+      message: '登出账户成功',
+      type: 'success',
+    })
+    router.push('/login')
+  }
 }
 
 const trips = ref(0)

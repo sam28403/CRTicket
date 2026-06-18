@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 import db from "../db/db.js";
 import bcrypt from "bcryptjs";
+import { attachSession, clearSession, requireSession } from "../auth.js";
 
 const BACKUP_TICKET_FIELDS = [
     "ticket_number",
@@ -118,6 +119,7 @@ router.post("/login", (req, res) => {
     const isValid = bcrypt.compareSync(password, user.password);
 
     if (isValid) {
+        attachSession(res, user);
         res.json({
             success: true,
             user: {
@@ -133,15 +135,21 @@ router.post("/login", (req, res) => {
     }
 });
 
+router.post("/logout", (req, res) => {
+    clearSession(req, res);
+    return res.json({ success: true, message: "已退出登录" });
+});
+
 // 用户资料更新接口（用户名和密码二选一或同时修改）
 router.post("/update-profile", (req, res) => {
-    const { id, username, password } = req.body;
-
-    if (!id) {
-        return res.json({ success: false, message: "缺少用户ID" });
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) {
+        return;
     }
 
-    const user = db.prepare("SELECT * FROM users WHERE id = ?").get(id);
+    const { username, password } = req.body;
+
+    const user = db.prepare("SELECT * FROM users WHERE id = ?").get(sessionUser.userId);
     if (!user) {
         return res.json({ success: false, message: "用户不存在" });
     }
@@ -164,7 +172,7 @@ router.post("/update-profile", (req, res) => {
     const finalPassword = nextPassword ? bcrypt.hashSync(nextPassword, 10) : user.password;
 
     try {
-        db.prepare("UPDATE users SET username = ?, password = ? WHERE id = ?").run(finalUsername, finalPassword, id);
+        db.prepare("UPDATE users SET username = ?, password = ? WHERE id = ?").run(finalUsername, finalPassword, sessionUser.userId);
         return res.json({
             success: true,
             message: "修改成功",
@@ -180,13 +188,14 @@ router.post("/update-profile", (req, res) => {
 
 // 删除账户接口（仅验证）
 router.post("/delete-account", (req, res) => {
-    const { id, password } = req.body;
-
-    if (!id) {
-        return res.json({ success: false, message: "缺少用户ID" });
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) {
+        return;
     }
 
-    const user = db.prepare("SELECT * FROM users WHERE id = ?").get(id);
+    const { password } = req.body;
+
+    const user = db.prepare("SELECT * FROM users WHERE id = ?").get(sessionUser.userId);
     if (!user) {
         return res.json({ success: false, message: "用户不存在" });
     }
@@ -206,22 +215,22 @@ router.post("/delete-account", (req, res) => {
 
 // 确认删除账户接口
 router.post("/confirm-delete", (req, res) => {
-    const { id } = req.body;
-
-    if (!id) {
-        return res.json({ success: false, message: "缺少用户ID" });
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) {
+        return;
     }
 
-    const user = db.prepare("SELECT * FROM users WHERE id = ?").get(id);
+    const user = db.prepare("SELECT * FROM users WHERE id = ?").get(sessionUser.userId);
     if (!user) {
         return res.json({ success: false, message: "用户不存在" });
     }
 
     try {
         // 先删除用户的所有车票记录
-        db.prepare("DELETE FROM tickets WHERE user_id = ?").run(id);
+        db.prepare("DELETE FROM tickets WHERE user_id = ?").run(sessionUser.userId);
         // 再删除用户
-        db.prepare("DELETE FROM users WHERE id = ?").run(id);
+        db.prepare("DELETE FROM users WHERE id = ?").run(sessionUser.userId);
+        clearSession(req, res);
         return res.json({ success: true, message: "账户已删除" });
     } catch (err) {
         console.error(err);
@@ -231,10 +240,9 @@ router.post("/confirm-delete", (req, res) => {
 
 // 获取个人运转数据统计
 router.get("/statistics", (req, res) => {
-    const { userId } = req.query;
-
-    if (!userId) {
-        return res.json({ success: false, message: "缺少用户ID" });
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) {
+        return;
     }
 
     try {
@@ -245,7 +253,7 @@ router.get("/statistics", (req, res) => {
             WHERE user_id = ? AND departure_station IS NOT NULL AND departure_station != ''
             GROUP BY departure_station
             ORDER BY count DESC
-        `).all(userId);
+        `).all(sessionUser.userId);
 
         const arrivalStats = db.prepare(`
             SELECT arrival_station as station, COUNT(*) as count
@@ -253,7 +261,7 @@ router.get("/statistics", (req, res) => {
             WHERE user_id = ? AND arrival_station IS NOT NULL AND arrival_station != ''
             GROUP BY arrival_station
             ORDER BY count DESC
-        `).all(userId);
+        `).all(sessionUser.userId);
 
         return res.json({
             success: true,
@@ -270,10 +278,9 @@ router.get("/statistics", (req, res) => {
 
 // 获取用户车票历史记录（用于轨迹地图）
 router.get("/ticket-history", (req, res) => {
-    const { userId } = req.query;
-
-    if (!userId) {
-        return res.json({ success: false, message: "缺少用户ID" });
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) {
+        return;
     }
 
     try {
@@ -288,7 +295,7 @@ router.get("/ticket-history", (req, res) => {
             WHERE user_id = ?
             ORDER BY travel_date DESC
             LIMIT 500
-        `).all(userId);
+        `).all(sessionUser.userId);
 
         return res.json({
             success: true,
@@ -302,11 +309,12 @@ router.get("/ticket-history", (req, res) => {
 
 // 获取月度运转日期数据（日历热力图用）
 router.get("/monthly-tickets", (req, res) => {
-    const { userId, year, month } = req.query;
-
-    if (!userId) {
-        return res.json({ success: false, message: "缺少用户ID" });
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) {
+        return;
     }
+
+    const { year, month } = req.query;
 
     const y = parseInt(year) || new Date().getFullYear();
     const m = parseInt(month) || new Date().getMonth() + 1;
@@ -320,7 +328,7 @@ router.get("/monthly-tickets", (req, res) => {
               AND travel_date LIKE ?
             GROUP BY travel_date
             ORDER BY travel_date
-        `).all(userId, `${prefix}%`);
+        `).all(sessionUser.userId, `${prefix}%`);
 
         return res.json({
             success: true,
@@ -338,13 +346,14 @@ router.get("/monthly-tickets", (req, res) => {
 
 // 导入备份数据，完全相同的车票记录自动略过
 router.post("/import-backup", (req, res) => {
-    const { userId, backup } = req.body;
-
-    if (!userId) {
-        return res.json({ success: false, message: "缺少用户ID" });
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) {
+        return;
     }
 
-    const user = db.prepare("SELECT id FROM users WHERE id = ?").get(userId);
+    const { backup } = req.body;
+
+    const user = db.prepare("SELECT id FROM users WHERE id = ?").get(sessionUser.userId);
     if (!user) {
         return res.json({ success: false, message: "用户不存在" });
     }
@@ -389,7 +398,7 @@ router.post("/import-backup", (req, res) => {
                 distance
             FROM tickets
             WHERE user_id = ?
-        `).all(userId);
+        `).all(sessionUser.userId);
 
         const existingSet = new Set(existingTickets.map(ticketFingerprint));
         const insertStmt = db.prepare(`
@@ -423,7 +432,7 @@ router.post("/import-backup", (req, res) => {
                 }
 
                 insertStmt.run(
-                    userId,
+                    sessionUser.userId,
                     ticket.ticket_number,
                     ticket.train_no,
                     ticket.departure_station,

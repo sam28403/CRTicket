@@ -30,13 +30,34 @@ const routes = [
     },
     {
         path: '/user',
-        component: User
+        component: User,
+        meta: {
+            requiresAuth: true,
+        }
     }
 ]
 
 const router = createRouter({
     history: createWebHistory(),
     routes
+})
+
+router.beforeEach((to) => {
+    if (!to.meta.requiresAuth) {
+        return true
+    }
+
+    const isLogin = localStorage.getItem('login') === 'true'
+    if (!isLogin) {
+        return {
+            path: '/login',
+            query: {
+                redirect: to.fullPath,
+            },
+        }
+    }
+
+    return true
 })
 
 export default router

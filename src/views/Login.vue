@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import {ref, onMounted, computed} from "vue";
 import { ElMessage } from "element-plus";
 import api from "@/api.js";
@@ -51,6 +51,7 @@ import {User} from "@element-plus/icons-vue";
 import { drawCaptcha, generateCaptcha } from "@/utils/captcha.js";
 
 const router = useRouter();
+const route = useRoute();
 const username = ref('');
 const password = ref('');
 const captchaInput = ref('');
@@ -101,7 +102,10 @@ function handleSubmit() {
           );
 
           ElMessage.success("登录成功！");
-          router.push("/history"); // 跳转到历史记录页面
+          const redirect = typeof route.query.redirect === "string" && route.query.redirect
+            ? route.query.redirect
+            : "/history"
+          router.push(redirect); // 跳转到原目标页面或历史记录页面
           loginValue.value = true;
         } else {
           ElMessage.error(response.data.message || "登录失败，请重试");

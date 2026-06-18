@@ -194,8 +194,12 @@ import { drawCaptcha, generateCaptcha } from "@/utils/captcha.js";
 import stationNamesData from "@/station_name.js";
 import stationCoordinates, { loadChinaMap } from "@/utils/stationCoordinates.js";
 import { buildTicketPayload } from "@/utils/ticketShared.js";
+import { useUserStore } from "@/stores/user.js";
 
 const router = useRouter()
+const userStore = useUserStore()
+userStore.init()
+
 const goHome = () => {
   router.push('/')
 }
@@ -204,6 +208,8 @@ const goHistory = () => {
 }
 
 const getCurrentUser = () => {
+    if (!userStore.isLogin || localStorage.getItem("login") !== "true") return null
+
   const userRaw = localStorage.getItem("user");
   if (!userRaw) return null;
 
@@ -1183,6 +1189,12 @@ async function saveProfile() {
     return;
   }
 
+  if (!userStore.isLogin || localStorage.getItem("login") !== "true") {
+    ElMessage.error("登录状态失效，请重新登录");
+    router.push("/login");
+    return;
+  }
+
   const userRaw = localStorage.getItem("user");
   if (!userRaw) {
     ElMessage.error("登录状态失效，请重新登录");
@@ -1230,6 +1242,11 @@ async function saveProfile() {
 }
 
 onMounted(() => {
+  if (!userStore.isLogin || localStorage.getItem("login") !== "true") {
+    router.replace("/login")
+    return
+  }
+
   refreshCaptcha();
   refreshDeleteCaptcha();
   // 设置当前月份
@@ -1251,6 +1268,12 @@ async function handleDeleteAccount() {
   const password = deletePassword.value.trim();
   if (!password) {
     ElMessage.warning("请输入当前密码");
+    return;
+  }
+
+  if (!userStore.isLogin || localStorage.getItem("login") !== "true") {
+    ElMessage.error("登录状态失效，请重新登录");
+    router.push("/login");
     return;
   }
 
