@@ -137,8 +137,8 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260627</h3>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10112</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260629</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10113</h3>
 
       <el-button type="primary" @click="note">更新内容</el-button>
 
@@ -324,8 +324,8 @@ onMounted(() => {
 
 const note = () => {
   ElNotification({
-    title: '更新车站列表至10112',
-    message: '新增了两个车站。',
+    title: '更新车站列表至10113',
+    message: '铁路2026Q3调图，西安--十堰高速铁路开通运营，新增西安东站等车站。',
     type: 'info',
     position: 'bottom-right'
   })
