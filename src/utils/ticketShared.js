@@ -91,14 +91,18 @@ export const disableAirSeats = [
 ]
 
 export const themeOptions = [
-  { id: 'EMU_Red.jpg', label: '经典红', disabled: true },
-  { id: 'EMU_Blue.jpg', label: '经典蓝', disabled: true },
+  { id: 'Red.jpg', label: '经典红' },
+  { id: 'Blue.jpg', label: '经典蓝', disabled: true },
   { id: 'EMU_Green.jpg', label: '动集绿' },
   { id: 'CIT_Yellow.jpg', label: '动检黄' },
   { id: 'Harmony_White.jpg', label: '和谐白' },
   { id: 'Blue_Sister.jpg', label: '蓝妹妹' },
-  { id: 'HXD3D.jpg', label: '番茄红' },
-  { id: 'DF7C.jpg', label: '小橘子' },
+  { id: 'CR400BF.jpg', label: '金凤凰' },
+  { id: 'Sanya_1.jpg', label: '三亚1' },
+  { id: 'Sanya_2.jpg', label: '三亚2' },
+  { id: 'DF11G.jpg', label: '猪' },
+  { id: 'DF11.jpg', label: '狮子' },
+  { id: 'FXN5C.jpg', label: '复兴号机车' },
   { id: 'Blank.jpg', label: '空白底' },
 ]
 
