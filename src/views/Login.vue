@@ -14,21 +14,21 @@
           <div class="login-container">
             <h2>用户登录</h2>
             <form @submit.prevent="handleSubmit">
-              <div class="input-group">
-                <label for="username">账号</label>
-                <input type="text" v-model="username" required />
-              </div>
-              <div class="input-group">
-                <label for="password">密码</label>
-                <input type="password" v-model="password" required />
-              </div>
-              <div class="input-group">
-                <label for="captchaInput">验证码</label>
-                <div class="captcha-group">
-                  <input type="text" v-model="captchaInput" required />
-                  <img ref="captchaImage" alt="点击刷新验证码" @click="refreshCaptcha" />
-                </div>
-              </div>
+              <el-form label-position="top" class="profile-form" @submit.prevent>
+                <el-form-item label="账号">
+                  <el-input v-model="username" placeholder="输入用户名" size="large" clearable />
+                </el-form-item>
+                <el-form-item label="密码">
+                  <el-input v-model="password" type="password" show-password placeholder="输入密码" size="large" clearable />
+                </el-form-item>
+                <el-form-item label="验证码">
+                  <div class="captcha-group">
+                    <el-input-otp v-model="captchaInput" :length="5" size="large"/>
+                    <img ref="captchaImage" alt="点击刷新验证码" @click="refreshCaptcha" />
+                  </div>
+                </el-form-item>
+              </el-form>
+
               <div class="button-group">
                 <button type="submit" class="btn btn-login">登录</button>
                 <button type="button" class="btn btn-register" @click="goToRegister">没有账号？去注册</button>

@@ -79,6 +79,21 @@ const mapBackupTicket = (ticket) => {
 router.post("/register", (req, res) => {
     const { username, password } = req.body;
 
+    if (!password || password.length < 8) {
+        return res.json({ success: false, message: "密码长度至少为8位" });
+    }
+    if (!/\d/.test(password)) {
+        return res.json({ success: false, message: "密码中必须包含数字" });
+    }
+    let types = 0;
+    if (/\d/.test(password)) types++;
+    if (/[A-Z]/.test(password)) types++;
+    if (/[a-z]/.test(password)) types++;
+    if (/[^A-Za-z0-9]/.test(password)) types++;
+    if (types < 2) {
+        return res.json({ success: false, message: "密码在数字、大写字母、小写字母、特殊符号中至少要包含两种" });
+    }
+
     // 检查用户名是否已存在
     const existingUser = db.prepare("SELECT * FROM users WHERE username = ?").get(username);
     if (existingUser) {
@@ -159,6 +174,23 @@ router.post("/update-profile", (req, res) => {
 
     if (!nextUsername && !nextPassword) {
         return res.json({ success: false, message: "没有可更新的内容" });
+    }
+
+    if (nextPassword) {
+        if (nextPassword.length < 8) {
+            return res.json({ success: false, message: "密码长度至少为8位" });
+        }
+        if (!/\d/.test(nextPassword)) {
+            return res.json({ success: false, message: "密码中必须包含数字" });
+        }
+        let types = 0;
+        if (/\d/.test(nextPassword)) types++;
+        if (/[A-Z]/.test(nextPassword)) types++;
+        if (/[a-z]/.test(nextPassword)) types++;
+        if (/[^A-Za-z0-9]/.test(nextPassword)) types++;
+        if (types < 2) {
+            return res.json({ success: false, message: "密码在数字、大写字母、小写字母、特殊符号中至少要包含两种" });
+        }
     }
 
     if (nextUsername && nextUsername !== user.username) {

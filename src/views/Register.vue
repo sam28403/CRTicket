@@ -14,26 +14,23 @@
           <div class="login-container">
             <h2>用户注册</h2>
             <form id="registerForm" @submit.prevent="handleSubmit">
-              <div class="input-group">
-                <label for="username">账号</label>
-                <input type="text" id="username" v-model="username" required>
-              </div>
-              <div class="input-group">
-                <label for="password1">密码</label>
-                <input type="password" id="password1" v-model="password1" required>
-              </div>
-              <div class="input-group">
-                <label for="password2">确认密码</label>
-                <input type="password" id="password2" v-model="password2" required>
-              </div>
-              <div class="input-group">
-                <label for="captchaInput">验证码</label>
-                <div class="captcha-group">
-                  <input type="text" id="captchaInput" v-model="captchaInput" required>
-                  <!-- 使用 ref 获取 captchaImage -->
-                  <img ref="captchaImage" alt="点击刷新验证码" @click="refreshCaptcha">
-                </div>
-              </div>
+              <el-form label-position="top" class="profile-form" @submit.prevent>
+                <el-form-item label="账号">
+                  <el-input v-model="username" placeholder="输入用户名" size="large" clearable />
+                </el-form-item>
+                <el-form-item label="密码">
+                  <el-input v-model="password1" type="password" show-password placeholder="输入密码" size="large" clearable />
+                </el-form-item>
+                <el-form-item label="确认密码">
+                  <el-input v-model="password2" type="password" show-password placeholder="确认密码" size="large" clearable />
+                </el-form-item>
+                <el-form-item label="验证码">
+                  <div class="captcha-group">
+                    <el-input-otp v-model="captchaInput" :length="5" size="large"/>
+                    <img ref="captchaImage" alt="点击刷新验证码" @click="refreshCaptcha" />
+                  </div>
+                </el-form-item>
+              </el-form>
               <div class="button-group">
                 <button type="submit" class="btn btn-login">注册</button>
                 <button type="button" class="btn btn-register" @click="goToLogin">返回登录界面</button>
@@ -110,6 +107,26 @@ function handleSubmit(e) {
     return;
   }
 
+  // 验证密码限制：至少8位密码，必须有数字，数字、大写、小写、符号中至少要有两个
+  const pwd = password1.value;
+  if (pwd.length < 8) {
+    ElMessage.error("密码长度至少为8位！");
+    return;
+  }
+  if (!/\d/.test(pwd)) {
+    ElMessage.error("密码中必须包含数字！");
+    return;
+  }
+  let types = 0;
+  if (/\d/.test(pwd)) types++;
+  if (/[A-Z]/.test(pwd)) types++;
+  if (/[a-z]/.test(pwd)) types++;
+  if (/[^A-Za-z0-9]/.test(pwd)) types++;
+  if (types < 2) {
+    ElMessage.error("密码在数字、大写字母、小写字母、特殊符号中至少要包含两种！");
+    return;
+  }
+
   // 验证密码一致性
   if (password1.value !== password2.value) {
     ElMessage.error("两次密码不一致！");
@@ -121,7 +138,7 @@ function handleSubmit(e) {
       .then(response => {
         if (response.data.success) {
           ElMessage.success("注册成功！");
-          window.location.href = "/login";
+          router.push("/login");
         } else {
           ElMessage.error(response.data.message || "注册失败，请重试");
         }

@@ -1184,6 +1184,26 @@ async function saveProfile() {
     return;
   }
 
+  if (password) {
+    if (password.length < 8) {
+      ElMessage.error("密码长度至少为8位！");
+      return;
+    }
+    if (!/\d/.test(password)) {
+      ElMessage.error("密码中必须包含数字！");
+      return;
+    }
+    let types = 0;
+    if (/\d/.test(password)) types++;
+    if (/[A-Z]/.test(password)) types++;
+    if (/[a-z]/.test(password)) types++;
+    if (/[^A-Za-z0-9]/.test(password)) types++;
+    if (types < 2) {
+      ElMessage.error("密码在数字、大写字母、小写字母、特殊符号中至少要包含两种！");
+      return;
+    }
+  }
+
   if (password && password !== repeat) {
     ElMessage.error("两次输入的新密码不一致");
     return;
