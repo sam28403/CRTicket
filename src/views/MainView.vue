@@ -1,5 +1,5 @@
 <template>
-  <el-button class="user-top-right" @click="goToHistory()">
+  <el-button class="user-top-right" :disabled="isGithubPagesBuild" @click="goToHistory()">
     <el-icon><User /></el-icon>历史记录
   </el-button>
   <el-container style="height: 100vh">
@@ -209,7 +209,7 @@
             <el-icon><Picture /></el-icon>
             下载 PNG
           </el-button>
-          <el-button type="success" @click="openSaveDialog">
+          <el-button type="success" :disabled="isGithubPagesBuild" @click="openSaveDialog">
             <el-icon><Checked /></el-icon>
             存储到账户
           </el-button>
@@ -251,6 +251,7 @@ import { Check, Checked, Close, Document, Picture, User } from '@element-plus/ic
 import { useRouter } from 'vue-router'
 import api from '@/api.js'
 import { useUserStore } from '@/stores/user.js'
+import { isGithubPagesBuild } from '@/config/deploy.js'
 import {
   buildTicketPayload,
   createDefaultTicket,
@@ -371,11 +372,16 @@ const downloadPNG = async () => {
 
 const router = useRouter()
 const goToHistory = () => {
+  if (isGithubPagesBuild) return
   router.push('/history')
 }
 
 const saveDistance = ref(false)
 const openSaveDialog = () => {
+  if (isGithubPagesBuild) {
+    ElMessage.warning('GitHub Pages 演示版不支持账号存储/历史记录功能')
+    return
+  }
   if (!userStore.isLogin) {
     ElMessage.warning('请先登录')
     return

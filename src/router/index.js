@@ -5,6 +5,7 @@ import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 import Debug from "@/views/Debug.vue";
 import User from "@/views/User.vue";
+import { isGithubPagesBuild } from '@/config/deploy.js'
 
 
 const routes = [
@@ -43,6 +44,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
+    if (isGithubPagesBuild && to.path !== '/') {
+        return { path: '/' }
+    }
+
     if (!to.meta.requiresAuth) {
         return true
     }

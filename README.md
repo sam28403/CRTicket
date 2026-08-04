@@ -172,6 +172,28 @@ npm run build
 
 构建产物输出到 `dist/` 目录。
 
+### GitHub Pages 演示版构建（受限功能）
+
+> 适用于仅做网页展示的场景（例如 GitHub Pages），不依赖后端服务。
+
+该模式下会做如下限制：
+
+- 禁止访问 `MainView`（`/`）之外的全部页面（包括 `#/history`、`#/login`、`#/register`、`#/user` 等都会被重定向回首页）；
+- `MainView` 右上角“历史记录”按钮禁用；
+- 车票预览下方“存储到账户”按钮禁用。
+
+构建方式：
+
+```bash
+npm run build:ghpages
+```
+
+其本质是使用 Vite 的 `--mode ghpages` 加载根目录下的 `.env.ghpages`，其中包含：
+
+```bash
+VITE_DEPLOY_TARGET=github
+```
+
 ### 本地预览构建产物
 
 ```bash
