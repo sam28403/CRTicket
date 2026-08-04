@@ -7,6 +7,10 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    env:
+      VITE_DEPLOY_TARGET: github
+
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
@@ -25,8 +29,6 @@ jobs:
 
       - name: Build Project
         run: npm run build
-        env:
-          VITE_DEPLOY_TARGET: github
 
       - name: Deploy to username.github.io Repo
         uses: peaceiris/actions-gh-pages@v4
