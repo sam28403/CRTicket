@@ -14,8 +14,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 24
 
       - name: Install Dependencies
         run: npm ci
@@ -23,7 +22,7 @@ jobs:
       - name: Build Project
         run: npm run build
         env:
-            VITE_DEPLOY_TARGET: github
+          VITE_DEPLOY_TARGET: github
 
       - name: Deploy to username.github.io Repo
         uses: peaceiris/actions-gh-pages@v4
