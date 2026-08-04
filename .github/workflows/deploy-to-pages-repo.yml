@@ -19,6 +19,10 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Debug Environment Variables
+        run: |
+          echo "Current Target is: $VITE_DEPLOY_TARGET"
+
       - name: Build Project
         run: npm run build
         env:
