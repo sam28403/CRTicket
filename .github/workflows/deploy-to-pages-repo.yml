@@ -21,7 +21,9 @@ jobs:
         run: npm ci
 
       - name: Build Project
-        run: npm run build:ghpages
+        run: npm run build
+        env:
+            VITE_DEPLOY_TARGET: github
 
       - name: Deploy to username.github.io Repo
         uses: peaceiris/actions-gh-pages@v4
