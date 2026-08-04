@@ -2,8 +2,8 @@
   <el-button class="user-top-right" :disabled="isGithubPagesBuild" @click="goToHistory()">
     <el-icon><User /></el-icon>历史记录
   </el-button>
-  <el-container style="height: 100vh">
-    <el-aside width="350px" style="background: #f8f9fa; padding: 20px;">
+  <el-container class="main-layout">
+    <el-aside width="350px" class="main-aside">
       <h2 style="margin-bottom: 20px; font-family: 'Roboto', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">Sam-Lab CR Ticket Maker</h2>
       <el-form
           :model="ticket"
@@ -146,8 +146,13 @@
 
     <el-main class="main-center">
       <el-card class="ticket-preview" shadow="always">
-        <div class="ticket-container">
-          <div ref="ticketRef" class="ticket-container">
+        <div class="ticket-preview-shell" :style="{ height: `${ticketScaledHeight}px` }">
+          <div v-if="isMobilePreview" class="ticket-photo-shell">
+            <img v-if="mobileTicketImageUrl" class="ticket-photo" :src="mobileTicketImageUrl" alt="Ticket Preview" />
+            <div v-else class="ticket-photo-loading">正在渲染预览…</div>
+          </div>
+          <div class="ticket-preview-scale" :style="{ transform: `scale(${ticketScale})` }">
+            <div ref="ticketRef" class="ticket-container" :class="{ 'ticket-dom-source': isMobilePreview }">
             <div class="ticket-bg" :style="{ backgroundImage: `url(./${ticket.theme})` }">
               <div class="ticket-number">{{ticket.number}}</div>
             </div>
@@ -198,6 +203,7 @@
             <div class="sell-place">{{ticket.sellPlace}}售</div>
           </div>
 
+          </div>
         </div>
         <div class="download-buttons">
           <el-button type="primary" @click="downloadPDF">
@@ -242,7 +248,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { ElMessage, ElMessageBox, ElNotification } from 'element-plus'
 import QRCode from 'qrcode'
 import html2canvas from 'html2canvas'
@@ -252,6 +258,7 @@ import { useRouter } from 'vue-router'
 import api from '@/api.js'
 import { useUserStore } from '@/stores/user.js'
 import { isGithubPagesBuild } from '@/config/deploy.js'
+import { renderTicketToCanvas } from '@/utils/ticketExport.js'
 import {
   buildTicketPayload,
   createDefaultTicket,
@@ -315,14 +322,6 @@ watch(() => ticket.number, (newVal) => {
   generateQRCode(newVal)
 })
 
-onMounted(() => {
-  generateQRCode(ticket.number)
-  if (!sessionStorage.getItem('notified')) {
-    note()
-    sessionStorage.setItem('notified', '1')
-  }
-})
-
 const note = () => {
   ElNotification({
     title: '更新车站列表至10114',
@@ -334,6 +333,98 @@ const note = () => {
 
 const ticketRef = ref(null)
 
+const TICKET_BASE_WIDTH = 430
+const TICKET_BASE_HEIGHT = Math.round(TICKET_BASE_WIDTH * 54 / 86)
+const ticketScale = ref(1)
+const ticketScaledHeight = computed(() => Math.round(TICKET_BASE_HEIGHT * ticketScale.value))
+
+function updateTicketScale() {
+  const viewportWidth = window.innerWidth || TICKET_BASE_WIDTH
+  const availableWidth = viewportWidth - 24
+  const nextScale = Math.min(1, availableWidth / TICKET_BASE_WIDTH)
+  ticketScale.value = Number.isFinite(nextScale) && nextScale > 0 ? nextScale : 1
+}
+
+const isMobilePreview = ref(false)
+const mobileTicketImageUrl = ref('')
+
+function updateMobilePreviewFlag() {
+  const viewportWidth = window.innerWidth || 1024
+  isMobilePreview.value = viewportWidth <= 768
+}
+
+let mobilePreviewTimer = null
+let isRenderingMobilePreview = false
+let mobilePreviewRerenderRequested = false
+
+async function renderMobilePreviewNow() {
+  if (!isMobilePreview.value) return
+  if (!ticketRef.value) return
+
+  if (isRenderingMobilePreview) {
+    mobilePreviewRerenderRequested = true
+    return
+  }
+
+  isRenderingMobilePreview = true
+  mobilePreviewRerenderRequested = false
+
+  try {
+    const canvas = await renderTicketToCanvas(html2canvas, ticketRef.value)
+    mobileTicketImageUrl.value = canvas.toDataURL('image/png')
+  } finally {
+    isRenderingMobilePreview = false
+    if (mobilePreviewRerenderRequested) {
+      await renderMobilePreviewNow()
+    }
+  }
+}
+
+function scheduleMobilePreviewRender() {
+  if (!isMobilePreview.value) return
+
+  if (mobilePreviewTimer) {
+    clearTimeout(mobilePreviewTimer)
+  }
+
+  mobilePreviewTimer = setTimeout(() => {
+    mobilePreviewTimer = null
+    renderMobilePreviewNow()
+  }, 120)
+}
+
+onMounted(() => {
+  generateQRCode(ticket.number)
+  updateTicketScale()
+  updateMobilePreviewFlag()
+  scheduleMobilePreviewRender()
+  window.addEventListener('resize', updateTicketScale, { passive: true })
+  window.addEventListener('resize', updateMobilePreviewFlag, { passive: true })
+  window.addEventListener('resize', scheduleMobilePreviewRender, { passive: true })
+  if (!sessionStorage.getItem('notified')) {
+    note()
+    sessionStorage.setItem('notified', '1')
+  }
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateTicketScale)
+  window.removeEventListener('resize', updateMobilePreviewFlag)
+  window.removeEventListener('resize', scheduleMobilePreviewRender)
+  if (mobilePreviewTimer) {
+    clearTimeout(mobilePreviewTimer)
+    mobilePreviewTimer = null
+  }
+})
+
+watch(ticket, () => {
+  scheduleMobilePreviewRender()
+}, { deep: true })
+
+watch(qrCodeUrl, () => {
+  scheduleMobilePreviewRender()
+})
+
 const downloadPDF = async () => {
   if (!hasRequiredTicketFields(ticket)) {
     ElMessage.warning('请填写所有必填项')
@@ -341,7 +432,7 @@ const downloadPDF = async () => {
   }
 
   const element = ticketRef.value
-  const canvas = await html2canvas(element, { scale: 2, backgroundColor: null })
+  const canvas = await renderTicketToCanvas(html2canvas, element)
   const imgData = canvas.toDataURL('image/png')
 
   const pdf = new jsPDF({
@@ -361,7 +452,7 @@ const downloadPNG = async () => {
   }
 
   const element = ticketRef.value
-  const canvas = await html2canvas(element, { scale: 2, backgroundColor: null })
+  const canvas = await renderTicketToCanvas(html2canvas, element)
   const imgData = canvas.toDataURL('image/png')
 
   const link = document.createElement('a')
@@ -442,4 +533,72 @@ const saveTicket = async () => {
 
 <style scoped>
 @import "../assets/styles/App.css";
+
+.main-layout {
+  height: 100vh;
+}
+
+.main-aside {
+  background: #f8f9fa;
+  padding: 20px;
+}
+
+.ticket-preview-shell {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.ticket-preview-scale {
+  transform-origin: top center;
+}
+
+.ticket-dom-source {
+  position: fixed;
+  left: -10000px;
+  top: 0;
+  pointer-events: none;
+}
+
+.ticket-photo-shell {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.ticket-photo {
+  width: min(100%, 430px);
+  height: auto;
+  display: block;
+}
+
+.ticket-photo-loading {
+  width: min(100%, 430px);
+  text-align: center;
+  padding: 24px 0;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 768px) {
+  .main-layout {
+    height: auto;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  .main-aside {
+    width: 100% !important;
+    padding: 14px 12px;
+  }
+
+  .main-center {
+    padding: 16px 12px;
+  }
+
+  :deep(.el-dialog) {
+    width: 92vw !important;
+    max-width: 520px;
+  }
+}
 </style>

@@ -1532,6 +1532,35 @@ async function handleDeleteAccount() {
 }
 
 @media (max-width: 900px) {
+  .user-layout :deep(.el-container) {
+    flex-direction: column;
+  }
+
+  .user-sidebar {
+    width: 100% !important;
+    border-right: none;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    padding: 12px;
+  }
+
+  .user-sidebar :deep(.el-space) {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .user-sidebar :deep(.el-space__item) {
+    flex: 1 1 46%;
+  }
+
+  .user-sidebar :deep(.el-button) {
+    width: 100%;
+  }
+
+  .user-main {
+    padding: 16px 12px;
+  }
+
   .user-content-grid {
     grid-template-columns: 1fr;
   }
@@ -1542,6 +1571,17 @@ async function handleDeleteAccount() {
 
   .statistics-actions {
     width: 100%;
+  }
+
+  .captcha-group {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .user-page :deep(.el-dialog) {
+    width: 92vw !important;
+    max-width: 520px;
   }
 }
 </style>

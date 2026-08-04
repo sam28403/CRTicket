@@ -111,3 +111,28 @@ body.dark .input-group input {
     top: 1%;
     right: 1%;
 }
+
+@media (max-width: 768px) {
+    .top-header {
+        position: relative;
+        height: auto;
+        padding: 10px 12px;
+        flex-wrap: wrap;
+    }
+
+    .user-top-right {
+        position: static;
+        margin-left: auto;
+    }
+
+    .login-section {
+        margin-top: 18px;
+        padding: 0 12px;
+    }
+
+    .captcha-group {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}

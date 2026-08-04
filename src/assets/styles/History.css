@@ -92,3 +92,49 @@
     display: flex;
     justify-content: center;
 }
+
+@media (max-width: 768px) {
+    .user-card {
+        height: auto;
+        padding: 16px 14px;
+    }
+
+    .card-container {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 12px;
+        padding-top: 38px;
+        padding-bottom: 38px;
+    }
+
+    .card-content {
+        flex: 1 1 260px;
+        min-width: 0;
+    }
+
+    .card-content h1 {
+        font-size: clamp(24px, 7vw, 40px);
+        line-height: 1.15;
+        word-break: break-word;
+    }
+
+    .card-content p {
+        margin-top: 8px;
+        font-size: clamp(14px, 4.2vw, 18px);
+        line-height: 1.5;
+    }
+
+    .highlight {
+        font-size: clamp(20px, 6vw, 34px);
+    }
+
+    .signout-top-right {
+        top: 10px;
+        right: 10px;
+    }
+
+    .supplement-bottom-right {
+        bottom: 10px;
+        right: 10px;
+    }
+}

@@ -344,6 +344,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.js'
 import api from '@/api.js'
+import { renderTicketToCanvas } from '@/utils/ticketExport.js'
 import {
   buildTicketPayload,
   createDefaultTicket,
@@ -620,7 +621,7 @@ const downloadHistoryPNG = async (row) => {
   try {
     await new Promise((resolve) => requestAnimationFrame(resolve))
     const element = historyTicketRef.value
-    const canvas = await html2canvas(element, { scale: 2, backgroundColor: null })
+    const canvas = await renderTicketToCanvas(html2canvas, element)
     const imgData = canvas.toDataURL('image/png')
 
     const link = document.createElement('a')
@@ -793,5 +794,48 @@ html, body {
 
 .table-shell :deep(.el-table td.el-table__cell) {
   border-bottom: 1px solid rgba(131, 152, 176, 0.2);
+}
+
+@media (max-width: 768px) {
+  .top-header {
+    position: relative;
+    height: auto;
+    padding: 10px 12px;
+    flex-wrap: wrap;
+  }
+
+  .history-layout :deep(.el-container) {
+    flex-direction: column;
+  }
+
+  .history-sidebar {
+    width: 100% !important;
+    border-right: none;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    padding: 12px;
+  }
+
+  .history-sidebar :deep(.el-space) {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .history-sidebar :deep(.el-space__item) {
+    flex: 1 1 46%;
+  }
+
+  .history-sidebar :deep(.el-button) {
+    width: 100%;
+  }
+
+  .table-shell {
+    padding: 10px;
+  }
+
+  .history-page :deep(.el-dialog) {
+    width: 92vw !important;
+    max-width: 720px;
+  }
 }
 </style>
