@@ -4,6 +4,10 @@
 
 **目前中国铁路要求持个人有效证件乘车，不再接受纸质车票。这个网站生成的车票无法作为乘车凭证使用！！！**
 
+## ⭐ 我们的项目需要更多星标！
+
+请点击右上角的图标，为我们的项目标一个免费的星星⭐！
+
 ## 前端演示网址
 
 https://sam28403.github.io
@@ -11,14 +15,12 @@ https://sam28403.github.io
 ## 项目截图
 
 ![Screenshot](Screenshot1.png)
-
 ![Screenshot](Screenshot2.png)
-
 ![Screenshot](Screenshot3.png)
-
 ![Screenshot](Screenshot4.png)
-
 ![Screenshot](Screenshot5.png)
+![Screenshot](Screenshot6.png)
+![Screenshot](Screenshot7.png)
 
 ## 优点
 

@@ -140,7 +140,10 @@
       <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260804</h3>
       <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10114</h3>
 
-      <el-button type="primary" @click="note">更新内容</el-button>
+      <el-space>
+        <el-button type="primary" @click="note">更新内容</el-button>
+        <el-button color="black" @click="goToGitHub()"><el-icon><Star /></el-icon><span>GitHub</span></el-button>
+      </el-space>
 
     </el-aside>
 
@@ -248,12 +251,12 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
-import { ElMessage, ElMessageBox, ElNotification } from 'element-plus'
+import {computed, h, onMounted, onUnmounted, reactive, ref, watch} from 'vue'
+import {ElButton, ElDialog, ElIcon, ElMessage, ElMessageBox, ElNotification} from 'element-plus'
 import QRCode from 'qrcode'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
-import { Check, Checked, Close, Document, Picture, User } from '@element-plus/icons-vue'
+import {Check, Checked, Close, Document, Picture, Star, User} from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 import api from '@/api.js'
 import { useUserStore } from '@/stores/user.js'
@@ -331,6 +334,31 @@ const note = () => {
   })
 }
 
+const star = () => {
+  ElNotification({
+    title: '我们的项目需要更多星标！',
+    dangerouslyUseHTMLString: true,
+    message: h('div', null, [
+      h('p', { style: 'margin-bottom: 10px;' }, '请点击下面的图标，为我们的项目标一个免费的星星⭐！'),
+      h(
+          ElButton,
+          {
+            color: 'black',
+            onClick: goToGitHub
+          },
+          {
+            default: () => [
+              h(ElIcon, null, { default: () => h(Star) }),
+              h('span', { style: 'margin-left: 4px;' }, 'GitHub')
+            ]
+          }
+      )
+    ]),
+    offset: 30,
+    duration: 0,
+  })
+}
+
 const ticketRef = ref(null)
 
 const TICKET_BASE_WIDTH = 430
@@ -403,6 +431,7 @@ onMounted(() => {
   window.addEventListener('resize', scheduleMobilePreviewRender, { passive: true })
   if (!sessionStorage.getItem('notified')) {
     note()
+    star()
     sessionStorage.setItem('notified', '1')
   }
 })
@@ -465,6 +494,21 @@ const router = useRouter()
 const goToHistory = () => {
   if (isGithubPagesBuild) return
   router.push('/history')
+}
+const goToGitHub = () => {
+  ElMessageBox.alert(
+      '<strong>谢谢您为我的项目标星！</strong>' +
+      '<img src="GitHub.gif" alt="GitHub" style="max-width: 100%; height: auto;"/>',
+      '访问本项目源代码',
+      {
+        dangerouslyUseHTMLString: true,
+        confirmButtonText: '前往GitHub',
+
+      }
+  )
+      .then(() => {
+        window.open('https://github.com/sam28403/CRTicket', '_blank')
+      })
 }
 
 const saveDistance = ref(false)
