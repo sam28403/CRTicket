@@ -12,11 +12,11 @@
           label-width="100px"
           label-position="left"
       >
-        <el-form-item label="票号">
+        <el-form-item label="票号" :required="true">
           <el-input v-model="ticket.number" placeholder="例如：E351822734"></el-input>
         </el-form-item>
 
-        <el-form-item label="起点">
+        <el-form-item label="起点" :required="true">
           <el-autocomplete
               v-model="ticket.from"
               :fetch-suggestions="querySearch"
@@ -26,7 +26,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="终点">
+        <el-form-item label="终点" :required="true">
           <el-autocomplete
               v-model="ticket.to"
               :fetch-suggestions="querySearch"
@@ -36,14 +36,14 @@
           />
         </el-form-item>
 
-        <el-form-item label="车次" prop="trainNo">
+        <el-form-item label="车次" prop="trainNo" :required="true">
           <el-input
               v-model="ticket.trainNo"
               placeholder="例如：G25 或 1461"
           />
         </el-form-item>
 
-        <el-form-item label="开车日期">
+        <el-form-item label="开车日期" :required="true">
           <el-date-picker
               v-model="ticket.date"
               type="date"
@@ -53,7 +53,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="开车时间">
+        <el-form-item label="开车时间" :required="true">
           <el-time-picker
               v-model="ticket.time"
               placeholder="选择开车时间"
@@ -62,8 +62,12 @@
           />
         </el-form-item>
 
-        <el-form-item label="票价">
-          <el-input-number v-model="ticket.price" placeholder="请输入数字" :min="0" :step="0.5"></el-input-number>
+        <el-form-item label="票价" :required="true">
+          <el-input-number v-model="ticket.price" placeholder="请输入数字" :min="0" :step="0.5">
+            <template #prefix>
+              <span>￥</span>
+            </template>
+          </el-input-number>
         </el-form-item>
 
         <el-form-item label="使用积分">
@@ -75,7 +79,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="席位名称">
+        <el-form-item label="席位名称" :required="true">
           <el-select
               v-model="ticket.seatType"
               placeholder="Select"
@@ -99,11 +103,11 @@
           />
         </el-form-item>
 
-        <el-form-item label="座位号">
+        <el-form-item label="座位号" :required="true">
           <el-input v-model="ticket.seatNo" placeholder="03车12A号"></el-input>
         </el-form-item>
 
-        <el-form-item label="售票地点">
+        <el-form-item label="售票地点" :required="true">
           <el-input v-model="ticket.sellPlace" placeholder="XX站"></el-input>
         </el-form-item>
 
@@ -111,7 +115,7 @@
           <el-input v-model="ticket.gate" placeholder="检票：1A / 候车：一候"></el-input>
         </el-form-item>
 
-        <el-form-item label="提示语">
+        <el-form-item label="提示语" :required="true">
           <el-input
               v-model="ticket.message"
               :rows="3"
@@ -120,7 +124,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="选择背景">
+        <el-form-item label="选择背景" :required="true">
           <el-select
               v-model="ticket.theme"
               placeholder="请选择主题"
@@ -137,8 +141,8 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260804</h3>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10114</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260807</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10115</h3>
 
       <el-space>
         <el-button type="primary" @click="note">更新内容</el-button>
@@ -327,8 +331,8 @@ watch(() => ticket.number, (newVal) => {
 
 const note = () => {
   ElNotification({
-    title: '更新车站列表至10114',
-    message: '更新车站列表（广东城际），新增车票背景，登录与注册页面输入框改为Element+风格，修复安全漏洞。',
+    title: '更新车站列表至10115',
+    message: '更新车站列表（杭台高铁玉环），新增GitHub项目链接，更新项目文档与截图，必填项加*，网页版本前端体验功能。',
     type: 'info',
     position: 'bottom-right'
   })

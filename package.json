@@ -1,7 +1,7 @@
 {
   "name": "crticket",
-  "version": "260804",
-  "private": true,
+  "version": "260807",
+  "private": false,
   "type": "module",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

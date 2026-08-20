@@ -26,19 +26,19 @@
             >
               <el-row :gutter="20">
                 <el-col :span="12">
-                  <el-form-item label="票号">
+                  <el-form-item label="票号" :required="true">
                     <el-input v-model="ticket.number" placeholder="例如：E351822734"></el-input>
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item label="车次" prop="trainNo">
+                  <el-form-item label="车次" prop="trainNo" :required="true">
                     <el-input v-model="ticket.trainNo" placeholder="例如：G25 或 1461" />
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item label="起点">
+                  <el-form-item label="起点" :required="true">
                     <el-autocomplete
                         v-model="ticket.from"
                         :fetch-suggestions="querySearch"
@@ -50,7 +50,7 @@
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item label="终点">
+                  <el-form-item label="终点" :required="true">
                     <el-autocomplete
                         v-model="ticket.to"
                         :fetch-suggestions="querySearch"
@@ -62,7 +62,7 @@
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item label="开车日期">
+                  <el-form-item label="开车日期" :required="true">
                     <el-date-picker
                         v-model="ticket.date"
                         type="date"
@@ -74,7 +74,7 @@
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item label="开车时间">
+                  <el-form-item label="开车时间" :required="true">
                     <el-time-picker
                         v-model="ticket.time"
                         placeholder="选择开车时间"
@@ -85,7 +85,7 @@
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item label="票价">
+                  <el-form-item label="票价" :required="true">
                     <el-input-number v-model="ticket.price" placeholder="请输入数字" :min="0" :step="0.5"></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -114,7 +114,7 @@
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item label="席位名称">
+                  <el-form-item label="席位名称" :required="true">
                     <el-select v-model="ticket.seatType" placeholder="Select">
                       <el-option
                           v-for="item in options"
@@ -127,13 +127,13 @@
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item label="座位号">
+                  <el-form-item label="座位号" :required="true">
                     <el-input v-model="ticket.seatNo" placeholder="03车12A号"></el-input>
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item label="售票地点">
+                  <el-form-item label="售票地点" :required="true">
                     <el-input v-model="ticket.sellPlace" placeholder="XX站"></el-input>
                   </el-form-item>
                 </el-col>
@@ -145,7 +145,7 @@
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item label="选择背景">
+                  <el-form-item label="选择背景" :required="true">
                     <el-select v-model="ticket.theme" placeholder="请选择主题" style="width: 240px">
                       <el-option
                           v-for="item in themeOptions"
@@ -166,7 +166,7 @@
 
                 <!-- 提示语单独占一行 -->
                 <el-col :span="24">
-                  <el-form-item label="提示语">
+                  <el-form-item label="提示语" :required="true">
                     <el-input
                         v-model="ticket.message"
                         :rows="3"
