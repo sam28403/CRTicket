@@ -2,7 +2,14 @@ import express from "express";
 const router = express.Router();
 import db from "../db/db.js";
 import bcrypt from "bcryptjs";
-import { attachSession, clearSession, requireSession } from "../auth.js";
+import { attachSession, clearSession, requireSession, revokeUserSessions } from "../auth.js";
+
+import { rateLimit, validPassword, validUsername } from "../security.js";
+import { validTicket, ticketQuota } from "./ticketValidation.js";
+
+const authLimiter = rateLimit(20, 15 * 60 * 1000);
+router.use(["/login", "/register", "/update-profile", "/delete-account", "/confirm-delete"], authLimiter);
+const dummyHash = bcrypt.hashSync("dummy-password-9", 10);
 
 const BACKUP_TICKET_FIELDS = [
     "ticket_number",
@@ -31,7 +38,7 @@ const normalizeComparableValue = (value) => {
 };
 
 const ticketFingerprint = (ticket) => {
-    return BACKUP_TICKET_FIELDS.map((field) => normalizeComparableValue(ticket[field])).join("||");
+    return JSON.stringify(BACKUP_TICKET_FIELDS.map((field) => normalizeComparableValue(ticket[field])));
 };
 
 const toNullableText = (value) => {
@@ -51,7 +58,7 @@ const toNullableNumber = (value) => {
 };
 
 const mapBackupTicket = (ticket) => {
-    if (!ticket || typeof ticket !== "object") {
+    if (!ticket || typeof ticket !== "object" || Array.isArray(ticket) || Object.values(ticket).some(value => value != null && (typeof value === "object" || String(value).length > 2000))) {
         return null;
     }
 
@@ -76,8 +83,11 @@ const mapBackupTicket = (ticket) => {
 };
 
 // 注册接口
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
     const { username, password } = req.body;
+    if (!validUsername(username) || !validPassword(password)) {
+        return res.status(400).json({ success: false, message: "用户名须为1至64字，密码须为1至72字节" });
+    }
 
     if (!password || password.length < 8) {
         return res.json({ success: false, message: "密码长度至少为8位" });
@@ -101,7 +111,7 @@ router.post("/register", (req, res) => {
     }
 
     // 密码加密
-    const hashedPassword = bcrypt.hashSync(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // 插入新用户
     const stmt = db.prepare("INSERT INTO users (username, password) VALUES (?, ?)");
@@ -114,13 +124,18 @@ router.post("/register", (req, res) => {
 });
 
 // 登录接口
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
     const { username, password } = req.body;
+    if (!validUsername(username) || !validPassword(password)) {
+        return res.status(400).json({ success: false, message: "用户名须为1至64字，密码须为1至72字节" });
+    }
 
     // 查询用户
     const user = db.prepare(`
         SELECT * FROM users WHERE username = ?
     `).get(username);
+
+    const isValid = await bcrypt.compare(password, user?.password || dummyHash);
 
     // 用户不存在
     if (!user) {
@@ -131,9 +146,8 @@ router.post("/login", (req, res) => {
     }
 
     // 验证密码
-    const isValid = bcrypt.compareSync(password, user.password);
-
-    if (isValid) {
+    if (isValid && db.prepare("SELECT password FROM users WHERE id = ?").get(user.id)?.password === user.password) {
+        clearSession(req, res);
         attachSession(res, user);
         res.json({
             success: true,
@@ -156,7 +170,7 @@ router.post("/logout", (req, res) => {
 });
 
 // 用户资料更新接口（用户名和密码二选一或同时修改）
-router.post("/update-profile", (req, res) => {
+router.post("/update-profile", async (req, res) => {
     const sessionUser = requireSession(req, res);
     if (!sessionUser) {
         return;
@@ -169,8 +183,16 @@ router.post("/update-profile", (req, res) => {
         return res.json({ success: false, message: "用户不存在" });
     }
 
+    if (!validPassword(req.body.currentPassword) || !await bcrypt.compare(req.body.currentPassword, user.password)) {
+        return res.status(403).json({ success: false, message: "当前密码错误" });
+    }
+    if ((username !== undefined && username !== "" && !validUsername(username)) ||
+        (password !== undefined && password !== "" && !validPassword(password))) {
+        return res.status(400).json({ success: false, message: "用户名或密码格式错误（密码最多72字节）" });
+    }
+
     const nextUsername = typeof username === "string" ? username.trim() : "";
-    const nextPassword = typeof password === "string" ? password.trim() : "";
+    const nextPassword = typeof password === "string" ? password : "";
 
     if (!nextUsername && !nextPassword) {
         return res.json({ success: false, message: "没有可更新的内容" });
@@ -201,10 +223,14 @@ router.post("/update-profile", (req, res) => {
     }
 
     const finalUsername = nextUsername || user.username;
-    const finalPassword = nextPassword ? bcrypt.hashSync(nextPassword, 10) : user.password;
+    const finalPassword = nextPassword ? await bcrypt.hash(nextPassword, 10) : user.password;
 
     try {
-        db.prepare("UPDATE users SET username = ?, password = ? WHERE id = ?").run(finalUsername, finalPassword, sessionUser.userId);
+        if (!requireSession(req, res)) return;
+        const result = db.prepare("UPDATE users SET username = ?, password = ? WHERE id = ? AND password = ?").run(finalUsername, finalPassword, sessionUser.userId, user.password);
+        if (!result.changes) return res.status(409).json({ success: false, message: "账户信息已变化，请重新登录" });
+        revokeUserSessions(user.id);
+        attachSession(res, { id: user.id, username: finalUsername });
         return res.json({
             success: true,
             message: "修改成功",
@@ -219,7 +245,7 @@ router.post("/update-profile", (req, res) => {
 });
 
 // 删除账户接口（仅验证）
-router.post("/delete-account", (req, res) => {
+router.post("/delete-account", async (req, res) => {
     const sessionUser = requireSession(req, res);
     if (!sessionUser) {
         return;
@@ -232,12 +258,12 @@ router.post("/delete-account", (req, res) => {
         return res.json({ success: false, message: "用户不存在" });
     }
 
-    if (!password) {
+    if (!validPassword(password)) {
         return res.json({ success: false, message: "请输入密码" });
     }
 
     // 验证密码
-    const isValid = bcrypt.compareSync(password, user.password);
+    const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
         return res.json({ success: false, message: "密码错误" });
     }
@@ -246,7 +272,7 @@ router.post("/delete-account", (req, res) => {
 });
 
 // 确认删除账户接口
-router.post("/confirm-delete", (req, res) => {
+router.post("/confirm-delete", async (req, res) => {
     const sessionUser = requireSession(req, res);
     if (!sessionUser) {
         return;
@@ -257,11 +283,20 @@ router.post("/confirm-delete", (req, res) => {
         return res.json({ success: false, message: "用户不存在" });
     }
 
+    if (!validPassword(req.body.password) || !await bcrypt.compare(req.body.password, user.password)) {
+        return res.status(403).json({ success: false, message: "密码错误" });
+    }
+    if (!requireSession(req, res)) return;
+    if (db.prepare("SELECT password FROM users WHERE id = ?").get(user.id)?.password !== user.password) {
+        return res.status(409).json({ success: false, message: "账户信息已变化，请重新登录" });
+    }
+
     try {
-        // 先删除用户的所有车票记录
-        db.prepare("DELETE FROM tickets WHERE user_id = ?").run(sessionUser.userId);
-        // 再删除用户
-        db.prepare("DELETE FROM users WHERE id = ?").run(sessionUser.userId);
+        db.transaction(() => {
+            db.prepare("DELETE FROM tickets WHERE user_id = ?").run(sessionUser.userId);
+            db.prepare("DELETE FROM users WHERE id = ?").run(sessionUser.userId);
+        })();
+        revokeUserSessions(user.id);
         clearSession(req, res);
         return res.json({ success: true, message: "账户已删除" });
     } catch (err) {
@@ -405,8 +440,8 @@ router.post("/import-backup", (req, res) => {
             ? payload.tickets
             : null;
 
-    if (!sourceTickets) {
-        return res.json({ success: false, message: "未找到可导入的车票数据" });
+    if (!sourceTickets || sourceTickets.length > 1000) {
+        return res.json({ success: false, message: "未找到可导入的车票数据，或超过单次1000条限制" });
     }
 
     try {
@@ -432,6 +467,9 @@ router.post("/import-backup", (req, res) => {
             WHERE user_id = ?
         `).all(sessionUser.userId);
 
+        if (existingTickets.length + sourceTickets.length > ticketQuota) {
+            return res.status(409).json({ success: false, message: "导入后车票数量不可超过10000条" });
+        }
         const existingSet = new Set(existingTickets.map(ticketFingerprint));
         const insertStmt = db.prepare(`
             INSERT INTO tickets (
@@ -452,7 +490,7 @@ router.post("/import-backup", (req, res) => {
         const insertMany = db.transaction((tickets) => {
             for (const rawTicket of tickets) {
                 const ticket = mapBackupTicket(rawTicket);
-                if (!ticket) {
+                if (!validTicket(ticket)) {
                     invalid += 1;
                     continue;
                 }

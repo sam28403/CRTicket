@@ -557,7 +557,7 @@ const saveTicket = async () => {
 
   try {
     const res = await api.post(
-      'http://localhost:3000/api/ticket/add',
+      '/ticket/add',
       buildTicketPayload(ticket, {
         userId: currentUser.id,
         useCredit: credit.value,

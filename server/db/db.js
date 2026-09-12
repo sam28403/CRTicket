@@ -1,6 +1,8 @@
 import Database from "better-sqlite3";
+import { fileURLToPath } from "node:url";
 
-const db = new Database("./db/train.db");
+const db = new Database(process.env.DATABASE_PATH || fileURLToPath(new URL("./train.db", import.meta.url)));
+db.pragma("foreign_keys = ON");
 
 db.exec(`
     CREATE TABLE IF NOT EXISTS users (

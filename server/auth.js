@@ -21,7 +21,7 @@ const parseCookies = (cookieHeader = "") => {
                 acc[key] = value;
             }
             return acc;
-        }, {});
+        }, Object.create(null));
 };
 
 const buildCookie = (name, value, maxAgeSeconds) => {
@@ -30,13 +30,31 @@ const buildCookie = (name, value, maxAgeSeconds) => {
         "Path=/",
         "HttpOnly",
         "SameSite=Lax",
+        ...(process.env.NODE_ENV === "production" ? ["Secure"] : []),
         `Max-Age=${maxAgeSeconds}`,
     ].join("; ");
 };
 
 const createSessionToken = () => randomBytes(32).toString("hex");
 
+export const revokeUserSessions = (userId) => {
+    for (const [token, session] of sessions) {
+        if (session.userId === userId) sessions.delete(token);
+    }
+};
+
+const cleanup = setInterval(() => {
+    for (const [token, session] of sessions) {
+        if (session.expiresAt <= Date.now()) sessions.delete(token);
+    }
+}, 60000);
+cleanup.unref();
+
 export const attachSession = (res, user) => {
+    // 限制每个账户的活跃会话数量。
+    const userTokens = [...sessions].filter(([, session]) => session.userId === user.id);
+    for (const [token] of userTokens.slice(0, Math.max(0, userTokens.length - 4))) sessions.delete(token);
+    if (sessions.size >= 10000) sessions.delete(sessions.keys().next().value);
     const token = createSessionToken();
     sessions.set(token, {
         userId: user.id,
@@ -58,13 +76,7 @@ export const clearSession = (req, res) => {
 
     res.setHeader(
         "Set-Cookie",
-        [
-            `${SESSION_COOKIE_NAME}=`,
-            "Path=/",
-            "HttpOnly",
-            "SameSite=Lax",
-            "Max-Age=0",
-        ].join("; ")
+        buildCookie(SESSION_COOKIE_NAME, "", 0)
     );
 };
 

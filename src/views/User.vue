@@ -43,6 +43,9 @@
                 <span>个人信息</span>
               </template>
               <el-form label-position="top" class="profile-form" @submit.prevent>
+                <el-form-item label="当前密码（必填）">
+                  <el-input v-model="currentPassword" type="password" show-password autocomplete="current-password" placeholder="输入当前密码" size="large" />
+                </el-form-item>
                 <el-form-item label="修改用户名（可选）">
                   <el-input v-model="newUsername" placeholder="输入新的用户名" size="large" clearable />
                 </el-form-item>
@@ -636,6 +639,7 @@ async function handleBackupFileChange(event) {
     let imported = 0
     let skipped = 0
     let invalid = 0
+    const pendingTickets = []
 
     for (const rawTicket of userTickets) {
       const mapped = rawTicket && typeof rawTicket === "object"
@@ -679,13 +683,17 @@ async function handleBackupFileChange(event) {
         continue
       }
 
-      const addResponse = await api.post("/ticket/add", ticketPayload)
-      if (addResponse?.data?.success) {
-        existingSet.add(fingerprint)
-        imported += 1
-      } else {
-        invalid += 1
-      }
+      pendingTickets.push(ticketPayload)
+      existingSet.add(fingerprint)
+    }
+
+    // 控制每批大小，同时避免逐张请求触发接口频率限制。
+    for (let offset = 0; offset < pendingTickets.length; offset += 100) {
+      const response = await api.post("/user/import-backup", { backup: pendingTickets.slice(offset, offset + 100) })
+      if (!response.data.success) throw new Error(response.data.message || "导入失败")
+      imported += response.data.data.imported
+      skipped += response.data.data.skipped
+      invalid += response.data.data.invalid
     }
 
     ElMessage.success(`导入完成：新增 ${imported} 条，略过 ${skipped} 条，未处理 ${invalid} 条`)
@@ -780,10 +788,11 @@ function renderMapChart() {
         textStyle: { fontSize: 24, fontWeight: 'bold', color: '#17324d' }
       },
       tooltip: {
+      renderMode: 'richText',
         trigger: 'item',
         formatter: (params) => {
           if (params.componentType === 'series' && params.seriesType === 'effectScatter') {
-            return `${params.data.name}<br/>运转次数: ${params.data.count} 次`;
+            return `${params.data.name}\n运转次数: ${params.data.count} 次`;
           }
           return '';
         }
@@ -901,11 +910,12 @@ function renderCalendarChart() {
 
   const option = {
     tooltip: {
+      renderMode: 'richText',
       formatter: (params) => {
         if (params.data[1] === 0) {
-          return `${params.data[0]}<br/>无运转记录`;
+          return `${params.data[0]}\n无运转记录`;
         }
-        return `${params.data[0]}<br/>运转次数: ${params.data[1]} 次`;
+        return `${params.data[0]}\n运转次数: ${params.data[1]} 次`;
       }
     },
     visualMap: {
@@ -1028,6 +1038,7 @@ function renderStationChart() {
       textStyle: { fontSize: 16, fontWeight: 'normal', color: '#17324d' }
     },
     tooltip: {
+      renderMode: 'richText',
       trigger: 'axis',
       axisPointer: { type: 'shadow' }
     },
@@ -1103,6 +1114,7 @@ function renderCityChart() {
       textStyle: { fontSize: 16, fontWeight: 'normal', color: '#17324d' }
     },
     tooltip: {
+      renderMode: 'richText',
       trigger: 'item',
       formatter: '{b}: {c} 次'
     },
@@ -1129,6 +1141,7 @@ function renderCityChart() {
   chart.setOption(option);
 }
 
+const currentPassword = ref('')
 const newUsername = ref('')
 const newPassword = ref('')
 const repeatPassword = ref('')
@@ -1176,8 +1189,8 @@ async function saveProfile() {
   }
 
   const username = newUsername.value.trim();
-  const password = newPassword.value.trim();
-  const repeat = repeatPassword.value.trim();
+  const password = newPassword.value;
+  const repeat = repeatPassword.value;
 
   if (!username && !password) {
     ElMessage.warning("请至少填写一个修改项");
@@ -1236,6 +1249,7 @@ async function saveProfile() {
     const response = await api.post("/user/update-profile", {
       id: user.id,
       username: username || undefined,
+      currentPassword: currentPassword.value,
       password: password || undefined
     });
 
@@ -1244,6 +1258,7 @@ async function saveProfile() {
         localStorage.setItem("user", JSON.stringify(response.data.user));
       }
       ElMessage.success("个人信息修改成功");
+      currentPassword.value = "";
       newUsername.value = "";
       newPassword.value = "";
       repeatPassword.value = "";
@@ -1255,7 +1270,7 @@ async function saveProfile() {
     ElMessage.error(response.data.message || "修改失败，请稍后重试");
   } catch (err) {
     console.error(err);
-    ElMessage.error("请求失败，请检查网络");
+    ElMessage.error(err.response?.data?.message || "请求失败，请检查网络");
   } finally {
     saving.value = false;
   }
@@ -1285,7 +1300,7 @@ async function handleDeleteAccount() {
     return;
   }
 
-  const password = deletePassword.value.trim();
+  const password = deletePassword.value;
   if (!password) {
     ElMessage.warning("请输入当前密码");
     return;
@@ -1348,7 +1363,8 @@ async function handleDeleteAccount() {
 
     // 用户确认后执行删除
     const deleteResponse = await api.post("/user/confirm-delete", {
-      id: user.id
+      id: user.id,
+      password
     });
 
     if (deleteResponse.data.success) {

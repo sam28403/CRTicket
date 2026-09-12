@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 import db from "../db/db.js";  // 确保 db.js 也改成了 ES 模块语法
 import { requireSession } from "../auth.js";
+import { validTicket, ticketQuota } from "./ticketValidation.js";
 
 // 添加车票
 router.post("/add", (req, res) => {
@@ -11,6 +12,10 @@ router.post("/add", (req, res) => {
         return;
     }
 
+    if (!validTicket(t)) return res.status(400).json({ success: false, message: "车票字段格式错误或过长" });
+    if (db.prepare("SELECT COUNT(*) AS count FROM tickets WHERE user_id = ?").get(sessionUser.userId).count >= ticketQuota) {
+        return res.status(409).json({ success: false, message: "车票数量已达10000条上限" });
+    }
     try {
         const stmt = db.prepare(`
             INSERT INTO tickets (
@@ -96,6 +101,7 @@ const updateTicketHandler = (req, res) => {
         return;
     }
 
+    if (!validTicket(t)) return res.status(400).json({ success: false, message: "车票字段格式错误或过长" });
     try {
         const stmt = db.prepare(`
             UPDATE tickets SET

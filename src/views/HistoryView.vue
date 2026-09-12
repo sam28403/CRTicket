@@ -701,7 +701,7 @@ const saveTicket = async () => {
 
     const res = isEditMode.value
       ? await api.post(`/ticket/update/${editingTicketId.value}`, payload)
-      : await api.post('http://localhost:3000/api/ticket/add', payload)
+      : await api.post('/ticket/add', payload)
 
     if (res.data.success) {
       ElMessage.success(isEditMode.value ? '记录更新成功' : '车票保存成功')
