@@ -198,7 +198,7 @@
                   <el-icon><DocumentAdd /></el-icon>补登记录
                 </el-button>
 
-                <el-avatar :size="120" src="Picture1.png" />
+                <el-avatar :size="120" :src="avatarUrl" :icon="UserFilled" />
 
                 <div class="card-content">
                   <h1>Hi, {{ username }}</h1>
@@ -337,7 +337,7 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useTransition } from '@vueuse/core'
-import { Check, Close, CloseBold, Delete, DocumentAdd, Download, Edit, User } from '@element-plus/icons-vue'
+import { Check, Close, CloseBold, Delete, DocumentAdd, Download, Edit, User, UserFilled } from '@element-plus/icons-vue'
 import html2canvas from 'html2canvas'
 import QRCode from 'qrcode'
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -666,12 +666,14 @@ const deleteHistory = async (row) => {
 }
 
 const username = ref('')
+const avatarUrl = ref('')
 
 onMounted(() => {
   const user = JSON.parse(localStorage.getItem('user'))
 
   if (user) {
     username.value = user.username
+    avatarUrl.value = user.avatar || ''
   }
 
   loadTickets()

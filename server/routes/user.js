@@ -8,7 +8,7 @@ import { rateLimit, validPassword, validUsername } from "../security.js";
 import { validTicket, ticketQuota } from "./ticketValidation.js";
 
 const authLimiter = rateLimit(20, 15 * 60 * 1000);
-router.use(["/login", "/register", "/update-profile", "/delete-account", "/confirm-delete"], authLimiter);
+router.use(["/login", "/register", "/update-profile", "/update-avatar", "/delete-account", "/confirm-delete"], authLimiter);
 const dummyHash = bcrypt.hashSync("dummy-password-9", 10);
 
 const BACKUP_TICKET_FIELDS = [
@@ -153,7 +153,8 @@ router.post("/login", async (req, res) => {
             success: true,
             user: {
                 id: user.id,
-                username: user.username
+                username: user.username,
+                avatar: user.avatar || null
             }
         });
     } else {
@@ -236,12 +237,32 @@ router.post("/update-profile", async (req, res) => {
             message: "修改成功",
             user: {
                 id: user.id,
-                username: finalUsername
+                username: finalUsername,
+                avatar: user.avatar || null
             }
         });
     } catch (err) {
         return res.json({ success: false, message: "更新失败，请重试" });
     }
+});
+
+router.post("/update-avatar", (req, res) => {
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) return;
+
+    const { avatar } = req.body;
+    if (avatar !== null && (typeof avatar !== "string" ||
+        !/^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/]+=*$/.test(avatar) ||
+        Buffer.byteLength(avatar, "utf8") > 350 * 1024)) {
+        return res.status(400).json({ success: false, message: "头像格式错误或文件过大" });
+    }
+
+    const normalizedAvatar = avatar || null;
+    const result = db.prepare("UPDATE users SET avatar = ? WHERE id = ?").run(normalizedAvatar, sessionUser.userId);
+    if (!result.changes) return res.status(404).json({ success: false, message: "用户不存在" });
+
+    const user = db.prepare("SELECT id, username, avatar FROM users WHERE id = ?").get(sessionUser.userId);
+    return res.json({ success: true, message: normalizedAvatar ? "头像修改成功" : "头像已清除", user });
 });
 
 // 删除账户接口（仅验证）

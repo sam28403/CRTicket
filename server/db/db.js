@@ -36,4 +36,9 @@ db.exec(`
         );
 `);
 
+const userColumns = db.prepare("PRAGMA table_info(users)").all();
+if (!userColumns.some(column => column.name === "avatar")) {
+    db.exec("ALTER TABLE users ADD COLUMN avatar TEXT");
+}
+
 export default db;
