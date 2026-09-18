@@ -141,8 +141,8 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260807</h3>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10115</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260918</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10116</h3>
 
       <el-space>
         <el-button type="primary" @click="note">更新内容</el-button>
@@ -331,8 +331,8 @@ watch(() => ticket.number, (newVal) => {
 
 const note = () => {
   ElNotification({
-    title: '更新车站列表至10115',
-    message: '更新车站列表（杭台高铁玉环），新增GitHub项目链接，更新项目文档与截图，必填项加*，网页版本前端体验功能。',
+    title: '更新车站列表至10116',
+    message: '更新车站列表（西康高铁），加固API接口，修复后端安全问题，新增头像编辑。',
     type: 'info',
     position: 'bottom-right'
   })
