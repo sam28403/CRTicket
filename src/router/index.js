@@ -10,6 +10,10 @@ import { isGithubPagesBuild } from '@/config/deploy.js'
 
 const routes = [
     {
+        path: '/monitor',
+        component: () => import('@/views/Monitor.vue')
+    },
+    {
         path: '/',
         component: MainView
     },

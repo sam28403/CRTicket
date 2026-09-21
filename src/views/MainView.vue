@@ -1,7 +1,10 @@
 <template>
-  <el-button class="user-top-right" :disabled="isGithubPagesBuild" @click="goToHistory()">
-    <el-icon><User /></el-icon>历史记录
-  </el-button>
+  <nav class="home-navigation" aria-label="页面导航">
+    <el-button :disabled="isGithubPagesBuild" :title="isGithubPagesBuild ? 'GitHub Pages 无法跨域访问 12306 余票接口' : ''" @click="goToMonitor">余票监控</el-button>
+    <el-button :disabled="isGithubPagesBuild" @click="goToHistory()">
+      <el-icon><User /></el-icon>历史记录
+    </el-button>
+  </nav>
   <el-container class="main-layout">
     <el-aside width="350px" class="main-aside">
       <h2 style="margin-bottom: 20px; font-family: 'Roboto', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">Sam-Lab CR Ticket Maker</h2>
@@ -495,6 +498,10 @@ const downloadPNG = async () => {
 }
 
 const router = useRouter()
+const goToMonitor = () => {
+  if (isGithubPagesBuild) return
+  router.push('/monitor')
+}
 const goToHistory = () => {
   if (isGithubPagesBuild) return
   router.push('/history')
@@ -581,6 +588,11 @@ const saveTicket = async () => {
 
 <style scoped>
 @import "../assets/styles/App.css";
+
+.home-navigation { position: absolute; top: 1%; right: 1%; display: flex; z-index: 2; }
+@media (max-width: 768px) {
+  .home-navigation { position: relative; top: auto; right: auto; justify-content: flex-end; padding: 10px 12px 0; }
+}
 
 .main-layout {
   height: 100vh;

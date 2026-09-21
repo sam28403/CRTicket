@@ -19,6 +19,8 @@ https://sam28403.github.io
 ![Screenshot](Screenshot3.png)
 ![Screenshot](Screenshot4.png)
 ![Screenshot](Screenshot5.png)
+![Screenshot](Screenshot8.png)
+
 ![Screenshot](Screenshot6.png)
 ![Screenshot](Screenshot7.png)
 
@@ -81,6 +83,38 @@ https://sam28403.github.io
 ### 车票里程
 
 记录运转里程，默认不填为0. 里程将显示在运转小结中。
+
+## 余票监控使用说明
+
+在本地或自行部署的完整服务中，从首页右上角点击“余票监控”进入 `#/monitor`，无需登录。监控页右上角“生成车票”返回首页，下方链接可打开 12306 官网。GitHub Pages 演示版会冻结该入口，原因见下方部署说明。
+
+### 查询与筛选
+
+1. 输入出发站和到达站，支持汉字、拼音、首字母搜索，站名列表复用 `src/composables/useTicketShared.js`。
+2. 选择今天起 15 天内的出发日期，点击“查询余票”。当前查询成人票。
+3. 默认关注全部席别，可选择指定席别，或勾选“仅看有票”。车次按完整车次号匹配，多车次可用逗号或空格分隔，例如 `G1,G3`。
+
+结果以卡片展示，手机为两列，大屏为四列；卡片只显示官网提供的席别，售罄席别仍保留。车次使用 `public/consola.ttf`，其他文字使用 `public/FZCDXK.TTF`。
+
+- 绿色：大于 20 张；橙色：1–20 张；红色：0 张。
+- 有座明细中的截断值 `21` 显示为 `>20张`，不能据此认定实际只剩 21 张；无座保留可解析的数量。
+- 明细缺失或无法可靠解析时保留 `>20张`，不推算库存。查询结果是当次快照，以 12306 实时结果为准。
+
+### 定时监控
+
+点击“开始监控”会立即查询，随后按间隔继续查询。默认间隔 60 秒，可设置为 10–3600 秒；每次请求结束后才安排下一次查询，避免请求重叠。点击“停止”取消监控及正在进行的页面请求。
+
+首次发现关注席别有票，或有票数量发生变化时，页面弹出提醒，并保留最近 30 条提醒。监控只在当前页面打开时运行；离开页面或修改出发站、到达站、日期会停止监控。电脑休眠、后台标签页可能延迟查询，不提供后台常驻或手机推送。
+
+查询失败会自动停止，保留上次成功结果并标明可能过期；排除问题后需手动重试。最短间隔不代表不会触发官网限流，遇到限流应降低查询频率。
+
+### 服务依赖与排错
+
+本地使用需同时运行 `npm run dev` 和 `node server/app.js`。Vite 将 `/api` 请求转发到 `http://127.0.0.1:3000`，余票接口为 `GET /api/left-ticket?from=BJP&to=SHH&date=YYYY-MM-DD`（站点参数为电报码）。
+
+后端读取官网初始化页面确定当前查询接口，字段及数量解析保存在 `server/routes/leftTicket.js`、`server/routes/leftTicketSeats.js`。参考脚本为 [12306 余票查询脚本](https://kyfw.12306.cn/otn/resources/merged/queryLeftTicket_end_js.js)，运行时不执行远程脚本。官网接口变化、网络异常或验证页均可能导致查询失败。
+
+如页面无法获取余票，先确认后端已启动、API 地址和跨域配置正确，再检查后端能否访问 12306。
 
 ## 历史车票使用说明
 
@@ -165,6 +199,7 @@ node server/app.js
 
 - `/api/user`
 - `/api/ticket`
+- `/api/left-ticket`
 
 ### 生产构建
 
@@ -176,12 +211,12 @@ npm run build
 
 ### GitHub Pages 演示版构建（受限功能）
 
-> 适用于仅做网页展示的场景（例如 GitHub Pages），不依赖后端服务。
+> GitHub Pages 仅托管静态前端。12306 余票接口不允许来自 `sam28403.github.io` 的跨域请求，也不提供可用的预检响应；浏览器会按同源策略拦截请求。Service Worker、前端 JavaScript 或把解析脚本放进仓库都不能绕过这一限制，因此演示版冻结余票监控入口。
 
 该模式下会做如下限制：
 
-- 禁止访问 `MainView`（`/`）之外的全部页面（包括 `#/history`、`#/login`、`#/register`、`#/user` 等都会被重定向回首页）；
-- `MainView` 右上角“历史记录”按钮禁用；
+- 仅允许访问生成车票首页（`#/`）；`#/monitor`、`#/history`、`#/login`、`#/register`、`#/user`、`#/debug` 及其他路径均重定向回首页；
+- `MainView` 右上角“余票监控”和“历史记录”按钮均禁用；
 - 车票预览下方“存储到账户”按钮禁用。
 
 构建方式：
@@ -195,6 +230,10 @@ npm run build:ghpages
 ```bash
 VITE_DEPLOY_TARGET=github
 ```
+
+余票监控仍可在本地完整服务中使用。若未来另行部署 HTTPS 后端代理，可在构建时将 `VITE_API_BASE_URL` 指向该服务，并在后端 `ALLOWED_ORIGINS` 中加入 Pages 域名；完成部署和安全验证后，再单独放开 `/monitor`。不要使用公开 CORS 代理：查询内容和访问来源会交给第三方，稳定性与限流也无法控制。
+
+仓库现有 GitHub Actions 工作流为 `.github/workflows/deploy-to-pages-repo.yml`。当前工作流不部署 `server/app.js`，GitHub Pages 也不会提供本地 Vite 的 `/api` 代理，所以构建产物会保持余票监控入口冻结。
 
 ### 本地预览构建产物
 

@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 import stationData from '@/station_name.js'
 import { disableAirSeats } from '@/utils/ticketShared.js'
 
-const stations = stationData
+export const stations = stationData
   .split('@')
   .filter(Boolean)
   .map((item) => {
