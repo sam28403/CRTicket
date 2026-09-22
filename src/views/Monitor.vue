@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
+import { Refresh } from '@element-plus/icons-vue'
 import api from '@/api.js'
 import LeftTicketCard from '@/components/LeftTicketCard.vue'
 import { queryStationSearch, stations } from '@/composables/useTicketShared.js'
@@ -13,8 +14,9 @@ const selectedDepartureStations = ref([])
 const selectedArrivalStations = ref([])
 const date = ref(today())
 const interval = ref(60)
-const trainFilter = ref('')
+const trainFilters = ref([])
 const seatFilter = ref('')
+const timeRange = ref([0, 24])
 const onlyAvailable = ref(false)
 const highSpeedOnly = ref(false)
 const ordinaryOnly = ref(false)
@@ -39,6 +41,13 @@ const columns = [
   ['standing', '无座'],
   ['other', '其他'],
 ]
+const timeMarks = {
+  0: '0点',
+  6: '6点',
+  12: '12点',
+  18: '18点',
+  24: '24点',
+}
 
 let timer
 let controller
@@ -78,10 +87,7 @@ function isOrdinaryTrain(trainNo) {
 }
 
 function matches(row) {
-  const wantedTrains = trainFilter.value
-    .toUpperCase()
-    .split(/[\s,，]+/)
-    .filter(Boolean)
+  const wantedTrains = trainFilters.value.map((value) => value.trim().toUpperCase())
   const matchesTrainNumber =
     !wantedTrains.length || wantedTrains.includes(row.train.toUpperCase())
   const ordinary = isOrdinaryTrain(row.train)
@@ -95,8 +101,21 @@ function matches(row) {
   const matchesArrival =
     !selectedArrivalStations.value.length ||
     selectedArrivalStations.value.includes(row.to)
+  const [departureHour, departureMinute] = row.departure
+    .split(':')
+    .map(Number)
+  const departureMinutes = departureHour * 60 + departureMinute
+  const [startHour, endHour] = timeRange.value
+  const matchesTime =
+    departureMinutes >= startHour * 60 && departureMinutes < endHour * 60
 
-  return matchesTrainNumber && matchesTrainType && matchesDeparture && matchesArrival
+  return (
+    matchesTrainNumber &&
+    matchesTrainType &&
+    matchesDeparture &&
+    matchesArrival &&
+    matchesTime
+  )
 }
 
 const hasTicket = (row) =>
@@ -136,6 +155,70 @@ function selectTrainType(type, enabled) {
   if (type === 'ordinary') highSpeedOnly.value = false
 }
 
+function swapStations() {
+  const oldFrom = from.value
+  from.value = to.value
+  to.value = oldFrom
+}
+
+const formatHour = (value) => `${String(value).padStart(2, '0')}:00`
+
+async function requestNotificationPermission() {
+  if (typeof window === 'undefined' || !('Notification' in window)) {
+    ElMessage.warning('当前浏览器不支持系统通知，将继续使用页面内提醒')
+    return false
+  }
+
+  if (Notification.permission === 'granted') return true
+  if (Notification.permission === 'denied') {
+    ElMessage.warning('浏览器通知已被禁用，请在网站权限设置中手动开启')
+    return false
+  }
+
+  try {
+    const permission = await Notification.requestPermission()
+    if (permission === 'granted') {
+      ElMessage.success('浏览器通知已开启')
+      return true
+    }
+    ElMessage.warning('未获得通知权限，将继续使用页面内提醒')
+  } catch {
+    ElMessage.warning('无法申请浏览器通知权限，将继续使用页面内提醒')
+  }
+
+  return false
+}
+
+function publishBrowserNotification(notices, details) {
+  if (
+    typeof window === 'undefined' ||
+    !('Notification' in window) ||
+    Notification.permission !== 'granted'
+  ) {
+    return
+  }
+
+  const trains = Array.from(new Set(notices))
+  const trainSummary = trains.slice(0, 3).join('、')
+  const more = trains.length > 3 ? ` 等 ${trains.length} 趟车` : ''
+  const body = details.slice(0, 3).join('\n')
+
+  try {
+    const notification = new Notification(`余票提醒：${trainSummary}${more}`, {
+      body,
+      icon: 'Picture1.png',
+      tag: 'cr-ticket-availability',
+      renotify: true,
+    })
+    notification.onclick = () => {
+      window.focus()
+      notification.close()
+    }
+  } catch {
+    ElMessage.warning('系统通知发送失败，请查看页面内的有票提醒')
+  }
+}
+
 function stop() {
   monitoring.value = false
   clearTimeout(timer)
@@ -159,8 +242,9 @@ function reset() {
 watch([from, to, date], reset, { flush: 'sync' })
 watch(
   [
-    trainFilter,
+    trainFilters,
     seatFilter,
+    timeRange,
     highSpeedOnly,
     ordinaryOnly,
     selectedDepartureStations,
@@ -199,6 +283,7 @@ async function query(startMonitor = false) {
 
   clearTimeout(timer)
   if (startMonitor) {
+    await requestNotificationPermission()
     monitoring.value = true
     previous = new Map()
   }
@@ -225,6 +310,7 @@ async function query(startMonitor = false) {
 
     const currentTickets = new Map()
     const notices = []
+    const noticeDetails = []
     for (const row of rows.value.filter(matches)) {
       const signature = JSON.stringify(
         seatFilter.value ? row.seats[seatFilter.value] : row.seats
@@ -241,11 +327,13 @@ async function query(startMonitor = false) {
           )
           .map(([key, label]) => `${label}：${row.seats[key]}`)
           .join('，')
+        const noticeText = `${row.train} ${row.from} → ${row.to}，${detail}`
         events.value.unshift({
           at: queriedAt.value,
-          text: `${row.train} ${row.from} → ${row.to}，${detail}`,
+          text: noticeText,
         })
         notices.push(row.train)
+        noticeDetails.push(noticeText)
       }
     }
 
@@ -254,6 +342,7 @@ async function query(startMonitor = false) {
       const summary = notices.slice(0, 3).join('、')
       const more = notices.length > 3 ? ` 等 ${notices.length} 趟车` : ''
       ElMessage.success(`${summary}${more} 有票或余票发生变化，详见有票提醒`)
+      publishBrowserNotification(notices, noticeDetails)
     }
     previous = currentTickets
   } catch (queryError) {
@@ -303,23 +392,32 @@ onBeforeUnmount(stop)
       <el-card shadow="never">
         <el-form label-position="top" @submit.prevent="query()">
           <div class="form-grid">
-            <el-form-item label="出发站">
-              <el-autocomplete
-                v-model="from"
-                :fetch-suggestions="queryStationSearch"
-                placeholder="站名 / 拼音 / 首字母"
-                clearable
-              />
-            </el-form-item>
+            <div class="station-route-fields">
+              <el-form-item label="出发站">
+                <el-autocomplete
+                  v-model="from"
+                  :fetch-suggestions="queryStationSearch"
+                  placeholder="站名 / 拼音 / 首字母"
+                  clearable
+                />
+              </el-form-item>
 
-            <el-form-item label="到达站">
-              <el-autocomplete
-                v-model="to"
-                :fetch-suggestions="queryStationSearch"
-                placeholder="站名 / 拼音 / 首字母"
-                clearable
-              />
-            </el-form-item>
+              <div class="swap-stations">
+                <el-button circle title="换向" aria-label="交换出发站和到达站" @click="swapStations">
+                  <el-icon><Refresh /></el-icon>
+                </el-button>
+                <span>换向</span>
+              </div>
+
+              <el-form-item label="到达站">
+                <el-autocomplete
+                  v-model="to"
+                  :fetch-suggestions="queryStationSearch"
+                  placeholder="站名 / 拼音 / 首字母"
+                  clearable
+                />
+              </el-form-item>
+            </div>
 
             <el-form-item label="出发日期">
               <el-date-picker
@@ -414,6 +512,24 @@ onBeforeUnmount(stop)
             </el-checkbox>
           </el-checkbox-group>
         </div>
+
+        <div class="time-filter-row">
+          <strong>出发时间：</strong>
+          <span class="time-range-value">
+            {{ formatHour(timeRange[0]) }}–{{ formatHour(timeRange[1]) }}
+          </span>
+          <el-slider
+            v-model="timeRange"
+            range
+            show-stops
+            :min="0"
+            :max="24"
+            :step="1"
+            :marks="timeMarks"
+            :format-tooltip="formatHour"
+            aria-label="出发时间范围"
+          />
+        </div>
       </section>
 
       <section class="results">
@@ -423,9 +539,10 @@ onBeforeUnmount(stop)
             <small>{{ filtered.length }} 趟 · 关注席别有票 {{ ticketCount }} 趟</small>
           </h2>
           <div class="filters">
-            <el-input
-              v-model="trainFilter"
-              placeholder="车次，如 G1,G3（精确匹配）"
+            <el-input-tag
+              v-model="trainFilters"
+              class="train-filter-input"
+              placeholder="输入车次后回车，如 G1"
               clearable
               aria-label="筛选车次"
             />
@@ -481,7 +598,7 @@ onBeforeUnmount(stop)
           <small>最近 30 条</small>
         </h2>
         <p class="hint">
-          监控首次发现有票或余票数量变化时在页面内提醒；只关注所选车次、车种与席别。
+          监控首次发现有票或余票数量变化时，会发送浏览器通知并在页面内提醒；只关注所选车站、时间、车次、车种与席别。
         </p>
         <p v-if="!events.length" class="hint">暂无提醒</p>
         <ul v-else>
@@ -567,8 +684,33 @@ onBeforeUnmount(stop)
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
   gap: 20px;
+}
+
+.station-route-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 12px;
+}
+
+.swap-stations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding-top: 12px;
+  color: #68788a;
+  font-size: 12px;
+}
+
+.swap-stations :deep(.el-button) {
+  font-size: 17px;
+}
+
+.station-route-fields .el-form-item {
+  min-width: 0;
 }
 
 .form-grid :deep(.el-autocomplete),
@@ -624,6 +766,30 @@ onBeforeUnmount(stop)
   margin-right: 0;
 }
 
+.time-filter-row {
+  display: grid;
+  grid-template-columns: auto 105px minmax(280px, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 2px 0 18px;
+}
+
+.time-filter-row strong {
+  color: #172033;
+  white-space: nowrap;
+}
+
+.time-range-value {
+  color: #52749a;
+  font-family: 'Debug2Consolas', monospace;
+  white-space: nowrap;
+}
+
+.time-filter-row :deep(.el-slider) {
+  max-width: 720px;
+  margin: 0 12px;
+}
+
 .all-stations-button {
   height: 26px;
   padding: 0 8px;
@@ -649,7 +815,7 @@ onBeforeUnmount(stop)
   margin-top: 18px;
 }
 
-.filters .el-input {
+.train-filter-input {
   width: 260px;
 }
 
@@ -727,6 +893,10 @@ time {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .station-route-fields {
+    grid-column: 1 / -1;
+  }
+
   .monitor-content {
     padding: 24px 14px;
   }
@@ -751,6 +921,15 @@ time {
   .station-filter-row :deep(.el-checkbox-group) {
     grid-column: 1 / -1;
   }
+
+  .time-filter-row {
+    grid-template-columns: auto 1fr;
+  }
+
+  .time-filter-row :deep(.el-slider) {
+    grid-column: 1 / -1;
+    width: calc(100% - 24px);
+  }
 }
 
 @media (max-width: 480px) {
@@ -759,12 +938,16 @@ time {
     gap: 0;
   }
 
+  .station-route-fields {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
   h1 {
     font-size: 23px;
   }
 
   .filters,
-  .filters .el-input {
+  .train-filter-input {
     width: 100%;
   }
 }
