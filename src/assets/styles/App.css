@@ -23,6 +23,9 @@
     position: relative;
 }
 
+/* 票面保持印刷色，不继承页面暗色文字。 */
+.ticket-container { color: #000; color-scheme: light; }
+
 /* 车票背景 */
 .ticket-bg {
     width: 100%;

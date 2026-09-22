@@ -1,0 +1,105 @@
+/* Classic light intentionally leaves Element Plus and original page colors intact. */
+html.dark:not(.high-contrast) {
+  --app-page: var(--el-bg-color-page);
+  --app-surface: var(--el-bg-color);
+  --app-text: var(--el-text-color-primary);
+  --app-muted: var(--el-text-color-regular);
+  --app-border: var(--el-border-color);
+  --app-hover: var(--el-fill-color-light);
+  --app-link: var(--el-color-primary);
+  --app-success: var(--el-color-success);
+  --app-warning: var(--el-color-warning);
+  --app-danger: var(--el-color-danger);
+  --app-primary-button: var(--el-color-primary);
+}
+
+/* Shared UI palette. Printed ticket artwork uses its own colors. */
+html.high-contrast {
+  color-scheme: light;
+  --app-page: #f5f7fa;
+  --app-surface: #ffffff;
+  --app-text: #182334;
+  --app-muted: #536174;
+  --app-border: #858f9e;
+  --app-hover: #e8eef6;
+  --app-link: #1765ad;
+  --app-success: #18763b;
+  --app-warning: #975009;
+  --app-danger: #c62828;
+  --app-primary-button: #1765ad;
+  --app-login-button: #237a35;
+  --app-login-hover: #196329;
+  --app-register-button: #1765ad;
+  --app-register-hover: #1976d2;
+}
+html.high-contrast.dark {
+  color-scheme: dark;
+  --app-page: #000000;
+  --app-surface: #000000;
+  --app-text: #f2f4f8;
+  --app-muted: #b4bfce;
+  --app-border: #667180;
+  --app-hover: #1c2530;
+  --app-link: #80bbff;
+  --app-success: #70df97;
+  --app-warning: #ffc078;
+  --app-danger: #ff9191;
+}
+html.high-contrast {
+  --el-bg-color: var(--app-surface);
+  --el-bg-color-page: var(--app-page);
+  --el-bg-color-overlay: var(--app-surface);
+  --el-text-color-primary: var(--app-text);
+  --el-text-color-regular: var(--app-text);
+  --el-text-color-secondary: var(--app-muted);
+  --el-text-color-placeholder: var(--app-muted);
+  --el-border-color: var(--app-border);
+  --el-border-color-light: var(--app-border);
+  --el-border-color-lighter: var(--app-border);
+  --el-fill-color-blank: var(--app-surface);
+  --el-fill-color-light: var(--app-hover);
+  --el-color-primary: var(--app-link);
+  --el-color-success: var(--app-success);
+  --el-color-warning: var(--app-warning);
+  --el-color-danger: var(--app-danger);
+  --el-color-error: var(--app-danger);
+  --el-color-info: var(--app-muted);
+}
+
+html, body { margin: 0; background: var(--app-page, #fff); color: var(--app-text, #000); }
+html.dark { color-scheme: dark; }
+html:not(.dark) { color-scheme: light; }
+html.dark a, html.high-contrast a { color: var(--app-link); }
+html.high-contrast :focus-visible { outline: 2px solid var(--app-link); outline-offset: 3px; }
+.page-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-left: auto;
+}
+.page-header-actions > .el-button + .el-button { margin-left: 0; }
+.debug-theme-actions { margin-bottom: 16px; }
+/* Let the existing header wrap instead of covering the page title on small screens. */
+@media (max-width: 800px) {
+  #app .top-header { height: auto; min-height: 50px; flex-wrap: wrap; padding: 10px 12px; }
+  .top-header .page-header-actions { flex: 1 0 100%; }
+}
+
+html.high-contrast .el-button--primary:not(.is-plain):not(.is-text):not(.is-link),
+html.high-contrast .el-button--success:not(.is-plain):not(.is-text):not(.is-link),
+html.high-contrast .el-button--warning:not(.is-plain):not(.is-text):not(.is-link),
+html.high-contrast .el-button--danger:not(.is-plain):not(.is-text):not(.is-link),
+html.high-contrast .el-button--info:not(.is-plain):not(.is-text):not(.is-link) {
+  --el-button-text-color: #fff;
+  --el-button-hover-text-color: #fff;
+  --el-button-active-text-color: #fff;
+  --el-button-bg-color: var(--app-button-solid, #1765ad);
+  --el-button-hover-bg-color: var(--app-button-solid, #12538f);
+  --el-button-active-bg-color: var(--app-button-solid, #10477a);
+}
+html.high-contrast .el-button--success { --app-button-solid: #237a35; }
+html.high-contrast .el-button--warning { --app-button-solid: #975009; }
+html.high-contrast .el-button--danger { --app-button-solid: #b42323; }
+html.high-contrast .el-button--info { --app-button-solid: #536174; }

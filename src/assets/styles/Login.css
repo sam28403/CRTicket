@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;   /* 垂直居中 */
     gap: 10px;             /* 头像和文字间距 */
-    background: rgb(10 10 0 / 0.1);
+    background: var(--app-surface, rgb(10 10 0 / 0.1));
     height: 50px;
     padding: 5px 15px;
 }
@@ -41,14 +41,13 @@
     width: 93%;
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--app-border, #ccc);
+    background: var(--app-surface, #fff);
+    color: var(--app-text, #000);
     font-size: 14px;
 }
 
-body.dark .input-group input {
-    background-color: #555;
-    color: #ccc;
-}
+
 
 .captcha-group {
     display: flex;
@@ -80,21 +79,21 @@ body.dark .input-group input {
 }
 
 .btn-login {
-    background-color: #4CAF50;
+    background-color: var(--app-login-button, #4CAF50);
     color: white;
 }
 
 .btn-login:hover {
-    background-color: #45a049;
+    background-color: var(--app-login-hover, #45a049);
 }
 
 .btn-register {
-    background-color: #2196F3;
+    background-color: var(--app-register-button, #2196F3);
     color: white;
 }
 
 .btn-register:hover {
-    background-color: #1976d2;
+    background-color: var(--app-register-hover, #1976d2);
 }
 
 /* 登录部分整体包裹器，居中显示 */

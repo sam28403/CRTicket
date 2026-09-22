@@ -4,6 +4,7 @@
       <el-header class="top-header">
         <el-avatar src="Picture1.png" />
         <h2>Sam-Lab CR Ticket Maker</h2>
+        <div class="page-header-actions"><ThemeSelect /></div>
       </el-header>
       <el-container>
         <el-aside width="220px" class="history-sidebar">
@@ -335,6 +336,7 @@
 
 
 <script setup>
+import ThemeSelect from '@/components/ThemeSelect.vue'
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useTransition } from '@vueuse/core'
 import { Check, Close, CloseBold, Delete, DocumentAdd, Download, Edit, User, UserFilled } from '@element-plus/icons-vue'
@@ -770,10 +772,9 @@ html, body {
 
 .history-page {
   min-height: 100vh;
-  background:
-      radial-gradient(circle at 8% 10%, rgba(255, 186, 73, 0.22), transparent 40%),
+  background: var(--app-page, radial-gradient(circle at 8% 10%, rgba(255, 186, 73, 0.22), transparent 40%),
       radial-gradient(circle at 92% 92%, rgba(61, 162, 255, 0.2), transparent 42%),
-      linear-gradient(160deg, #f6f8fb 0%, #eef3ff 100%);
+      linear-gradient(160deg, #f6f8fb 0%, #eef3ff 100%));
 }
 
 .history-layout {
@@ -781,21 +782,21 @@ html, body {
 }
 
 .table-shell :deep(.el-table) {
-  --el-table-header-bg-color: rgba(227, 236, 251, 0.9);
+  --el-table-header-bg-color: var(--app-surface, rgba(227, 236, 251, 0.9));
   --el-table-tr-bg-color: transparent;
-  --el-table-row-hover-bg-color: rgba(176, 214, 255, 0.35);
-  --el-table-border-color: rgba(131, 152, 176, 0.28);
+  --el-table-row-hover-bg-color: var(--app-hover, rgba(176, 214, 255, 0.35));
+  --el-table-border-color: var(--app-border, rgba(131, 152, 176, 0.28));
   border-radius: 12px;
   overflow: hidden;
 }
 
 .table-shell :deep(.el-table th.el-table__cell) {
-  color: #1f3e5a;
+  color: var(--app-text, #1f3e5a);
   font-weight: 700;
 }
 
 .table-shell :deep(.el-table td.el-table__cell) {
-  border-bottom: 1px solid rgba(131, 152, 176, 0.2);
+  border-bottom: 1px solid var(--app-border, rgba(131, 152, 176, 0.2));
 }
 
 @media (max-width: 768px) {
@@ -813,7 +814,7 @@ html, body {
   .history-sidebar {
     width: 100% !important;
     border-right: none;
-    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    border-bottom: 1px solid var(--app-border, rgba(15, 23, 42, 0.08));
     padding: 12px;
   }
 

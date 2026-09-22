@@ -123,10 +123,10 @@ function countClass(value) {
 .ticket-card {
   container-type: inline-size;
   padding: 14px 16px 16px;
-  border: 2px solid #080808;
+  border: 2px solid var(--app-border, #080808);
   border-radius: 24px;
-  background: #fff;
-  color: #080808;
+  background: var(--app-surface, #fff);
+  color: var(--app-text, #080808);
   font-family: 'Debug2Fangzheng', serif;
 }
 
@@ -228,24 +228,24 @@ function countClass(value) {
 }
 
 .plenty {
-  color: #00b657;
+  color: var(--app-success, #00b657);
 }
 
 .limited {
-  color: #ca590c;
+  color: var(--app-warning, #ca590c);
 }
 
 .sold-out {
-  color: #ec0808;
+  color: var(--app-danger, #ec0808);
 }
 
 .unknown {
-  color: #666;
+  color: var(--app-muted, #666);
 }
 
 .card-status {
   margin: 15px 0 0;
-  color: #666;
+  color: var(--app-muted, #666);
   font-size: 16px;
 }
 

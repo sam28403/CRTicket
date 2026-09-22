@@ -4,9 +4,12 @@
       <el-header class="top-header">
         <el-avatar src="Picture1.png" />
         <h2>Sam-Lab CR Ticket Maker</h2>
-        <el-button class="user-top-right" @click="goToHistory()">
+        <div class="page-header-actions">
+          <ThemeSelect />
+          <el-button @click="goToHistory()">
           <el-icon><User /></el-icon>历史记录
         </el-button>
+        </div>
       </el-header>
       <el-main>
         <div class="login-section">
@@ -44,6 +47,7 @@
 </template>
 
 <script setup>
+import ThemeSelect from '@/components/ThemeSelect.vue'
 import { User } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
 import {onMounted, ref} from "vue";

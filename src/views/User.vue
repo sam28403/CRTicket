@@ -4,6 +4,7 @@
       <el-header class="top-header">
         <el-avatar src="Picture1.png" />
         <h2>Sam-Lab CR Ticket Maker</h2>
+        <div class="page-header-actions"><ThemeSelect /></div>
       </el-header>
       <el-container>
         <el-aside width="220px" class="user-sidebar">
@@ -206,11 +207,22 @@
 </template>
 
 <script setup>
+import ThemeSelect from '@/components/ThemeSelect.vue'
 import { useRouter } from "vue-router";
 import { onMounted, ref, nextTick, computed, watch } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { Delete, Download, Upload, UserFilled } from "@element-plus/icons-vue";
 import * as echarts from "echarts";
+import { useTheme } from '@/composables/useTheme';
+const { isDark, resolvedTheme } = useTheme();
+const chartText = () => getComputedStyle(document.documentElement).getPropertyValue('--app-text').trim() || '#17324d';
+const chartBackground = () => getComputedStyle(document.documentElement).getPropertyValue('--app-surface').trim() || '#ffffff';
+watch(resolvedTheme, () => {
+  renderStationChart();
+  renderCityChart();
+  renderCalendarChart();
+  renderMapChart();
+}, { flush: 'post' });
 import * as XLSX from "xlsx";
 import api from "@/api.js";
 import { drawCaptcha, generateCaptcha } from "@/utils/captcha.js";
@@ -849,7 +861,8 @@ const getStationCoords = (stationName) => {
 function renderMapChart() {
   if (!mapChartRef.value || ticketHistory.value.length === 0) return;
 
-  const chart = echarts.init(mapChartRef.value);
+  echarts.getInstanceByDom(mapChartRef.value)?.dispose();
+  const chart = echarts.init(mapChartRef.value, isDark.value ? 'dark' : undefined);
   const hiddenStationNames = new Set(['南海诸岛']);
 
   // 收集所有有坐标的车站（用 Map 正确计数）
@@ -905,6 +918,7 @@ function renderMapChart() {
 
   // 先加载地图数据
   loadChinaMap(echarts).then(mapLoaded => {
+    if (chart.isDisposed()) return;
     if (!mapLoaded) {
       ElMessage.warning('地图数据加载失败，请刷新页面重试');
       return;
@@ -914,7 +928,7 @@ function renderMapChart() {
       title: {
         text: '全部铁路运转轨迹',
         left: 'center',
-        textStyle: { fontSize: 24, fontWeight: 'bold', color: '#17324d' }
+        textStyle: { fontSize: 24, fontWeight: 'bold', color: chartText() }
       },
       tooltip: {
       renderMode: 'richText',
@@ -989,7 +1003,7 @@ function renderMapChart() {
             position: 'right',
             formatter: '{b}',
             fontSize: 10,
-            color: '#17324d'
+            color: chartText()
           },
           symbolSize: (val, params) => {
             const count = params.data.count;
@@ -1007,7 +1021,8 @@ function renderMapChart() {
       ]
     };
 
-    chart.setOption(option);
+    option.backgroundColor = chartBackground();
+  chart.setOption(option);
   });
 }
 
@@ -1015,7 +1030,8 @@ function renderCalendarChart() {
   if (!calendarChartRef.value || !selectedMonth.value) return;
 
   const container = calendarChartRef.value;
-  const chart = echarts.init(container);
+  echarts.getInstanceByDom(container)?.dispose();
+  const chart = echarts.init(container, isDark.value ? 'dark' : undefined);
 
   const [year, month] = selectedMonth.value.split('-').map(Number);
   const daysInMonth = new Date(year, month, 0).getDate();
@@ -1085,7 +1101,7 @@ function renderCalendarChart() {
         firstDay: 1,
         nameMap: ['日', '一', '二', '三', '四', '五', '六'],
         fontSize: 10,
-        color: '#666'
+        color: chartText()
       }
     },
     series: [{
@@ -1123,13 +1139,15 @@ function renderCalendarChart() {
     }]
   };
 
+  option.backgroundColor = chartBackground();
   chart.setOption(option);
 }
 
 function renderStationChart() {
   if (!statisticsChartRef.value) return;
 
-  const chart = echarts.init(statisticsChartRef.value);
+  echarts.getInstanceByDom(statisticsChartRef.value)?.dispose();
+  const chart = echarts.init(statisticsChartRef.value, isDark.value ? 'dark' : undefined);
 
   // 合并出发和到达站点统计（数据已经是站点全名）
   const stationCountMap = new Map();
@@ -1164,7 +1182,7 @@ function renderStationChart() {
     title: {
       text: '最常到达站点统计',
       left: 'center',
-      textStyle: { fontSize: 16, fontWeight: 'normal', color: '#17324d' }
+      textStyle: { fontSize: 16, fontWeight: 'normal', color: chartText() }
     },
     tooltip: {
       renderMode: 'richText',
@@ -1207,13 +1225,15 @@ function renderStationChart() {
     ]
   };
 
+  option.backgroundColor = chartBackground();
   chart.setOption(option);
 }
 
 function renderCityChart() {
   if (!cityChartRef.value) return;
 
-  const chart = echarts.init(cityChartRef.value);
+  echarts.getInstanceByDom(cityChartRef.value)?.dispose();
+  const chart = echarts.init(cityChartRef.value, isDark.value ? 'dark' : undefined);
 
   // 统计城市访问次数（出发+到达），数据已是站点全名
   const cityCountMap = new Map();
@@ -1240,7 +1260,7 @@ function renderCityChart() {
     title: {
       text: '最常访问城市统计',
       left: 'center',
-      textStyle: { fontSize: 16, fontWeight: 'normal', color: '#17324d' }
+      textStyle: { fontSize: 16, fontWeight: 'normal', color: chartText() }
     },
     tooltip: {
       renderMode: 'richText',
@@ -1267,6 +1287,7 @@ function renderCityChart() {
     ]
   };
 
+  option.backgroundColor = chartBackground();
   chart.setOption(option);
 }
 
@@ -1520,10 +1541,9 @@ async function handleDeleteAccount() {
 <style scoped>
 .user-page {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 8% 10%, rgba(255, 186, 73, 0.22), transparent 40%),
+  background: var(--app-page, radial-gradient(circle at 8% 10%, rgba(255, 186, 73, 0.22), transparent 40%),
     radial-gradient(circle at 92% 92%, rgba(61, 162, 255, 0.2), transparent 42%),
-    linear-gradient(160deg, #f6f8fb 0%, #eef3ff 100%);
+    linear-gradient(160deg, #f6f8fb 0%, #eef3ff 100%));
 }
 
 .user-layout {
@@ -1531,9 +1551,9 @@ async function handleDeleteAccount() {
 }
 
 .user-sidebar {
-  background: rgba(255, 255, 255, 0.65);
+  background: var(--app-surface, rgba(255, 255, 255, 0.65));
   backdrop-filter: blur(8px);
-  border-right: 1px solid rgba(15, 23, 42, 0.08);
+  border-right: 1px solid var(--app-border, rgba(15, 23, 42, 0.08));
   padding: 20px;
 }
 
@@ -1554,12 +1574,12 @@ async function handleDeleteAccount() {
 .title-content h1 {
   margin: 0 0 8px;
   font-size: 32px;
-  color: #17324d;
+  color: var(--app-text, #17324d);
 }
 
 .title-content p {
   margin: 0;
-  color: #5f6f81;
+  color: var(--app-muted, #5f6f81);
 }
 
 .user-content-grid {
@@ -1594,7 +1614,7 @@ async function handleDeleteAccount() {
 
 .avatar-hint {
   margin: 0;
-  color: #909399;
+  color: var(--app-muted, #909399);
   font-size: 13px;
   text-align: center;
 }
@@ -1612,7 +1632,7 @@ async function handleDeleteAccount() {
   margin: 0 auto 22px;
   overflow: hidden;
   border-radius: 50%;
-  background: #eef1f6;
+  background: var(--app-hover, #eef1f6);
   box-shadow: 0 0 0 2px #dcdfe6;
 }
 
@@ -1642,7 +1662,7 @@ async function handleDeleteAccount() {
 .coming-soon-card,
 .statistics-card {
   margin-top: 20px;
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--app-surface, rgba(255, 255, 255, 0.4));
 }
 
 .statistics-card-header {
@@ -1674,7 +1694,7 @@ async function handleDeleteAccount() {
 }
 
 .calendar-wrapper {
-  background: #fff;
+  background: var(--app-surface, #fff);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 16px;
@@ -1689,7 +1709,7 @@ async function handleDeleteAccount() {
 
 .calendar-header span {
   font-weight: 500;
-  color: #17324d;
+  color: var(--app-text, #17324d);
 }
 
 .calendar-container {
@@ -1705,7 +1725,7 @@ async function handleDeleteAccount() {
 
 .map-section h4 {
   margin: 0 0 16px;
-  color: #17324d;
+  color: var(--app-text, #17324d);
   font-size: 16px;
 }
 
@@ -1713,7 +1733,7 @@ async function handleDeleteAccount() {
   width: 100%;
   height: 500px;
   border-radius: 12px;
-  background: #fff;
+  background: var(--app-surface, #fff);
 }
 
 @media (max-width: 900px) {
@@ -1724,7 +1744,7 @@ async function handleDeleteAccount() {
   .user-sidebar {
     width: 100% !important;
     border-right: none;
-    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    border-bottom: 1px solid var(--app-border, rgba(15, 23, 42, 0.08));
     padding: 12px;
   }
 

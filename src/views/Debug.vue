@@ -1,4 +1,5 @@
 <script setup>
+import ThemeSelect from '@/components/ThemeSelect.vue'
 import { computed, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import api from '@/api.js'
@@ -239,6 +240,7 @@ async function handleGenerate() {
 
 <template>
   <div class="debug-page">
+    <div class="debug-theme-actions page-header-actions"><ThemeSelect /></div>
     <header class="debug-hero">
       <div>
         <p class="eyebrow">Debug Workspace</p>
@@ -348,11 +350,10 @@ async function handleGenerate() {
 .debug-page {
   min-height: 100vh;
   padding: 32px;
-  background:
-    radial-gradient(circle at top left, rgba(79, 140, 255, 0.18), transparent 28%),
+  background: var(--app-page, radial-gradient(circle at top left, rgba(79, 140, 255, 0.18), transparent 28%),
     radial-gradient(circle at top right, rgba(16, 185, 129, 0.16), transparent 24%),
-    linear-gradient(180deg, #f7f9fc 0%, #eef3f8 100%);
-  color: #162033;
+    linear-gradient(180deg, #f7f9fc 0%, #eef3f8 100%));
+  color: var(--app-text, #162033);
 }
 
 .debug-hero {
@@ -369,7 +370,7 @@ async function handleGenerate() {
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 700;
-  color: #5f6f8f;
+  color: var(--app-muted, #5f6f8f);
 }
 
 .debug-hero h1 {
@@ -382,14 +383,14 @@ async function handleGenerate() {
   max-width: 720px;
   margin: 12px 0 0;
   font-size: 15px;
-  color: #52617d;
+  color: var(--app-muted, #52617d);
 }
 
 .user-card {
   min-width: 220px;
   padding: 18px 20px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.86);
+  background: var(--app-surface, rgba(255, 255, 255, 0.86));
   box-shadow: 0 14px 35px rgba(22, 32, 51, 0.08);
   backdrop-filter: blur(10px);
   display: flex;
@@ -399,19 +400,19 @@ async function handleGenerate() {
 
 .user-label {
   font-size: 12px;
-  color: #6d7a92;
+  color: var(--app-muted, #6d7a92);
 }
 
 .user-hint {
   font-size: 13px;
-  color: #7f8ba3;
+  color: var(--app-muted, #7f8ba3);
 }
 
 .control-panel,
 .result-panel {
   padding: 20px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.88);
+  background: var(--app-surface, rgba(255, 255, 255, 0.88));
   box-shadow: 0 16px 40px rgba(22, 32, 51, 0.08);
   backdrop-filter: blur(10px);
 }
@@ -437,7 +438,7 @@ async function handleGenerate() {
 .input-wrap label {
   font-size: 14px;
   font-weight: 600;
-  color: #334155;
+  color: var(--app-text, #334155);
 }
 
 .panel-head {
@@ -454,7 +455,7 @@ async function handleGenerate() {
 }
 
 .panel-head span {
-  color: #6b7280;
+  color: var(--app-muted, #6b7280);
   font-size: 14px;
 }
 

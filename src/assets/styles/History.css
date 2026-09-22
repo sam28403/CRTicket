@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;   /* 垂直居中 */
     gap: 10px;             /* 头像和文字间距 */
-    background: rgb(10 10 0 / 0.1);
+    background: var(--app-surface, rgb(10 10 0 / 0.1));
     height: 50px;
     padding: 5px 15px;
 }
@@ -14,9 +14,9 @@
 }
 
 .history-sidebar {
-    background: rgba(255, 255, 255, 0.65);
+    background: var(--app-surface, rgba(255, 255, 255, 0.65));
     backdrop-filter: blur(8px);
-    border-right: 1px solid rgba(15, 23, 42, 0.08);
+    border-right: 1px solid var(--app-border, rgba(15, 23, 42, 0.08));
     padding: 20px;
 }
 
@@ -24,8 +24,8 @@
     position: relative;
     height: 210px;
     border-radius: 16px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid var(--app-border, rgba(15, 23, 42, 0.08));
+    background: var(--app-surface, rgba(255, 255, 255, 0.78));
     backdrop-filter: blur(6px);
 }
 
@@ -53,7 +53,7 @@
     font-size: 48px;
     font-weight: bold;
     font-family: "Microsoft YaHei", serif;
-    color: #409EFF; /* Element Plus 主色 */
+    color: var(--app-link, #409EFF); /* Element Plus 主色 */
 }
 
 .signout-top-right {
@@ -81,8 +81,8 @@
     margin-top: 28px;
     padding: 12px;
     border-radius: 16px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid var(--app-border, rgba(15, 23, 42, 0.08));
+    background: var(--app-surface, rgba(255, 255, 255, 0.82));
     backdrop-filter: blur(6px);
     box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
 }

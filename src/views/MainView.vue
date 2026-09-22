@@ -1,5 +1,6 @@
 <template>
-  <nav class="home-navigation" aria-label="页面导航">
+  <nav class="home-navigation page-header-actions" aria-label="页面导航">
+    <ThemeSelect />
     <el-button :disabled="isGithubPagesBuild" :title="isGithubPagesBuild ? 'GitHub Pages 无法跨域访问 12306 余票接口' : ''" @click="goToMonitor">余票监控</el-button>
     <el-button :disabled="isGithubPagesBuild" @click="goToHistory()">
       <el-icon><User /></el-icon>历史记录
@@ -258,6 +259,7 @@
 </template>
 
 <script setup>
+import ThemeSelect from '@/components/ThemeSelect.vue'
 import {computed, h, onMounted, onUnmounted, reactive, ref, watch} from 'vue'
 import {ElButton, ElDialog, ElIcon, ElMessage, ElMessageBox, ElNotification} from 'element-plus'
 import QRCode from 'qrcode'
@@ -599,7 +601,7 @@ const saveTicket = async () => {
 }
 
 .main-aside {
-  background: #f8f9fa;
+  background: var(--app-surface, #f8f9fa);
   padding: 20px;
 }
 
@@ -637,7 +639,7 @@ const saveTicket = async () => {
   width: min(100%, 430px);
   text-align: center;
   padding: 24px 0;
-  color: rgba(0, 0, 0, 0.55);
+  color: var(--app-muted, rgba(0, 0, 0, 0.55));
 }
 
 @media (max-width: 768px) {

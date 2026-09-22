@@ -1,9 +1,26 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/Picture1.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      // Match useTheme before first paint, including older saved preferences.
+      let theme = 'classic-system'
+      try { theme = localStorage.getItem('crticket-theme') || theme } catch {}
+      if (['system', 'light', 'dark'].includes(theme)) theme = `contrast-${theme}`
+      if (!/^(classic|contrast)-(system|light|dark)$/.test(theme)) theme = 'classic-system'
+      const dark = theme.endsWith('-dark') || (theme.endsWith('-system') && matchMedia('(prefers-color-scheme: dark)').matches)
+      document.documentElement.classList.toggle('dark', dark)
+      document.documentElement.classList.toggle('high-contrast', theme.startsWith('contrast-'))
+      document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
+    </script>
+    <style>
+      html { background: #fff; }
+      html.dark { background: #0a0a0a; }
+      html.high-contrast { background: #f5f7fa; }
+      html.high-contrast.dark { background: #000; }
+    </style>
     <title>CRTicket</title>
   </head>
   <body>

@@ -1,4 +1,5 @@
 <script setup>
+import ThemeSelect from '@/components/ThemeSelect.vue'
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Refresh } from '@element-plus/icons-vue'
@@ -373,7 +374,8 @@ onBeforeUnmount(stop)
     <el-header class="top-header">
       <el-avatar src="Picture1.png" />
       <h2>Sam-Lab CR Ticket Maker</h2>
-    </el-header>
+      <div class="page-header-actions"><ThemeSelect /></div>
+      </el-header>
 
     <main class="monitor-content">
       <header class="page-heading">
@@ -635,7 +637,7 @@ onBeforeUnmount(stop)
   gap: 10px;
   height: 50px;
   padding: 5px 15px;
-  background: rgb(10 10 0 / 0.1);
+  background: var(--app-surface, rgb(10 10 0 / 0.1));
 }
 
 .top-header h2 {
@@ -648,7 +650,7 @@ onBeforeUnmount(stop)
   max-width: 1500px;
   margin: 0 auto;
   padding: 4px 24px;
-  color: #223249;
+  color: var(--app-text, #223249);
   font-family: 'Debug2Fangzheng', serif;
 }
 
@@ -701,7 +703,7 @@ onBeforeUnmount(stop)
   justify-content: center;
   gap: 2px;
   padding-top: 12px;
-  color: #68788a;
+  color: var(--app-muted, #68788a);
   font-size: 12px;
 }
 
@@ -738,7 +740,7 @@ onBeforeUnmount(stop)
   padding: 14px 18px;
   border: 1px solid #dcdfe6;
   border-radius: 4px;
-  background: #fff;
+  background: var(--app-surface, #fff);
 }
 
 .station-filter-row {
@@ -751,7 +753,7 @@ onBeforeUnmount(stop)
 
 .station-filter-row strong {
   padding-top: 5px;
-  color: #172033;
+  color: var(--app-text, #172033);
   white-space: nowrap;
 }
 
@@ -775,12 +777,12 @@ onBeforeUnmount(stop)
 }
 
 .time-filter-row strong {
-  color: #172033;
+  color: var(--app-text, #172033);
   white-space: nowrap;
 }
 
 .time-range-value {
-  color: #52749a;
+  color: var(--app-muted, #52749a);
   font-family: 'Debug2Consolas', monospace;
   white-space: nowrap;
 }
@@ -796,13 +798,13 @@ onBeforeUnmount(stop)
   border: 0;
   border-radius: 3px;
   background: transparent;
-  color: #606266;
+  color: var(--app-muted, #606266);
   font-size: 14px;
   cursor: pointer;
 }
 
 .all-stations-button.active {
-  background: #91add5;
+  background: var(--app-primary-button, #91add5);
   color: #fff;
 }
 
@@ -825,20 +827,20 @@ onBeforeUnmount(stop)
 
 .train-type-switches {
   gap: 8px;
-  color: #4d5f72;
+  color: var(--app-muted, #4d5f72);
   font-size: 14px;
 }
 
 .seat-plenty {
-  color: #00b657;
+  color: var(--app-success, #00b657);
 }
 
 .seat-limited {
-  color: #ca590c;
+  color: var(--app-warning, #ca590c);
 }
 
 .seat-empty {
-  color: #ec0808;
+  color: var(--app-danger, #ec0808);
 }
 
 h1 {
@@ -853,17 +855,17 @@ h1 {
 
 .hint,
 .actions span {
-  color: #68788a;
+  color: var(--app-muted, #68788a);
   font-size: 13px;
   line-height: 1.8;
 }
 
 a {
-  color: #2575b8;
+  color: var(--app-link, #2575b8);
 }
 
 small {
-  color: #68788a;
+  color: var(--app-muted, #68788a);
   font-size: 12px;
   font-weight: normal;
 }
@@ -879,7 +881,7 @@ li {
 
 time {
   margin-right: 12px;
-  color: #68788a;
+  color: var(--app-muted, #68788a);
 }
 
 @media (max-width: 1150px) {
