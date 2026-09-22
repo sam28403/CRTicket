@@ -111,16 +111,12 @@ function buildRandomDistance() {
 }
 
 function buildRandomStations() {
-  if (stationPool.length < 2) {
+  if (stationPool.length === 0) {
     return { from: '', to: '' }
   }
 
   const fromIndex = randomInt(0, stationPool.length - 1)
-  let toIndex = randomInt(0, stationPool.length - 1)
-
-  while (toIndex === fromIndex) {
-    toIndex = randomInt(0, stationPool.length - 1)
-  }
+  const toIndex = randomInt(0, stationPool.length - 1)
 
   return {
     from: stationPool[fromIndex].name,

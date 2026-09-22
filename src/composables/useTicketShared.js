@@ -1,5 +1,4 @@
 import { computed, ref, watch } from 'vue'
-import { ElMessage } from 'element-plus'
 import { parseStations } from '@/utils/stations.js'
 import { disableAirSeats } from '@/utils/ticketShared.js'
 
@@ -30,24 +29,7 @@ export function queryStationSearch(queryString, cb) {
 }
 
 export function handleStationSelect(ticket, field, item) {
-  const value = item.value
-  ticket[field] = value
-
-  if (field === 'from' && value === ticket.to) {
-    ElMessage.warning('起点和终点不能相同，请重新选择')
-    ticket.from = value
-    ticket.to = ''
-    return
-  }
-
-  if (field === 'to' && value === ticket.from) {
-    ElMessage.warning('起点和终点不能相同，请重新选择')
-    ticket.to = value
-    ticket.from = ''
-    return
-  }
-
-  ticket[field] = value
+  ticket[field] = item.value
 }
 
 export function formatStationName(name, shouldNormalize = false) {

@@ -79,8 +79,8 @@ function countClass(value) {
       </span>
       <span class="train-number" aria-hidden="true">{{ trainParts.number }}</span>
       <div class="journey-time">
-        <div>{{ train.departure }}~{{ train.arrival }}</div>
-        <div>{{ duration }}</div>
+        <div>{{ train.departure || '--:--' }}~{{ train.arrival || '--:--' }}</div>
+        <div>{{ duration || '历时待定' }}</div>
       </div>
       <div class="journey-route">
         {{ train.from }}

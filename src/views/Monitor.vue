@@ -5,6 +5,7 @@ import { ElMessage } from 'element-plus'
 import { Refresh } from '@element-plus/icons-vue'
 import api from '@/api.js'
 import { hasAvailableSeat as available } from '@/utils/seatAvailability.js'
+import { matchesDepartureTime } from '@/utils/trainTime.js'
 import LeftTicketCard from '@/components/LeftTicketCard.vue'
 import { queryStationSearch, stations } from '@/composables/useTicketShared.js'
 
@@ -66,7 +67,7 @@ const arrivalStations = computed(() =>
 
 function isOrdinaryTrain(trainNo) {
   const normalized = String(trainNo || '').trim().toUpperCase()
-  if (/^(?:[ZTKL]\d+|\d+)$/.test(normalized)) return true
+  if (/^(?:[ZTKLY]\d+|\d+)$/.test(normalized)) return true
 
   const dTrain = normalized.match(/^D(\d+)$/)
   if (dTrain) {
@@ -78,6 +79,12 @@ function isOrdinaryTrain(trainNo) {
   if (cTrain) {
     const number = Number(cTrain[1])
     return (number >= 1 && number <= 999) || (number >= 4001 && number <= 4999)
+  }
+
+  const sTrain = normalized.match(/^S(\d+)$/)
+  if (sTrain) {
+    const number = Number(sTrain[1])
+    return (number >= 101 && number <= 999) || (number >= 1001 && number <= 2999)
   }
 
   return false
@@ -98,13 +105,7 @@ function matches(row) {
   const matchesArrival =
     !selectedArrivalStations.value.length ||
     selectedArrivalStations.value.includes(row.to)
-  const [departureHour, departureMinute] = row.departure
-    .split(':')
-    .map(Number)
-  const departureMinutes = departureHour * 60 + departureMinute
-  const [startHour, endHour] = timeRange.value
-  const matchesTime =
-    departureMinutes >= startHour * 60 && departureMinutes < endHour * 60
+  const matchesTime = matchesDepartureTime(row.departure, timeRange.value)
 
   return (
     matchesTrainNumber &&
@@ -258,7 +259,6 @@ function parameters() {
   const end = stations.find((station) => station.name === to.value.trim())
 
   if (!start || !end) throw new Error('请输入并选择有效的出发站和到达站')
-  if (start.telecode === end.telecode) throw new Error('出发站和到达站不能相同')
   if (!date.value) throw new Error('请选择出发日期')
   return {
     from: start.telecode,

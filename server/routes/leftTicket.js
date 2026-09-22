@@ -27,7 +27,7 @@ export function parseTrains(data) {
 
 export function validateQuery(query) {
   const { from, to, date } = query
-  if (!stationCodes.has(from) || !stationCodes.has(to) || from === to) return '请选择两个不同的有效车站'
+  if (!stationCodes.has(from) || !stationCodes.has(to)) return '请选择有效的出发站和到达站'
   if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return '出发日期格式错误'
   const parsed = new Date(`${date}T00:00:00+08:00`)
   if (!Number.isFinite(parsed.getTime()) || new Date(parsed.getTime() + 8 * 3600000).toISOString().slice(0, 10) !== date) return '出发日期无效'

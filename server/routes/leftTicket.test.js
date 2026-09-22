@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import express from 'express'
 import { createLeftTicketRouter, parseTrains, validateQuery } from './leftTicket.js'
 import { parseSeats } from './leftTicketSeats.js'
+import { matchesDepartureTime } from '../../src/utils/trainTime.js'
 
 const date = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10)
 function fixture() {
@@ -20,6 +21,26 @@ test('按官网字段顺序转换席别，保留零、无和缺失的区别', ()
   assert.equal(row.seats.softSleeper, '--')
   assert.throws(() => parseTrains({ result: ['broken'], map: {} }))
   assert.throws(() => parseTrains({ result: [] }))
+})
+test('运行图调整车次保留状态，缺失时刻不被时间筛选隐藏', () => {
+  for (const departure of ['', '--:--']) {
+    const fields = fixture().result[0].split('|')
+    fields[1] = '列车运行图调整,<br/>暂停发售'
+    fields[8] = departure
+    fields[11] = 'N'
+    const [row] = parseTrains({ ...fixture(), result: [fields.join('|')] })
+    assert.equal(row.status, '列车运行图调整,暂停发售')
+    assert.equal(row.canBuy, false)
+    assert.equal(matchesDepartureTime(row.departure, [0, 24]), true)
+    assert.equal(matchesDepartureTime(row.departure, [8, 12]), true)
+  }
+})
+test('已知出发时刻仍遵守时间范围及边界', () => {
+  assert.equal(matchesDepartureTime('08:00', [8, 12]), true)
+  assert.equal(matchesDepartureTime('11:59', [8, 12]), true)
+  assert.equal(matchesDepartureTime('07:59', [8, 12]), false)
+  assert.equal(matchesDepartureTime('12:00', [8, 12]), false)
+  assert.equal(matchesDepartureTime('23:59', [0, 24]), true)
 })
 test('有座 21 恢复区间，无座保留实际数量，异常数据不编造数量', () => {
   const fields = fixture().result[0].split('|')
@@ -43,9 +64,12 @@ test('有座 21 恢复区间，无座保留实际数量，异常数据不编造�
   fields[39] = 'O057600168'
   assert.equal(parseSeats(fields).second, '--') // 不为未提供的席别制造在售记录。
 })
-test('校验站码、重复车站、日期和预售范围', () => {
+test('校验站码、日期和预售范围，允许起终点相同', () => {
   assert.equal(validateQuery({ from: 'BJP', to: 'SHH', date }), '')
-  for (const query of [{ from: 'BAD', to: 'SHH', date }, { from: 'BJP', to: 'BJP', date },
+  for (const code of ['BJP', 'WCN', 'JNK', 'ICW']) {
+    assert.equal(validateQuery({ from: code, to: code, date }), '')
+  }
+  for (const query of [{ from: 'BAD', to: 'SHH', date }, { from: 'BAD', to: 'BAD', date },
     { from: 'BJP', to: 'SHH', date: '2026-02-30' }, { from: 'BJP', to: 'SHH', date: '2099-01-01' }]) {
     assert.ok(validateQuery(query))
   }
@@ -61,6 +85,22 @@ async function request(mock, query = `from=BJP&to=SHH&date=${date}`) {
   } finally { await new Promise(resolve => server.close(resolve)) }
 }
 const init = () => new Response("var CLeftTicketUrl = 'leftTicket/queryG';", { headers: { 'Set-Cookie': 'session=test; Path=/' } })
+test('环线查询向上游传递相同站码并保留同站起终点结果', async () => {
+  let calls = 0
+  const result = await request(async (url) => {
+    if (++calls === 1) return init()
+    const params = new URL(url).searchParams
+    assert.equal(params.get('leftTicketDTO.from_station'), 'WCN')
+    assert.equal(params.get('leftTicketDTO.to_station'), 'WCN')
+    const fields = fixture().result[0].split('|')
+    fields[6] = fields[7] = 'WCN'
+    return Response.json({ status: true, data: { result: [fields.join('|')], map: { WCN: '武昌' } } })
+  }, `from=WCN&to=WCN&date=${date}`)
+  assert.equal(result.status, 200)
+  assert.equal(calls, 2)
+  assert.equal(result.body.trains[0].from, '武昌')
+  assert.equal(result.body.trains[0].to, '武昌')
+})
 test('从初始化页面读取接口并跟随同源 c_url，传递查询参数和会话', async () => {
   const calls = []
   const result = await request(async (url, options) => {
