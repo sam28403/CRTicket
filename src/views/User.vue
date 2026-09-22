@@ -225,8 +225,8 @@ watch(resolvedTheme, () => {
 }, { flush: 'post' });
 import * as XLSX from "xlsx";
 import api from "@/api.js";
-import { drawCaptcha, generateCaptcha } from "@/utils/captcha.js";
-import stationNamesData from "@/station_name.js";
+import { refreshCaptchaImage } from "@/utils/captcha.js";
+import { parseStations } from "@/utils/stations.js";
 import stationCoordinates, { loadChinaMap } from "@/utils/stationCoordinates.js";
 import { buildTicketPayload } from "@/utils/ticketShared.js";
 import { useUserStore } from "@/stores/user.js";
@@ -365,23 +365,6 @@ async function removeAvatar() {
 }
 
 // 解析站点数据
-const parseStations = () => {
-  return stationNamesData
-    .split('@')
-    .filter(Boolean)
-    .map((item) => {
-      const arr = item.split('|')
-      return {
-        code: arr[0],
-        name: arr[1],
-        telecode: arr[2],
-        en: arr[3],
-        abbr: arr[4],
-        city: arr[7],
-      }
-    })
-}
-
 const stations = parseStations()
 
 // 构建站点名称到城市名的映射
@@ -1317,17 +1300,11 @@ function openDeleteDialog() {
 }
 
 function refreshCaptcha() {
-  currentCaptcha = generateCaptcha();
-  if (captchaImage.value) {
-    captchaImage.value.src = drawCaptcha(currentCaptcha);
-  }
+  currentCaptcha = refreshCaptchaImage(captchaImage.value);
 }
 
 function refreshDeleteCaptcha() {
-  deleteCurrentCaptcha = generateCaptcha();
-  if (deleteCaptchaImage.value) {
-    deleteCaptchaImage.value.src = drawCaptcha(deleteCurrentCaptcha);
-  }
+  deleteCurrentCaptcha = refreshCaptchaImage(deleteCaptchaImage.value);
 }
 
 async function saveProfile() {

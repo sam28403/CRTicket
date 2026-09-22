@@ -4,6 +4,7 @@ import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Refresh } from '@element-plus/icons-vue'
 import api from '@/api.js'
+import { hasAvailableSeat as available } from '@/utils/seatAvailability.js'
 import LeftTicketCard from '@/components/LeftTicketCard.vue'
 import { queryStationSearch, stations } from '@/composables/useTicketShared.js'
 
@@ -62,11 +63,6 @@ const departureStations = computed(() =>
 const arrivalStations = computed(() =>
   Array.from(new Set(rows.value.map((row) => row.to))).filter(Boolean)
 )
-
-const available = (value) =>
-  value === '有' ||
-  value === '>20' ||
-  (/^\d+$/.test(value) && Number(value) > 0)
 
 function isOrdinaryTrain(trainNo) {
   const normalized = String(trainNo || '').trim().toUpperCase()

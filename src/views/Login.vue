@@ -52,7 +52,7 @@ import { ElMessage } from "element-plus";
 import api from "@/api.js";
 import {useUserStore} from "@/stores/user.js";
 import {User} from "@element-plus/icons-vue";
-import { drawCaptcha, generateCaptcha } from "@/utils/captcha.js";
+import { refreshCaptchaImage } from "@/utils/captcha.js";
 
 const router = useRouter();
 const route = useRoute();
@@ -75,10 +75,7 @@ const loginValue = computed({
 const captchaImage = ref(null);
 
 function refreshCaptcha() {
-  currentCaptcha = generateCaptcha();
-  if (captchaImage.value) {
-    captchaImage.value.src = drawCaptcha(currentCaptcha);
-  }
+  currentCaptcha = refreshCaptchaImage(captchaImage.value);
 }
 
 function handleSubmit() {

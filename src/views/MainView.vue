@@ -115,7 +115,7 @@
           <el-input v-model="ticket.sellPlace" placeholder="XX站"></el-input>
         </el-form-item>
 
-        <el-form-item label="检票/候车位置">
+        <el-form-item label="检票/候车">
           <el-input v-model="ticket.gate" placeholder="检票：1A / 候车：一候"></el-input>
         </el-form-item>
 
@@ -145,7 +145,7 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260918</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260922</h3>
       <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10116</h3>
 
       <el-space>
@@ -336,8 +336,8 @@ watch(() => ticket.number, (newVal) => {
 
 const note = () => {
   ElNotification({
-    title: '更新车站列表至10116',
-    message: '更新车站列表（西康高铁），加固API接口，修复后端安全问题，新增头像编辑。',
+    title: '新增页面主题与车票监控功能🎉🎉🎉',
+    message: '新增Element Plus和高对比度两套配色方案；新增车票余票监控功能，如果需要系统提醒请打开权限。',
     type: 'info',
     position: 'bottom-right'
   })

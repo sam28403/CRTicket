@@ -19,3 +19,11 @@ export function drawCaptcha(code) {
   ctx.fillText(code, canvas.width / 2, canvas.height / 2);
   return canvas.toDataURL("image/png");
 }
+
+export function refreshCaptchaImage(image) {
+  const code = generateCaptcha();
+  if (image) {
+    image.src = drawCaptcha(code);
+  }
+  return code;
+}

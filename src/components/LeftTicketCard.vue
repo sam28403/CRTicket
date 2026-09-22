@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { hasAvailableSeat as hasTicket, hasPlentyOfSeats as hasPlenty, isKnownSeat } from '@/utils/seatAvailability.js'
 
 const props = defineProps({
   train: {
@@ -22,23 +23,15 @@ const trainParts = computed(() => {
 const seats = computed(() =>
   props.columns.filter(([key]) => {
     const value = props.train.seats[key]
-    return value !== undefined && value !== null && value !== '' && value !== '--'
+    return isKnownSeat(value)
   })
 )
-
-const hasTicket = (value) =>
-  value === '有' ||
-  value === '>20' ||
-  (/^\d+$/.test(value) && Number(value) > 0)
-
-const hasPlenty = (value) =>
-  value === '有' || value === '>20' || Number(value) > 20
 
 const borderClass = computed(() => {
   const knownSeats = props.columns
     .map(([key]) => [key, props.train.seats[key]])
     .filter(([, value]) =>
-      value !== undefined && value !== null && value !== '' && value !== '--'
+      isKnownSeat(value)
     )
   const availableSeats = knownSeats.filter(([, value]) => hasTicket(value))
 
@@ -64,7 +57,7 @@ function countText(value) {
 }
 
 function countClass(value) {
-  if (value === '有' || value === '>20' || Number(value) > 20) return 'plenty'
+  if (hasPlenty(value)) return 'plenty'
   if (/^\d+$/.test(value) && Number(value) > 0) return 'limited'
   return value === '无' || value === '0' ? 'sold-out' : 'unknown'
 }

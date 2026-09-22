@@ -53,6 +53,7 @@ import { useRouter } from "vue-router";
 import {onMounted, ref} from "vue";
 import { ElMessage } from 'element-plus';
 import api from "@/api.js";
+import { refreshCaptchaImage } from "@/utils/captcha.js";
 
 const router = useRouter();
 const goToHistory = () => {
@@ -71,35 +72,8 @@ let currentCaptcha = "";
 // 通过 ref 获取 captchaImage 元素
 const captchaImage = ref(null);
 
-// 生成并显示验证码
-function generateCaptcha() {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  return Array.from({ length: 5 }, () =>
-      chars.charAt(Math.floor(Math.random() * chars.length))
-  ).join("");
-}
-
-function drawCaptcha(code) {
-  const canvas = document.createElement("canvas");
-  canvas.width = 100;
-  canvas.height = 40;
-  const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "#f2f2f2";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.font = "20px Arial";
-  ctx.fillStyle = "#333";
-  ctx.textBaseline = "middle";
-  ctx.textAlign = "center";
-  ctx.fillText(code, canvas.width / 2, canvas.height / 2);
-  return canvas.toDataURL("image/png");
-}
-
 function refreshCaptcha() {
-  currentCaptcha = generateCaptcha();
-  // 通过 ref 更新 src 属性
-  if (captchaImage.value) {
-    captchaImage.value.src = drawCaptcha(currentCaptcha);
-  }
+  currentCaptcha = refreshCaptchaImage(captchaImage.value);
 }
 
 function handleSubmit(e) {
