@@ -120,7 +120,7 @@ function countClass(value) {
   border-radius: 24px;
   background: var(--app-surface, #fff);
   color: var(--app-text, #080808);
-  font-family: 'Debug2Fangzheng', serif;
+  font-family: 'MonitorFangzheng', serif;
 }
 
 .ticket-card.border-sold-out {
@@ -144,7 +144,7 @@ function countClass(value) {
 
 .train-prefix,
 .train-number {
-  font-family: 'Debug2Consolas', monospace;
+  font-family: 'MonitorConsolas', monospace;
   font-weight: 700;
   line-height: 1;
 }

@@ -1,6 +1,6 @@
 {
   "name": "crticket",
-  "version": "260922",
+  "version": "260928",
   "private": false,
   "type": "module",
   "engines": {
@@ -26,9 +26,9 @@
     "echarts": "^6.1.0",
     "element-plus": "^2.14.2",
     "express": "^5.2.1",
+    "fflate": "^0.8.3",
     "html2canvas": "^1.4.1",
     "jspdf": "4.2.1",
-    "jsx": "^0.9.89",
     "pdf-lib": "^1.17.1",
     "pinia": "^3.0.4",
     "qrcode": "^1.5.4",

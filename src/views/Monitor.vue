@@ -612,13 +612,13 @@ onBeforeUnmount(stop)
 
 <style scoped>
 @font-face {
-  font-family: 'Debug2Consolas';
+  font-family: 'MonitorConsolas';
   src: url('/consola.ttf') format('truetype');
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Debug2Fangzheng';
+  font-family: 'MonitorFangzheng';
   src: url('/FZCDXK.TTF') format('truetype');
   font-display: swap;
 }
@@ -647,7 +647,7 @@ onBeforeUnmount(stop)
   margin: 0 auto;
   padding: 4px 24px;
   color: var(--app-text, #223249);
-  font-family: 'Debug2Fangzheng', serif;
+  font-family: 'MonitorFangzheng', serif;
 }
 
 .monitor-content :deep(input),
@@ -779,7 +779,7 @@ onBeforeUnmount(stop)
 
 .time-range-value {
   color: var(--app-muted, #52749a);
-  font-family: 'Debug2Consolas', monospace;
+  font-family: 'MonitorConsolas', monospace;
   white-space: nowrap;
 }
 
@@ -955,6 +955,6 @@ time {
 .monitor-seat-options .el-select-dropdown__item {
   padding-right: 20px;
   padding-left: 20px;
-  font-family: 'Debug2Fangzheng', serif;
+  font-family: 'MonitorFangzheng', serif;
 }
 </style>

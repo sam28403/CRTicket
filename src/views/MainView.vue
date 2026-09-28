@@ -2,6 +2,7 @@
   <nav class="home-navigation page-header-actions" aria-label="页面导航">
     <ThemeSelect />
     <el-button :disabled="isGithubPagesBuild" :title="isGithubPagesBuild ? 'GitHub Pages 无法跨域访问 12306 余票接口' : ''" @click="goToMonitor">余票监控</el-button>
+    <el-button :disabled="isGithubPagesBuild" :title="isGithubPagesBuild ? 'GitHub Pages 未部署车次查询后端' : ''" @click="goToTrainQuery">车次查询</el-button>
     <el-button :disabled="isGithubPagesBuild" @click="goToHistory()">
       <el-icon><User /></el-icon>历史记录
     </el-button>
@@ -503,6 +504,10 @@ const router = useRouter()
 const goToMonitor = () => {
   if (isGithubPagesBuild) return
   router.push('/monitor')
+}
+const goToTrainQuery = () => {
+  if (isGithubPagesBuild) return
+  router.push('/train')
 }
 const goToHistory = () => {
   if (isGithubPagesBuild) return

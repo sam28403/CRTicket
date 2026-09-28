@@ -10,6 +10,10 @@ import { isGithubPagesBuild } from '@/config/deploy.js'
 
 const routes = [
     {
+        path: '/train',
+        component: () => import('@/views/TrainQuery.vue')
+    },
+    {
         path: '/monitor',
         component: () => import('@/views/Monitor.vue')
     },
