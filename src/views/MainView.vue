@@ -145,8 +145,8 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260922</h3>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10116</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260928</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10117</h3>
 
       <el-space>
         <el-button type="primary" @click="note">更新内容</el-button>
@@ -336,8 +336,8 @@ watch(() => ticket.number, (newVal) => {
 
 const note = () => {
   ElNotification({
-    title: '新增页面主题与车票监控功能🎉🎉🎉',
-    message: '新增Element Plus和高对比度两套配色方案；新增车票余票监控功能，如果需要系统提醒请打开权限。',
+    title: '更新车站列表至10117',
+    message: '4条全新高铁线路在2026.09.28开通，其中，新开通的伊春西站成为中国最北面的高速铁路车站。优化站名逻辑，允许环线车票存在。',
     type: 'info',
     position: 'bottom-right'
   })
