@@ -221,7 +221,6 @@
                   :default-sort="{ prop: 'date', order: 'descending' }"
                   @sort-change="handleSortChange"
                   class="table"
-                  :row-style="tableRowStyle"
               >
                 <el-table-column prop="date" label="日期" width="160" sortable/>
                 <el-table-column prop="trainNo" label="车次" width="80" />
@@ -523,13 +522,6 @@ const handlePageChange = (page) => {
 const handleSortChange = ({ prop, order }) => {
   sortState.value = { prop, order }
   currentPage.value = 1
-}
-
-const tableRowStyle = ({ rowIndex }) => {
-  if (rowIndex % 2 === 0) {
-    return { backgroundColor: 'rgba(226, 239, 255, 0.68)' }
-  }
-  return { backgroundColor: 'rgba(255, 255, 255, 0.78)' }
 }
 
 const resetTicketForm = () => {

@@ -146,8 +146,8 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260928</h3>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10117</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260930</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10118</h3>
 
       <el-space>
         <el-button type="primary" @click="note">更新内容</el-button>
@@ -245,7 +245,7 @@
             </el-input-number>
             <template #footer>
               <div class="dialog-footer">
-                <el-button  @click="saveWithoutDistance">我不知道里程</el-button>
+                <el-button :disabled="isGithubPagesBuild" @click="openTrainQuery">我不知道里程</el-button>
                 <el-button type="primary" @click="saveTicket">
                   存储车票
                 </el-button>
@@ -312,10 +312,6 @@ const formatStationName = (name) => formatTicketStationName(name)
 const getStationEnglish = (name) => getTicketStationEnglish(name)
 
 const distance = ref(0)
-const saveWithoutDistance = () => {
-  distance.value = 0
-  saveTicket()
-}
 
 const qrCodeUrl = ref('')
 
@@ -337,8 +333,8 @@ watch(() => ticket.number, (newVal) => {
 
 const note = () => {
   ElNotification({
-    title: '更新车站列表至10117',
-    message: '4条全新高铁线路在2026.09.28开通，其中，新开通的伊春西站成为中国最北面的高速铁路车站。优化站名逻辑，允许环线车票存在。',
+    title: '更新车站列表至10118、新增列车时刻表查询与导出。',
+    message: '现在您可以在车次查询页面查询中国铁路车次时刻表与里程，并导出运转表。',
     type: 'info',
     position: 'bottom-right'
   })
@@ -501,6 +497,10 @@ const downloadPNG = async () => {
 }
 
 const router = useRouter()
+const openTrainQuery = () => {
+  if (isGithubPagesBuild) return
+  window.open(router.resolve('/train').href, '_blank', 'noopener,noreferrer')
+}
 const goToMonitor = () => {
   if (isGithubPagesBuild) return
   router.push('/monitor')

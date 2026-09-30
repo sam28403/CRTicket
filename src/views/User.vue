@@ -986,7 +986,9 @@ function renderMapChart() {
             position: 'right',
             formatter: '{b}',
             fontSize: 10,
-            color: chartText()
+            color: '#17324d',
+            textBorderColor: '#e8f5e9',
+            textBorderWidth: 3
           },
           symbolSize: (val, params) => {
             const count = params.data.count;
