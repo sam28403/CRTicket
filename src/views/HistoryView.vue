@@ -140,7 +140,7 @@
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item label="检票/候车位置">
+                  <el-form-item label="检票/候车">
                     <el-input v-model="ticket.gate" placeholder="检票：1A / 候车：一候"></el-input>
                   </el-form-item>
                 </el-col>
