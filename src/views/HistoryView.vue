@@ -2,8 +2,7 @@
   <div class="history-page">
     <el-container class="history-layout">
       <el-header class="top-header">
-        <el-avatar src="Picture1.png" />
-        <h2>Sam-Lab CR Ticket Maker</h2>
+        <AppBrand />
         <div class="page-header-actions"><ThemeSelect /></div>
       </el-header>
       <el-container>
@@ -336,6 +335,7 @@
 
 <script setup>
 import ThemeSelect from '@/components/ThemeSelect.vue'
+import AppBrand from '@/components/AppBrand.vue'
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useTransition } from '@vueuse/core'
 import { Check, Close, CloseBold, Delete, DocumentAdd, Download, Edit, User, UserFilled } from '@element-plus/icons-vue'
@@ -385,25 +385,15 @@ const getCurrentUser = () => {
 
 userStore.init()
 
-const loginValue = computed({
-  get: () => userStore.isLogin,
-  set: (val) => userStore.setLogin(val)
-})
-
 const logout = async () => {
   try {
-    await api.post("/user/logout")
+    const request = userStore.logout()
+    router.replace('/login')
+    await request
+    ElMessage.success('登出账户成功')
   } catch (err) {
     console.error(err)
-  } finally {
-    loginValue.value = false
-    localStorage.removeItem("user")
-    localStorage.removeItem("login")
-    ElMessage({
-      message: '登出账户成功',
-      type: 'success',
-    })
-    router.push('/login')
+    ElMessage.warning('本机已登出，服务器注销失败，请检查网络后重试')
   }
 }
 

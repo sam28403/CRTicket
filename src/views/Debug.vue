@@ -1,5 +1,6 @@
 <script setup>
 import ThemeSelect from '@/components/ThemeSelect.vue'
+import AppBrand from '@/components/AppBrand.vue'
 import { computed, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import api from '@/api.js'
@@ -236,7 +237,10 @@ async function handleGenerate() {
 
 <template>
   <div class="debug-page">
-    <div class="debug-theme-actions page-header-actions"><ThemeSelect /></div>
+    <header class="debug-header">
+      <AppBrand />
+      <div class="page-header-actions"><ThemeSelect /></div>
+    </header>
     <header class="debug-hero">
       <div>
         <p class="eyebrow">Debug Workspace</p>
@@ -343,6 +347,14 @@ async function handleGenerate() {
 </template>
 
 <style scoped>
+.debug-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
 .debug-page {
   min-height: 100vh;
   padding: 32px;

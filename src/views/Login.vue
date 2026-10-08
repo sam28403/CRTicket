@@ -2,8 +2,7 @@
   <div>
     <el-container style="height: 100vh">
       <el-header class="top-header">
-        <el-avatar src="Picture1.png" />
-        <h2>Sam-Lab CR Ticket Maker</h2>
+        <AppBrand />
         <div class="page-header-actions">
           <ThemeSelect />
           <el-button @click="goToHistory()">
@@ -16,27 +15,24 @@
           <!-- 登录框 -->
           <div class="login-container">
             <h2>用户登录</h2>
-            <form @submit.prevent="handleSubmit">
-              <el-form label-position="top" class="profile-form" @submit.prevent>
-                <el-form-item label="账号">
-                  <el-input v-model="username" placeholder="输入用户名" size="large" clearable />
-                </el-form-item>
-                <el-form-item label="密码">
-                  <el-input v-model="password" type="password" show-password placeholder="输入密码" size="large" clearable />
-                </el-form-item>
-                <el-form-item label="验证码">
-                  <div class="captcha-group">
-                    <el-input-otp v-model="captchaInput" :length="5" size="large"/>
-                    <img ref="captchaImage" alt="点击刷新验证码" @click="refreshCaptcha" />
-                  </div>
-                </el-form-item>
-              </el-form>
-
+            <el-form label-position="top" class="profile-form" @submit.prevent="handleSubmit">
+              <el-form-item label="账号">
+                <el-input v-model="username" placeholder="输入用户名" size="large" clearable />
+              </el-form-item>
+              <el-form-item label="密码">
+                <el-input v-model="password" type="password" show-password placeholder="输入密码" size="large" clearable />
+              </el-form-item>
+              <el-form-item label="验证码">
+                <div class="captcha-group">
+                  <el-input-otp v-model="captchaInput" :length="5" size="large"/>
+                  <img ref="captchaImage" alt="点击刷新验证码" @click="refreshCaptcha" />
+                </div>
+              </el-form-item>
               <div class="button-group">
-                <button type="submit" class="btn btn-login">登录</button>
+                <button type="submit" class="btn btn-login" :disabled="submitting">登录</button>
                 <button type="button" class="btn btn-register" @click="goToRegister">没有账号？去注册</button>
               </div>
-            </form>
+            </el-form>
           </div>
         </div>
       </el-main>
@@ -46,6 +42,7 @@
 
 <script setup>
 import ThemeSelect from '@/components/ThemeSelect.vue'
+import AppBrand from '@/components/AppBrand.vue'
 import { useRoute, useRouter } from "vue-router";
 import {ref, onMounted, computed} from "vue";
 import { ElMessage } from "element-plus";
@@ -59,6 +56,7 @@ const route = useRoute();
 const username = ref('');
 const password = ref('');
 const captchaInput = ref('');
+const submitting = ref(false);
 let currentCaptcha = "";
 
 const goToHistory = () => {
@@ -79,6 +77,7 @@ function refreshCaptcha() {
 }
 
 function handleSubmit() {
+  if (submitting.value) return;
   // 验证验证码
   const inputCode = captchaInput.value.trim().toUpperCase();
   if (inputCode !== currentCaptcha) {
@@ -94,6 +93,7 @@ function handleSubmit() {
   }
 
   // 向后端发送登录请求
+  submitting.value = true;
   api.post("/user/login", { username: username.value, password: password.value })
       .then(response => {
         if (response.data.success) {
@@ -106,8 +106,8 @@ function handleSubmit() {
           const redirect = typeof route.query.redirect === "string" && route.query.redirect
             ? route.query.redirect
             : "/history"
-          router.push(redirect); // 跳转到原目标页面或历史记录页面
           loginValue.value = true;
+          router.push(redirect); // 跳转到原目标页面或历史记录页面
         } else {
           ElMessage.error(response.data.message || "登录失败，请重试");
         }
@@ -115,6 +115,9 @@ function handleSubmit() {
       .catch(err => {
         console.error(err);
         ElMessage.error("请求失败，请检查网络");
+      })
+      .finally(() => {
+        submitting.value = false;
       });
 }
 

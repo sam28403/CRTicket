@@ -1,5 +1,6 @@
 <script setup>
 import ThemeSelect from '@/components/ThemeSelect.vue'
+import AppBrand from '@/components/AppBrand.vue'
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Refresh } from '@element-plus/icons-vue'
@@ -368,8 +369,7 @@ onBeforeUnmount(stop)
 <template>
   <div class="monitor-page">
     <el-header class="top-header">
-      <el-avatar src="Picture1.png" />
-      <h2>Sam-Lab CR Ticket Maker</h2>
+      <AppBrand />
       <div class="page-header-actions"><ThemeSelect /></div>
       </el-header>
 

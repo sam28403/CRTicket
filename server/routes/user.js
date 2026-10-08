@@ -165,6 +165,20 @@ router.post("/login", async (req, res) => {
     }
 });
 
+// 浏览器缓存的登录标记不能代替服务端会话校验。
+router.get("/session", (req, res) => {
+    const sessionUser = requireSession(req, res);
+    if (!sessionUser) return;
+
+    const user = db.prepare("SELECT id, username, avatar FROM users WHERE id = ?").get(sessionUser.userId);
+    if (!user) {
+        clearSession(req, res);
+        return res.status(401).json({ success: false, message: "请先登录" });
+    }
+
+    return res.json({ success: true, user: { ...user, avatar: user.avatar || null } });
+});
+
 router.post("/logout", (req, res) => {
     clearSession(req, res);
     return res.json({ success: true, message: "已退出登录" });

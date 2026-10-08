@@ -42,6 +42,13 @@ test("安全接口回归（独立内存数据库）", async t => {
     assert.match(alice.cookie, /Secure/);
     assert.equal(alice.headers.get("cache-control"), "no-store");
     const aliceId = alice.data.user.id;
+    await t.test("登录状态校验拒绝缺失或失效会话，只返回当前用户的公开资料", async () => {
+        assert.equal((await request("/user/session")).status, 401);
+        assert.equal((await request("/user/session", undefined, "crticket_session=stale-before-restart")).status, 401);
+        const session = await request("/user/session", undefined, alice.cookie);
+        assert.equal(session.status, 200);
+        assert.deepEqual(session.data, { success: true, user: { id: aliceId, username: "alice", avatar: null } });
+    });
     await t.test("身份和车票所有权不能通过客户端字段伪造", async () => {
         assert.equal((await request(`/ticket/list/${aliceId}`)).status, 401);
         assert.equal((await request(`/ticket/list/${aliceId}`, undefined, bob.cookie)).status, 403);
@@ -55,6 +62,16 @@ test("安全接口回归（独立内存数据库）", async t => {
         assert.equal((await request("/ticket/add", { price: -1 }, alice.cookie)).status, 400);
         assert.equal((await request("/user/import-backup", { backup: [{} , { departure_station: {} }] }, alice.cookie)).data.data.invalid, 1);
     });
+    await t.test("登出撤销当前会话并清除 Cookie，不能用原会话再次查看历史", async () => {
+        const logout = await request("/user/logout", {}, alice2.cookie);
+        assert.equal(logout.data.success, true);
+        assert.match(logout.cookie, /crticket_session=;/);
+        assert.match(logout.cookie, /Max-Age=0/);
+        assert.equal((await request("/user/session", undefined, alice2.cookie)).status, 401);
+        assert.equal((await request(`/ticket/list/${aliceId}`, undefined, alice2.cookie)).status, 401);
+        assert.equal((await request("/user/session", undefined, alice.cookie)).status, 200);
+        assert.equal((await request("/user/logout", {}, alice2.cookie)).data.success, true);
+    });
     let renewed;
     await t.test("敏感操作要求密码，修改后撤销所有旧会话", async () => {
         assert.equal((await request("/user/confirm-delete", {}, alice.cookie)).status, 403);
@@ -65,9 +82,12 @@ test("安全接口回归（独立内存数据库）", async t => {
         renewed = update.cookie;
         assert.equal((await request(`/ticket/list/${aliceId}`, undefined, alice.cookie)).status, 401);
         assert.equal((await request(`/ticket/list/${aliceId}`, undefined, alice2.cookie)).status, 401);
+        assert.equal((await request("/user/session", undefined, alice.cookie)).status, 401);
+        assert.equal((await request("/user/session", undefined, renewed)).status, 200);
         assert.equal((await request(`/ticket/list/${aliceId}`, undefined, renewed)).status, 200);
         assert.equal((await request("/user/confirm-delete", { password: "Changed123" }, renewed)).data.success, true);
         assert.equal((await request(`/ticket/list/${aliceId}`, undefined, renewed)).status, 401);
+        assert.equal((await request("/user/session", undefined, renewed)).status, 401);
         assert.equal(db.prepare("SELECT COUNT(*) AS count FROM tickets WHERE user_id = ?").get(aliceId).count, 0);
     });
     await t.test("认证限流", async () => {

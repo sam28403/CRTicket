@@ -2,8 +2,7 @@
   <div>
     <el-container style="height: 100vh">
       <el-header class="top-header">
-        <el-avatar src="Picture1.png" />
-        <h2>Sam-Lab CR Ticket Maker</h2>
+        <AppBrand />
         <div class="page-header-actions">
           <ThemeSelect />
           <el-button @click="goToHistory()">
@@ -16,29 +15,27 @@
           <!-- 登录框 -->
           <div class="login-container">
             <h2>用户注册</h2>
-            <form id="registerForm" @submit.prevent="handleSubmit">
-              <el-form label-position="top" class="profile-form" @submit.prevent>
-                <el-form-item label="账号">
-                  <el-input v-model="username" placeholder="输入用户名" size="large" clearable />
-                </el-form-item>
-                <el-form-item label="密码">
-                  <el-input v-model="password1" type="password" show-password placeholder="输入密码" size="large" clearable />
-                </el-form-item>
-                <el-form-item label="确认密码">
-                  <el-input v-model="password2" type="password" show-password placeholder="确认密码" size="large" clearable />
-                </el-form-item>
-                <el-form-item label="验证码">
-                  <div class="captcha-group">
-                    <el-input-otp v-model="captchaInput" :length="5" size="large"/>
-                    <img ref="captchaImage" alt="点击刷新验证码" @click="refreshCaptcha" />
-                  </div>
-                </el-form-item>
-              </el-form>
+            <el-form id="registerForm" label-position="top" class="profile-form" @submit.prevent="handleSubmit">
+              <el-form-item label="账号">
+                <el-input v-model="username" placeholder="输入用户名" size="large" clearable />
+              </el-form-item>
+              <el-form-item label="密码">
+                <el-input v-model="password1" type="password" show-password placeholder="输入密码" size="large" clearable />
+              </el-form-item>
+              <el-form-item label="确认密码">
+                <el-input v-model="password2" type="password" show-password placeholder="确认密码" size="large" clearable />
+              </el-form-item>
+              <el-form-item label="验证码">
+                <div class="captcha-group">
+                  <el-input-otp v-model="captchaInput" :length="5" size="large"/>
+                  <img ref="captchaImage" alt="点击刷新验证码" @click="refreshCaptcha" />
+                </div>
+              </el-form-item>
               <div class="button-group">
-                <button type="submit" class="btn btn-login">注册</button>
+                <button type="submit" class="btn btn-login" :disabled="submitting">注册</button>
                 <button type="button" class="btn btn-register" @click="goToLogin">返回登录界面</button>
               </div>
-            </form>
+            </el-form>
           </div>
         </div>
       </el-main>
@@ -48,6 +45,7 @@
 
 <script setup>
 import ThemeSelect from '@/components/ThemeSelect.vue'
+import AppBrand from '@/components/AppBrand.vue'
 import { User } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
 import {onMounted, ref} from "vue";
@@ -67,6 +65,7 @@ const username = ref('');
 const password1 = ref('');
 const password2 = ref('');
 const captchaInput = ref('');
+const submitting = ref(false);
 let currentCaptcha = "";
 
 // 通过 ref 获取 captchaImage 元素
@@ -76,8 +75,8 @@ function refreshCaptcha() {
   currentCaptcha = refreshCaptchaImage(captchaImage.value);
 }
 
-function handleSubmit(e) {
-  e.preventDefault();
+function handleSubmit() {
+  if (submitting.value) return;
   const inputCode = captchaInput.value.trim().toUpperCase();
   if (inputCode !== currentCaptcha) {
     ElMessage.error("验证码错误，请重新输入！");
@@ -112,6 +111,7 @@ function handleSubmit(e) {
   }
 
   // 发送注册请求
+  submitting.value = true;
   api.post("/user/register", { username: username.value, password: password1.value })
       .then(response => {
         if (response.data.success) {
@@ -124,6 +124,9 @@ function handleSubmit(e) {
       .catch(err => {
         console.error(err);
         ElMessage.error("请求失败，请检查网络");
+      })
+      .finally(() => {
+        submitting.value = false;
       });
 }
 

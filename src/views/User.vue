@@ -2,8 +2,7 @@
   <div class="user-page">
     <el-container class="user-layout">
       <el-header class="top-header">
-        <el-avatar src="Picture1.png" />
-        <h2>Sam-Lab CR Ticket Maker</h2>
+        <AppBrand />
         <div class="page-header-actions"><ThemeSelect /></div>
       </el-header>
       <el-container>
@@ -208,6 +207,7 @@
 
 <script setup>
 import ThemeSelect from '@/components/ThemeSelect.vue'
+import AppBrand from '@/components/AppBrand.vue'
 import { useRouter } from "vue-router";
 import { onMounted, ref, nextTick, computed, watch } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
