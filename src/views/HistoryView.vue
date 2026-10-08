@@ -279,7 +279,9 @@
 
                 <div class="station-block">
                   <div class="station-left">
-                    <div class="station-name">{{ formatStationName(downloadTicket.from) }}<span class="small">站</span></div>
+                    <div
+                      class="station-name"
+                    >{{ formatStationName(downloadTicket.from) }}<span class="small">站</span></div>
                     <div class="station-en">{{ getStationEnglish(downloadTicket.from) }}</div>
                   </div>
 
@@ -292,7 +294,9 @@
                   </div>
 
                   <div class="station-right">
-                    <div class="station-name">{{ formatStationName(downloadTicket.to) }}<span class="small">站</span></div>
+                    <div
+                      class="station-name"
+                    >{{ formatStationName(downloadTicket.to) }}<span class="small">站</span></div>
                     <div class="station-en">{{ getStationEnglish(downloadTicket.to) }}</div>
                   </div>
                 </div>
@@ -338,14 +342,16 @@ import ThemeSelect from '@/components/ThemeSelect.vue'
 import AppBrand from '@/components/AppBrand.vue'
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useTransition } from '@vueuse/core'
-import { Check, Close, CloseBold, Delete, DocumentAdd, Download, Edit, User, UserFilled } from '@element-plus/icons-vue'
+import {
+  Check, Close, CloseBold, Delete, DocumentAdd, Download, Edit, User, UserFilled,
+} from '@element-plus/icons-vue'
 import html2canvas from 'html2canvas'
 import QRCode from 'qrcode'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.js'
 import api from '@/api.js'
-import { renderTicketToCanvas } from '@/utils/ticketExport.js'
+import { downloadTicketPNG, renderTicketImage } from '@/utils/ticketExport.js'
 import {
   buildTicketPayload,
   createDefaultTicket,
@@ -355,6 +361,7 @@ import {
   seatOptions,
   themeOptions,
   ticketRules,
+  ticketQRCodeOptions,
 } from '@/utils/ticketShared.js'
 import {
   formatStationName as formatTicketStationName,
@@ -569,7 +576,7 @@ const generateDownloadQRCode = async (text) => {
   try {
     downloadQrCodeUrl.value = await QRCode.toDataURL(
       text,
-      { width: 300, margin: 1, color: { dark: '#000000', light: '#0000' } }
+      ticketQRCodeOptions()
     )
   } catch (err) {
     downloadQrCodeUrl.value = ''
@@ -605,13 +612,9 @@ const downloadHistoryPNG = async (row) => {
   try {
     await new Promise((resolve) => requestAnimationFrame(resolve))
     const element = historyTicketRef.value
-    const canvas = await renderTicketToCanvas(html2canvas, element)
-    const imgData = canvas.toDataURL('image/png')
+    const imgData = await renderTicketImage(html2canvas, element)
 
-    const link = document.createElement('a')
-    link.href = imgData
-    link.download = `${row.number}.png`
-    link.click()
+    downloadTicketPNG(imgData, row.number)
   } catch (err) {
     ElMessage.error('下载失败')
   }

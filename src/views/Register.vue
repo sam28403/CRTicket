@@ -5,9 +5,6 @@
         <AppBrand />
         <div class="page-header-actions">
           <ThemeSelect />
-          <el-button @click="goToHistory()">
-          <el-icon><User /></el-icon>历史记录
-        </el-button>
         </div>
       </el-header>
       <el-main>
@@ -20,10 +17,24 @@
                 <el-input v-model="username" placeholder="输入用户名" size="large" clearable />
               </el-form-item>
               <el-form-item label="密码">
-                <el-input v-model="password1" type="password" show-password placeholder="输入密码" size="large" clearable />
+                <el-input
+                    v-model="password1"
+                    type="password"
+                    show-password
+                    placeholder="输入密码"
+                    size="large"
+                    clearable
+                />
               </el-form-item>
               <el-form-item label="确认密码">
-                <el-input v-model="password2" type="password" show-password placeholder="确认密码" size="large" clearable />
+                <el-input
+                    v-model="password2"
+                    type="password"
+                    show-password
+                    placeholder="确认密码"
+                    size="large"
+                    clearable
+                />
               </el-form-item>
               <el-form-item label="验证码">
                 <div class="captcha-group">

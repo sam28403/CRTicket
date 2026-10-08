@@ -74,6 +74,7 @@ https://sam28403.github.io
 | `src/views/User.vue` | 用户资料、车票统计和运转地图页面。 |
 | `src/views/Debug.vue` | 调试和诊断页面。 |
 | `src/components/LeftTicketCard.vue` | 余票查询结果卡片。 |
+| `src/components/AppBrand.vue` | 登录、注册、历史记录和用户页面共用的品牌标题。 |
 | `src/components/ThemeSelect.vue` | 外观主题选择控件。 |
 | `src/composables/useTheme.js` | 主题状态、系统配色同步和持久化逻辑。 |
 | `src/composables/useTicketShared.js` | 车票和余票页面共用的车站搜索及表单逻辑。 |
@@ -82,7 +83,8 @@ https://sam28403.github.io
 | `src/utils/stations.js` | 车站名称搜索和匹配工具。 |
 | `src/utils/stationCoordinates.js` | 车站地理坐标主数据。 |
 | `src/utils/ticketShared.js` | 前端车票数据共用处理逻辑。 |
-| `src/utils/ticketExport.js` | 车票图片／PDF 导出逻辑。 |
+| `src/utils/ticketFields.js` | 前后端共用的车票字段顺序、原始字段取值和备份比较值。 |
+| `src/utils/ticketExport.js` | 车票离屏渲染、PNG 数据生成和下载，供首页预览及 PNG／PDF 导出、历史车票下载复用。 |
 | `src/utils/trainTime.js` | 车次经停时间和跨日展示工具。 |
 | `src/utils/trainQueryDate.js` | 车次查询日期范围及格式处理。 |
 | `src/utils/trainDisplay.js` | 去除离线方案后缀，统一车次页面及导出文档的显示名称。 |
@@ -103,6 +105,7 @@ https://sam28403.github.io
 | `server/security.js` | 请求来源、跨域和安全响应头等服务端安全配置。 |
 | `server/security.test.js` | 服务端安全配置测试。 |
 | `server/db/db.js` | SQLite 数据库连接、初始化和共享数据库设置。 |
+| `server/db/ticketQueries.js` | 添加车票与导入备份共用的车票插入 SQL。 |
 | `server/db/train.db` | 本地运行生成的 SQLite 数据库文件，包含用户和车票记录；被 `.gitignore` 忽略。 |
 | `server/routes/user.js` | 注册、登录、用户资料和账户相关 API。 |
 | `server/routes/ticket.js` | 车票记录的增删改查 API。 |
@@ -115,6 +118,7 @@ https://sam28403.github.io
 | `server/routes/lltTrains.js` | 离线车次列表和详情 API，按生效日期及循环开行规则筛选。 |
 | `server/routes/lltTrains.test.js` | 离线日期筛选、车次排序和详情接口测试。 |
 | `server/routes/trainInfo.js` | 车次信息 API，组合 12306 与路路通查询结果。 |
+| `server/routes/trainClock.js` | 车次信息与离线车次列表共用的时刻转分钟工具。 |
 | `server/routes/trainInfo.test.js` | 车次信息路由测试。 |
 
 ### 静态资源：`public/`
@@ -137,6 +141,23 @@ https://sam28403.github.io
 | `station_exact_results.json`、`station_exact_progress.json`、`station_exact_missing_progress.json` | 车站精确匹配结果和处理进度数据。 |
 
 > 站名、坐标、地图和这些 JSON 文件属于数据资源；修改前应确认数据来源和用途，避免无关的批量重写。
+
+### 代码维护约定
+
+- 重复的数据处理和导出逻辑优先放入现有工具文件复用；车票字段顺序统一在
+  `src/utils/ticketFields.js` 中维护，数据库写入与备份比较使用相同顺序。
+- 二维码的尺寸、边距和颜色统一由 `src/utils/ticketShared.js` 提供，页面保留各自的生成与错误处理流程。
+- 前端备份比较仍用 `||` 拼接，后端仍用 JSON 数组序列化；各处默认值、空值处理和备份格式保持原有规则。
+- 过长的组件属性、参数列表、对象和条件表达式分行书写，保留中文文案、模板文本空白和样式值。
+- 整理代码不改变功能、界面、API 路径或数据库结构；不要批量重写站点、坐标、JSON 和地图数据。
+
+整理后可运行以下命令检查现有回归测试和两种前端构建。后端安全测试使用独立内存数据库：
+
+```bash
+node --test src/stores/user.test.js src/utils/trainInfoPdf.test.js server/security.test.js server/routes/*.test.js
+npm run build
+npm run build:ghpages
+```
 
 ## 切换页面主题
 

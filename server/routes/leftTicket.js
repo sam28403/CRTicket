@@ -30,7 +30,10 @@ export function validateQuery(query) {
   if (!stationCodes.has(from) || !stationCodes.has(to)) return '请选择有效的出发站和到达站'
   if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return '出发日期格式错误'
   const parsed = new Date(`${date}T00:00:00+08:00`)
-  if (!Number.isFinite(parsed.getTime()) || new Date(parsed.getTime() + 8 * 3600000).toISOString().slice(0, 10) !== date) return '出发日期无效'
+  if (
+    !Number.isFinite(parsed.getTime())
+    || new Date(parsed.getTime() + 8 * 3600000).toISOString().slice(0, 10) !== date
+  ) return '出发日期无效'
   const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10)
   const end = new Date(Date.parse(`${today}T00:00:00+08:00`) + 14 * 86400000)
   if (date < today || parsed > end) return '请选择今天起 15 天内的出发日期'
@@ -44,7 +47,11 @@ export function createLeftTicketRouter(fetchImpl = fetch) {
     const error = validateQuery(req.query)
     if (error) return res.status(400).json({ success: false, message: error })
     const signal = AbortSignal.timeout(20000)
-    const headers = { Referer: `${origin}/otn/leftTicket/init`, 'User-Agent': 'Mozilla/5.0', Accept: 'application/json' }
+    const headers = {
+      Referer: `${origin}/otn/leftTicket/init`,
+      'User-Agent': 'Mozilla/5.0',
+      Accept: 'application/json',
+    }
     try {
       // 从官网初始化页面读取当前接口，不固定依赖 queryG 等可能变化的名称。
       const init = await fetchImpl(`${origin}/otn/leftTicket/init`, { headers, signal, redirect: 'error' })
@@ -55,7 +62,9 @@ export function createLeftTicketRouter(fetchImpl = fetch) {
       const cookies = init.headers.getSetCookie?.().map(value => value.split(';')[0]).join('; ')
       if (cookies) headers.Cookie = cookies
       const params = new URLSearchParams({ 'leftTicketDTO.train_date': req.query.date,
-        'leftTicketDTO.from_station': req.query.from, 'leftTicketDTO.to_station': req.query.to, purpose_codes: 'ADULT' })
+        'leftTicketDTO.from_station': req.query.from,
+        'leftTicketDTO.to_station': req.query.to,
+        purpose_codes: 'ADULT' })
       for (let attempt = 0; attempt < 2; attempt++) {
         const response = await fetchImpl(`${origin}/otn/${path}?${params}`, { headers, signal, redirect: 'error' })
         if (!response.ok) throw new Error(`12306 查询失败（HTTP ${response.status}），请稍后重试或访问官网`)

@@ -52,3 +52,15 @@ export async function renderTicketToCanvas(html2canvas, ticketNode) {
   }
 }
 
+export async function renderTicketImage(html2canvas, ticketNode) {
+  const canvas = await renderTicketToCanvas(html2canvas, ticketNode)
+  return canvas.toDataURL('image/png')
+}
+
+export function downloadTicketPNG(imageData, number) {
+  const link = document.createElement('a')
+  link.href = imageData
+  link.download = `${number}.png`
+  link.click()
+}
+

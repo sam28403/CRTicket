@@ -54,5 +54,12 @@ export const installSecurity = (app) => {
     });
 };
 
-export const validPassword = value => typeof value === "string" && value.length > 0 && Buffer.byteLength(value, "utf8") <= 72;
-export const validUsername = value => typeof value === "string" && value.trim().length > 0 && value.length <= 64 && !/[\u0000-\u001f\u007f]/.test(value);
+export const validPassword = value =>
+    typeof value === "string"
+    && value.length > 0
+    && Buffer.byteLength(value, "utf8") <= 72;
+export const validUsername = value =>
+    typeof value === "string"
+    && value.trim().length > 0
+    && value.length <= 64
+    && !/[\u0000-\u001f\u007f]/.test(value);

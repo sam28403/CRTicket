@@ -5,9 +5,6 @@
         <AppBrand />
         <div class="page-header-actions">
           <ThemeSelect />
-          <el-button @click="goToHistory()">
-          <el-icon><User /></el-icon>历史记录
-        </el-button>
         </div>
       </el-header>
       <el-main>

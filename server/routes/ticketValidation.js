@@ -1,10 +1,17 @@
-const textFields = ["ticket_number", "train_no", "departure_station", "arrival_station", "travel_date", "departure_time", "seat_type", "seat_no", "sell_place", "gate_info", "message", "theme"];
+const textFields = [
+    "ticket_number", "train_no", "departure_station", "arrival_station",
+    "travel_date", "departure_time", "seat_type", "seat_no", "sell_place",
+    "gate_info", "message", "theme"
+];
 
 export const validTicket = ticket => {
     if (!ticket || typeof ticket !== "object" || Array.isArray(ticket)) return false;
     for (const field of textFields) {
         const value = ticket[field];
-        if (value != null && (typeof value !== "string" || value.length > (field === "message" ? 2000 : 200))) return false;
+        if (
+            value != null
+            && (typeof value !== "string" || value.length > (field === "message" ? 2000 : 200))
+        ) return false;
     }
     for (const field of ["price", "distance", "use_credit", "has_conditioner"]) {
         const value = ticket[field];

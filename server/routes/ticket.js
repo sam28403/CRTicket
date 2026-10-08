@@ -1,8 +1,10 @@
 import express from "express";
 const router = express.Router();
-import db from "../db/db.js";  // 确保 db.js 也改成了 ES 模块语法
+import db from "../db/db.js";
+import { INSERT_TICKET_SQL } from "../db/ticketQueries.js";
 import { requireSession } from "../auth.js";
 import { validTicket, ticketQuota } from "./ticketValidation.js";
+import { ticketFieldValues } from "../../src/utils/ticketFields.js";
 
 // 添加车票
 router.post("/add", (req, res) => {
@@ -13,40 +15,18 @@ router.post("/add", (req, res) => {
     }
 
     if (!validTicket(t)) return res.status(400).json({ success: false, message: "车票字段格式错误或过长" });
-    if (db.prepare("SELECT COUNT(*) AS count FROM tickets WHERE user_id = ?").get(sessionUser.userId).count >= ticketQuota) {
+    if (
+        db.prepare("SELECT COUNT(*) AS count FROM tickets WHERE user_id = ?")
+            .get(sessionUser.userId).count >= ticketQuota
+    ) {
         return res.status(409).json({ success: false, message: "车票数量已达10000条上限" });
     }
     try {
-        const stmt = db.prepare(`
-            INSERT INTO tickets (
-                user_id, ticket_number, train_no,
-                departure_station, arrival_station,
-                travel_date, departure_time,
-                price, use_credit,
-                seat_type, has_conditioner,
-                seat_no, sell_place, gate_info,
-                message, theme, distance
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `);
+        const stmt = db.prepare(INSERT_TICKET_SQL);
 
         stmt.run(
             sessionUser.userId,
-            t.ticket_number,
-            t.train_no,
-            t.departure_station,
-            t.arrival_station,
-            t.travel_date,
-            t.departure_time,
-            t.price,
-            t.use_credit,
-            t.seat_type,
-            t.has_conditioner,
-            t.seat_no,
-            t.sell_place,
-            t.gate_info,
-            t.message,
-            t.theme,
-            t.distance,
+            ...ticketFieldValues(t),
         );
 
         res.json({ success: true, message: "保存成功" });
@@ -125,22 +105,7 @@ const updateTicketHandler = (req, res) => {
         `);
 
         const result = stmt.run(
-            t.ticket_number,
-            t.train_no,
-            t.departure_station,
-            t.arrival_station,
-            t.travel_date,
-            t.departure_time,
-            t.price,
-            t.use_credit,
-            t.seat_type,
-            t.has_conditioner,
-            t.seat_no,
-            t.sell_place,
-            t.gate_info,
-            t.message,
-            t.theme,
-            t.distance,
+            ...ticketFieldValues(t),
             id,
             sessionUser.userId
         );

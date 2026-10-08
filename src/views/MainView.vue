@@ -1,15 +1,25 @@
 <template>
   <nav class="home-navigation page-header-actions" aria-label="页面导航">
     <ThemeSelect />
-    <el-button :disabled="isGithubPagesBuild" :title="isGithubPagesBuild ? 'GitHub Pages 无法跨域访问 12306 余票接口' : ''" @click="goToMonitor">余票监控</el-button>
-    <el-button :disabled="isGithubPagesBuild" :title="isGithubPagesBuild ? 'GitHub Pages 未部署车次查询后端' : ''" @click="goToTrainQuery">车次查询</el-button>
+    <el-button
+      :disabled="isGithubPagesBuild"
+      :title="isGithubPagesBuild ? 'GitHub Pages 无法跨域访问 12306 余票接口' : ''"
+      @click="goToMonitor"
+    >余票监控</el-button>
+    <el-button
+      :disabled="isGithubPagesBuild"
+      :title="isGithubPagesBuild ? 'GitHub Pages 未部署车次查询后端' : ''"
+      @click="goToTrainQuery"
+    >车次查询</el-button>
     <el-button :disabled="isGithubPagesBuild" @click="goToHistory()">
       <el-icon><User /></el-icon>历史记录
     </el-button>
   </nav>
   <el-container class="main-layout">
     <el-aside width="350px" class="main-aside">
-      <h2 style="margin-bottom: 20px; font-family: 'Roboto', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">Sam-Lab CR Ticket Maker</h2>
+      <h2
+        style="margin-bottom: 20px; font-family: 'Roboto', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif"
+      >Sam-Lab CR Ticket Maker</h2>
       <el-form
           :model="ticket"
           :rules="rules"
@@ -271,7 +281,7 @@ import { useRouter } from 'vue-router'
 import api from '@/api.js'
 import { useUserStore } from '@/stores/user.js'
 import { isGithubPagesBuild } from '@/config/deploy.js'
-import { renderTicketToCanvas } from '@/utils/ticketExport.js'
+import { downloadTicketPNG, renderTicketImage } from '@/utils/ticketExport.js'
 import {
   buildTicketPayload,
   createDefaultTicket,
@@ -279,6 +289,7 @@ import {
   seatOptions,
   themeOptions,
   ticketRules,
+  ticketQRCodeOptions,
 } from '@/utils/ticketShared.js'
 import {
   formatStationName as formatTicketStationName,
@@ -320,7 +331,7 @@ function generateQRCode(text) {
     qrCodeUrl.value = ''
     return
   }
-  QRCode.toDataURL(text, { width: 300, margin: 1, color: { dark: '#000000', light: '#0000' } }, (err, url) => {
+  QRCode.toDataURL(text, ticketQRCodeOptions(), (err, url) => {
     if (!err) {
       qrCodeUrl.value = url
     }
@@ -404,8 +415,7 @@ async function renderMobilePreviewNow() {
   mobilePreviewRerenderRequested = false
 
   try {
-    const canvas = await renderTicketToCanvas(html2canvas, ticketRef.value)
-    mobileTicketImageUrl.value = canvas.toDataURL('image/png')
+    mobileTicketImageUrl.value = await renderTicketImage(html2canvas, ticketRef.value)
   } finally {
     isRenderingMobilePreview = false
     if (mobilePreviewRerenderRequested) {
@@ -467,8 +477,7 @@ const downloadPDF = async () => {
   }
 
   const element = ticketRef.value
-  const canvas = await renderTicketToCanvas(html2canvas, element)
-  const imgData = canvas.toDataURL('image/png')
+  const imgData = await renderTicketImage(html2canvas, element)
 
   const pdf = new jsPDF({
     orientation: 'landscape',
@@ -487,13 +496,9 @@ const downloadPNG = async () => {
   }
 
   const element = ticketRef.value
-  const canvas = await renderTicketToCanvas(html2canvas, element)
-  const imgData = canvas.toDataURL('image/png')
+  const imgData = await renderTicketImage(html2canvas, element)
 
-  const link = document.createElement('a')
-  link.href = imgData
-  link.download = `${ticket.number}.png`
-  link.click()
+  downloadTicketPNG(imgData, ticket.number)
 }
 
 const router = useRouter()

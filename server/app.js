@@ -7,7 +7,10 @@ const app = express();
 installSecurity(app);
 app.use(express.json({ limit: "1mb" }));
 app.use((req, res, next) => {
-    if (["POST", "PUT"].includes(req.method) && (!req.body || typeof req.body !== "object" || Array.isArray(req.body))) {
+    if (
+        ["POST", "PUT"].includes(req.method)
+        && (!req.body || typeof req.body !== "object" || Array.isArray(req.body))
+    ) {
         return res.status(400).json({ success: false, message: "请求数据格式错误" });
     }
     next();

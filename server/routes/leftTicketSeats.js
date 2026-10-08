@@ -30,7 +30,12 @@ export function parseSeats(fields) {
     const counts = candidates.get(key)
     // 有座明细的 21 是截断值；无座保留接口的实际数量。
     // 多条同席别记录不求和；与“有”矛盾的明细和缺失数据仍保留区间。
-    seats[key] = counts?.length === 1 && counts[0] >= 21 && (key === 'standing' || counts[0] !== 21) && counts[0] < 3000 ? String(counts[0]) : '>20'
+    seats[key] = counts?.length === 1
+      && counts[0] >= 21
+      && (key === 'standing' || counts[0] !== 21)
+      && counts[0] < 3000
+      ? String(counts[0])
+      : '>20'
   }
   return seats
 }

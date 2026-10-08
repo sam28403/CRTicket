@@ -3,6 +3,7 @@ import stationData from '../../src/station_name.js'
 import { rateLimit } from '../security.js'
 import { isTrainQueryDateInRange } from '../../src/utils/trainQueryDate.js'
 import { loadLltDatabase } from './lltskb.js'
+import { clockMinutes } from './trainClock.js'
 
 const origin = 'https://kyfw.12306.cn'
 const stationCodes = new Map(stationData.split('@').filter(Boolean).map(row => {
@@ -30,19 +31,18 @@ export function normalizeStops(rows, train) {
     throw new Error('车次数据格式发生变化，请稍后重试')
   }
   const clock = value => /^([01]\d|2[0-3]):[0-5]\d$/.test(value) ? value : null
-  const minutes = value => Number(value.slice(0, 2)) * 60 + Number(value.slice(3))
   let day = 0
   let previousTime = null
   return rows.map((row, index) => {
     const arrival = index === 0 ? null : clock(row.arrive_time)
     const departure = index === rows.length - 1 ? null : clock(row.start_time)
-    const stay = arrival && departure ? (minutes(departure) - minutes(arrival) + 1440) % 1440 : null
-    if (arrival && previousTime != null && minutes(arrival) < previousTime) day++
+    const stay = arrival && departure ? (clockMinutes(departure) - clockMinutes(arrival) + 1440) % 1440 : null
+    if (arrival && previousTime != null && clockMinutes(arrival) < previousTime) day++
     // 官网提供累计跨日数；备用接口无该字段时按沿途时刻回绕推导。
     if (index > 0 && /^\d+$/.test(String(row.arrive_day_diff ?? ''))) day = Number(row.arrive_day_diff)
     const arrivalDay = day
-    if (arrival && departure && minutes(departure) < minutes(arrival)) day++
-    if (departure || arrival) previousTime = minutes(departure || arrival)
+    if (arrival && departure && clockMinutes(departure) < clockMinutes(arrival)) day++
+    if (departure || arrival) previousTime = clockMinutes(departure || arrival)
     return {
       no: row.station_no || String(index + 1), train: row.station_train_code || train,
       station: row.station_name, arrival, departure, stay,
@@ -54,7 +54,11 @@ export function normalizeStops(rows, train) {
 // 主查询参数来自 queryTrainInfo_js.js；备用查询按照用户提供的 lltskb_query.py。
 async function query12306(train, date, fetchImpl) {
   const signal = AbortSignal.timeout(25000)
-  const headers = { Referer: `${origin}/otn/queryTrainInfo/init`, 'User-Agent': 'Mozilla/5.0', Accept: 'application/json' }
+  const headers = {
+    Referer: `${origin}/otn/queryTrainInfo/init`,
+    'User-Agent': 'Mozilla/5.0',
+    Accept: 'application/json',
+  }
   async function get(url) {
     const response = await fetchImpl(url, { headers, signal, redirect: 'error' })
     if (!response.ok) throw new Error(`查询服务返回 HTTP ${response.status}`)
@@ -62,7 +66,10 @@ async function query12306(train, date, fetchImpl) {
     if (body.status === false || (body.httpstatus && body.httpstatus !== 200)) throw new Error('12306 暂未提供查询数据，请稍后重试')
     return body
   }
-  const search = await get(`https://search.12306.cn/search/v1/train/search?${new URLSearchParams({ keyword: train, date: date.replaceAll('-', '') })}`)
+  const search = await get(`https://search.12306.cn/search/v1/train/search?${new URLSearchParams({
+    keyword: train,
+    date: date.replaceAll('-', ''),
+  })}`)
   if (!Array.isArray(search.data)) throw new Error('12306 车次搜索返回格式异常')
   const candidates = search.data.filter(item => matchesTrain(item.station_train_code, train))
   if (!candidates.length) return { stops: [], source: '12306', warnings: [] }
@@ -83,7 +90,11 @@ async function query12306(train, date, fetchImpl) {
   if (!rows.length) {
     const codes = new Map(stationCodes)
     if (!codes.has(item.from_station) || !codes.has(item.to_station)) {
-      const response = await fetchImpl(`${origin}/otn/resources/js/framework/station_name.js`, { headers, signal, redirect: 'error' })
+      const response = await fetchImpl(`${origin}/otn/resources/js/framework/station_name.js`, {
+        headers,
+        signal,
+        redirect: 'error',
+      })
       if (!response.ok) throw new Error('无法获取车站电报码')
       for (const entry of (await response.text()).split('@').slice(1)) {
         const fields = entry.split('|')

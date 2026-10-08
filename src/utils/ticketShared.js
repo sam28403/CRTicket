@@ -1,6 +1,14 @@
 export const DEFAULT_TICKET_MESSAGE = '买票请到12306 发货请到95306\n中国铁路祝您旅途愉快'
 export const DEFAULT_TICKET_THEME = 'EMU_Green.jpg'
 
+export function ticketQRCodeOptions() {
+  return {
+    width: 300,
+    margin: 1,
+    color: { dark: '#000000', light: '#0000' },
+  }
+}
+
 export function createDefaultTicket() {
   return {
     number: '',

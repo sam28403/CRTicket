@@ -1,45 +1,21 @@
 import express from "express";
 const router = express.Router();
 import db from "../db/db.js";
+import { INSERT_TICKET_SQL } from "../db/ticketQueries.js";
 import bcrypt from "bcryptjs";
 import { attachSession, clearSession, requireSession, revokeUserSessions } from "../auth.js";
 
 import { rateLimit, validPassword, validUsername } from "../security.js";
 import { validTicket, ticketQuota } from "./ticketValidation.js";
+import { comparableTicketValues, ticketFieldValues } from "../../src/utils/ticketFields.js";
 
 const authLimiter = rateLimit(20, 15 * 60 * 1000);
-router.use(["/login", "/register", "/update-profile", "/update-avatar", "/delete-account", "/confirm-delete"], authLimiter);
+router.use([
+    "/login", "/register", "/update-profile", "/update-avatar", "/delete-account", "/confirm-delete"
+], authLimiter);
 const dummyHash = bcrypt.hashSync("dummy-password-9", 10);
 
-const BACKUP_TICKET_FIELDS = [
-    "ticket_number",
-    "train_no",
-    "departure_station",
-    "arrival_station",
-    "travel_date",
-    "departure_time",
-    "price",
-    "use_credit",
-    "seat_type",
-    "has_conditioner",
-    "seat_no",
-    "sell_place",
-    "gate_info",
-    "message",
-    "theme",
-    "distance",
-];
-
-const normalizeComparableValue = (value) => {
-    if (value === null || value === undefined) {
-        return "";
-    }
-    return String(value);
-};
-
-const ticketFingerprint = (ticket) => {
-    return JSON.stringify(BACKUP_TICKET_FIELDS.map((field) => normalizeComparableValue(ticket[field])));
-};
+const ticketFingerprint = (ticket) => JSON.stringify(comparableTicketValues(ticket));
 
 const toNullableText = (value) => {
     if (value === null || value === undefined || value === "") {
@@ -58,7 +34,13 @@ const toNullableNumber = (value) => {
 };
 
 const mapBackupTicket = (ticket) => {
-    if (!ticket || typeof ticket !== "object" || Array.isArray(ticket) || Object.values(ticket).some(value => value != null && (typeof value === "object" || String(value).length > 2000))) {
+    if (
+        !ticket
+        || typeof ticket !== "object"
+        || Array.isArray(ticket)
+        || Object.values(ticket).some(value =>
+            value != null && (typeof value === "object" || String(value).length > 2000))
+    ) {
         return null;
     }
 
@@ -242,7 +224,9 @@ router.post("/update-profile", async (req, res) => {
 
     try {
         if (!requireSession(req, res)) return;
-        const result = db.prepare("UPDATE users SET username = ?, password = ? WHERE id = ? AND password = ?").run(finalUsername, finalPassword, sessionUser.userId, user.password);
+        const result = db.prepare(
+            "UPDATE users SET username = ?, password = ? WHERE id = ? AND password = ?"
+        ).run(finalUsername, finalPassword, sessionUser.userId, user.password);
         if (!result.changes) return res.status(409).json({ success: false, message: "账户信息已变化，请重新登录" });
         revokeUserSessions(user.id);
         attachSession(res, { id: user.id, username: finalUsername });
@@ -506,17 +490,7 @@ router.post("/import-backup", (req, res) => {
             return res.status(409).json({ success: false, message: "导入后车票数量不可超过10000条" });
         }
         const existingSet = new Set(existingTickets.map(ticketFingerprint));
-        const insertStmt = db.prepare(`
-            INSERT INTO tickets (
-                user_id, ticket_number, train_no,
-                departure_station, arrival_station,
-                travel_date, departure_time,
-                price, use_credit,
-                seat_type, has_conditioner,
-                seat_no, sell_place, gate_info,
-                message, theme, distance
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `);
+        const insertStmt = db.prepare(INSERT_TICKET_SQL);
 
         let imported = 0;
         let skipped = 0;
@@ -538,22 +512,7 @@ router.post("/import-backup", (req, res) => {
 
                 insertStmt.run(
                     sessionUser.userId,
-                    ticket.ticket_number,
-                    ticket.train_no,
-                    ticket.departure_station,
-                    ticket.arrival_station,
-                    ticket.travel_date,
-                    ticket.departure_time,
-                    ticket.price,
-                    ticket.use_credit,
-                    ticket.seat_type,
-                    ticket.has_conditioner,
-                    ticket.seat_no,
-                    ticket.sell_place,
-                    ticket.gate_info,
-                    ticket.message,
-                    ticket.theme,
-                    ticket.distance
+                    ...ticketFieldValues(ticket)
                 );
 
                 existingSet.add(fingerprint);

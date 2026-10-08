@@ -16,9 +16,11 @@ const normalize = value => {
 }
 const preference = ref('classic-system')
 const systemDark = ref(false)
-const isDark = computed(() => preference.value.endsWith('-dark') || (preference.value.endsWith('-system') && systemDark.value))
+const isDark = computed(() =>
+  preference.value.endsWith('-dark') || (preference.value.endsWith('-system') && systemDark.value))
 const highContrast = computed(() => preference.value.startsWith('contrast-'))
-const resolvedTheme = computed(() => `${highContrast.value ? 'contrast' : 'classic'}-${isDark.value ? 'dark' : 'light'}`)
+const resolvedTheme = computed(() =>
+  `${highContrast.value ? 'contrast' : 'classic'}-${isDark.value ? 'dark' : 'light'}`)
 let initialized = false
 
 export function initializeTheme() {

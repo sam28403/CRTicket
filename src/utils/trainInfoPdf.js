@@ -72,8 +72,20 @@ export function planTrainPdf(result, font) {
     const sizes = cells.map((text, column) => column === 1 && [...String(text)].length === 5
       ? Math.min(size, (columnWidth - 6) / font.widthOfTextAtSize(String(text), 1))
       : size)
-    const lines = cells.map((text, column) => wrapText(text, font, sizes[column], columnWidth - (column === 1 && [...String(text)].length === 5 ? 6 : 10.8)))
-    return { lines, sizes, height: Math.max(18.75, Math.max(...lines.map((cell, column) => cell.length * font.heightAtSize(sizes[column]))) + 4) }
+    const lines = cells.map((text, column) => wrapText(
+      text,
+      font,
+      sizes[column],
+      columnWidth - (column === 1 && [...String(text)].length === 5 ? 6 : 10.8)
+    ))
+    return {
+      lines,
+      sizes,
+      height: Math.max(
+        18.75,
+        Math.max(...lines.map((cell, column) => cell.length * font.heightAtSize(sizes[column]))) + 4
+      ),
+    }
   })
   let fontSize = 14
   let measured = measure(fontSize)
@@ -115,25 +127,49 @@ export async function buildTrainInfoPdf(result, fontBytes) {
     let top = pageSize[1] - plan.tableTop
     const tableRows = [plan.header, ...rows]
     const tableBottom = top - tableRows.reduce((sum, row) => sum + row.height, 0)
-    page.drawRectangle({ x: tableLeft, y: top - plan.header.height, width: tableWidth, height: plan.header.height, color: rgb(166 / 255, 166 / 255, 166 / 255) })
-    const rule = y => page.drawLine({ start: { x: tableLeft, y }, end: { x: tableLeft + tableWidth, y }, thickness: 0.5, color: rgb(0, 0, 0) })
+    page.drawRectangle({
+      x: tableLeft,
+      y: top - plan.header.height,
+      width: tableWidth,
+      height: plan.header.height,
+      color: rgb(166 / 255, 166 / 255, 166 / 255),
+    })
+    const rule = y => page.drawLine({
+      start: { x: tableLeft, y },
+      end: { x: tableLeft + tableWidth, y },
+      thickness: 0.5,
+      color: rgb(0, 0, 0),
+    })
     rule(top)
     for (const row of tableRows) {
       row.lines.forEach((lines, column) => {
         const size = row.sizes[column]
         const lineHeight = font.heightAtSize(size)
-        const baseline = top - (row.height - lines.length * lineHeight) / 2 - font.heightAtSize(size, { descender: false })
-        lines.forEach((line, index) => drawCentered(line, size, tableLeft + (column + 0.5) * columnWidth, baseline - index * lineHeight))
+        const baseline = top - (row.height - lines.length * lineHeight) / 2
+          - font.heightAtSize(size, { descender: false })
+        lines.forEach((line, index) => drawCentered(
+          line, size, tableLeft + (column + 0.5) * columnWidth, baseline - index * lineHeight
+        ))
       })
       top -= row.height
       rule(top)
     }
     for (let column = 0; column <= 6; column++) {
       const x = tableLeft + column * columnWidth
-      page.drawLine({ start: { x, y: pageSize[1] - plan.tableTop }, end: { x, y: tableBottom }, thickness: 0.5, color: rgb(0, 0, 0) })
+      page.drawLine({
+        start: { x, y: pageSize[1] - plan.tableTop },
+        end: { x, y: tableBottom },
+        thickness: 0.5,
+        color: rgb(0, 0, 0),
+      })
     }
   }
-  return { bytes: await document.save(), filename: trainPdfFilename(result), fontSize: plan.fontSize, pageCount: plan.pages.length }
+  return {
+    bytes: await document.save(),
+    filename: trainPdfFilename(result),
+    fontSize: plan.fontSize,
+    pageCount: plan.pages.length,
+  }
 }
 
 export async function downloadTrainInfoPdf(result) {

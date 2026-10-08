@@ -34,10 +34,21 @@
               </template>
               <div class="avatar-area">
                 <el-avatar :size="180" :src="avatarUrl" :icon="UserFilled" />
-                <input ref="avatarFileInput" class="avatar-file-input" type="file" accept="image/png,image/jpeg,image/webp" @change="handleAvatarFile" />
+                <input
+                  ref="avatarFileInput"
+                  class="avatar-file-input"
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  @change="handleAvatarFile"
+                />
                 <div class="avatar-actions">
                   <el-button size="large" type="primary" @click="avatarFileInput?.click()">更改头像</el-button>
-                  <el-button v-if="avatarUrl" size="large" :loading="avatarSaving" @click="removeAvatar">清除头像</el-button>
+                  <el-button
+                    v-if="avatarUrl"
+                    size="large"
+                    :loading="avatarSaving"
+                    @click="removeAvatar"
+                  >清除头像</el-button>
                 </div>
                 <p class="avatar-hint">支持 JPG、PNG、WebP，选择后可调整裁切区域</p>
               </div>
@@ -49,16 +60,37 @@
               </template>
               <el-form label-position="top" class="profile-form" @submit.prevent>
                 <el-form-item label="当前密码（必填）">
-                  <el-input v-model="currentPassword" type="password" show-password autocomplete="current-password" placeholder="输入当前密码" size="large" />
+                  <el-input
+                    v-model="currentPassword"
+                    type="password"
+                    show-password
+                    autocomplete="current-password"
+                    placeholder="输入当前密码"
+                    size="large"
+                  />
                 </el-form-item>
                 <el-form-item label="修改用户名（可选）">
                   <el-input v-model="newUsername" placeholder="输入新的用户名" size="large" clearable />
                 </el-form-item>
                 <el-form-item label="修改密码（可选）">
-                  <el-input v-model="newPassword" type="password" show-password placeholder="输入新的密码" size="large" clearable />
+                  <el-input
+                    v-model="newPassword"
+                    type="password"
+                    show-password
+                    placeholder="输入新的密码"
+                    size="large"
+                    clearable
+                  />
                 </el-form-item>
                 <el-form-item label="重复密码">
-                  <el-input v-model="repeatPassword" type="password" show-password placeholder="重复新的密码" size="large" clearable />
+                  <el-input
+                    v-model="repeatPassword"
+                    type="password"
+                    show-password
+                    placeholder="重复新的密码"
+                    size="large"
+                    clearable
+                  />
                 </el-form-item>
                 <el-form-item label="验证码">
                   <div class="captcha-group">
@@ -86,7 +118,13 @@
             </template>
           </el-dialog>
 
-          <el-dialog v-model="deleteDialogVisible" title="删除账户" width="450px" :close-on-click-modal="false" size="large">
+          <el-dialog
+            v-model="deleteDialogVisible"
+            title="删除账户"
+            width="450px"
+            :close-on-click-modal="false"
+            size="large"
+          >
             <el-alert
               title="删除账户后，所有数据将被永久清除且无法恢复"
               type="error"
@@ -216,7 +254,8 @@ import * as echarts from "echarts";
 import { useTheme } from '@/composables/useTheme';
 const { isDark, resolvedTheme } = useTheme();
 const chartText = () => getComputedStyle(document.documentElement).getPropertyValue('--app-text').trim() || '#17324d';
-const chartBackground = () => getComputedStyle(document.documentElement).getPropertyValue('--app-surface').trim() || '#ffffff';
+const chartBackground = () =>
+  getComputedStyle(document.documentElement).getPropertyValue('--app-surface').trim() || '#ffffff';
 watch(resolvedTheme, () => {
   renderStationChart();
   renderCityChart();
@@ -229,6 +268,7 @@ import { refreshCaptchaImage } from "@/utils/captcha.js";
 import { parseStations } from "@/utils/stations.js";
 import stationCoordinates, { loadChinaMap } from "@/utils/stationCoordinates.js";
 import { buildTicketPayload } from "@/utils/ticketShared.js";
+import { comparableTicketValues } from "@/utils/ticketFields.js";
 import { useUserStore } from "@/stores/user.js";
 
 const router = useRouter()
@@ -509,56 +549,7 @@ const buildBackupTicket = (ticket) => ({
   distance: ticket.distance ?? 0,
 })
 
-const BACKUP_FINGERPRINT_FIELDS = [
-  "ticket_number",
-  "train_no",
-  "departure_station",
-  "arrival_station",
-  "travel_date",
-  "departure_time",
-  "price",
-  "use_credit",
-  "seat_type",
-  "has_conditioner",
-  "seat_no",
-  "sell_place",
-  "gate_info",
-  "message",
-  "theme",
-  "distance",
-]
-
-const normalizeFingerprintValue = (value) => {
-  if (value === null || value === undefined) {
-    return ""
-  }
-  return String(value)
-}
-
-const buildTicketFingerprint = (ticket) => {
-  return BACKUP_FINGERPRINT_FIELDS
-    .map((field) => normalizeFingerprintValue(ticket[field]))
-    .join("||")
-}
-
-const toCurrentTicketFingerprint = (ticket) => buildTicketFingerprint({
-  ticket_number: ticket.ticket_number,
-  train_no: ticket.train_no,
-  departure_station: ticket.departure_station,
-  arrival_station: ticket.arrival_station,
-  travel_date: ticket.travel_date,
-  departure_time: ticket.departure_time,
-  price: ticket.price,
-  use_credit: ticket.use_credit,
-  seat_type: ticket.seat_type,
-  has_conditioner: ticket.has_conditioner,
-  seat_no: ticket.seat_no,
-  sell_place: ticket.sell_place,
-  gate_info: ticket.gate_info,
-  message: ticket.message,
-  theme: ticket.theme,
-  distance: ticket.distance,
-})
+const buildTicketFingerprint = (ticket) => comparableTicketValues(ticket).join("||")
 
 const mapBackupTicketToTicketForm = (ticket) => ({
   number: ticket.ticket_number ?? "",
@@ -627,7 +618,8 @@ const downloadBlob = (blob, fileName) => {
 const getExportFileStamp = () => {
   const now = new Date()
   const pad = (value) => String(value).padStart(2, "0")
-  return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`
+  return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`
+    + `-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`
 }
 
 async function handleExportToExcel() {
@@ -757,7 +749,7 @@ async function handleBackupFileChange(event) {
     )
 
     const currentTickets = await loadAllTicketRecords()
-    const existingSet = new Set(currentTickets.map(toCurrentTicketFingerprint))
+    const existingSet = new Set(currentTickets.map(buildTicketFingerprint))
     const userTickets = Array.isArray(tickets) ? tickets : []
 
     let imported = 0
@@ -770,7 +762,10 @@ async function handleBackupFileChange(event) {
         ? mapBackupTicketToTicketForm(rawTicket)
         : null
 
-      if (!mapped || !mapped.number || !mapped.trainNo || !mapped.from || !mapped.to || !mapped.date || !mapped.time || !mapped.seatType || !mapped.seatNo || !mapped.price) {
+      if (
+        !mapped || !mapped.number || !mapped.trainNo || !mapped.from || !mapped.to
+        || !mapped.date || !mapped.time || !mapped.seatType || !mapped.seatNo || !mapped.price
+      ) {
         invalid += 1
         continue
       }

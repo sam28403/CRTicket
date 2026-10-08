@@ -1,6 +1,7 @@
 import express from 'express'
 import { rateLimit } from '../security.js'
 import { loadLltDatabase } from './lltskb.js'
+import { clockMinutes } from './trainClock.js'
 
 const dayMs = 86400000
 const categories = ['G', 'D', 'C', 'S', 'Z', 'T', 'K', 'L']
@@ -41,7 +42,6 @@ export function compareTrains(a, b) {
 }
 
 export function listLltTrains(database, date) {
-  const minutes = clock => Number(clock.slice(0, 2)) * 60 + Number(clock.slice(3))
   const rows = []
   for (const item of database.trains.values()) {
     if (!runsOnDate(item.schedule, date)) continue
@@ -49,7 +49,7 @@ export function listLltTrains(database, date) {
     const last = item.stops.at(-1)
     const elapsed = first.departure && last.arrival
       ? (last.arrivalDay - (first.departureDay || 0)) * 1440
-        + minutes(last.arrival) - minutes(first.departure)
+        + clockMinutes(last.arrival) - clockMinutes(first.departure)
       : null
     const duration = elapsed == null || elapsed < 0
       ? null

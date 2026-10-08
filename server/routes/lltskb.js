@@ -110,7 +110,8 @@ export function parseLltFiles(files) {
         const departureMinutes = arrivalMinutes + stay
         day += Math.floor(departureMinutes / 1440)
         previousDeparture = departureMinutes % 1440
-        const clock = value => `${String(Math.floor(value / 60) % 24).padStart(2, '0')}:${String(value % 60).padStart(2, '0')}`
+        const clock = value =>
+          `${String(Math.floor(value / 60) % 24).padStart(2, '0')}:${String(value % 60).padStart(2, '0')}`
         stops.push({ no: String(i + 1).padStart(2, '0'), train, station,
           arrival: i === 0 ? null : clock(arrivalMinutes),
           departure: i === count - 1 ? null : clock(departureMinutes),
