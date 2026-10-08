@@ -1,5 +1,6 @@
 import { PDFDocument, PageSizes, rgb } from 'pdf-lib'
 import fontkit from '@pdf-lib/fontkit'
+import { displayTrainCode } from './trainDisplay.js'
 
 // 模板.docx：A4、上下 72 pt、左右 90 pt，六等宽列，灰色表头及 0.5 pt 黑色网格。
 const pageSize = PageSizes.A4
@@ -15,10 +16,10 @@ let fontRequest
 export function trainPdfTitle(result) {
   const codes = []
   for (const stop of result.stops) {
-    const code = stop.train || result.train
+    const code = displayTrainCode(stop.train || result.train)
     if (code && codes.at(-1) !== code) codes.push(code)
   }
-  if (!codes.length) return result.train
+  if (!codes.length) return displayTrainCode(result.train)
   let title = codes[0]
   for (let index = 1; index < codes.length; index++) {
     const previous = codes[index - 1]
@@ -31,7 +32,7 @@ export function trainPdfTitle(result) {
 }
 
 export function trainPdfFilename(result) {
-  const train = String(result.train || '').split('/')[0].replace(/[<>:"/\\|?*\u0000-\u001f]/g, '_')
+  const train = displayTrainCode(result.train).split('/')[0].replace(/[<>:"/\\|?*\u0000-\u001f]/g, '_')
   return `${train}_${String(result.date).replace(/[<>:"/\\|?*\u0000-\u001f]/g, '_')}.pdf`
 }
 

@@ -67,6 +67,7 @@ https://sam28403.github.io
 | `src/views/MainView.vue` | 车票生成首页和表单。 |
 | `src/views/Monitor.vue` | 余票查询、筛选、定时监控和提醒页面。 |
 | `src/views/TrainQuery.vue` | 车次经停、时间和里程查询页面。 |
+| `src/views/TrainList.vue` | 路路通离线车次列表，支持按日期筛选、排序和跳转经停详情。 |
 | `src/views/HistoryView.vue` | 已保存车票历史及记录操作页面。 |
 | `src/views/Login.vue` | 登录页面。 |
 | `src/views/Register.vue` | 注册页面。 |
@@ -84,6 +85,7 @@ https://sam28403.github.io
 | `src/utils/ticketExport.js` | 车票图片／PDF 导出逻辑。 |
 | `src/utils/trainTime.js` | 车次经停时间和跨日展示工具。 |
 | `src/utils/trainQueryDate.js` | 车次查询日期范围及格式处理。 |
+| `src/utils/trainDisplay.js` | 去除离线方案后缀，统一车次页面及导出文档的显示名称。 |
 | `src/utils/trainInfoPdf.js` | 车次经停信息 PDF 排版与导出。 |
 | `src/utils/trainInfoPdf.test.js` | 车次 PDF 导出工具的测试。 |
 | `src/assets/styles/App.css` | 应用通用样式。 |
@@ -110,6 +112,8 @@ https://sam28403.github.io
 | `server/routes/leftTicket.test.js` | 余票查询路由测试。 |
 | `server/routes/lltskb.js` | 路路通车次数据库获取、缓存和经停／里程查询。 |
 | `server/routes/lltskb.test.js` | 路路通数据处理测试。 |
+| `server/routes/lltTrains.js` | 离线车次列表和详情 API，按生效日期及循环开行规则筛选。 |
+| `server/routes/lltTrains.test.js` | 离线日期筛选、车次排序和详情接口测试。 |
 | `server/routes/trainInfo.js` | 车次信息 API，组合 12306 与路路通查询结果。 |
 | `server/routes/trainInfo.test.js` | 车次信息路由测试。 |
 
@@ -250,6 +254,23 @@ https://sam28403.github.io
 
 GitHub Pages 演示版不部署后端，因此禁用首页“车次查询”入口，并将直接访问 `#/train` 重定向至首页。
 
+## 车次列表使用说明
+
+在车次查询页面（`#/train`）标题右侧点击“车次列表”，或直接访问 `#/list`，即可查看路路通离线库中所选日期始发的车次，无需登录。标题右侧的日期选择器默认选择北京时间当天，不限制日期；列表根据当前离线库版本的生效起止日期和循环开行规则筛选，不保存历史版本时刻表。
+
+列表展示车次、始发站、终到站、历时（`hh:mm`）、总里程（`km`）和均速（`km/h`）。历时包含跨日时间；均速按总里程除以全程历时计算，包含停站时间，显示一位小数。里程或历时缺失时，对应数据及无法计算的均速显示“暂无”。
+
+默认按 G、D、C、S、Z、T、K、L、四位数字普车的顺序排列，同类别按车次数字排序，其他类别列在末尾。点击历时、里程或均速表头切换升降序，缺失值始终放在末尾；点击车次表头恢复默认顺序。表格使用虚拟滚动，只渲染可视范围附近的行，桌面和手机的六列宽度自适应，无需左右滑动。
+
+点击列表中的车次，会携带始发日期和完整离线记录编号跳转到 `#/train`，自动展示该记录当天的离线时刻表。双车次号及 B、C、D 等方案后缀用于准确匹配记录；进入车次查询页面后，输入框、结果标题、站表以及导出 PDF 的标题和文件名均去掉方案后缀，例如 `G1B/G2C` 显示为 `G1/G2`，再次查询仍匹配原记录。
+
+车次列表与详情需要运行后端 `node server/app.js`，前端通过以下接口读取数据，并复用路路通数据库缓存：
+
+- `GET /api/llt-trains?date=YYYY-MM-DD`：返回当天车次摘要；后端最多缓存最近 8 个查询日期的摘要。
+- `GET /api/llt-trains/detail?train=完整车次&date=YYYY-MM-DD`：精确匹配离线记录并返回经停时刻表；车次参数中的 `/` 等字符需要进行 URL 编码。
+
+当路路通主下载源不可达时，后端尝试官方备用数据包，以包内版本号为准。GitHub Pages 演示版没有部署后端，直接访问 `#/list` 同样会重定向回首页。
+
 ## 历史车票使用说明
 
 ### 登录
@@ -349,7 +370,7 @@ npm run build
 
 该模式下会做如下限制：
 
-- 仅允许访问生成车票首页（`#/`）；`#/monitor`、`#/train`、`#/history`、`#/login`、`#/register`、`#/user`、`#/debug` 及其他路径均重定向回首页；
+- 仅允许访问生成车票首页（`#/`）；`#/monitor`、`#/train`、`#/list`、`#/history`、`#/login`、`#/register`、`#/user`、`#/debug` 及其他路径均重定向回首页；
 - `MainView` 右上角“余票监控”、“车次查询”和“历史记录”按钮均禁用；
 - 车票预览下方“存储到账户”按钮禁用。
 

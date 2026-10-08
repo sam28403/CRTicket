@@ -13,6 +13,10 @@ import { ElMessage } from 'element-plus'
 
 const routes = [
     {
+        path: '/list',
+        component: () => import('@/views/TrainList.vue')
+    },
+    {
         path: '/train',
         component: () => import('@/views/TrainQuery.vue')
     },

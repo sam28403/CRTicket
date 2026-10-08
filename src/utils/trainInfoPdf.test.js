@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises'
 import { PDFDocument, PageSizes } from 'pdf-lib'
 import fontkit from '@pdf-lib/fontkit'
 import { buildTrainInfoPdf, planTrainPdf, trainPdfFilename, trainPdfRows, trainPdfTitle } from './trainInfoPdf.js'
+import { displayTrainCode, trainInfoForDisplay } from './trainDisplay.js'
 
 const fontBytes = await readFile(new URL('../../public/google_sans_rounded_regular.ttf', import.meta.url))
 const document = await PDFDocument.create()
@@ -46,6 +47,27 @@ test('优先 14 pt，一页放不下改 12 pt，仍放不下再分页且不丢�
   for (const page of long.pages) {
     assert.ok(page.reduce((height, row) => height + row.height, long.tableTop + long.header.height) <= PageSizes.A4[1] - 72)
   }
+})
+
+test('页面与导出移除方案后缀，保留类别前缀、双车次和原始匹配记录', () => {
+  for (const suffix of ['B', 'C', 'D', 'E', 'F', 'ABC']) {
+    const result = fixture(3)
+    result.train = `K1127${suffix}/K1126${suffix}`
+    result.stops[0].train = `K1127${suffix}`
+    result.stops[1].train = `K1126${suffix}`
+    result.stops[2].train = 'K1126'
+    const displayed = trainInfoForDisplay(result)
+    assert.equal(displayed.train, 'K1127/K1126')
+    assert.deepEqual(displayed.stops.map(stop => stop.train), ['K1127', 'K1126', 'K1126'])
+    assert.equal(result.stops[0].train, `K1127${suffix}`)
+    assert.equal(result.train, `K1127${suffix}/K1126${suffix}`)
+    assert.equal(trainPdfTitle(result), 'K1127/6')
+    assert.equal(trainPdfFilename(result), 'K1127_2026-09-28.pdf')
+    assert.deepEqual(planTrainPdf(result, font).titleLines, ['K1127/6'])
+  }
+  assert.equal(displayTrainCode('G1B/G2C'), 'G1/G2')
+  assert.equal(displayTrainCode('1461F/1462E'), '1461/1462')
+  assert.equal(displayTrainCode('D3068'), 'D3068')
 })
 
 test('长站名按实际字体宽度换行，所有文字保持在单元格内', () => {

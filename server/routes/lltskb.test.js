@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { zipSync } from 'fflate'
-import { createLltLoader, parseLltArchive, parseLltFiles, readLltNumber } from './lltskb.js'
+import { createLltLoader, parseLltArchive, parseLltFiles, readLltNumber, readLltDate } from './lltskb.js'
 
 function dictionary(names) {
   const count = Buffer.alloc(2)
@@ -73,4 +73,30 @@ test('版本不一致时不使用更新到一半的数据包', async () => {
   await assert.rejects(load(), /正在更新/)
   await assert.rejects(load(), /正在更新/)
   assert.equal(calls, 2)
+})
+
+test('开行日期使用小端 128 进制，循环规则按零基索引关联', () => {
+  const files = fixture()
+  files['T0.dat'].set([60, 80, 84, 9], 5) // 20260924
+  files['T0.dat'].set([15, 81, 84, 9], 9) // 20261007
+  files['T0.dat'].set([0, 1], 13)
+  files['t.rule'] = Buffer.from('1 1\r\n2 1\r\n')
+  assert.equal(readLltDate(files['T0.dat'], 5), '2026-09-24')
+  assert.deepEqual(parseLltArchive(zipSync(files)).trains.get('G1').schedule, {
+    startDate: '2026-09-24', endDate: '2026-10-07', rule: { period: 2, mask: 1 },
+  })
+  assert.throws(() => parseLltFiles({ ...files, 't.rule': Buffer.from('1 1\n2 4') }), /规则无效/)
+  assert.throws(() => parseLltFiles({ ...files, 't.rule': undefined }), /规则索引/)
+})
+
+test('主版本接口不可达时读取官方备用包，并缓存包内版本', async () => {
+  const urls = []
+  const load = createLltLoader(async url => {
+    urls.push(url)
+    if (url.endsWith('android.ver')) throw new TypeError('fetch failed')
+    return new Response(zipSync(fixture()))
+  })
+  assert.equal((await load()).version, '20261004')
+  await load()
+  assert.deepEqual(urls, ['http://down.lltskb.com/android.ver', 'http://223.107.87.50:8011/an.db'])
 })
