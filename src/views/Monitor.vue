@@ -19,7 +19,7 @@ const selectedArrivalStations = ref([])
 const date = ref(today())
 const interval = ref(60)
 const trainFilters = ref([])
-const seatFilter = ref('')
+const seatFilters = ref([])
 const timeRange = ref([0, 24])
 const onlyAvailable = ref(false)
 const highSpeedOnly = ref(false)
@@ -117,11 +117,12 @@ function matches(row) {
   )
 }
 
+const watchedColumns = computed(() =>
+  columns.filter(([key]) => !seatFilters.value.length || seatFilters.value.includes(key))
+)
+
 const hasTicket = (row) =>
-  row.canBuy &&
-  (seatFilter.value
-    ? available(row.seats[seatFilter.value])
-    : Object.values(row.seats).some(available))
+  row.canBuy && watchedColumns.value.some(([key]) => available(row.seats[key]))
 
 const filtered = computed(() =>
   rows.value.filter((row) => matches(row) && (!onlyAvailable.value || hasTicket(row)))
@@ -242,7 +243,7 @@ watch([from, to, date], reset, { flush: 'sync' })
 watch(
   [
     trainFilters,
-    seatFilter,
+    seatFilters,
     timeRange,
     highSpeedOnly,
     ordinaryOnly,
@@ -252,7 +253,8 @@ watch(
   () => {
     previous = new Map()
     events.value = []
-  }
+  },
+  { deep: true }
 )
 
 function parameters() {
@@ -311,18 +313,14 @@ async function query(startMonitor = false) {
     const noticeDetails = []
     for (const row of rows.value.filter(matches)) {
       const signature = JSON.stringify(
-        seatFilter.value ? row.seats[seatFilter.value] : row.seats
+        watchedColumns.value.map(([key]) => [key, row.seats[key]])
       )
       if (!hasTicket(row)) continue
 
       currentTickets.set(row.id, signature)
       if (monitoring.value && previous.get(row.id) !== signature) {
-        const detail = columns
-          .filter(
-            ([key]) =>
-              (!seatFilter.value || key === seatFilter.value) &&
-              available(row.seats[key])
-          )
+        const detail = watchedColumns.value
+          .filter(([key]) => available(row.seats[key]))
           .map(([key, label]) => `${label}：${row.seats[key]}`)
           .join('，')
         const noticeText = `${row.train} ${row.from} → ${row.to}，${detail}`
@@ -544,8 +542,16 @@ onBeforeUnmount(stop)
               clearable
               aria-label="筛选车次"
             />
-            <el-select v-model="seatFilter" popper-class="monitor-seat-options" aria-label="关注席别">
-              <el-option label="全部席别" value="" />
+            <el-select
+              v-model="seatFilters"
+              multiple
+              clearable
+              collapse-tags
+              collapse-tags-tooltip
+              placeholder="全部席别"
+              popper-class="monitor-seat-options"
+              aria-label="关注席别（可多选，清空关注全部）"
+            >
               <el-option
                 v-for="[key, label] in columns"
                 :key="key"
@@ -596,7 +602,7 @@ onBeforeUnmount(stop)
           <small>最近 30 条</small>
         </h2>
         <p class="hint">
-          监控首次发现有票或余票数量变化时，会发送浏览器通知并在页面内提醒；只关注所选车站、时间、车次、车种与席别。
+          监控首次发现有票或余票数量变化时，会发送浏览器通知并在页面内提醒；只关注所选车站、时间、车次、车种与席别。席别可多选，任一所选席别有票即视为有票；清空选择则关注全部席别。
         </p>
         <p v-if="!events.length" class="hint">暂无提醒</p>
         <ul v-else>
@@ -818,7 +824,7 @@ onBeforeUnmount(stop)
 }
 
 .filters .el-select {
-  width: 155px;
+  width: 240px;
 }
 
 .train-type-switches {
@@ -945,7 +951,8 @@ time {
   }
 
   .filters,
-  .train-filter-input {
+  .train-filter-input,
+  .filters .el-select {
     width: 100%;
   }
 }
