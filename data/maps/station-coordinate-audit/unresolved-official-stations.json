@@ -1,0 +1,374 @@
+[
+  {
+    "name": "房山东",
+    "code": "CYI",
+    "city": "北京",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "北营",
+    "code": "BIV",
+    "city": "太原",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "广州西",
+    "code": "GXQ",
+    "city": "广州",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "皇姑屯",
+    "code": "HTT",
+    "city": "沈阳",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "柴岗",
+    "code": "CGT",
+    "city": "长春",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "黄石东",
+    "code": "OSN",
+    "city": "黄石",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "宁波东",
+    "code": "NVH",
+    "city": "宁波",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "清华园",
+    "code": "QHP",
+    "city": "北京",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "松江北",
+    "code": "SAH",
+    "city": "上海",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "深圳西",
+    "code": "OSQ",
+    "city": "深圳",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "遵义西",
+    "code": "ZIW",
+    "city": "遵义",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "安溪",
+    "code": "AXS",
+    "city": "安溪",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "磁西",
+    "code": "CRP",
+    "city": "邯郸",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "创业村",
+    "code": "CEX",
+    "city": "大庆",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "大巴",
+    "code": "DBD",
+    "city": "阜新",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "大禾塘",
+    "code": "SOQ",
+    "city": "邵东",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "大其拉哈",
+    "code": "DQX",
+    "city": "呼伦贝尔",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "广宁寺南",
+    "code": "GNT",
+    "city": "大连",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "官字井",
+    "code": "GOT",
+    "city": "松原",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "惠农南",
+    "code": "KNJ",
+    "city": "石嘴山",
+    "status": "ambiguous",
+    "candidates": [
+      {
+        "id": "node/10908472608",
+        "name": "惠农南",
+        "coordinates": [
+          106.7025853,
+          39.2081806
+        ]
+      },
+      {
+        "id": "node/13808856976",
+        "name": "惠农南",
+        "coordinates": [
+          106.704226,
+          39.2208223
+        ]
+      }
+    ]
+  },
+  {
+    "name": "横琴北",
+    "code": "HOA",
+    "city": "珠海",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "惠州西",
+    "code": "VXQ",
+    "city": "惠州",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "建设",
+    "code": "JET",
+    "city": "白城",
+    "status": "ambiguous",
+    "candidates": [
+      {
+        "id": "node/6715109132",
+        "name": "建设",
+        "coordinates": [
+          128.7896084,
+          46.0295946
+        ]
+      }
+    ]
+  },
+  {
+    "name": "井湾",
+    "code": "JWA",
+    "city": "珠海",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "李石寨",
+    "code": "LET",
+    "city": "抚顺",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "狼尾山",
+    "code": "LRJ",
+    "city": "张掖",
+    "status": "ambiguous",
+    "candidates": [
+      {
+        "id": "node/1810630880",
+        "name": "狼尾山",
+        "coordinates": [
+          97.9952762,
+          39.4761809
+        ]
+      },
+      {
+        "id": "node/14064241891",
+        "name": "狼尾山",
+        "coordinates": [
+          98.0123137,
+          39.597696
+        ]
+      }
+    ]
+  },
+  {
+    "name": "莱芜西",
+    "code": "UXK",
+    "city": "莱芜",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "马桥河",
+    "code": "MQB",
+    "city": "马桥河",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "宁国",
+    "code": "NNH",
+    "city": "宣城",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "泥河子",
+    "code": "NHD",
+    "city": "锦州",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "能家",
+    "code": "NJD",
+    "city": "朝阳",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "平安镇",
+    "code": "PZT",
+    "city": "白城",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "葡萄菁",
+    "code": "PTW",
+    "city": "六盘水",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "前山",
+    "code": "QXQ",
+    "city": "珠海",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "庆阳山",
+    "code": "QSJ",
+    "city": "白银",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "十家子",
+    "code": "SJD",
+    "city": "阜新",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "索图罕",
+    "code": "SHX",
+    "city": "呼伦贝尔",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "沙县",
+    "code": "SAS",
+    "city": "沙县",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "石峡子",
+    "code": "SXJ",
+    "city": "武威",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "通途",
+    "code": "TUT",
+    "city": "松原",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "卫东",
+    "code": "WVT",
+    "city": "兴安",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "渭南南",
+    "code": "WVY",
+    "city": "渭南",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "湾仔",
+    "code": "WZA",
+    "city": "珠海",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "岳家井",
+    "code": "YGJ",
+    "city": "阿拉善",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "永康",
+    "code": "RFH",
+    "city": "金华",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "周家屯",
+    "code": "ZOD",
+    "city": "锦州",
+    "status": "unverified",
+    "candidates": []
+  },
+  {
+    "name": "咋子",
+    "code": "ZAL",
+    "city": "白山",
+    "status": "unverified",
+    "candidates": []
+  }
+]

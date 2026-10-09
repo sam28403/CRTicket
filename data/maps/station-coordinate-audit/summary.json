@@ -1,0 +1,91 @@
+{
+  "source": "OpenStreetMap via Overpass, filtered with OpenRailwayMap train or suburban / present rules",
+  "acceptedTypes": [
+    "train",
+    "suburban"
+  ],
+  "ruleSource": "https://github.com/hiddewie/OpenRailwayMap-vector/blob/106d97af12e5b34af8396ca898682345925dec2c/import/openrailwaymap.lua",
+  "license": "© OpenStreetMap contributors, ODbL 1.0: https://www.openstreetmap.org/copyright",
+  "sources": [
+    {
+      "region": "CN",
+      "endpoint": "https://overpass-api.de/api/interpreter",
+      "osmTimestamp": "2026-10-09T14:11:06Z",
+      "areaTimestamp": "2026-10-08T07:25:51Z",
+      "retrievedAt": "2026-10-09T14:14:28.6401826Z",
+      "count": {
+        "nodes": "22067",
+        "ways": "1525",
+        "relations": "20",
+        "areas": "0",
+        "total": "23612"
+      },
+      "sha256": "e3547087bdd5c7650bb794b594eadaf6286f3967cee8a7cb548454d13da3b0fa"
+    },
+    {
+      "region": "HK",
+      "endpoint": "https://overpass-api.de/api/interpreter",
+      "osmTimestamp": "2026-10-09T14:13:06Z",
+      "areaTimestamp": "2026-10-08T07:25:51Z",
+      "retrievedAt": "2026-10-09T14:15:10.6212513Z",
+      "count": {
+        "nodes": "289",
+        "ways": "86",
+        "relations": "4",
+        "areas": "0",
+        "total": "379"
+      },
+      "sha256": "13708c89f31fe17c430f6f5d9634e9325576e2100048940f793521cd76698be2"
+    },
+    {
+      "region": "LA",
+      "endpoint": "https://overpass-api.de/api/interpreter",
+      "osmTimestamp": "2026-10-09T14:15:09Z",
+      "areaTimestamp": "2026-10-08T07:25:51Z",
+      "retrievedAt": "2026-10-09T14:17:20.6007365Z",
+      "count": {
+        "nodes": "31",
+        "ways": "1",
+        "relations": "0",
+        "areas": "0",
+        "total": "32"
+      },
+      "sha256": "172d3ac227c5afcc51eec6b523bea7e6025085045164cec1fcbd388dca0ed2f1"
+    }
+  ],
+  "eligibleObjects": 11846,
+  "eligibleByType": {
+    "train": 11844,
+    "suburban": 2
+  },
+  "eligibleByRegion": {
+    "CN": 11823,
+    "HK": 13,
+    "LA": 23
+  },
+  "unnamedObjects": 215,
+  "coordinateNames": 28403,
+  "previousNames": 6939,
+  "previousStatusCounts": {
+    "verified-within-50m": 6507,
+    "corrected-over-1km": 57,
+    "updated-50m-to-1km": 84,
+    "verified-historical-only": 35,
+    "ambiguous": 96,
+    "unverified": 160
+  },
+  "addedNames": 21787,
+  "ambiguousNames": 429,
+  "officialStations": 3404,
+  "officialMatched": 3357,
+  "verifiedHistoricalNames": 75,
+  "historicalFallbackNames": 35,
+  "unresolvedOfficial": 47,
+  "excludedObjects": 11798,
+  "caveats": [
+    "present follows OSM lifecycle tags; it does not independently confirm passenger service or operation on a particular date.",
+    "All eligible objects, including unnamed ones and ambiguous names, are preserved in the catalog; ambiguous names are not assigned arbitrary coordinates.",
+    "Unverifiable legacy/estimated coordinates are archived. Verified former train or suburban stations are available separately for historical user journeys; current train maps use present records only.",
+    "Polygons use Web Mercator geometry centroids; overlapping features within 1 km prefer a station node over an area or yard."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "retrievedAt": "2026-10-09T14:17:20.6007365Z",
+  "region": "LA",
+  "sha256": "172d3ac227c5afcc51eec6b523bea7e6025085045164cec1fcbd388dca0ed2f1",
+  "elementCount": 32,
+  "count": {
+    "nodes": "31",
+    "ways": "1",
+    "relations": "0",
+    "areas": "0",
+    "total": "32"
+  },
+  "osmTimestamp": "2026-10-09T14:15:09Z",
+  "endpoint": "https://overpass-api.de/api/interpreter"
+}

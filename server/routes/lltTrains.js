@@ -93,7 +93,7 @@ export function createLltTrainsRouter(loadDatabase = loadLltDatabase) {
         success: true,
         train,
         date,
-        source: '路路通（离线时刻表）',
+        source: '路路通',
         mileageVersion: database.version,
         from: stops[0]?.station || '',
         to: stops.at(-1)?.station || '',

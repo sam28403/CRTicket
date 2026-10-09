@@ -1,0 +1,9 @@
+{
+  "建设": {
+    "reason": "官方站名索引的 JET 属于白城地域；当前唯一同名 OSM 节点距该组其他已核实站点至少约 355 公里，无法证明是同一车站，暂不用于站名定位。原始设施仍保留在 catalog 中。",
+    "officialCode": "JET",
+    "officialCityGroup": "白城",
+    "candidateId": "node/6715109132",
+    "nearestOtherOfficialStationKm": 355
+  }
+}

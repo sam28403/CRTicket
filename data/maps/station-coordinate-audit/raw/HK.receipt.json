@@ -1,0 +1,15 @@
+{
+  "elementCount": 379,
+  "retrievedAt": "2026-10-09T14:15:10.6212513Z",
+  "count": {
+    "nodes": "289",
+    "ways": "86",
+    "relations": "4",
+    "areas": "0",
+    "total": "379"
+  },
+  "osmTimestamp": "2026-10-09T14:13:06Z",
+  "sha256": "13708c89f31fe17c430f6f5d9634e9325576e2100048940f793521cd76698be2",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "region": "HK"
+}

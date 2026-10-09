@@ -266,7 +266,8 @@ import * as XLSX from "xlsx";
 import api from "@/api.js";
 import { refreshCaptchaImage } from "@/utils/captcha.js";
 import { parseStations } from "@/utils/stations.js";
-import stationCoordinates, { loadChinaMap } from "@/utils/stationCoordinates.js";
+import stationCoordinates, { historicalStationCoordinates, loadChinaMap } from "@/utils/maps/stationCoordinates.js";
+import { createRailwayGeo } from '@/utils/maps/railwayMap.js';
 import { buildTicketPayload } from "@/utils/ticketShared.js";
 import { comparableTicketValues } from "@/utils/ticketFields.js";
 import { useUserStore } from "@/stores/user.js";
@@ -833,7 +834,7 @@ async function handleBackupFileChange(event) {
 
 // 通过站点全名获取坐标（直接映射）
 const getStationCoords = (stationName) => {
-  return stationCoordinates[stationName] || null;
+  return stationCoordinates[stationName] || historicalStationCoordinates[stationName] || null;
 };
 
 function renderMapChart() {
@@ -924,54 +925,10 @@ function renderMapChart() {
           return '';
         }
       },
-      geo: {
-        map: 'china',
-        roam: true,
+      geo: createRailwayGeo({
         zoom: 1.2,
         center: [105, 36],
-        // ECharts 会为 china 地图自动补画南海诸岛插图，需要单独隐藏。
-        regions: [
-          {
-            name: '南海诸岛',
-            silent: true,
-            itemStyle: { opacity: 0 },
-            label: { show: false },
-            emphasis: {
-              disabled: true,
-              itemStyle: { opacity: 0 },
-              label: { show: false }
-            },
-            select: {
-              itemStyle: { opacity: 0 },
-              label: { show: false }
-            },
-            blur: {
-              itemStyle: { opacity: 0 },
-              label: { show: false }
-            }
-          }
-        ],
-        label: {
-          show: false
-        },
-        itemStyle: {
-          areaColor: '#e8f5e9',
-          borderColor: '#81c784',
-          borderWidth: 1
-        },
-        emphasis: {
-          itemStyle: {
-            areaColor: '#c8e6c9'
-          },
-          label: {
-            show: true,
-            color: '#333'
-          }
-        },
-        select: {
-          disabled: true
-        }
-      },
+      }),
       series: [
         {
           name: '运转轨迹',

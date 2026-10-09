@@ -1,0 +1,452 @@
+{
+  "安溪": {
+    "selectedId": "node/1529771534",
+    "state": "abandoned",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0.582
+  },
+  "扒挪块": {
+    "selectedId": "node/4663166669",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 1.583
+  },
+  "背开柱": {
+    "selectedId": "node/4663166667",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 1.25
+  },
+  "柴岗": {
+    "selectedId": "node/1273439974",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.64
+  },
+  "常平东": {
+    "selectedId": "node/4641554944",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 0.547
+  },
+  "超化": {
+    "selectedId": "node/9013753045",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 1.785
+  },
+  "巢湖": {
+    "selectedId": "node/8503473771",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 2.988
+  },
+  "创业村": {
+    "selectedId": "node/2662698261",
+    "state": "abandoned",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0.535
+  },
+  "大安": {
+    "selectedId": "node/1273438546",
+    "state": "abandoned",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 1.905
+  },
+  "大巴": {
+    "selectedId": "node/2340355343",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.507
+  },
+  "大其拉哈": {
+    "selectedId": "node/10290826554",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.515
+  },
+  "大台": {
+    "selectedId": "node/4014422202",
+    "state": "disused",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.099
+  },
+  "东戌": {
+    "selectedId": "node/2328405917",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.775
+  },
+  "都匀": {
+    "selectedId": "node/11518335787",
+    "state": "razed",
+    "matchSource": "name",
+    "baselineDistanceKm": 2.293
+  },
+  "纺织城": {
+    "selectedId": "node/2726647406",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 0
+  },
+  "峰洞": {
+    "selectedId": "node/11503307201",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 1.355
+  },
+  "抚顺": {
+    "selectedId": "node/9174531415",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 2.997
+  },
+  "官字井": {
+    "selectedId": "node/1732027869",
+    "state": "abandoned",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0.661
+  },
+  "广州西": {
+    "selectedId": "node/11607771169",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 1.31
+  },
+  "广州新塘": {
+    "selectedId": "node/8383166683",
+    "state": "present",
+    "matchSource": "old_name:zh",
+    "baselineDistanceKm": 0
+  },
+  "海晏": {
+    "selectedId": "node/351089233",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 0.988
+  },
+  "横店": {
+    "selectedId": "node/3856476012",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 0.899
+  },
+  "横琴北": {
+    "selectedId": "node/2936898101",
+    "state": "disused",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0.161
+  },
+  "华安": {
+    "selectedId": "node/1236953121",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 1.378
+  },
+  "皇姑屯": {
+    "selectedId": "node/677159041",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.598
+  },
+  "黄石东": {
+    "selectedId": "node/13817247707",
+    "state": "disused",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.531
+  },
+  "湟源": {
+    "selectedId": "node/3688793545",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 1.053
+  },
+  "惠阳": {
+    "selectedId": "node/8073204172",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 2.376
+  },
+  "进贤": {
+    "selectedId": "node/2822549670",
+    "state": "razed",
+    "matchSource": "name",
+    "baselineDistanceKm": 1.854
+  },
+  "荆州": {
+    "selectedId": "node/1283411486",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 2.451
+  },
+  "井湾": {
+    "selectedId": "node/11581097079",
+    "state": "disused",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0
+  },
+  "巨峰": {
+    "selectedId": "node/13901342883",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 2.922
+  },
+  "莱西": {
+    "selectedId": "node/3914214623",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 1.941
+  },
+  "廊坊": {
+    "selectedId": "node/7733885006",
+    "state": "present",
+    "matchSource": "old_name:--2011-06",
+    "baselineDistanceKm": 0.44
+  },
+  "李七庄": {
+    "selectedId": "node/7859359323",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.328
+  },
+  "李石寨": {
+    "selectedId": "node/12335042104",
+    "state": "abandoned",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 1.661
+  },
+  "林西": {
+    "selectedId": "node/843276809",
+    "state": "abandoned",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 2.772
+  },
+  "龙游": {
+    "selectedId": "node/3848894626",
+    "state": "razed",
+    "matchSource": "name",
+    "baselineDistanceKm": 2.034
+  },
+  "陆家浜": {
+    "selectedId": "node/7794833429",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.02
+  },
+  "麻尾": {
+    "selectedId": "node/11478817604",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 2.198
+  },
+  "马桥河": {
+    "selectedId": "node/3290189178",
+    "state": "abandoned",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0.722
+  },
+  "门头沟": {
+    "selectedId": "node/2112826371",
+    "state": "disused",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0
+  },
+  "蒙自": {
+    "selectedId": "node/13121466502",
+    "state": "disused",
+    "matchSource": "name",
+    "baselineDistanceKm": 2.959
+  },
+  "墨冲": {
+    "selectedId": "node/11516409603",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.457
+  },
+  "木城涧": {
+    "selectedId": "node/4014422201",
+    "state": "disused",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0
+  },
+  "南沙": {
+    "selectedId": "node/11572997022",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 0.02
+  },
+  "能家": {
+    "selectedId": "node/2336082802",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 1.323
+  },
+  "泥河子": {
+    "selectedId": "node/2340355352",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.53
+  },
+  "宁国": {
+    "selectedId": "node/13906608195",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.548
+  },
+  "平陌": {
+    "selectedId": "node/9013753044",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.825
+  },
+  "浦口": {
+    "selectedId": "node/10258400668",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 0
+  },
+  "清华园": {
+    "selectedId": "node/1364084981",
+    "state": "abandoned",
+    "matchSource": "name:zh-Hans",
+    "baselineDistanceKm": 0.519
+  },
+  "融安": {
+    "selectedId": "node/1614129016",
+    "state": "abandoned",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 2.359
+  },
+  "色树坟": {
+    "selectedId": "node/2007054824",
+    "state": "disused",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0
+  },
+  "深圳西": {
+    "selectedId": "node/2470709940",
+    "state": "disused",
+    "matchSource": "name:zh-Hans",
+    "baselineDistanceKm": 0.762
+  },
+  "十家子": {
+    "selectedId": "node/1655741330",
+    "state": "abandoned",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0.542
+  },
+  "石湖荡": {
+    "selectedId": "node/3585017047",
+    "state": "disused",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.569
+  },
+  "石峡子": {
+    "selectedId": "node/2340595343",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.319
+  },
+  "松北": {
+    "selectedId": "node/13949421295",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.001
+  },
+  "松江北": {
+    "selectedId": "node/2120809169",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.021
+  },
+  "索图罕": {
+    "selectedId": "node/1726229867",
+    "state": "abandoned",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0.626
+  },
+  "芜湖南": {
+    "selectedId": "node/2987531157",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 2.192
+  },
+  "星朗": {
+    "selectedId": "node/11478859842",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.36
+  },
+  "许昌": {
+    "selectedId": "node/8093975740",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 1.697
+  },
+  "学庄": {
+    "selectedId": "node/11504701751",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.662
+  },
+  "野溪": {
+    "selectedId": "node/1288801539",
+    "state": "disused",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0
+  },
+  "永康": {
+    "selectedId": "way/151687833",
+    "state": "abandoned",
+    "matchSource": "name:zh",
+    "baselineDistanceKm": 0.552
+  },
+  "岳溪": {
+    "selectedId": "node/11067492106",
+    "state": "present",
+    "matchSource": "old_name",
+    "baselineDistanceKm": 0.117
+  },
+  "枣庄西": {
+    "selectedId": "node/8455171509",
+    "state": "present",
+    "matchSource": "old_name:1994-01-01--2005-12-31",
+    "baselineDistanceKm": 0
+  },
+  "沾益": {
+    "selectedId": "node/1759329337",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 1.716
+  },
+  "湛江北": {
+    "selectedId": "node/13906297197",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 2.2
+  },
+  "周家屯": {
+    "selectedId": "node/2336082837",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.639
+  },
+  "朱石寨": {
+    "selectedId": "node/11478962164",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 1.635
+  },
+  "遵义西": {
+    "selectedId": "node/9334658553",
+    "state": "abandoned",
+    "matchSource": "name",
+    "baselineDistanceKm": 0.453
+  },
+  "岞山": {
+    "selectedId": "node/8349669772",
+    "state": "disused",
+    "matchSource": "name",
+    "baselineDistanceKm": 0
+  }
+}

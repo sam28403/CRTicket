@@ -34,7 +34,8 @@ https://sam28403.github.io
 
 下面按仓库中的项目文件说明用途。`node_modules/` 是 npm 安装目录，`dist/` 是 Vite 构建目录，均为生成内容，不属于源码结构；`server/db/train.db` 是运行时 SQLite 数据库并由 Git 忽略。
 
-### 根目录
+<details>
+<summary><strong>根目录</strong></summary>
 
 | 文件 | 用途 |
 | --- | --- |
@@ -53,7 +54,10 @@ https://sam28403.github.io
 | `.github/workflows/deploy-to-pages-repo.yml` | GitHub Actions 的 Pages 部署工作流。 |
 | `.vscode/extensions.json` | 推荐的 VS Code 扩展列表。 |
 
-### 前端：`src/`
+</details>
+
+<details>
+<summary><strong>前端：<code>src/</code></strong></summary>
 
 | 文件或目录 | 用途 |
 | --- | --- |
@@ -66,7 +70,7 @@ https://sam28403.github.io
 | `src/config/deploy.js` | 读取部署目标和 API 地址等部署配置。 |
 | `src/views/MainView.vue` | 车票生成首页和表单。 |
 | `src/views/Monitor.vue` | 余票查询、筛选、定时监控和提醒页面。 |
-| `src/views/TrainQuery.vue` | 车次经停、时间和里程查询页面。 |
+| `src/views/TrainQuery.vue` | 车次经停、时间和里程查询页面，结果下方展示途经站点线路图。 |
 | `src/views/TrainList.vue` | 路路通离线车次列表，支持按日期筛选、排序和跳转经停详情。 |
 | `src/views/HistoryView.vue` | 已保存车票历史及记录操作页面。 |
 | `src/views/Login.vue` | 登录页面。 |
@@ -76,12 +80,16 @@ https://sam28403.github.io
 | `src/components/LeftTicketCard.vue` | 余票查询结果卡片。 |
 | `src/components/AppBrand.vue` | 登录、注册、历史记录和用户页面共用的品牌标题。 |
 | `src/components/ThemeSelect.vue` | 外观主题选择控件。 |
+| `src/components/TrainRouteMap.vue` | 车次途经站点地图，支持线路居中、全画布拖动缩放和到发时间提示。 |
 | `src/composables/useTheme.js` | 主题状态、系统配色同步和持久化逻辑。 |
 | `src/composables/useTicketShared.js` | 车票和余票页面共用的车站搜索及表单逻辑。 |
 | `src/utils/captcha.js` | 验证码相关工具。 |
 | `src/utils/seatAvailability.js` | 余票席别数量及状态解析工具。 |
 | `src/utils/stations.js` | 车站名称搜索和匹配工具。 |
-| `src/utils/stationCoordinates.js` | 车站地理坐标主数据。 |
+| `src/utils/maps/stationCoordinates.js` | 现役车站及别名的 WGS84 坐标、已核实旧站坐标，以及共用底图加载和显示过滤。 |
+| `src/utils/maps/railwayMap.js` | `/user`、`/train` 共用的底图样式及全画布拖动缩放设置。 |
+| `src/utils/maps/trainRouteMap.js` | 按查询站序生成站点和连线，计算默认线路居中视图。 |
+| `src/utils/maps/stationCoordinates.test.js`、`trainRouteMap.test.js` | 坐标来源、缺失站点、线路适配及地图交互回归测试。 |
 | `src/utils/ticketShared.js` | 前端车票数据共用处理逻辑。 |
 | `src/utils/ticketFields.js` | 前后端共用的车票字段顺序、原始字段取值和备份比较值。 |
 | `src/utils/ticketExport.js` | 车票离屏渲染、PNG 数据生成和下载，供首页预览及 PNG／PDF 导出、历史车票下载复用。 |
@@ -96,7 +104,10 @@ https://sam28403.github.io
 | `src/assets/styles/History.css` | 历史车票页面样式。 |
 | `src/assets/styles/Login.css` | 登录和注册页面样式。 |
 
-### 后端：`server/`
+</details>
+
+<details>
+<summary><strong>后端：<code>server/</code></strong></summary>
 
 | 文件或目录 | 用途 |
 | --- | --- |
@@ -121,7 +132,10 @@ https://sam28403.github.io
 | `server/routes/trainClock.js` | 车次信息与离线车次列表共用的时刻转分钟工具。 |
 | `server/routes/trainInfo.test.js` | 车次信息路由测试。 |
 
-### 静态资源：`public/`
+</details>
+
+<details>
+<summary><strong>静态资源：<code>public/</code></strong></summary>
 
 | 文件或目录 | 用途 |
 | --- | --- |
@@ -129,16 +143,26 @@ https://sam28403.github.io
 | `public/Picture1.png` | 项目页面使用的 PNG 图片资源。 |
 | `public/GitHub.gif` | GitHub 动画图片资源。 |
 | `public/consola.ttf`、`FZCDXK.TTF`、`OCRB.ttf`、`Roboto.ttf`、`google_sans_rounded_regular.ttf`、`simsun.ttf`、`times.ttf` | 页面、车票或 PDF 使用的字体文件。 |
-| `public/maps/china.json`、`laos.json`、`countries.geojson` | 用户统计页面运转地图使用的地理边界数据。 |
+| `public/maps/china.json`、`laos.json`、`countries.geojson` | 地理边界资源；`china.json` 与 `laos.json` 用于 `/user` 和 `/train` 的共用底图。 |
 
-### 仓库图片与数据文件
+</details>
+
+<details>
+<summary><strong>仓库图片与数据文件</strong></summary>
 
 | 文件或目录 | 用途 |
 | --- | --- |
-| `Screenshot1.png`–`Screenshot9.png` | README 项目截图。 |
+| `Screenshot1.png`–`Screenshot10.png` | README 项目截图。 |
 | `E535975368.png`、`E708794075.png`、`E741577963.png` | README 中展示的车票生成样例。 |
-| `overpass_station_statuses.json`、`overpass_train_all_statuses.json`、`overpass_train_trainyes.json` | Overpass 查询得到的站点／列车状态数据文件。 |
-| `station_exact_results.json`、`station_exact_progress.json`、`station_exact_missing_progress.json` | 车站精确匹配结果和处理进度数据。 |
+| `data/maps/legacy/overpass_station_statuses.json`、`overpass_train_all_statuses.json`、`overpass_train_trainyes.json` | 从根目录归档的旧版 Overpass 查询数据，原样保存，不用于当前地图定位。 |
+| `data/maps/legacy/station_exact_results.json`、`station_exact_progress.json`、`station_exact_missing_progress.json` | 从根目录归档的旧版精确匹配结果和处理进度，不作为现役坐标来源。 |
+| `data/maps/station-coordinate-audit/` | 当前原始快照、完整设施目录、逐项核查、来源记录、同名站决策和核查报告。 |
+| `scripts/maps/fetch-railway-stations.ps1` | 从 Overpass 获取 CN、HK、LA 的站点设施快照，检查完成计数并记录 SHA-256。 |
+| `scripts/maps/simplify-railway-names.ps1` | 用 Windows 内置简繁转换生成站名变体。 |
+| `scripts/maps/rebuild-station-coordinates.js` | 筛选、匹配和核查源数据，生成报告；加 `--write` 时更新前端坐标查找表。 |
+| `scripts/maps/lib/railway-station-audit.js`、`railway-station-audit.test.js` | 设施类型和状态分类、几何坐标、别名及同名地点聚类工具与测试。 |
+
+</details>
 
 > 站名、坐标、地图和这些 JSON 文件属于数据资源；修改前应确认数据来源和用途，避免无关的批量重写。
 
@@ -155,6 +179,7 @@ https://sam28403.github.io
 
 ```bash
 node --test src/stores/user.test.js src/utils/trainInfoPdf.test.js server/security.test.js server/routes/*.test.js
+node --test scripts/maps/lib/railway-station-audit.test.js src/utils/maps/stationCoordinates.test.js src/utils/maps/trainRouteMap.test.js
 npm run build
 npm run build:ghpages
 ```
@@ -271,6 +296,8 @@ npm run build:ghpages
 
 查询优先使用 12306 车次接口；无结果时尝试路路通数据。12306 不提供里程时，若路路通车站序列可准确对应，则补充路路通里程，否则显示“暂无”。点击结果下方“导出数据”可按模板导出 A4 PDF，文件名为 `车次_日期.pdf`，优先采用 14 号字；站点较多时采用 12 号字，仍无法容纳时分页。导出使用 `public/google_sans_rounded_regular.ttf`。
 
+结果表格下方的“车次线路图”与用户运转地图共用底图，按经停顺序标记可定位的每一站并连线。初始视图自动将线路居中，适配桌面和手机；在整个地图画布内可拖动、缩放，点击“线路居中”恢复默认视图。悬停站点可查看到发时间。没有可靠坐标的站名会显示提示，相关区间暂不连线；连线表示站序，不代表实际铁路走向。
+
 车次查询需要运行 `node server/app.js`：前端通过 `/api/train-info?train=G1&date=YYYY-MM-DD` 请求后端，后端再访问 12306 和路路通。路路通数据按需检查版本：服务进程缓存数据，每隔 1 小时在下一次查询时读取 `android.ver`；版本变化才下载新的 `an.db`，查询并非每次都下载最新数据库。若检查或下载失败，约 1 分钟后下一次查询会重试。
 
 GitHub Pages 演示版不部署后端，因此禁用首页“车次查询”入口，并将直接访问 `#/train` 重定向至首页。
@@ -328,6 +355,8 @@ GitHub Pages 演示版不部署后端，因此禁用首页“车次查询”入�
 
 展示最常到达车站、最常到达城市、点亮城市、运转日期等信息。
 
+运转地图支持全画布拖动、缩放，“全部铁路运转轨迹”标题带黑色描边。定位优先使用现役车站坐标，缺失时使用已核实旧站坐标，以保留历史运转记录；同名新旧站暂不按票据日期自动切换位置。
+
 > [!CAUTION]
 > 
 > ### 运转地图只有`CN`（中国大陆/中国内地）, `HK`（香港）, `LA`（老挝/寮国）三个地区，没有俄罗斯、北朝鲜、越南、蒙古、台湾、澳门、哈萨克等地区，如果你是“小粉红”、“基本盘”且你的玻璃心碎了，你可以选择：
@@ -335,6 +364,45 @@ GitHub Pages 演示版不部署后端，因此禁用首页“车次查询”入�
 > - 自行在`/public/maps`下补全你想要的地图；
 > - 删除`User.vue`；
 > - 不使用此项目。
+
+## 地图数据与坐标维护
+
+地图相关文件按用途集中管理：前端工具在 `src/utils/maps/`，维护脚本在 `scripts/maps/`，数据与核查证据在 `data/maps/`，浏览器使用的边界资源在 `public/maps/`。根目录的旧版查询和匹配文件已原样移入 `data/maps/legacy/`，当前流程不读取这些归档数据。
+
+### 数据范围与来源
+
+坐标来自 OpenStreetMap 原始节点或完整几何，采用 WGS84 `[经度, 纬度]`。依据 OpenRailwayMap 的类型和状态规则，现役候选接受 **Type: train 或 suburban、State: present**；明确仅为地铁或有轨电车的对象及生命周期冲突对象不纳入。`present` 表示源标签状态，不单独证明某日期提供客运服务。数据遵循 [OpenStreetMap 的 ODbL 许可](https://www.openstreetmap.org/copyright)。
+
+2026-10-09 快照覆盖 CN、HK、LA，按 OSM 对象 ID 去重后保留 11,846 个符合条件的设施，查找表支持 28,403 个名称及别名；名称数量不是实际车站数，CN 已覆盖 HK，地域计数不可直接相加。另保留 75 个经核实的原有旧站名称，仅供 `/user` 历史轨迹使用。官方站名索引中仍有 47 项无法可靠定位，详见[核查报告](data/maps/station-coordinate-audit/report.md)和[未解决站名清单](data/maps/station-coordinate-audit/unresolved-official-stations.json)。
+
+同名站通过电报码、地域、线路证据或明确指定的 OSM 节点核对身份，不以旧坐标作为唯一选点依据，也不估算补齐未知坐标。新桥按指定的上海金山铁路节点定位；云山、西湖东以 `suburban` 类型纳入。完整源目录仍保留其它同名设施和无名称设施。
+
+共用底图加载时仅展示海南省最大多边形（本岛），过滤广东省数据中的东沙多边形，并隐藏 ECharts 自动添加的南海诸岛插图。原始 `public/maps/` 边界文件保留，显示过滤集中在 `src/utils/maps/stationCoordinates.js` 中。
+
+### 文件分工
+
+| 目录或文件 | 用途 |
+| --- | --- |
+| `data/maps/station-coordinate-audit/raw/` | 三个地域的压缩原始响应、确切 Overpass 查询、源时间及完整性校验记录。 |
+| `catalog.json.gz`、`excluded.json.gz` | 完整候选设施和排除对象；位于上述核查目录。 |
+| `previous-coordinates.json.gz`、`previous-coordinate-audit.json` | 更新前的坐标基线与逐项审核记录。 |
+| `coordinate-provenance.json`、`historical-provenance.json` | 每个现役／历史名称对应的源对象和匹配依据。 |
+| `reviewed-name-resolutions.json`、`blocked-name-resolutions.json`、`identity/` | 已审阅同名站决策、身份冲突及节点／线路核查证据。 |
+| `summary.json`、`report.md` | 最新生成的统计与可读报告。 |
+
+### 更新与验证
+
+在仓库根目录使用 PowerShell 执行以下命令。下载需要网络，简繁变体脚本使用 Windows 内置转换；应用运行时直接加载生成的坐标表，不请求 Overpass。
+
+```powershell
+./scripts/maps/fetch-railway-stations.ps1
+./scripts/maps/simplify-railway-names.ps1
+node scripts/maps/rebuild-station-coordinates.js --write
+node --test scripts/maps/lib/railway-station-audit.test.js src/utils/maps/stationCoordinates.test.js src/utils/maps/trainRouteMap.test.js
+npm run build
+```
+
+不加 `--write` 时，重建脚本只更新核查输出，不改前端坐标表。公共 Overpass 服务可能限流；单个地域失败可稍后用 `-Regions CN`、`-Regions HK` 或 `-Regions LA` 单独重试。原始响应必须通过完成计数和 SHA-256 检查；更新后应审阅同名决策、未解决清单和报告，保持历史坐标基线，避免将归档的旧版匹配结果覆盖到现役表。
 
 ## 车票生成样例
 

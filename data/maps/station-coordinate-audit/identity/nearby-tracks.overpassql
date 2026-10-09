@@ -1,0 +1,1 @@
+[out:json][timeout:90];node(id:10908472608,13808856976,5575721523,8493426044,1810630880,14064241891,5575721522,9313028644)->.sites;foreach.sites->.site(.site out body;way(around.site:500)["railway"="rail"];out body geom;);

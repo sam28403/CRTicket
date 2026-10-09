@@ -1,0 +1,26 @@
+{
+  "endpoint": "https://api.openstreetmap.org/api/0.6/nodes.json",
+  "queryParameters": {
+    "nodes": "7742242697,3677430195,3693383858"
+  },
+  "verifiedAgainst": "raw/CN.json.gz",
+  "verification": "All three node tags and coordinates match the full CN snapshot.",
+  "nodes": [
+    {
+      "id": 3677430195,
+      "version": 14,
+      "lastEditedAt": "2026-10-05T05:06:30Z"
+    },
+    {
+      "id": 3693383858,
+      "version": 15,
+      "lastEditedAt": "2026-10-05T05:06:30Z"
+    },
+    {
+      "id": 7742242697,
+      "version": 4,
+      "lastEditedAt": "2025-01-07T10:16:14Z"
+    }
+  ],
+  "sha256": "d151a154c339ab9ea70e3965daa63ed498db2784b543f1a4d349f23e58d7e51d"
+}

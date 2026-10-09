@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import ThemeSelect from '@/components/ThemeSelect.vue'
 import AppBrand from '@/components/AppBrand.vue'
+import TrainRouteMap from '@/components/TrainRouteMap.vue'
 import api from '@/api.js'
 import { isTrainQueryDateInRange, trainQueryRange } from '@/utils/trainQueryDate.js'
 import { displayTrainCode, trainInfoForDisplay } from '@/utils/trainDisplay.js'
@@ -246,6 +247,7 @@ onBeforeUnmount(() => {
                 : '输入车次和始发日期查询时刻表'"
         />
       </el-card>
+      <TrainRouteMap v-if="result?.stops.length" :train="result.train" :stops="result.stops" />
     </main>
   </div>
 </template>

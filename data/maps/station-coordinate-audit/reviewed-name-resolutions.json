@@ -1,0 +1,27 @@
+{
+  "新桥": {
+    "selectedId": "node/7742242697",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确指定该 OSM 节点，对应上海金山铁路新桥站；其他异地同名新桥不用于这个查找键，仍保留在完整目录中。",
+    "sources": ["https://www.openstreetmap.org/node/7742242697"],
+    "verificationFile": "identity/supplement-stations.json"
+  },
+  "郏县": {
+    "selectedId": "node/5575721523",
+    "reason": "该项目的官方客运站名对应郑渝高铁郏县站，所选 OSM 节点邻近郑渝高速线；另一同名节点邻近禹郏铁路。",
+    "sources": [
+      "https://rsj.pds.gov.cn/contents/22427/679033.html",
+      "https://www.jiaxian.gov.cn/upload/files/2024/12/6723e54600c23cdd484e6b30be3d4516.pdf"
+    ],
+    "trackIds": [757255749, 1337012214]
+  },
+  "禹州": {
+    "selectedId": "node/5575721522",
+    "reason": "官方客运禹州站位于郑渝高铁，所选 OSM 节点邻近郑渝高速线；另一同名节点邻近平禹、登禹铁路。",
+    "sources": [
+      "https://www.yuzhou.gov.cn/hdjl/006002/20170728/e085bd30-2ef0-41a6-8add-8db6450be54b.html",
+      "https://jtysj.zhoukou.gov.cn/sitesources/jtysj/page_pc/xwdt/jtyw/article398182FCCC844BF09C0D4AD9640A2BD4.html"
+    ],
+    "trackIds": [757255748, 1246323597]
+  }
+}

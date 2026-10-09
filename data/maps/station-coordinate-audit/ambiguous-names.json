@@ -1,0 +1,9467 @@
+[
+  {
+    "name": "Badou",
+    "candidates": [
+      {
+        "id": "node/1614132448",
+        "name": "八斗",
+        "coordinates": [
+          109.5599209,
+          25.8939015
+        ]
+      },
+      {
+        "id": "node/2662698040",
+        "name": "八都",
+        "coordinates": [
+          115.2589614,
+          27.440172
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Badou Railway Station",
+    "candidates": [
+      {
+        "id": "node/1614132448",
+        "name": "八斗",
+        "coordinates": [
+          109.5599209,
+          25.8939015
+        ]
+      },
+      {
+        "id": "node/2662698040",
+        "name": "八都",
+        "coordinates": [
+          115.2589614,
+          27.440172
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Baiguo",
+    "candidates": [
+      {
+        "id": "node/2092189933",
+        "name": "白果",
+        "coordinates": [
+          102.6023543,
+          28.8141825
+        ]
+      },
+      {
+        "id": "node/2323529333",
+        "name": "柏果",
+        "coordinates": [
+          104.5040661,
+          26.0088284
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Baihe",
+    "candidates": [
+      {
+        "id": "node/1577894997",
+        "name": "白合",
+        "coordinates": [
+          112.54047,
+          34.8510196
+        ]
+      },
+      {
+        "id": "node/9171411655",
+        "name": "白河",
+        "coordinates": [
+          128.1267274,
+          42.4514917
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Bailang",
+    "candidates": [
+      {
+        "id": "node/1730851489",
+        "name": "白狼",
+        "coordinates": [
+          120.0951037,
+          47.0472162
+        ]
+      },
+      {
+        "id": "node/2661130698",
+        "name": "百浪",
+        "coordinates": [
+          108.4524633,
+          22.368064
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Baishan",
+    "candidates": [
+      {
+        "id": "node/2662698063",
+        "name": "白山乡",
+        "coordinates": [
+          123.26691,
+          47.2826369
+        ]
+      },
+      {
+        "id": "node/4693355490",
+        "name": "百善",
+        "coordinates": [
+          116.6869004,
+          33.7802792
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Baishazhen",
+    "candidates": [
+      {
+        "id": "node/7252546294",
+        "name": "白沙镇",
+        "coordinates": [
+          119.071683,
+          26.2051963
+        ]
+      },
+      {
+        "id": "node/13374222463",
+        "name": "白沙镇",
+        "coordinates": [
+          109.680237,
+          21.6522236
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Baiwen",
+    "candidates": [
+      {
+        "id": "node/4066589962",
+        "name": "白文",
+        "coordinates": [
+          111.0525063,
+          38.1244898
+        ]
+      },
+      {
+        "id": "node/4067925706",
+        "name": "白文东",
+        "coordinates": [
+          111.0903299,
+          38.1521543
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Baofeng",
+    "candidates": [
+      {
+        "id": "node/8018461286",
+        "name": "宝丰",
+        "coordinates": [
+          113.0407876,
+          33.8568345
+        ]
+      },
+      {
+        "id": "node/8730877394",
+        "name": "宝峰",
+        "coordinates": [
+          102.5833276,
+          24.5941366
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Baofeng Railway Station",
+    "candidates": [
+      {
+        "id": "node/8018461286",
+        "name": "宝丰",
+        "coordinates": [
+          113.0407876,
+          33.8568345
+        ]
+      },
+      {
+        "id": "node/8730877394",
+        "name": "宝峰",
+        "coordinates": [
+          102.5833276,
+          24.5941366
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Beiyuan",
+    "candidates": [
+      {
+        "id": "node/2001416765",
+        "name": "北园",
+        "coordinates": [
+          116.9976413,
+          36.6926612
+        ]
+      },
+      {
+        "id": "node/3698187688",
+        "name": "北塬",
+        "coordinates": [
+          109.5088339,
+          35.4139547
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Beiyuan Railway Station",
+    "candidates": [
+      {
+        "id": "node/2001416765",
+        "name": "北园",
+        "coordinates": [
+          116.9976413,
+          36.6926612
+        ]
+      },
+      {
+        "id": "node/3698187688",
+        "name": "北塬",
+        "coordinates": [
+          109.5088339,
+          35.4139547
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Binjiang",
+    "candidates": [
+      {
+        "id": "node/1579621858",
+        "name": "彬江",
+        "coordinates": [
+          114.5526365,
+          27.7825205
+        ]
+      },
+      {
+        "id": "node/2333085938",
+        "name": "滨江",
+        "coordinates": [
+          126.6566468,
+          45.7792087
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Binzhou",
+    "candidates": [
+      {
+        "id": "node/3462876026",
+        "name": "彬州",
+        "coordinates": [
+          108.0996494,
+          35.0462773
+        ]
+      },
+      {
+        "id": "node/4391676555",
+        "name": "滨州",
+        "coordinates": [
+          118.0122142,
+          37.4532549
+        ]
+      },
+      {
+        "id": "node/5697139255",
+        "name": "宾州",
+        "coordinates": [
+          127.4533796,
+          45.7729786
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Binzhou Railway Station",
+    "candidates": [
+      {
+        "id": "node/4391676555",
+        "name": "滨州",
+        "coordinates": [
+          118.0122142,
+          37.4532549
+        ]
+      },
+      {
+        "id": "node/5697139255",
+        "name": "宾州",
+        "coordinates": [
+          127.4533796,
+          45.7729786
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Cangxi Railway Station",
+    "candidates": [
+      {
+        "id": "node/3596013093",
+        "name": "苍溪",
+        "coordinates": [
+          105.9121679,
+          31.7626677
+        ]
+      },
+      {
+        "id": "node/7377472841",
+        "name": "漳湾",
+        "coordinates": [
+          119.5755048,
+          26.7381453
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Chaling",
+    "candidates": [
+      {
+        "id": "node/2328102100",
+        "name": "茶陵",
+        "coordinates": [
+          113.5443878,
+          26.8139385
+        ]
+      },
+      {
+        "id": "node/8330592314",
+        "name": "茶岭",
+        "coordinates": [
+          113.7892923,
+          29.6315359
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Changle",
+    "candidates": [
+      {
+        "id": "node/2727040405",
+        "name": "昌乐",
+        "coordinates": [
+          118.8334153,
+          36.7104569
+        ]
+      },
+      {
+        "id": "node/4238807785",
+        "name": "长乐",
+        "coordinates": [
+          119.4806639,
+          25.9270606
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Changle Railway Station",
+    "candidates": [
+      {
+        "id": "node/2727040405",
+        "name": "昌乐",
+        "coordinates": [
+          118.8334153,
+          36.7104569
+        ]
+      },
+      {
+        "id": "node/4238807785",
+        "name": "长乐",
+        "coordinates": [
+          119.4806639,
+          25.9270606
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Changping",
+    "candidates": [
+      {
+        "id": "node/2662698203",
+        "name": "昌平",
+        "coordinates": [
+          116.1882919,
+          40.1887146
+        ]
+      },
+      {
+        "id": "node/4502133906",
+        "name": "常平",
+        "coordinates": [
+          114.0003801,
+          22.9871798
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Changping Railway Station",
+    "candidates": [
+      {
+        "id": "node/2662698203",
+        "name": "昌平",
+        "coordinates": [
+          116.1882919,
+          40.1887146
+        ]
+      },
+      {
+        "id": "node/4502133906",
+        "name": "常平",
+        "coordinates": [
+          114.0003801,
+          22.9871798
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Changqing",
+    "candidates": [
+      {
+        "id": "node/5396240119",
+        "name": "长青",
+        "coordinates": [
+          123.1819392,
+          44.4382123
+        ]
+      },
+      {
+        "id": "node/7704451131",
+        "name": "长箐",
+        "coordinates": [
+          105.271149,
+          26.3174138
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Cuimazhuang",
+    "candidates": [
+      {
+        "id": "node/6844121862",
+        "name": "崔马庄线路所",
+        "coordinates": [
+          116.8866147,
+          36.5480438
+        ]
+      },
+      {
+        "id": "node/7897441936",
+        "name": "崔马庄",
+        "coordinates": [
+          118.1614647,
+          39.7582058
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dacheng",
+    "candidates": [
+      {
+        "id": "node/677180563",
+        "name": "大成",
+        "coordinates": [
+          123.3394332,
+          41.8282721
+        ]
+      },
+      {
+        "id": "node/2956832938",
+        "name": "大程",
+        "coordinates": [
+          109.1644409,
+          34.6552467
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dadong",
+    "candidates": [
+      {
+        "id": "node/2855588660",
+        "name": "大垌",
+        "coordinates": [
+          108.6352458,
+          22.1198274
+        ]
+      },
+      {
+        "id": "node/9174163151",
+        "name": "大东",
+        "coordinates": [
+          126.7695934,
+          42.0765296
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dali",
+    "candidates": [
+      {
+        "id": "node/2215381943",
+        "name": "大理",
+        "coordinates": [
+          100.2485243,
+          25.5919445
+        ]
+      },
+      {
+        "id": "node/2876179002",
+        "name": "大荔",
+        "coordinates": [
+          109.920831,
+          34.8356277
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Datian Railway Station",
+    "candidates": [
+      {
+        "id": "node/7707072348",
+        "name": "大田",
+        "coordinates": [
+          113.197841,
+          23.2679015
+        ]
+      },
+      {
+        "id": "node/7781469275",
+        "name": "大田北",
+        "coordinates": [
+          117.8414933,
+          25.7068642
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Datong",
+    "candidates": [
+      {
+        "id": "node/620760655",
+        "name": "大同",
+        "coordinates": [
+          113.2963381,
+          40.1190975
+        ]
+      },
+      {
+        "id": "node/8154633304",
+        "name": "大通",
+        "coordinates": [
+          105.8277833,
+          30.730909
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Daying",
+    "candidates": [
+      {
+        "id": "node/1984410963",
+        "name": "大营",
+        "coordinates": [
+          113.72618,
+          39.28543
+        ]
+      },
+      {
+        "id": "node/2375898322",
+        "name": "大英",
+        "coordinates": [
+          105.251409,
+          30.577242
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dayuan",
+    "candidates": [
+      {
+        "id": "node/1535265373",
+        "name": "大元",
+        "coordinates": [
+          108.349399,
+          22.4856306
+        ]
+      },
+      {
+        "id": "node/12712336080",
+        "name": "大源",
+        "coordinates": [
+          113.3499583,
+          23.2504281
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dongfu",
+    "candidates": [
+      {
+        "id": "node/2332314835",
+        "name": "东富",
+        "coordinates": [
+          126.888415,
+          44.364356
+        ]
+      },
+      {
+        "id": "node/2502491263",
+        "name": "东孚",
+        "coordinates": [
+          117.9233051,
+          24.5463763
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dongfu Railway Station",
+    "candidates": [
+      {
+        "id": "node/2332314835",
+        "name": "东富",
+        "coordinates": [
+          126.888415,
+          44.364356
+        ]
+      },
+      {
+        "id": "node/2502491263",
+        "name": "东孚",
+        "coordinates": [
+          117.9233051,
+          24.5463763
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dongsheng",
+    "candidates": [
+      {
+        "id": "node/4593258154",
+        "name": "东胜",
+        "coordinates": [
+          109.9703013,
+          39.8145874
+        ]
+      },
+      {
+        "id": "node/7710011720",
+        "name": "东升",
+        "coordinates": [
+          113.2793078,
+          22.6073119
+        ]
+      },
+      {
+        "id": "way/154056214",
+        "name": "东升",
+        "coordinates": [
+          113.2793153,
+          22.6072845
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dongsheng Railway Station",
+    "candidates": [
+      {
+        "id": "node/4593258154",
+        "name": "东胜",
+        "coordinates": [
+          109.9703013,
+          39.8145874
+        ]
+      },
+      {
+        "id": "node/7710011720",
+        "name": "东升",
+        "coordinates": [
+          113.2793078,
+          22.6073119
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dongzhuang",
+    "candidates": [
+      {
+        "id": "node/1577895008",
+        "name": "董庄",
+        "coordinates": [
+          112.6558226,
+          33.32273
+        ]
+      },
+      {
+        "id": "node/1984410965",
+        "name": "东庄",
+        "coordinates": [
+          113.82369,
+          39.26527
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dushi",
+    "candidates": [
+      {
+        "id": "node/1586077383",
+        "name": "渡市",
+        "coordinates": [
+          107.2792391,
+          31.0276405
+        ]
+      },
+      {
+        "id": "node/5382207414",
+        "name": "独石",
+        "coordinates": [
+          118.8077778,
+          43.4974565
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dushi Railway Station",
+    "candidates": [
+      {
+        "id": "node/1586077383",
+        "name": "渡市",
+        "coordinates": [
+          107.2792391,
+          31.0276405
+        ]
+      },
+      {
+        "id": "node/5382207414",
+        "name": "独石",
+        "coordinates": [
+          118.8077778,
+          43.4974565
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fangcheng",
+    "candidates": [
+      {
+        "id": "node/1535222204",
+        "name": "防城",
+        "coordinates": [
+          108.3660731,
+          21.7689113
+        ]
+      },
+      {
+        "id": "node/2945730075",
+        "name": "放城",
+        "coordinates": [
+          117.5943892,
+          35.7060967
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fu'an Railway Station",
+    "candidates": [
+      {
+        "id": "node/1665822771",
+        "name": "富安",
+        "coordinates": [
+          120.452986,
+          32.6989604
+        ]
+      },
+      {
+        "id": "node/5099753623",
+        "name": "福安",
+        "coordinates": [
+          119.7128302,
+          26.8374358
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fujin",
+    "candidates": [
+      {
+        "id": "node/2349438705",
+        "name": "福金",
+        "coordinates": [
+          123.7266192,
+          41.257627
+        ]
+      },
+      {
+        "id": "node/9129925025",
+        "name": "富锦",
+        "coordinates": [
+          132.0391202,
+          47.2346736
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fujin Railway Station",
+    "candidates": [
+      {
+        "id": "node/2349438705",
+        "name": "福金",
+        "coordinates": [
+          123.7266192,
+          41.257627
+        ]
+      },
+      {
+        "id": "node/9129925025",
+        "name": "富锦",
+        "coordinates": [
+          132.0391202,
+          47.2346736
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Funing",
+    "candidates": [
+      {
+        "id": "node/1665822785",
+        "name": "阜宁",
+        "coordinates": [
+          119.6118444,
+          33.5963541
+        ]
+      },
+      {
+        "id": "node/2711752126",
+        "name": "抚宁",
+        "coordinates": [
+          119.2431914,
+          39.8927132
+        ]
+      },
+      {
+        "id": "node/4039923101",
+        "name": "富宁",
+        "coordinates": [
+          105.5818028,
+          23.6772685
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Funing Railway Station",
+    "candidates": [
+      {
+        "id": "node/1665822785",
+        "name": "阜宁",
+        "coordinates": [
+          119.6118444,
+          33.5963541
+        ]
+      },
+      {
+        "id": "node/2711752126",
+        "name": "抚宁",
+        "coordinates": [
+          119.2431914,
+          39.8927132
+        ]
+      },
+      {
+        "id": "node/4039923101",
+        "name": "富宁",
+        "coordinates": [
+          105.5818028,
+          23.6772685
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fuyang",
+    "candidates": [
+      {
+        "id": "node/5907956116",
+        "name": "富阳",
+        "coordinates": [
+          119.9879972,
+          30.0032822
+        ]
+      },
+      {
+        "id": "node/8278853407",
+        "name": "阜阳",
+        "coordinates": [
+          115.8639622,
+          32.91667
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fuyu",
+    "candidates": [
+      {
+        "id": "node/1727803016",
+        "name": "富裕",
+        "coordinates": [
+          124.4540951,
+          47.7947978
+        ]
+      },
+      {
+        "id": "node/8436994999",
+        "name": "扶余",
+        "coordinates": [
+          126.0184333,
+          44.9850621
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fuyu Railway Station",
+    "candidates": [
+      {
+        "id": "node/1727803016",
+        "name": "富裕",
+        "coordinates": [
+          124.4540951,
+          47.7947978
+        ]
+      },
+      {
+        "id": "node/8436994999",
+        "name": "扶余",
+        "coordinates": [
+          126.0184333,
+          44.9850621
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fuyuan",
+    "candidates": [
+      {
+        "id": "node/2075745741",
+        "name": "抚远",
+        "coordinates": [
+          134.3934398,
+          48.3432086
+        ]
+      },
+      {
+        "id": "node/2323529356",
+        "name": "富源",
+        "coordinates": [
+          104.2675517,
+          25.6847812
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fuzhou",
+    "candidates": [
+      {
+        "id": "node/2879195401",
+        "name": "抚州",
+        "coordinates": [
+          116.347298,
+          27.9221411
+        ]
+      },
+      {
+        "id": "node/6999105218",
+        "name": "福州",
+        "coordinates": [
+          119.3156324,
+          26.1168094
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Gangkou",
+    "candidates": [
+      {
+        "id": "node/3084570169",
+        "name": "港口",
+        "coordinates": [
+          110.2727009,
+          34.6038832
+        ]
+      },
+      {
+        "id": "node/4021619862",
+        "name": "港口",
+        "coordinates": [
+          117.792046,
+          38.2791142
+        ]
+      },
+      {
+        "id": "node/4021619863",
+        "name": "港口",
+        "coordinates": [
+          117.8568661,
+          38.3030607
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Gantang",
+    "candidates": [
+      {
+        "id": "node/1675935499",
+        "name": "甘棠",
+        "coordinates": [
+          117.0978982,
+          28.8482047
+        ]
+      },
+      {
+        "id": "node/2340595334",
+        "name": "干塘",
+        "coordinates": [
+          104.5224858,
+          37.454054
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Gaocheng",
+    "candidates": [
+      {
+        "id": "node/2329491714",
+        "name": "藁城",
+        "coordinates": [
+          114.8268784,
+          38.0269814
+        ]
+      },
+      {
+        "id": "node/3858109183",
+        "name": "高城",
+        "coordinates": [
+          113.4014546,
+          31.9397419
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Gaocheng Railway Station",
+    "candidates": [
+      {
+        "id": "node/2329491714",
+        "name": "藁城",
+        "coordinates": [
+          114.8268784,
+          38.0269814
+        ]
+      },
+      {
+        "id": "node/3858109183",
+        "name": "高城",
+        "coordinates": [
+          113.4014546,
+          31.9397419
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Gaoping",
+    "candidates": [
+      {
+        "id": "node/1578466518",
+        "name": "高平",
+        "coordinates": [
+          112.9128288,
+          35.8012934
+        ]
+      },
+      {
+        "id": "node/1816772506",
+        "name": "高骈",
+        "coordinates": [
+          104.215752,
+          31.0472393
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Gaoping Railway Station",
+    "candidates": [
+      {
+        "id": "node/1578466518",
+        "name": "高平",
+        "coordinates": [
+          112.9128288,
+          35.8012934
+        ]
+      },
+      {
+        "id": "node/1816772506",
+        "name": "高骈",
+        "coordinates": [
+          104.215752,
+          31.0472393
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Guanting",
+    "candidates": [
+      {
+        "id": "node/6672562646",
+        "name": "官亭",
+        "coordinates": [
+          113.7656003,
+          34.2964464
+        ]
+      },
+      {
+        "id": "node/9265808481",
+        "name": "官厅",
+        "coordinates": [
+          115.5830732,
+          40.2509416
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Gucheng",
+    "candidates": [
+      {
+        "id": "node/1532826990",
+        "name": "谷城",
+        "coordinates": [
+          111.596909,
+          32.267179
+        ]
+      },
+      {
+        "id": "node/9129186251",
+        "name": "古城",
+        "coordinates": [
+          125.6736189,
+          47.9592256
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Gucheng Railway Station",
+    "candidates": [
+      {
+        "id": "node/1532826990",
+        "name": "谷城",
+        "coordinates": [
+          111.596909,
+          32.267179
+        ]
+      },
+      {
+        "id": "node/9129186251",
+        "name": "古城",
+        "coordinates": [
+          125.6736189,
+          47.9592256
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Guli",
+    "candidates": [
+      {
+        "id": "node/3060589420",
+        "name": "谷立",
+        "coordinates": [
+          106.7605632,
+          26.4783441
+        ]
+      },
+      {
+        "id": "node/8429690204",
+        "name": "谷里",
+        "coordinates": [
+          117.535501,
+          35.9249499
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Gushi",
+    "candidates": [
+      {
+        "id": "node/3797730465",
+        "name": "古市",
+        "coordinates": [
+          114.2422743,
+          25.0683167
+        ]
+      },
+      {
+        "id": "node/11334686620",
+        "name": "固始",
+        "coordinates": [
+          115.6643578,
+          31.9179498
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Gushi Railway Station",
+    "candidates": [
+      {
+        "id": "node/3797730465",
+        "name": "古市",
+        "coordinates": [
+          114.2422743,
+          25.0683167
+        ]
+      },
+      {
+        "id": "node/11334686620",
+        "name": "固始",
+        "coordinates": [
+          115.6643578,
+          31.9179498
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Guyuan",
+    "candidates": [
+      {
+        "id": "node/1252233958",
+        "name": "古源",
+        "coordinates": [
+          124.3124258,
+          50.9193436
+        ]
+      },
+      {
+        "id": "node/2381431787",
+        "name": "菇园",
+        "coordinates": [
+          126.2382508,
+          41.8011731
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Guzhen",
+    "candidates": [
+      {
+        "id": "node/1732229867",
+        "name": "古镇",
+        "coordinates": [
+          113.2007426,
+          22.6008861
+        ]
+      },
+      {
+        "id": "node/2493727321",
+        "name": "固镇",
+        "coordinates": [
+          117.3007662,
+          33.3184462
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Haidong",
+    "candidates": [
+      {
+        "id": "node/553073423",
+        "name": "海东镇",
+        "coordinates": [
+          100.258959,
+          25.7167716
+        ]
+      },
+      {
+        "id": "node/2987101482",
+        "name": "海东",
+        "coordinates": [
+          102.3894952,
+          36.4675999
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Huacheng",
+    "candidates": [
+      {
+        "id": "node/1619080437",
+        "name": "华城",
+        "coordinates": [
+          115.6204491,
+          24.0738452
+        ]
+      },
+      {
+        "id": "node/4527901811",
+        "name": "化城",
+        "coordinates": [
+          102.8310306,
+          24.7831262
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Huai'an",
+    "candidates": [
+      {
+        "id": "node/1608116209",
+        "name": "淮安",
+        "coordinates": [
+          119.0276463,
+          33.6501398
+        ]
+      },
+      {
+        "id": "node/4693191083",
+        "name": "怀安",
+        "coordinates": [
+          114.3935815,
+          40.6844149
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Huai'an Railway Station",
+    "candidates": [
+      {
+        "id": "node/1608116209",
+        "name": "淮安",
+        "coordinates": [
+          119.0276463,
+          33.6501398
+        ]
+      },
+      {
+        "id": "node/4693191083",
+        "name": "怀安",
+        "coordinates": [
+          114.3935815,
+          40.6844149
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Huanggang",
+    "candidates": [
+      {
+        "id": "node/4640099971",
+        "name": "黄冈",
+        "coordinates": [
+          114.9386778,
+          30.4882941
+        ]
+      },
+      {
+        "id": "node/5655200581",
+        "name": "黄岗",
+        "coordinates": [
+          113.554003,
+          24.8550195
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Huanggang Railway Station",
+    "candidates": [
+      {
+        "id": "node/4640099971",
+        "name": "黄冈",
+        "coordinates": [
+          114.9386778,
+          30.4882941
+        ]
+      },
+      {
+        "id": "node/5655200581",
+        "name": "黄岗",
+        "coordinates": [
+          113.554003,
+          24.8550195
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Huangling",
+    "candidates": [
+      {
+        "id": "node/7780322125",
+        "name": "黄岭",
+        "coordinates": [
+          116.8232489,
+          26.7345534
+        ]
+      },
+      {
+        "id": "node/11124438407",
+        "name": "黄陵",
+        "coordinates": [
+          109.212673,
+          35.589276
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Huaqiao",
+    "candidates": [
+      {
+        "id": "node/1675935502",
+        "name": "画桥",
+        "coordinates": [
+          117.03886,
+          28.51622
+        ]
+      },
+      {
+        "id": "node/4249835303",
+        "name": "花桥",
+        "coordinates": [
+          121.042009,
+          31.3375722
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Huazhou",
+    "candidates": [
+      {
+        "id": "node/2940419851",
+        "name": "华州",
+        "coordinates": [
+          109.7573475,
+          34.4967065
+        ]
+      },
+      {
+        "id": "node/5078329376",
+        "name": "化州",
+        "coordinates": [
+          110.6474814,
+          21.6557754
+        ]
+      }
+    ]
+  },
+  {
+    "name": "II场",
+    "candidates": [
+      {
+        "id": "node/8946394238",
+        "name": "II场",
+        "coordinates": [
+          126.6294895,
+          45.6701585
+        ]
+      },
+      {
+        "id": "node/12645965462",
+        "name": "II场",
+        "coordinates": [
+          104.7065487,
+          28.4708043
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ji'an",
+    "candidates": [
+      {
+        "id": "node/2278432367",
+        "name": "集安",
+        "coordinates": [
+          126.1987707,
+          41.1341712
+        ]
+      },
+      {
+        "id": "node/2314081738",
+        "name": "吉安",
+        "coordinates": [
+          115.0160792,
+          27.1085662
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ji'an Railway Station",
+    "candidates": [
+      {
+        "id": "node/2278432367",
+        "name": "集安",
+        "coordinates": [
+          126.1987707,
+          41.1341712
+        ]
+      },
+      {
+        "id": "node/2314081738",
+        "name": "吉安",
+        "coordinates": [
+          115.0160792,
+          27.1085662
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jiangbei",
+    "candidates": [
+      {
+        "id": "node/2332314837",
+        "name": "江北",
+        "coordinates": [
+          126.606017,
+          43.894362
+        ]
+      },
+      {
+        "id": "node/4019707814",
+        "name": "江背",
+        "coordinates": [
+          115.4741508,
+          26.2910164
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jiangbei Railway Station",
+    "candidates": [
+      {
+        "id": "node/2332314837",
+        "name": "江北",
+        "coordinates": [
+          126.606017,
+          43.894362
+        ]
+      },
+      {
+        "id": "node/4019707814",
+        "name": "江背",
+        "coordinates": [
+          115.4741508,
+          26.2910164
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jianyang",
+    "candidates": [
+      {
+        "id": "node/2375939323",
+        "name": "简阳",
+        "coordinates": [
+          104.5504139,
+          30.3820506
+        ]
+      },
+      {
+        "id": "node/2458071812",
+        "name": "建阳",
+        "coordinates": [
+          118.1088471,
+          27.3575438
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jianyang Railway Station",
+    "candidates": [
+      {
+        "id": "node/2375939323",
+        "name": "简阳",
+        "coordinates": [
+          104.5504139,
+          30.3820506
+        ]
+      },
+      {
+        "id": "node/2458071812",
+        "name": "建阳",
+        "coordinates": [
+          118.1088471,
+          27.3575438
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jiashan",
+    "candidates": [
+      {
+        "id": "node/5405983948",
+        "name": "甲山",
+        "coordinates": [
+          118.2594538,
+          40.7872069
+        ]
+      },
+      {
+        "id": "node/9660857768",
+        "name": "嘉善",
+        "coordinates": [
+          120.9122492,
+          30.8515431
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jinghe",
+    "candidates": [
+      {
+        "id": "node/1902381604",
+        "name": "精河 جىڭ ᠵᠢᠩ",
+        "coordinates": [
+          83.0220292,
+          44.6353508
+        ]
+      },
+      {
+        "id": "node/2956832935",
+        "name": "泾河",
+        "coordinates": [
+          108.9703959,
+          34.4816111
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jingzhou",
+    "candidates": [
+      {
+        "id": "node/1614129013",
+        "name": "靖州",
+        "coordinates": [
+          109.683934,
+          26.570013
+        ]
+      },
+      {
+        "id": "node/2492404007",
+        "name": "荆州",
+        "coordinates": [
+          112.2074419,
+          30.372574
+        ]
+      },
+      {
+        "id": "node/5555291485",
+        "name": "景州",
+        "coordinates": [
+          116.1327356,
+          37.6452453
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jinhe",
+    "candidates": [
+      {
+        "id": "node/9126260276",
+        "name": "金河",
+        "coordinates": [
+          121.4920964,
+          51.3343831
+        ]
+      },
+      {
+        "id": "node/9129186243",
+        "name": "锦河",
+        "coordinates": [
+          127.4063712,
+          50.1352042
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jining",
+    "candidates": [
+      {
+        "id": "node/808126191",
+        "name": "济宁",
+        "coordinates": [
+          116.5957199,
+          35.3931284
+        ]
+      },
+      {
+        "id": "node/5241738017",
+        "name": "集宁",
+        "coordinates": [
+          113.104421,
+          41.0423136
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jining Railway Station",
+    "candidates": [
+      {
+        "id": "node/808126191",
+        "name": "济宁",
+        "coordinates": [
+          116.5957199,
+          35.3931284
+        ]
+      },
+      {
+        "id": "node/5241738017",
+        "name": "集宁",
+        "coordinates": [
+          113.104421,
+          41.0423136
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jinjiang",
+    "candidates": [
+      {
+        "id": "node/4615476308",
+        "name": "锦江",
+        "coordinates": [
+          124.3679041,
+          40.1229106
+        ]
+      },
+      {
+        "id": "node/7778190320",
+        "name": "晋江",
+        "coordinates": [
+          118.4538504,
+          24.7975625
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jinzhou",
+    "candidates": [
+      {
+        "id": "node/1659133904",
+        "name": "金州",
+        "coordinates": [
+          121.7222117,
+          39.0869543
+        ]
+      },
+      {
+        "id": "node/2336082903",
+        "name": "锦州",
+        "coordinates": [
+          121.1351443,
+          41.1225155
+        ]
+      },
+      {
+        "id": "node/9259607254",
+        "name": "晋州",
+        "coordinates": [
+          115.0263137,
+          38.0201812
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jinzhou Railway Station",
+    "candidates": [
+      {
+        "id": "node/1659133904",
+        "name": "金州",
+        "coordinates": [
+          121.7222117,
+          39.0869543
+        ]
+      },
+      {
+        "id": "node/2336082903",
+        "name": "锦州",
+        "coordinates": [
+          121.1351443,
+          41.1225155
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Jizhou",
+    "candidates": [
+      {
+        "id": "node/1799763620",
+        "name": "蓟州",
+        "coordinates": [
+          117.3626034,
+          39.9936505
+        ]
+      },
+      {
+        "id": "node/3949965025",
+        "name": "冀州",
+        "coordinates": [
+          115.571725,
+          37.510498
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Kaiyuan",
+    "candidates": [
+      {
+        "id": "node/2348271086",
+        "name": "开原",
+        "coordinates": [
+          124.0257097,
+          42.5442139
+        ]
+      },
+      {
+        "id": "node/4545843126",
+        "name": "开远",
+        "coordinates": [
+          103.2471514,
+          23.7157811
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Kaiyuan Railway Station",
+    "candidates": [
+      {
+        "id": "node/2348271086",
+        "name": "开原",
+        "coordinates": [
+          124.0257097,
+          42.5442139
+        ]
+      },
+      {
+        "id": "node/4545843126",
+        "name": "开远",
+        "coordinates": [
+          103.2471514,
+          23.7157811
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Kangcun",
+    "candidates": [
+      {
+        "id": "node/7368477862",
+        "name": "康村",
+        "coordinates": [
+          83.0702072,
+          41.9472624
+        ]
+      },
+      {
+        "id": "node/8354235242",
+        "name": "亢村",
+        "coordinates": [
+          113.7201476,
+          35.1413194
+        ]
+      },
+      {
+        "id": "way/1468593286",
+        "name": "康村",
+        "coordinates": [
+          83.0701409,
+          41.9468764
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lanling",
+    "candidates": [
+      {
+        "id": "node/6357489709",
+        "name": "兰棱",
+        "coordinates": [
+          126.1831654,
+          45.2194808
+        ]
+      },
+      {
+        "id": "node/9137873812",
+        "name": "兰岭",
+        "coordinates": [
+          130.6980472,
+          45.2946309
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Liangshan",
+    "candidates": [
+      {
+        "id": "node/1672448034",
+        "name": "梁山",
+        "coordinates": [
+          115.9323108,
+          35.8191339
+        ]
+      },
+      {
+        "id": "node/3003935026",
+        "name": "梁山",
+        "coordinates": [
+          108.1819689,
+          34.5869837
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Liangshan Railway Station",
+    "candidates": [
+      {
+        "id": "node/1672448034",
+        "name": "梁山",
+        "coordinates": [
+          115.9323108,
+          35.8191339
+        ]
+      },
+      {
+        "id": "node/3003935026",
+        "name": "梁山",
+        "coordinates": [
+          108.1819689,
+          34.5869837
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lianjiang",
+    "candidates": [
+      {
+        "id": "node/1692209463",
+        "name": "廉江",
+        "coordinates": [
+          110.292717,
+          21.6175577
+        ]
+      },
+      {
+        "id": "node/7713944581",
+        "name": "连江",
+        "coordinates": [
+          119.5627016,
+          26.1977359
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lianjiang Railway Station",
+    "candidates": [
+      {
+        "id": "node/1692209463",
+        "name": "廉江",
+        "coordinates": [
+          110.292717,
+          21.6175577
+        ]
+      },
+      {
+        "id": "node/7713944581",
+        "name": "连江",
+        "coordinates": [
+          119.5627016,
+          26.1977359
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lianjiangkou",
+    "candidates": [
+      {
+        "id": "node/6009757607",
+        "name": "莲江口",
+        "coordinates": [
+          130.3143988,
+          46.870935
+        ]
+      },
+      {
+        "id": "node/8319166483",
+        "name": "连江口",
+        "coordinates": [
+          113.3053613,
+          24.0307481
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Licheng Railway Station",
+    "candidates": [
+      {
+        "id": "node/9057278694",
+        "name": "历城北",
+        "coordinates": [
+          117.1463515,
+          36.7106111
+        ]
+      },
+      {
+        "id": "node/10276529761",
+        "name": "黎城",
+        "coordinates": [
+          113.3854401,
+          36.514713
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Linfen",
+    "candidates": [
+      {
+        "id": "node/807798087",
+        "name": "临汾",
+        "coordinates": [
+          111.5309138,
+          36.0871901
+        ]
+      },
+      {
+        "id": "node/3012035419",
+        "name": "临汾西",
+        "coordinates": [
+          111.4594344,
+          36.1016459
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lingyuan",
+    "candidates": [
+      {
+        "id": "node/2336764049",
+        "name": "凌源",
+        "coordinates": [
+          119.3770589,
+          41.2339402
+        ]
+      },
+      {
+        "id": "node/3003935032",
+        "name": "灵源",
+        "coordinates": [
+          108.3477773,
+          34.475865
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lingyuan Railway Station",
+    "candidates": [
+      {
+        "id": "node/2336764049",
+        "name": "凌源",
+        "coordinates": [
+          119.3770589,
+          41.2339402
+        ]
+      },
+      {
+        "id": "node/3003935032",
+        "name": "灵源",
+        "coordinates": [
+          108.3477773,
+          34.475865
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Linhai",
+    "candidates": [
+      {
+        "id": "node/7714110157",
+        "name": "临海",
+        "coordinates": [
+          121.2424833,
+          28.8830234
+        ]
+      },
+      {
+        "id": "node/9126260248",
+        "name": "林海",
+        "coordinates": [
+          124.3494355,
+          51.577421
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Linhai Railway Station",
+    "candidates": [
+      {
+        "id": "node/7714110157",
+        "name": "临海",
+        "coordinates": [
+          121.2424833,
+          28.8830234
+        ]
+      },
+      {
+        "id": "node/9126260248",
+        "name": "林海",
+        "coordinates": [
+          124.3494355,
+          51.577421
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lishui",
+    "candidates": [
+      {
+        "id": "node/2726898124",
+        "name": "溧水",
+        "coordinates": [
+          119.0909653,
+          31.6813415
+        ]
+      },
+      {
+        "id": "node/7702364120",
+        "name": "丽水",
+        "coordinates": [
+          119.94946,
+          28.4449024
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Liucun",
+    "candidates": [
+      {
+        "id": "node/3860611403",
+        "name": "刘村",
+        "coordinates": [
+          111.0886238,
+          35.6107383
+        ]
+      },
+      {
+        "id": "node/9277294011",
+        "name": "柳村",
+        "coordinates": [
+          119.6660176,
+          39.9816342
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Liugou",
+    "candidates": [
+      {
+        "id": "node/1588514426",
+        "name": "刘沟",
+        "coordinates": [
+          103.5061739,
+          29.2888632
+        ]
+      },
+      {
+        "id": "node/7276773543",
+        "name": "柳沟",
+        "coordinates": [
+          96.4438888,
+          40.6738354
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Liuhe",
+    "candidates": [
+      {
+        "id": "node/1666058769",
+        "name": "六合",
+        "coordinates": [
+          118.8413248,
+          32.3679416
+        ]
+      },
+      {
+        "id": "node/2614607868",
+        "name": "柳河",
+        "coordinates": [
+          125.7592186,
+          42.2870588
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Liuhe Railway Station",
+    "candidates": [
+      {
+        "id": "node/1666058769",
+        "name": "六合",
+        "coordinates": [
+          118.8413248,
+          32.3679416
+        ]
+      },
+      {
+        "id": "node/2614607868",
+        "name": "柳河",
+        "coordinates": [
+          125.7592186,
+          42.2870588
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Liulin",
+    "candidates": [
+      {
+        "id": "node/3612292370",
+        "name": "柳林",
+        "coordinates": [
+          114.0927136,
+          31.9561907
+        ]
+      },
+      {
+        "id": "node/4074611204",
+        "name": "柳林县",
+        "coordinates": [
+          110.9107675,
+          37.440709
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Liuzhi",
+    "candidates": [
+      {
+        "id": "node/2341864262",
+        "name": "六枝",
+        "coordinates": [
+          105.461331,
+          26.2291193
+        ]
+      },
+      {
+        "id": "node/4941072866",
+        "name": "柳枝",
+        "coordinates": [
+          109.8903652,
+          34.5279681
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lixian",
+    "candidates": [
+      {
+        "id": "node/3915759032",
+        "name": "蠡县",
+        "coordinates": [
+          115.5747338,
+          38.464187
+        ]
+      },
+      {
+        "id": "node/11410594720",
+        "name": "礼贤",
+        "coordinates": [
+          116.4316117,
+          39.555011
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Longchuan",
+    "candidates": [
+      {
+        "id": "node/1619080438",
+        "name": "龙川",
+        "coordinates": [
+          115.2325977,
+          24.1147196
+        ]
+      },
+      {
+        "id": "node/9137876530",
+        "name": "龙船",
+        "coordinates": [
+          127.3798224,
+          46.8795254
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Longchuan Railway Station",
+    "candidates": [
+      {
+        "id": "node/1619080438",
+        "name": "龙川",
+        "coordinates": [
+          115.2325977,
+          24.1147196
+        ]
+      },
+      {
+        "id": "node/9137876530",
+        "name": "龙船",
+        "coordinates": [
+          127.3798224,
+          46.8795254
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Longhua",
+    "candidates": [
+      {
+        "id": "node/272527573",
+        "name": "龙华",
+        "coordinates": [
+          116.0130503,
+          37.6110923
+        ]
+      },
+      {
+        "id": "node/3523467824",
+        "name": "隆化",
+        "coordinates": [
+          117.7449966,
+          41.3263943
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Longhua Railway Station",
+    "candidates": [
+      {
+        "id": "node/272527573",
+        "name": "龙华",
+        "coordinates": [
+          116.0130503,
+          37.6110923
+        ]
+      },
+      {
+        "id": "node/3523467824",
+        "name": "隆化",
+        "coordinates": [
+          117.7449966,
+          41.3263943
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Longhui",
+    "candidates": [
+      {
+        "id": "node/3182691334",
+        "name": "龙回",
+        "coordinates": [
+          114.7814655,
+          25.5336113
+        ]
+      },
+      {
+        "id": "node/5559277118",
+        "name": "隆回",
+        "coordinates": [
+          111.0295057,
+          27.1497917
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Longshan",
+    "candidates": [
+      {
+        "id": "node/6615339423",
+        "name": "龙山北",
+        "coordinates": [
+          109.4596878,
+          29.4902832
+        ]
+      },
+      {
+        "id": "node/8210144945",
+        "name": "龙山线路所",
+        "coordinates": [
+          116.9251172,
+          30.6787255
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lucheng",
+    "candidates": [
+      {
+        "id": "node/2329166653",
+        "name": "潞城",
+        "coordinates": [
+          113.2156768,
+          36.320669
+        ]
+      },
+      {
+        "id": "node/2666710929",
+        "name": "吕城",
+        "coordinates": [
+          119.7420688,
+          31.9071306
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lufeng",
+    "candidates": [
+      {
+        "id": "node/1732278092",
+        "name": "陆丰",
+        "coordinates": [
+          115.7284621,
+          22.9507378
+        ]
+      },
+      {
+        "id": "node/1758381679",
+        "name": "禄丰",
+        "coordinates": [
+          102.0571621,
+          25.1883064
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lufeng Railway Station",
+    "candidates": [
+      {
+        "id": "node/1732278092",
+        "name": "陆丰",
+        "coordinates": [
+          115.7284621,
+          22.9507378
+        ]
+      },
+      {
+        "id": "node/1758381679",
+        "name": "禄丰",
+        "coordinates": [
+          102.0571621,
+          25.1883064
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Luohe",
+    "candidates": [
+      {
+        "id": "node/2504111813",
+        "name": "漯河",
+        "coordinates": [
+          114.037324,
+          33.572327
+        ]
+      },
+      {
+        "id": "node/3024668830",
+        "name": "褒河",
+        "coordinates": [
+          106.9373193,
+          33.157659
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lushan",
+    "candidates": [
+      {
+        "id": "node/1577895084",
+        "name": "鲁山",
+        "coordinates": [
+          112.8975132,
+          33.7501329
+        ]
+      },
+      {
+        "id": "node/1769587482",
+        "name": "庐山",
+        "coordinates": [
+          115.874339,
+          29.5996356
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lushan Railway Station",
+    "candidates": [
+      {
+        "id": "node/1577895084",
+        "name": "鲁山",
+        "coordinates": [
+          112.8975132,
+          33.7501329
+        ]
+      },
+      {
+        "id": "node/1769587482",
+        "name": "庐山",
+        "coordinates": [
+          115.874339,
+          29.5996356
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Maoling",
+    "candidates": [
+      {
+        "id": "node/2999349326",
+        "name": "茂陵",
+        "coordinates": [
+          108.6084174,
+          34.3168158
+        ]
+      },
+      {
+        "id": "node/7692210521",
+        "name": "茅岭",
+        "coordinates": [
+          108.4475064,
+          21.8499439
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Modaoshi",
+    "candidates": [
+      {
+        "id": "node/1603990214",
+        "name": "老磨刀石",
+        "coordinates": [
+          129.8612717,
+          44.5604994
+        ]
+      },
+      {
+        "id": "node/5344605877",
+        "name": "磨刀石",
+        "coordinates": [
+          129.8402633,
+          44.5693301
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Nanchang",
+    "candidates": [
+      {
+        "id": "node/1575144250",
+        "name": "南昌",
+        "coordinates": [
+          115.9148247,
+          28.6652855
+        ]
+      },
+      {
+        "id": "node/3218363033",
+        "name": "南常",
+        "coordinates": [
+          111.5253132,
+          35.6725715
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Nanchang Railway Station",
+    "candidates": [
+      {
+        "id": "node/1575144250",
+        "name": "南昌",
+        "coordinates": [
+          115.9148247,
+          28.6652855
+        ]
+      },
+      {
+        "id": "node/3218363033",
+        "name": "南常",
+        "coordinates": [
+          111.5253132,
+          35.6725715
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Nanhua",
+    "candidates": [
+      {
+        "id": "node/3159071367",
+        "name": "南华北",
+        "coordinates": [
+          101.2795435,
+          25.2100593
+        ]
+      },
+      {
+        "id": "node/8050775700",
+        "name": "南化",
+        "coordinates": [
+          108.2789929,
+          22.7926523
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Nanhua Railway Station",
+    "candidates": [
+      {
+        "id": "node/3159071367",
+        "name": "南华北",
+        "coordinates": [
+          101.2795435,
+          25.2100593
+        ]
+      },
+      {
+        "id": "node/8050775700",
+        "name": "南化",
+        "coordinates": [
+          108.2789929,
+          22.7926523
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Nanjing",
+    "candidates": [
+      {
+        "id": "node/267225237",
+        "name": "南京",
+        "coordinates": [
+          118.7917463,
+          32.0887235
+        ]
+      },
+      {
+        "id": "node/7252318602",
+        "name": "南靖",
+        "coordinates": [
+          117.4438772,
+          24.5816829
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pingfang",
+    "candidates": [
+      {
+        "id": "node/2333085945",
+        "name": "平房",
+        "coordinates": [
+          126.6695162,
+          45.5834093
+        ]
+      },
+      {
+        "id": "node/3956215997",
+        "name": "平坊",
+        "coordinates": [
+          117.2413531,
+          40.8918752
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pingfang Railway Station",
+    "candidates": [
+      {
+        "id": "node/2333085945",
+        "name": "平房",
+        "coordinates": [
+          126.6695162,
+          45.5834093
+        ]
+      },
+      {
+        "id": "node/3956215997",
+        "name": "平坊",
+        "coordinates": [
+          117.2413531,
+          40.8918752
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pingtian",
+    "candidates": [
+      {
+        "id": "node/2323529390",
+        "name": "平田",
+        "coordinates": [
+          104.50385,
+          25.83856
+        ]
+      },
+      {
+        "id": "node/7740286542",
+        "name": "坪田",
+        "coordinates": [
+          113.1993806,
+          29.4124652
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pingxiang",
+    "candidates": [
+      {
+        "id": "node/1577103523",
+        "name": "凭祥",
+        "coordinates": [
+          106.739165,
+          22.082796
+        ]
+      },
+      {
+        "id": "node/1579354019",
+        "name": "萍乡",
+        "coordinates": [
+          113.8359582,
+          27.6503105
+        ]
+      },
+      {
+        "id": "node/3949977029",
+        "name": "平乡",
+        "coordinates": [
+          115.0568377,
+          37.0196451
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pingyang",
+    "candidates": [
+      {
+        "id": "node/2343318811",
+        "name": "平洋",
+        "coordinates": [
+          123.5346709,
+          46.5968863
+        ]
+      },
+      {
+        "id": "node/7714110147",
+        "name": "平阳",
+        "coordinates": [
+          120.5408442,
+          27.629223
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pingyang Railway Station",
+    "candidates": [
+      {
+        "id": "node/2343318811",
+        "name": "平洋",
+        "coordinates": [
+          123.5346709,
+          46.5968863
+        ]
+      },
+      {
+        "id": "node/7714110147",
+        "name": "平阳",
+        "coordinates": [
+          120.5408442,
+          27.629223
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Putian",
+    "candidates": [
+      {
+        "id": "node/1879551033",
+        "name": "莆田",
+        "coordinates": [
+          119.0570588,
+          25.3538682
+        ]
+      },
+      {
+        "id": "node/8017754343",
+        "name": "圃田",
+        "coordinates": [
+          113.7980282,
+          34.7367392
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Putian Railway Station",
+    "candidates": [
+      {
+        "id": "node/1879551033",
+        "name": "莆田",
+        "coordinates": [
+          119.0570588,
+          25.3538682
+        ]
+      },
+      {
+        "id": "node/8017754343",
+        "name": "圃田",
+        "coordinates": [
+          113.7980282,
+          34.7367392
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Qianxi",
+    "candidates": [
+      {
+        "id": "node/3740915261",
+        "name": "黔西",
+        "coordinates": [
+          106.043688,
+          26.9888186
+        ]
+      },
+      {
+        "id": "node/3972663921",
+        "name": "迁西",
+        "coordinates": [
+          118.2871241,
+          40.1838004
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Qidong",
+    "candidates": [
+      {
+        "id": "node/5141988543",
+        "name": "祁东",
+        "coordinates": [
+          112.0605399,
+          26.762704
+        ]
+      },
+      {
+        "id": "node/7723050258",
+        "name": "启东",
+        "coordinates": [
+          121.6407859,
+          31.8588879
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Qidong Railway Station",
+    "candidates": [
+      {
+        "id": "node/5141988543",
+        "name": "祁东",
+        "coordinates": [
+          112.0605399,
+          26.762704
+        ]
+      },
+      {
+        "id": "node/7723050258",
+        "name": "启东",
+        "coordinates": [
+          121.6407859,
+          31.8588879
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Qijiang",
+    "candidates": [
+      {
+        "id": "node/2327990932",
+        "name": "綦江",
+        "coordinates": [
+          106.6604057,
+          29.0202678
+        ]
+      },
+      {
+        "id": "node/3931615563",
+        "name": "旗江",
+        "coordinates": [
+          103.9591713,
+          30.4428932
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Qilizhen",
+    "candidates": [
+      {
+        "id": "node/3698187689",
+        "name": "七里镇",
+        "coordinates": [
+          109.0914702,
+          35.6219305
+        ]
+      },
+      {
+        "id": "node/5010467052",
+        "name": "敦煌西",
+        "coordinates": [
+          94.5711145,
+          40.1665354
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Qingfeng",
+    "candidates": [
+      {
+        "id": "node/1665825560",
+        "name": "庆丰镇",
+        "coordinates": [
+          119.893062,
+          33.48242
+        ]
+      },
+      {
+        "id": "node/1732027898",
+        "name": "庆丰",
+        "coordinates": [
+          123.35604,
+          44.60496
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Qingfeng Railway Station",
+    "candidates": [
+      {
+        "id": "node/1665825560",
+        "name": "庆丰镇",
+        "coordinates": [
+          119.893062,
+          33.48242
+        ]
+      },
+      {
+        "id": "node/1732027898",
+        "name": "庆丰",
+        "coordinates": [
+          123.35604,
+          44.60496
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Qingshui",
+    "candidates": [
+      {
+        "id": "node/2987122994",
+        "name": "清水",
+        "coordinates": [
+          99.0557373,
+          39.354247
+        ]
+      },
+      {
+        "id": "node/3652362095",
+        "name": "清水县",
+        "coordinates": [
+          106.1024983,
+          34.7522542
+        ]
+      },
+      {
+        "id": "way/1466319340",
+        "name": "清水",
+        "coordinates": [
+          99.0557593,
+          39.3542651
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Qixian",
+    "candidates": [
+      {
+        "id": "node/5238964683",
+        "name": "祁县",
+        "coordinates": [
+          112.3245542,
+          37.3458769
+        ]
+      },
+      {
+        "id": "node/8312461927",
+        "name": "淇县",
+        "coordinates": [
+          114.1815817,
+          35.6103004
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Quanzhou",
+    "candidates": [
+      {
+        "id": "node/1573735882",
+        "name": "全州",
+        "coordinates": [
+          111.0398007,
+          25.9582148
+        ]
+      },
+      {
+        "id": "node/1879551038",
+        "name": "泉州",
+        "coordinates": [
+          118.5631517,
+          24.9768893
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shangyuan",
+    "candidates": [
+      {
+        "id": "node/2336082815",
+        "name": "上园",
+        "coordinates": [
+          120.9597192,
+          41.6154983
+        ]
+      },
+      {
+        "id": "node/9076173199",
+        "name": "上元",
+        "coordinates": [
+          99.4474563,
+          40.2448406
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shawan",
+    "candidates": [
+      {
+        "id": "node/1588514487",
+        "name": "沙湾",
+        "coordinates": [
+          103.53568,
+          29.41521
+        ]
+      },
+      {
+        "id": "node/7371981474",
+        "name": "沙湾市 ساۋان",
+        "coordinates": [
+          85.606547,
+          44.3212211
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shenshan",
+    "candidates": [
+      {
+        "id": "node/11187346227",
+        "name": "深汕",
+        "coordinates": [
+          115.0821762,
+          22.872653
+        ]
+      },
+      {
+        "id": "node/12690215353",
+        "name": "神山",
+        "coordinates": [
+          113.1959782,
+          23.3317335
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shexian",
+    "candidates": [
+      {
+        "id": "node/1675935526",
+        "name": "歙县",
+        "coordinates": [
+          118.406185,
+          29.869103
+        ]
+      },
+      {
+        "id": "node/2328405923",
+        "name": "涉县",
+        "coordinates": [
+          113.6620793,
+          36.5774509
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shichang",
+    "candidates": [
+      {
+        "id": "node/1587088563",
+        "name": "石场线路所",
+        "coordinates": [
+          106.4090009,
+          29.3478777
+        ]
+      },
+      {
+        "id": "node/2154670863",
+        "name": "石长",
+        "coordinates": [
+          128.3164557,
+          46.9346017
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shicheng",
+    "candidates": [
+      {
+        "id": "node/1592559602",
+        "name": "石城",
+        "coordinates": [
+          124.3038056,
+          40.6321931
+        ]
+      },
+      {
+        "id": "node/3699740690",
+        "name": "石城村",
+        "coordinates": [
+          111.3831052,
+          39.4303058
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shicheng Railway Station",
+    "candidates": [
+      {
+        "id": "node/1592559602",
+        "name": "石城",
+        "coordinates": [
+          124.3038056,
+          40.6321931
+        ]
+      },
+      {
+        "id": "node/3699740690",
+        "name": "石城村",
+        "coordinates": [
+          111.3831052,
+          39.4303058
+        ]
+      },
+      {
+        "id": "node/4019707142",
+        "name": "石城东",
+        "coordinates": [
+          116.3449593,
+          26.300227
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shilin",
+    "candidates": [
+      {
+        "id": "node/1569661844",
+        "name": "石林",
+        "coordinates": [
+          103.32753,
+          24.86571
+        ]
+      },
+      {
+        "id": "node/9131669912",
+        "name": "石磷",
+        "coordinates": [
+          130.6891887,
+          45.1585325
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shiling",
+    "candidates": [
+      {
+        "id": "node/2327447496",
+        "name": "石岭",
+        "coordinates": [
+          124.6971603,
+          43.0887368
+        ]
+      },
+      {
+        "id": "node/3931615583",
+        "name": "十陵",
+        "coordinates": [
+          104.2085196,
+          30.6416637
+        ]
+      },
+      {
+        "id": "node/8166487690",
+        "name": "狮岭",
+        "coordinates": [
+          113.1430717,
+          23.45667
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shiling Railway Station",
+    "candidates": [
+      {
+        "id": "node/2327447496",
+        "name": "石岭",
+        "coordinates": [
+          124.6971603,
+          43.0887368
+        ]
+      },
+      {
+        "id": "node/3931615583",
+        "name": "十陵",
+        "coordinates": [
+          104.2085196,
+          30.6416637
+        ]
+      },
+      {
+        "id": "node/8166487690",
+        "name": "狮岭",
+        "coordinates": [
+          113.1430717,
+          23.45667
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shimen",
+    "candidates": [
+      {
+        "id": "node/1582507261",
+        "name": "石门",
+        "coordinates": [
+          118.8492096,
+          39.7239315
+        ]
+      },
+      {
+        "id": "node/14099372616",
+        "name": "石门",
+        "coordinates": [
+          113.65768,
+          23.2889612
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shishan",
+    "candidates": [
+      {
+        "id": "node/1582507268",
+        "name": "石山",
+        "coordinates": [
+          121.5299304,
+          41.230668
+        ]
+      },
+      {
+        "id": "node/9195330013",
+        "name": "狮山",
+        "coordinates": [
+          112.9787683,
+          23.1252848
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shitan",
+    "candidates": [
+      {
+        "id": "node/1607295759",
+        "name": "石滩",
+        "coordinates": [
+          109.56064,
+          35.0339
+        ]
+      },
+      {
+        "id": "node/1675935530",
+        "name": "峙滩",
+        "coordinates": [
+          117.2937381,
+          29.6050364
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shoushan",
+    "candidates": [
+      {
+        "id": "node/635061854",
+        "name": "首山",
+        "coordinates": [
+          123.0666336,
+          41.2192756
+        ]
+      },
+      {
+        "id": "node/8043424412",
+        "name": "首山",
+        "coordinates": [
+          113.4192923,
+          33.8172819
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shoushan Railway Station",
+    "candidates": [
+      {
+        "id": "node/635061854",
+        "name": "首山",
+        "coordinates": [
+          123.0666336,
+          41.2192756
+        ]
+      },
+      {
+        "id": "node/8043424412",
+        "name": "首山",
+        "coordinates": [
+          113.4192923,
+          33.8172819
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shuangyang",
+    "candidates": [
+      {
+        "id": "node/1646226920",
+        "name": "双阳",
+        "coordinates": [
+          125.6355803,
+          43.514682
+        ]
+      },
+      {
+        "id": "node/7237831724",
+        "name": "双洋",
+        "coordinates": [
+          117.3684186,
+          25.6220787
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shuangyang Railway Station",
+    "candidates": [
+      {
+        "id": "node/1646226920",
+        "name": "双阳",
+        "coordinates": [
+          125.6355803,
+          43.514682
+        ]
+      },
+      {
+        "id": "node/7237831724",
+        "name": "双洋",
+        "coordinates": [
+          117.3684186,
+          25.6220787
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Sifangtai",
+    "candidates": [
+      {
+        "id": "node/634878085",
+        "name": "四方台",
+        "coordinates": [
+          122.9722755,
+          41.0805342
+        ]
+      },
+      {
+        "id": "node/2344167674",
+        "name": "四方台",
+        "coordinates": [
+          126.989429,
+          46.9209145
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Sifangtai Railway Station",
+    "candidates": [
+      {
+        "id": "node/634878085",
+        "name": "四方台",
+        "coordinates": [
+          122.9722755,
+          41.0805342
+        ]
+      },
+      {
+        "id": "node/2344167674",
+        "name": "四方台",
+        "coordinates": [
+          126.989429,
+          46.9209145
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Suining",
+    "candidates": [
+      {
+        "id": "node/3358425493",
+        "name": "遂宁",
+        "coordinates": [
+          105.5378365,
+          30.5459971
+        ]
+      },
+      {
+        "id": "node/7127162182",
+        "name": "睢宁",
+        "coordinates": [
+          117.9314732,
+          33.9538577
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Suixi",
+    "candidates": [
+      {
+        "id": "node/1692209475",
+        "name": "遂溪",
+        "coordinates": [
+          110.2624679,
+          21.4008526
+        ]
+      },
+      {
+        "id": "node/3624925005",
+        "name": "濉溪",
+        "coordinates": [
+          116.7725812,
+          33.9252751
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Tai'an",
+    "candidates": [
+      {
+        "id": "node/6844103016",
+        "name": "泰安",
+        "coordinates": [
+          117.0292532,
+          36.1719485
+        ]
+      },
+      {
+        "id": "node/8431451879",
+        "name": "台安",
+        "coordinates": [
+          122.4250813,
+          41.4439388
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Taihe",
+    "candidates": [
+      {
+        "id": "node/1588514509",
+        "name": "太和",
+        "coordinates": [
+          103.8287191,
+          30.1248573
+        ]
+      },
+      {
+        "id": "node/2314116851",
+        "name": "泰和",
+        "coordinates": [
+          114.9443427,
+          26.8355774
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Taihe Railway Station",
+    "candidates": [
+      {
+        "id": "node/1588514509",
+        "name": "太和",
+        "coordinates": [
+          103.8287191,
+          30.1248573
+        ]
+      },
+      {
+        "id": "node/2314116851",
+        "name": "泰和",
+        "coordinates": [
+          114.9443427,
+          26.8355774
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Taishan",
+    "candidates": [
+      {
+        "id": "node/272494359",
+        "name": "泰山",
+        "coordinates": [
+          117.1031377,
+          36.1865418
+        ]
+      },
+      {
+        "id": "node/5485730430",
+        "name": "台山",
+        "coordinates": [
+          112.8103423,
+          22.3021203
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Taizhou",
+    "candidates": [
+      {
+        "id": "node/1608115664",
+        "name": "泰州",
+        "coordinates": [
+          119.9755428,
+          32.5311298
+        ]
+      },
+      {
+        "id": "node/5154991268",
+        "name": "台州",
+        "coordinates": [
+          121.3672864,
+          28.6561685
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Tanghai",
+    "candidates": [
+      {
+        "id": "node/1758381728",
+        "name": "棠海",
+        "coordinates": [
+          102.09487,
+          25.2089
+        ]
+      },
+      {
+        "id": "node/9509616912",
+        "name": "唐海",
+        "coordinates": [
+          118.4018442,
+          39.3000813
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Tongjing",
+    "candidates": [
+      {
+        "id": "node/1768189965",
+        "name": "铜井",
+        "coordinates": [
+          118.5619085,
+          31.8010699
+        ]
+      },
+      {
+        "id": "node/10313458329",
+        "name": "统景",
+        "coordinates": [
+          106.8694523,
+          29.8585964
+        ]
+      },
+      {
+        "id": "node/13674982604",
+        "name": "统景",
+        "coordinates": [
+          106.8694189,
+          29.8585602
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Tuanshan",
+    "candidates": [
+      {
+        "id": "node/1623929715",
+        "name": "团山",
+        "coordinates": [
+          102.7425181,
+          23.6481042
+        ]
+      },
+      {
+        "id": "node/4162472432",
+        "name": "团山",
+        "coordinates": [
+          125.966776,
+          44.9083253
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wan'an",
+    "candidates": [
+      {
+        "id": "node/2941969186",
+        "name": "万安县",
+        "coordinates": [
+          114.8386311,
+          26.5286066
+        ]
+      },
+      {
+        "id": "node/3901349147",
+        "name": "万安",
+        "coordinates": [
+          111.828546,
+          37.0407649
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wan'an Railway Station",
+    "candidates": [
+      {
+        "id": "node/2941969186",
+        "name": "万安县",
+        "coordinates": [
+          114.8386311,
+          26.5286066
+        ]
+      },
+      {
+        "id": "node/3901349147",
+        "name": "万安",
+        "coordinates": [
+          111.828546,
+          37.0407649
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wangcun",
+    "candidates": [
+      {
+        "id": "node/2419166513",
+        "name": "王村",
+        "coordinates": [
+          117.7107623,
+          36.6863917
+        ]
+      },
+      {
+        "id": "node/4677731669",
+        "name": "王村",
+        "coordinates": [
+          110.0583943,
+          35.2061237
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wangcun Railway Station",
+    "candidates": [
+      {
+        "id": "node/2419166513",
+        "name": "王村",
+        "coordinates": [
+          117.7107623,
+          36.6863917
+        ]
+      },
+      {
+        "id": "node/4677731669",
+        "name": "王村",
+        "coordinates": [
+          110.0583943,
+          35.2061237
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Weiyuan",
+    "candidates": [
+      {
+        "id": "node/3945255057",
+        "name": "渭源",
+        "coordinates": [
+          104.2256059,
+          35.0972158
+        ]
+      },
+      {
+        "id": "node/10931476417",
+        "name": "威远",
+        "coordinates": [
+          104.7342089,
+          29.5511385
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wenjiang",
+    "candidates": [
+      {
+        "id": "node/5173607628",
+        "name": "文江",
+        "coordinates": [
+          104.5709797,
+          28.3929978
+        ]
+      },
+      {
+        "id": "node/6419220951",
+        "name": "温江",
+        "coordinates": [
+          103.8119194,
+          30.6373233
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wenquan Railway Station",
+    "candidates": [
+      {
+        "id": "node/274366810",
+        "name": "温泉",
+        "coordinates": [
+          102.4795234,
+          24.9623002
+        ]
+      },
+      {
+        "id": "node/2381431796",
+        "name": "氡泉",
+        "coordinates": [
+          127.1875163,
+          42.1483745
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wuchang",
+    "candidates": [
+      {
+        "id": "node/317750134",
+        "name": "武昌",
+        "coordinates": [
+          114.3124643,
+          30.530793
+        ]
+      },
+      {
+        "id": "node/1588584188",
+        "name": "吴场",
+        "coordinates": [
+          103.6549483,
+          29.8778522
+        ]
+      },
+      {
+        "id": "node/2503795727",
+        "name": "五常",
+        "coordinates": [
+          127.1364579,
+          44.9197887
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wuchang Railway Station",
+    "candidates": [
+      {
+        "id": "node/317750134",
+        "name": "武昌",
+        "coordinates": [
+          114.3124643,
+          30.530793
+        ]
+      },
+      {
+        "id": "node/1588584188",
+        "name": "吴场",
+        "coordinates": [
+          103.6549483,
+          29.8778522
+        ]
+      },
+      {
+        "id": "node/2503795727",
+        "name": "五常",
+        "coordinates": [
+          127.1364579,
+          44.9197887
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wuhu North",
+    "candidates": [
+      {
+        "id": "node/3686468743",
+        "name": "二坝",
+        "coordinates": [
+          118.3301689,
+          31.348976
+        ]
+      },
+      {
+        "id": "node/4592096951",
+        "name": "芜湖北",
+        "coordinates": [
+          118.2507481,
+          31.3574512
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wuhu North Railway Station",
+    "candidates": [
+      {
+        "id": "node/3686468743",
+        "name": "二坝",
+        "coordinates": [
+          118.3301689,
+          31.348976
+        ]
+      },
+      {
+        "id": "node/4592096951",
+        "name": "芜湖北",
+        "coordinates": [
+          118.2507481,
+          31.3574512
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wuhubei Railway Station",
+    "candidates": [
+      {
+        "id": "node/3686468743",
+        "name": "二坝",
+        "coordinates": [
+          118.3301689,
+          31.348976
+        ]
+      },
+      {
+        "id": "node/4592096951",
+        "name": "芜湖北",
+        "coordinates": [
+          118.2507481,
+          31.3574512
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wuqiao",
+    "candidates": [
+      {
+        "id": "node/3499350275",
+        "name": "五桥",
+        "coordinates": [
+          108.4726641,
+          30.7771177
+        ]
+      },
+      {
+        "id": "node/8410521685",
+        "name": "吴桥",
+        "coordinates": [
+          116.3805865,
+          37.6263105
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wuxiang",
+    "candidates": [
+      {
+        "id": "node/1578026849",
+        "name": "武乡东",
+        "coordinates": [
+          112.8472049,
+          36.8556679
+        ]
+      },
+      {
+        "id": "node/8208342112",
+        "name": "武乡",
+        "coordinates": [
+          112.7922015,
+          36.849761
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wuyuan",
+    "candidates": [
+      {
+        "id": "node/2517241085",
+        "name": "婺源",
+        "coordinates": [
+          117.8724329,
+          29.2421028
+        ]
+      },
+      {
+        "id": "node/10913546184",
+        "name": "五原",
+        "coordinates": [
+          108.0787289,
+          40.9125716
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xianghe",
+    "candidates": [
+      {
+        "id": "node/2344152228",
+        "name": "襄河",
+        "coordinates": [
+          126.8491021,
+          48.7979654
+        ]
+      },
+      {
+        "id": "node/10296507040",
+        "name": "香河",
+        "coordinates": [
+          117.0276648,
+          39.7188328
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xiaodong",
+    "candidates": [
+      {
+        "id": "node/1655741338",
+        "name": "小东",
+        "coordinates": [
+          122.323333,
+          42.0294159
+        ]
+      },
+      {
+        "id": "node/2661130711",
+        "name": "小董",
+        "coordinates": [
+          108.6018708,
+          22.2251828
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xiaoqiao Railway Station",
+    "candidates": [
+      {
+        "id": "node/5166295809",
+        "name": "白岩",
+        "coordinates": [
+          106.7141533,
+          31.0419773
+        ]
+      },
+      {
+        "id": "node/7315534542",
+        "name": "小桥",
+        "coordinates": [
+          101.7855433,
+          36.6345267
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xifeng",
+    "candidates": [
+      {
+        "id": "node/1763164530",
+        "name": "息烽",
+        "coordinates": [
+          106.7437473,
+          27.0804206
+        ]
+      },
+      {
+        "id": "node/12627525341",
+        "name": "西丰",
+        "coordinates": [
+          124.7015257,
+          42.7323805
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xihecun",
+    "candidates": [
+      {
+        "id": "node/1609056570",
+        "name": "西贺村",
+        "coordinates": [
+          111.2835263,
+          35.5829065
+        ]
+      },
+      {
+        "id": "node/3182603523",
+        "name": "西河村",
+        "coordinates": [
+          115.3269485,
+          29.7522212
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xihecun Railway Station",
+    "candidates": [
+      {
+        "id": "node/1609056570",
+        "name": "西贺村",
+        "coordinates": [
+          111.2835263,
+          35.5829065
+        ]
+      },
+      {
+        "id": "node/3182603523",
+        "name": "西河村",
+        "coordinates": [
+          115.3269485,
+          29.7522212
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xindian",
+    "candidates": [
+      {
+        "id": "node/1235648697",
+        "name": "新店",
+        "coordinates": [
+          114.5920406,
+          30.5199081
+        ]
+      },
+      {
+        "id": "node/4615517247",
+        "name": "新甸",
+        "coordinates": [
+          123.0934059,
+          40.1017103
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xindian Railway Station",
+    "candidates": [
+      {
+        "id": "node/1235648697",
+        "name": "新店",
+        "coordinates": [
+          114.5920406,
+          30.5199081
+        ]
+      },
+      {
+        "id": "node/4615517247",
+        "name": "新甸",
+        "coordinates": [
+          123.0934059,
+          40.1017103
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xinhe",
+    "candidates": [
+      {
+        "id": "node/3624896625",
+        "name": "新河",
+        "coordinates": [
+          117.0394262,
+          34.2503104
+        ]
+      },
+      {
+        "id": "node/3949965039",
+        "name": "新河东",
+        "coordinates": [
+          115.3116681,
+          37.4948581
+        ]
+      },
+      {
+        "id": "node/7365718251",
+        "name": "新和",
+        "coordinates": [
+          82.6174477,
+          41.5739118
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xinhua",
+    "candidates": [
+      {
+        "id": "node/9129186224",
+        "name": "新华",
+        "coordinates": [
+          130.2902618,
+          47.1090164
+        ]
+      },
+      {
+        "id": "node/10120264005",
+        "name": "新化",
+        "coordinates": [
+          111.2977883,
+          27.7311944
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xinji",
+    "candidates": [
+      {
+        "id": "node/2329491735",
+        "name": "辛集",
+        "coordinates": [
+          115.2091446,
+          37.9041796
+        ]
+      },
+      {
+        "id": "node/8111545470",
+        "name": "新集",
+        "coordinates": [
+          106.800199,
+          33.0256446
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xinji Railway Station",
+    "candidates": [
+      {
+        "id": "node/2329491735",
+        "name": "辛集",
+        "coordinates": [
+          115.2091446,
+          37.9041796
+        ]
+      },
+      {
+        "id": "node/8111545470",
+        "name": "新集",
+        "coordinates": [
+          106.800199,
+          33.0256446
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xinxian",
+    "candidates": [
+      {
+        "id": "node/2370486201",
+        "name": "新县",
+        "coordinates": [
+          114.8837377,
+          31.6447987
+        ]
+      },
+      {
+        "id": "node/3438638222",
+        "name": "新现",
+        "coordinates": [
+          103.5412091,
+          23.177144
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xinxian Railway Station",
+    "candidates": [
+      {
+        "id": "node/2370486201",
+        "name": "新县",
+        "coordinates": [
+          114.8837377,
+          31.6447987
+        ]
+      },
+      {
+        "id": "node/3438638222",
+        "name": "新现",
+        "coordinates": [
+          103.5412091,
+          23.177144
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xinyang",
+    "candidates": [
+      {
+        "id": "node/3840290624",
+        "name": "新阳镇",
+        "coordinates": [
+          105.5304598,
+          34.7023249
+        ]
+      },
+      {
+        "id": "node/6237929169",
+        "name": "信阳",
+        "coordinates": [
+          114.0773267,
+          32.130793
+        ]
+      },
+      {
+        "id": "way/1099492398",
+        "name": "信阳",
+        "coordinates": [
+          114.0770106,
+          32.1307262
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xinyi",
+    "candidates": [
+      {
+        "id": "node/1605321380",
+        "name": "新沂",
+        "coordinates": [
+          118.3431859,
+          34.3817847
+        ]
+      },
+      {
+        "id": "node/5041838931",
+        "name": "信宜",
+        "coordinates": [
+          110.9609272,
+          22.3327248
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xinyi Railway Station",
+    "candidates": [
+      {
+        "id": "node/1605321380",
+        "name": "新沂",
+        "coordinates": [
+          118.3431859,
+          34.3817847
+        ]
+      },
+      {
+        "id": "node/5041838931",
+        "name": "信宜",
+        "coordinates": [
+          110.9609272,
+          22.3327248
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xinzhou",
+    "candidates": [
+      {
+        "id": "node/3561638564",
+        "name": "忻州",
+        "coordinates": [
+          112.7402814,
+          38.4192046
+        ]
+      },
+      {
+        "id": "node/5488622979",
+        "name": "新洲",
+        "coordinates": [
+          114.9042984,
+          30.8806931
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xinzhou Railway Station",
+    "candidates": [
+      {
+        "id": "node/3561638564",
+        "name": "忻州",
+        "coordinates": [
+          112.7402814,
+          38.4192046
+        ]
+      },
+      {
+        "id": "node/5488622979",
+        "name": "新洲",
+        "coordinates": [
+          114.9042984,
+          30.8806931
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xiyang",
+    "candidates": [
+      {
+        "id": "node/2335674332",
+        "name": "西阳",
+        "coordinates": [
+          126.3181854,
+          43.5980998
+        ]
+      },
+      {
+        "id": "node/7236072725",
+        "name": "西洋",
+        "coordinates": [
+          117.423951,
+          25.8220236
+        ]
+      },
+      {
+        "id": "node/8383106530",
+        "name": "昔阳",
+        "coordinates": [
+          113.6711032,
+          37.6265624
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xiyang Railway Station",
+    "candidates": [
+      {
+        "id": "node/7236072725",
+        "name": "西洋",
+        "coordinates": [
+          117.423951,
+          25.8220236
+        ]
+      },
+      {
+        "id": "node/8383106530",
+        "name": "昔阳",
+        "coordinates": [
+          113.6711032,
+          37.6265624
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yancheng",
+    "candidates": [
+      {
+        "id": "node/2651768079",
+        "name": "晏城",
+        "coordinates": [
+          116.7522081,
+          36.8034769
+        ]
+      },
+      {
+        "id": "node/7682857921",
+        "name": "盐城",
+        "coordinates": [
+          120.1797161,
+          33.3745035
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yancheng North",
+    "candidates": [
+      {
+        "id": "node/4050200104",
+        "name": "盐城北",
+        "coordinates": [
+          120.0976829,
+          33.4501223
+        ]
+      },
+      {
+        "id": "node/8094193382",
+        "name": "晏城北",
+        "coordinates": [
+          116.6909615,
+          36.8372076
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yancheng North Railway Station",
+    "candidates": [
+      {
+        "id": "node/4050200104",
+        "name": "盐城北",
+        "coordinates": [
+          120.0976829,
+          33.4501223
+        ]
+      },
+      {
+        "id": "node/8094193382",
+        "name": "晏城北",
+        "coordinates": [
+          116.6909615,
+          36.8372076
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yancheng Railway Station",
+    "candidates": [
+      {
+        "id": "node/2651768079",
+        "name": "晏城",
+        "coordinates": [
+          116.7522081,
+          36.8034769
+        ]
+      },
+      {
+        "id": "node/7682857921",
+        "name": "盐城",
+        "coordinates": [
+          120.1797161,
+          33.3745035
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yanchengbei",
+    "candidates": [
+      {
+        "id": "node/4050200104",
+        "name": "盐城北",
+        "coordinates": [
+          120.0976829,
+          33.4501223
+        ]
+      },
+      {
+        "id": "node/8094193382",
+        "name": "晏城北",
+        "coordinates": [
+          116.6909615,
+          36.8372076
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yanchengbei Railway Station",
+    "candidates": [
+      {
+        "id": "node/4050200104",
+        "name": "盐城北",
+        "coordinates": [
+          120.0976829,
+          33.4501223
+        ]
+      },
+      {
+        "id": "node/8094193382",
+        "name": "晏城北",
+        "coordinates": [
+          116.6909615,
+          36.8372076
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yanchi",
+    "candidates": [
+      {
+        "id": "node/3589647960",
+        "name": "盐池",
+        "coordinates": [
+          107.3429587,
+          37.7338669
+        ]
+      },
+      {
+        "id": "node/9265808485",
+        "name": "雁翅",
+        "coordinates": [
+          115.8912885,
+          40.0343015
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yanfang",
+    "candidates": [
+      {
+        "id": "node/7705058635",
+        "name": "炎方",
+        "coordinates": [
+          104.0380624,
+          25.9224029
+        ]
+      },
+      {
+        "id": "node/7780346106",
+        "name": "严坊",
+        "coordinates": [
+          116.8364346,
+          26.1469246
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yangmu",
+    "candidates": [
+      {
+        "id": "node/1604972749",
+        "name": "杨木",
+        "coordinates": [
+          130.3350655,
+          45.2581811
+        ]
+      },
+      {
+        "id": "node/3500351615",
+        "name": "羊木",
+        "coordinates": [
+          105.7732011,
+          32.598515
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yangmu Railway Station",
+    "candidates": [
+      {
+        "id": "node/1604972749",
+        "name": "杨木",
+        "coordinates": [
+          130.3350655,
+          45.2581811
+        ]
+      },
+      {
+        "id": "node/3500351615",
+        "name": "羊木",
+        "coordinates": [
+          105.7732011,
+          32.598515
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yangxin",
+    "candidates": [
+      {
+        "id": "node/1769587486",
+        "name": "阳新",
+        "coordinates": [
+          115.1746628,
+          29.8621677
+        ]
+      },
+      {
+        "id": "node/4391676558",
+        "name": "阳信",
+        "coordinates": [
+          117.6125701,
+          37.5686529
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yangxin Railway Station",
+    "candidates": [
+      {
+        "id": "node/1769587486",
+        "name": "阳新",
+        "coordinates": [
+          115.1746628,
+          29.8621677
+        ]
+      },
+      {
+        "id": "node/4391676558",
+        "name": "阳信",
+        "coordinates": [
+          117.6125701,
+          37.5686529
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yangyuan",
+    "candidates": [
+      {
+        "id": "node/4261930501",
+        "name": "阳原",
+        "coordinates": [
+          114.1606698,
+          40.1242675
+        ]
+      },
+      {
+        "id": "node/7780346103",
+        "name": "杨源",
+        "coordinates": [
+          116.7946028,
+          25.8467299
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yanjin",
+    "candidates": [
+      {
+        "id": "node/1964179112",
+        "name": "盐津",
+        "coordinates": [
+          104.2118025,
+          27.9996071
+        ]
+      },
+      {
+        "id": "node/2371670081",
+        "name": "延津",
+        "coordinates": [
+          114.265079,
+          35.230471
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yanshan",
+    "candidates": [
+      {
+        "id": "node/1938418680",
+        "name": "燕山",
+        "coordinates": [
+          115.9521142,
+          39.7477611
+        ]
+      },
+      {
+        "id": "node/9126260268",
+        "name": "岩山",
+        "coordinates": [
+          121.2407606,
+          49.7090809
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yanshi",
+    "candidates": [
+      {
+        "id": "node/3006174635",
+        "name": "偃师",
+        "coordinates": [
+          112.7900307,
+          34.7298719
+        ]
+      },
+      {
+        "id": "node/5864608172",
+        "name": "雁石",
+        "coordinates": [
+          117.1491909,
+          25.2506639
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yi'an",
+    "candidates": [
+      {
+        "id": "node/3628286371",
+        "name": "宜安",
+        "coordinates": [
+          114.2664326,
+          38.1914777
+        ]
+      },
+      {
+        "id": "node/9129186252",
+        "name": "依安",
+        "coordinates": [
+          125.2784315,
+          47.8717836
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yi'an Railway Station",
+    "candidates": [
+      {
+        "id": "node/3628286371",
+        "name": "宜安",
+        "coordinates": [
+          114.2664326,
+          38.1914777
+        ]
+      },
+      {
+        "id": "node/9129186252",
+        "name": "依安",
+        "coordinates": [
+          125.2784315,
+          47.8717836
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yicheng",
+    "candidates": [
+      {
+        "id": "node/3218363029",
+        "name": "翼城",
+        "coordinates": [
+          111.7046372,
+          35.7427225
+        ]
+      },
+      {
+        "id": "node/10669812179",
+        "name": "宜城",
+        "coordinates": [
+          112.1926472,
+          31.7184786
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yichun",
+    "candidates": [
+      {
+        "id": "node/2453762119",
+        "name": "宜春",
+        "coordinates": [
+          114.4315383,
+          27.7915494
+        ]
+      },
+      {
+        "id": "node/3316847894",
+        "name": "宜春西",
+        "coordinates": [
+          114.383737,
+          27.7888541
+        ]
+      },
+      {
+        "id": "node/6389123837",
+        "name": "伊春",
+        "coordinates": [
+          128.9202698,
+          47.7273253
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yingcheng",
+    "candidates": [
+      {
+        "id": "node/1589666701",
+        "name": "应城",
+        "coordinates": [
+          113.5672886,
+          30.9253969
+        ]
+      },
+      {
+        "id": "node/2332707901",
+        "name": "营城",
+        "coordinates": [
+          125.9117142,
+          44.1389456
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yingcheng Railway Station",
+    "candidates": [
+      {
+        "id": "node/1589666701",
+        "name": "应城",
+        "coordinates": [
+          113.5672886,
+          30.9253969
+        ]
+      },
+      {
+        "id": "node/2332707901",
+        "name": "营城",
+        "coordinates": [
+          125.9117142,
+          44.1389456
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yiwu",
+    "candidates": [
+      {
+        "id": "node/1579354026",
+        "name": "义乌",
+        "coordinates": [
+          120.0387041,
+          29.3808375
+        ]
+      },
+      {
+        "id": "node/7780322121",
+        "name": "伊屋",
+        "coordinates": [
+          116.7321128,
+          26.3608857
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yiwu Railway Station",
+    "candidates": [
+      {
+        "id": "node/1579354026",
+        "name": "义乌",
+        "coordinates": [
+          120.0387041,
+          29.3808375
+        ]
+      },
+      {
+        "id": "node/7780322121",
+        "name": "伊屋",
+        "coordinates": [
+          116.7321128,
+          26.3608857
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yongning",
+    "candidates": [
+      {
+        "id": "node/1524299950",
+        "name": "永宁镇",
+        "coordinates": [
+          118.5790534,
+          32.1405069
+        ]
+      },
+      {
+        "id": "node/1548856860",
+        "name": "永宁",
+        "coordinates": [
+          126.03426,
+          43.04375
+        ]
+      },
+      {
+        "id": "node/4890692920",
+        "name": "邕宁",
+        "coordinates": [
+          108.5262523,
+          22.8216353
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Youxi",
+    "candidates": [
+      {
+        "id": "node/1586701922",
+        "name": "油溪",
+        "coordinates": [
+          106.1448714,
+          29.2034758
+        ]
+      },
+      {
+        "id": "node/2501327340",
+        "name": "尤溪",
+        "coordinates": [
+          118.1367573,
+          26.1702184
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yulin",
+    "candidates": [
+      {
+        "id": "node/1541942455",
+        "name": "玉林",
+        "coordinates": [
+          110.15236,
+          22.600073
+        ]
+      },
+      {
+        "id": "node/8369317809",
+        "name": "榆林",
+        "coordinates": [
+          109.7142389,
+          38.272957
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yulin Railway Station",
+    "candidates": [
+      {
+        "id": "node/1541942455",
+        "name": "玉林",
+        "coordinates": [
+          110.15236,
+          22.600073
+        ]
+      },
+      {
+        "id": "node/8369317809",
+        "name": "榆林",
+        "coordinates": [
+          109.7142389,
+          38.272957
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yuquan",
+    "candidates": [
+      {
+        "id": "node/1603990313",
+        "name": "玉泉",
+        "coordinates": [
+          127.1558697,
+          45.4145978
+        ]
+      },
+      {
+        "id": "node/1681825197",
+        "name": "鱼泉",
+        "coordinates": [
+          108.8484397,
+          29.1952038
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yushan",
+    "candidates": [
+      {
+        "id": "node/2453820732",
+        "name": "玉山",
+        "coordinates": [
+          118.2313054,
+          28.6633101
+        ]
+      },
+      {
+        "id": "node/4584123482",
+        "name": "郁山",
+        "coordinates": [
+          108.3585221,
+          29.5006159
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yuxi",
+    "candidates": [
+      {
+        "id": "node/3695399273",
+        "name": "玉溪",
+        "coordinates": [
+          102.5111152,
+          24.3421418
+        ]
+      },
+      {
+        "id": "node/5175887684",
+        "name": "渔溪",
+        "coordinates": [
+          119.2911896,
+          25.5755628
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yuxi Railway Station",
+    "candidates": [
+      {
+        "id": "node/3695399273",
+        "name": "玉溪",
+        "coordinates": [
+          102.5111152,
+          24.3421418
+        ]
+      },
+      {
+        "id": "node/5175887684",
+        "name": "渔溪",
+        "coordinates": [
+          119.2911896,
+          25.5755628
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yuzhou",
+    "candidates": [
+      {
+        "id": "node/5575721522",
+        "name": "禹州",
+        "coordinates": [
+          113.5646653,
+          34.1255719
+        ]
+      },
+      {
+        "id": "node/9313028644",
+        "name": "禹州",
+        "coordinates": [
+          113.4453043,
+          34.1405469
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yuzhou Railway Station",
+    "candidates": [
+      {
+        "id": "node/5575721522",
+        "name": "禹州",
+        "coordinates": [
+          113.5646653,
+          34.1255719
+        ]
+      },
+      {
+        "id": "node/9313028644",
+        "name": "禹州",
+        "coordinates": [
+          113.4453043,
+          34.1405469
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Zaoyang",
+    "candidates": [
+      {
+        "id": "node/4039370301",
+        "name": "早阳",
+        "coordinates": [
+          109.1816603,
+          32.7769089
+        ]
+      },
+      {
+        "id": "node/9307694621",
+        "name": "枣阳",
+        "coordinates": [
+          112.7560276,
+          32.072161
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Zhangjiachuan",
+    "candidates": [
+      {
+        "id": "node/1607295766",
+        "name": "张家船",
+        "coordinates": [
+          109.5842067,
+          35.3209674
+        ]
+      },
+      {
+        "id": "node/3640220053",
+        "name": "张家川",
+        "coordinates": [
+          106.3387494,
+          34.9671947
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Zhaodong",
+    "candidates": [
+      {
+        "id": "node/2672692201",
+        "name": "照东",
+        "coordinates": [
+          94.9833893,
+          41.3958845
+        ]
+      },
+      {
+        "id": "node/3701360574",
+        "name": "肇东",
+        "coordinates": [
+          125.9927318,
+          46.0755235
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Zhenxi",
+    "candidates": [
+      {
+        "id": "node/1588514533",
+        "name": "轸溪",
+        "coordinates": [
+          103.5574225,
+          29.3261586
+        ]
+      },
+      {
+        "id": "node/1730851608",
+        "name": "镇西",
+        "coordinates": [
+          122.4014054,
+          45.8394552
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Zhicheng",
+    "candidates": [
+      {
+        "id": "node/1577895159",
+        "name": "轵城",
+        "coordinates": [
+          112.56742,
+          35.04287
+        ]
+      },
+      {
+        "id": "node/2492404144",
+        "name": "枝城",
+        "coordinates": [
+          111.504207,
+          30.274121
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Zhicheng Railway Station",
+    "candidates": [
+      {
+        "id": "node/1577895159",
+        "name": "轵城",
+        "coordinates": [
+          112.56742,
+          35.04287
+        ]
+      },
+      {
+        "id": "node/2492404144",
+        "name": "枝城",
+        "coordinates": [
+          111.504207,
+          30.274121
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Zhijiang",
+    "candidates": [
+      {
+        "id": "node/2953799860",
+        "name": "芷江",
+        "coordinates": [
+          109.6554319,
+          27.4586155
+        ]
+      },
+      {
+        "id": "node/3024685469",
+        "name": "治江",
+        "coordinates": [
+          107.1988475,
+          33.1190347
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Zhongshan",
+    "candidates": [
+      {
+        "id": "node/7710011719",
+        "name": "中山",
+        "coordinates": [
+          113.4282401,
+          22.5467069
+        ]
+      },
+      {
+        "id": "node/14253783283",
+        "name": "钟山",
+        "coordinates": [
+          111.4298227,
+          24.5753216
+        ]
+      },
+      {
+        "id": "way/154052904",
+        "name": "中山",
+        "coordinates": [
+          113.4281631,
+          22.5466863
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Zhongyi",
+    "candidates": [
+      {
+        "id": "node/582337058",
+        "name": "忠义",
+        "coordinates": [
+          113.654281,
+          35.0894783
+        ]
+      },
+      {
+        "id": "node/7202574479",
+        "name": "中驿",
+        "coordinates": [
+          114.8814368,
+          31.1304218
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Zhongyi Railway Station",
+    "candidates": [
+      {
+        "id": "node/582337058",
+        "name": "忠义",
+        "coordinates": [
+          113.654281,
+          35.0894783
+        ]
+      },
+      {
+        "id": "node/7202574479",
+        "name": "中驿",
+        "coordinates": [
+          114.8814368,
+          31.1304218
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ziyang",
+    "candidates": [
+      {
+        "id": "node/1556058508",
+        "name": "紫阳",
+        "coordinates": [
+          108.5453341,
+          32.5280895
+        ]
+      },
+      {
+        "id": "node/5143269410",
+        "name": "资阳",
+        "coordinates": [
+          104.6498957,
+          30.1274142
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Фуюй",
+    "candidates": [
+      {
+        "id": "node/1727803016",
+        "name": "富裕",
+        "coordinates": [
+          124.4540951,
+          47.7947978
+        ]
+      },
+      {
+        "id": "node/4162472429",
+        "name": "弓棚子",
+        "coordinates": [
+          125.726907,
+          45.0632856
+        ]
+      },
+      {
+        "id": "node/8436994999",
+        "name": "扶余",
+        "coordinates": [
+          126.0184333,
+          44.9850621
+        ]
+      }
+    ]
+  },
+  {
+    "name": "يېڭىسار",
+    "candidates": [
+      {
+        "id": "node/2783387970",
+        "name": "英吉沙 يېڭىسار",
+        "coordinates": [
+          76.1620304,
+          38.9679662
+        ]
+      },
+      {
+        "id": "node/5459595001",
+        "name": "阳霞 يېڭىسار",
+        "coordinates": [
+          84.5351994,
+          41.9609199
+        ]
+      },
+      {
+        "id": "way/867040766",
+        "name": "英吉沙 يېڭىسار",
+        "coordinates": [
+          76.1619995,
+          38.9679803
+        ]
+      }
+    ]
+  },
+  {
+    "name": "一矿",
+    "candidates": [
+      {
+        "id": "node/9733127107",
+        "name": "一矿",
+        "coordinates": [
+          113.5155648,
+          37.9045307
+        ]
+      },
+      {
+        "id": "node/13506343001",
+        "name": "一矿",
+        "coordinates": [
+          131.490509,
+          46.8179029
+        ]
+      }
+    ]
+  },
+  {
+    "name": "丁庄",
+    "candidates": [
+      {
+        "id": "node/8239658402",
+        "name": "丁庄",
+        "coordinates": [
+          116.4216582,
+          37.281814
+        ]
+      },
+      {
+        "id": "node/9254936104",
+        "name": "丁庄",
+        "coordinates": [
+          118.6668813,
+          37.3214613
+        ]
+      }
+    ]
+  },
+  {
+    "name": "七星",
+    "candidates": [
+      {
+        "id": "node/5485559707",
+        "name": "七星",
+        "coordinates": [
+          129.9558731,
+          44.9487979
+        ]
+      },
+      {
+        "id": "node/13506342924",
+        "name": "七星",
+        "coordinates": [
+          131.6102832,
+          46.5237351
+        ]
+      }
+    ]
+  },
+  {
+    "name": "万安火车站",
+    "candidates": [
+      {
+        "id": "node/2941969186",
+        "name": "万安县",
+        "coordinates": [
+          114.8386311,
+          26.5286066
+        ]
+      },
+      {
+        "id": "node/3901349147",
+        "name": "万安",
+        "coordinates": [
+          111.828546,
+          37.0407649
+        ]
+      }
+    ]
+  },
+  {
+    "name": "三台",
+    "candidates": [
+      {
+        "id": "node/1655741320",
+        "name": "三台",
+        "coordinates": [
+          123.1544656,
+          41.9486111
+        ]
+      },
+      {
+        "id": "node/12814703203",
+        "name": "三台",
+        "coordinates": [
+          105.0467147,
+          31.0837619
+        ]
+      }
+    ]
+  },
+  {
+    "name": "三家子",
+    "candidates": [
+      {
+        "id": "node/9169253668",
+        "name": "三家子",
+        "coordinates": [
+          123.5854312,
+          42.4438422
+        ]
+      },
+      {
+        "id": "node/9169253672",
+        "name": "三家子",
+        "coordinates": [
+          121.9356925,
+          42.8035517
+        ]
+      },
+      {
+        "id": "node/13437566513",
+        "name": "三家子",
+        "coordinates": [
+          120.6081709,
+          41.0430799
+        ]
+      }
+    ]
+  },
+  {
+    "name": "三矿",
+    "candidates": [
+      {
+        "id": "node/9320122102",
+        "name": "三矿",
+        "coordinates": [
+          114.1695517,
+          35.9359383
+        ]
+      },
+      {
+        "id": "node/9733127108",
+        "name": "三矿",
+        "coordinates": [
+          113.5054904,
+          37.8800298
+        ]
+      },
+      {
+        "id": "node/12472566282",
+        "name": "三矿",
+        "coordinates": [
+          113.2691263,
+          33.7643761
+        ]
+      },
+      {
+        "id": "node/13506343004",
+        "name": "三矿",
+        "coordinates": [
+          131.4242403,
+          46.9097111
+        ]
+      }
+    ]
+  },
+  {
+    "name": "三都",
+    "candidates": [
+      {
+        "id": "node/7167634630",
+        "name": "三都",
+        "coordinates": [
+          113.2701722,
+          26.0402206
+        ]
+      },
+      {
+        "id": "node/9750178917",
+        "name": "三都",
+        "coordinates": [
+          113.5531453,
+          37.9687024
+        ]
+      }
+    ]
+  },
+  {
+    "name": "上清",
+    "candidates": [
+      {
+        "id": "node/4666461822",
+        "name": "上清",
+        "coordinates": [
+          117.0631913,
+          28.0446891
+        ]
+      },
+      {
+        "id": "node/10901470908",
+        "name": "上清",
+        "coordinates": [
+          126.4311661,
+          42.0276915
+        ]
+      }
+    ]
+  },
+  {
+    "name": "东关",
+    "candidates": [
+      {
+        "id": "node/9229648673",
+        "name": "东关",
+        "coordinates": [
+          118.0101424,
+          31.4924413
+        ]
+      },
+      {
+        "id": "node/10897836294",
+        "name": "东关",
+        "coordinates": [
+          113.1293572,
+          36.1812883
+        ]
+      }
+    ]
+  },
+  {
+    "name": "东南线路所",
+    "candidates": [
+      {
+        "id": "node/7160238157",
+        "name": "东南线路所",
+        "coordinates": [
+          113.0657349,
+          28.1712994
+        ]
+      },
+      {
+        "id": "node/7236810281",
+        "name": "东南线路所",
+        "coordinates": [
+          117.0471328,
+          25.080512
+        ]
+      }
+    ]
+  },
+  {
+    "name": "东坡",
+    "candidates": [
+      {
+        "id": "node/3697044152",
+        "name": "东坡",
+        "coordinates": [
+          109.3940966,
+          35.1280101
+        ]
+      },
+      {
+        "id": "node/8021537650",
+        "name": "东坡",
+        "coordinates": [
+          112.9165068,
+          35.3856672
+        ]
+      }
+    ]
+  },
+  {
+    "name": "东山",
+    "candidates": [
+      {
+        "id": "node/4366580972",
+        "name": "东山",
+        "coordinates": [
+          95.5021861,
+          37.6703986
+        ]
+      },
+      {
+        "id": "node/14156675334",
+        "name": "东山",
+        "coordinates": [
+          130.312773,
+          47.3392083
+        ]
+      }
+    ]
+  },
+  {
+    "name": "东岗",
+    "candidates": [
+      {
+        "id": "node/6687935740",
+        "name": "东岗",
+        "coordinates": [
+          130.6221163,
+          45.7810671
+        ]
+      },
+      {
+        "id": "node/10917569597",
+        "name": "东岗",
+        "coordinates": [
+          123.9224913,
+          41.850425
+        ]
+      }
+    ]
+  },
+  {
+    "name": "东平",
+    "candidates": [
+      {
+        "id": "node/10120263951",
+        "name": "东平",
+        "coordinates": [
+          116.5151073,
+          35.8683604
+        ]
+      },
+      {
+        "id": "node/12791639302",
+        "name": "东平",
+        "coordinates": [
+          102.0879706,
+          36.4954498
+        ]
+      }
+    ]
+  },
+  {
+    "name": "东风",
+    "candidates": [
+      {
+        "id": "node/8345587836",
+        "name": "东风",
+        "coordinates": [
+          118.2244616,
+          36.795924
+        ]
+      },
+      {
+        "id": "node/9076173202",
+        "name": "东风",
+        "coordinates": [
+          100.1997713,
+          40.9914587
+        ]
+      }
+    ]
+  },
+  {
+    "name": "中心",
+    "candidates": [
+      {
+        "id": "node/9334658562",
+        "name": "中心",
+        "coordinates": [
+          106.860154,
+          27.1383207
+        ]
+      },
+      {
+        "id": "node/11944888811",
+        "name": "中心",
+        "coordinates": [
+          130.9516103,
+          45.2223826
+        ]
+      },
+      {
+        "id": "node/13505962534",
+        "name": "中心",
+        "coordinates": [
+          131.1473165,
+          46.6309254
+        ]
+      }
+    ]
+  },
+  {
+    "name": "九矿",
+    "candidates": [
+      {
+        "id": "node/4074894516",
+        "name": "九矿",
+        "coordinates": [
+          114.1282925,
+          36.0258078
+        ]
+      },
+      {
+        "id": "node/8163363262",
+        "name": "九矿",
+        "coordinates": [
+          113.1973919,
+          33.7887292
+        ]
+      }
+    ]
+  },
+  {
+    "name": "二井",
+    "candidates": [
+      {
+        "id": "node/1595119236",
+        "name": "二井",
+        "coordinates": [
+          120.5659698,
+          49.2455317
+        ]
+      },
+      {
+        "id": "node/2344111803",
+        "name": "二井",
+        "coordinates": [
+          126.5229716,
+          48.3559596
+        ]
+      }
+    ]
+  },
+  {
+    "name": "二矿",
+    "candidates": [
+      {
+        "id": "node/3678381878",
+        "name": "二矿",
+        "coordinates": [
+          109.8595581,
+          35.1594276
+        ]
+      },
+      {
+        "id": "node/9733127078",
+        "name": "二矿",
+        "coordinates": [
+          113.5272673,
+          37.8707501
+        ]
+      },
+      {
+        "id": "node/12367132906",
+        "name": "二矿",
+        "coordinates": [
+          113.3028191,
+          33.7550168
+        ]
+      },
+      {
+        "id": "node/13506343002",
+        "name": "二矿",
+        "coordinates": [
+          131.4616672,
+          46.8680061
+        ]
+      },
+      {
+        "id": "node/13928568109",
+        "name": "二矿",
+        "coordinates": [
+          114.1511035,
+          35.9531754
+        ]
+      }
+    ]
+  },
+  {
+    "name": "二道河",
+    "candidates": [
+      {
+        "id": "node/1590471989",
+        "name": "二道河",
+        "coordinates": [
+          127.6239126,
+          43.6042754
+        ]
+      },
+      {
+        "id": "node/9081732732",
+        "name": "二道河",
+        "coordinates": [
+          111.6555969,
+          40.1084392
+        ]
+      }
+    ]
+  },
+  {
+    "name": "二郎庙",
+    "candidates": [
+      {
+        "id": "node/8164637767",
+        "name": "二郎庙",
+        "coordinates": [
+          105.095061,
+          32.0410203
+        ]
+      },
+      {
+        "id": "node/9269060400",
+        "name": "二郎庙",
+        "coordinates": [
+          118.5459217,
+          40.0352954
+        ]
+      }
+    ]
+  },
+  {
+    "name": "云浮",
+    "candidates": [
+      {
+        "id": "node/9193526291",
+        "name": "云浮",
+        "coordinates": [
+          112.0575699,
+          22.9638507
+        ]
+      },
+      {
+        "id": "node/12644750366",
+        "name": "云浮",
+        "coordinates": [
+          112.1406242,
+          22.9427899
+        ]
+      }
+    ]
+  },
+  {
+    "name": "五矿",
+    "candidates": [
+      {
+        "id": "node/8163363264",
+        "name": "五矿",
+        "coordinates": [
+          113.2246738,
+          33.78267
+        ]
+      },
+      {
+        "id": "node/9320122101",
+        "name": "五矿",
+        "coordinates": [
+          114.1756672,
+          35.9201961
+        ]
+      }
+    ]
+  },
+  {
+    "name": "会让",
+    "candidates": [
+      {
+        "id": "node/12519624548",
+        "name": "会让",
+        "coordinates": [
+          123.608497,
+          42.4340091
+        ]
+      },
+      {
+        "id": "node/14156675333",
+        "name": "会让",
+        "coordinates": [
+          130.3123228,
+          47.3302578
+        ]
+      }
+    ]
+  },
+  {
+    "name": "八矿",
+    "candidates": [
+      {
+        "id": "node/8163363268",
+        "name": "八矿",
+        "coordinates": [
+          113.4264426,
+          33.7545143
+        ]
+      },
+      {
+        "id": "node/13928568110",
+        "name": "八矿",
+        "coordinates": [
+          114.1905481,
+          35.8774106
+        ]
+      }
+    ]
+  },
+  {
+    "name": "八里店",
+    "candidates": [
+      {
+        "id": "node/2758430366",
+        "name": "八里店",
+        "coordinates": [
+          109.2337213,
+          34.7062388
+        ]
+      },
+      {
+        "id": "node/11753229070",
+        "name": "八里店",
+        "coordinates": [
+          120.207365,
+          30.8567609
+        ]
+      }
+    ]
+  },
+  {
+    "name": "共和",
+    "candidates": [
+      {
+        "id": "node/1588514366",
+        "name": "共和",
+        "coordinates": [
+          103.3154712,
+          29.3022404
+        ]
+      },
+      {
+        "id": "node/13825636647",
+        "name": "共和",
+        "coordinates": [
+          112.7129203,
+          25.6956335
+        ]
+      }
+    ]
+  },
+  {
+    "name": "兴隆",
+    "candidates": [
+      {
+        "id": "node/8182496501",
+        "name": "兴隆",
+        "coordinates": [
+          105.3761434,
+          28.2993048
+        ]
+      },
+      {
+        "id": "node/9242869547",
+        "name": "兴隆",
+        "coordinates": [
+          116.8542606,
+          35.4900793
+        ]
+      },
+      {
+        "id": "node/9322545559",
+        "name": "兴隆",
+        "coordinates": [
+          106.2913488,
+          30.6714342
+        ]
+      }
+    ]
+  },
+  {
+    "name": "凤山",
+    "candidates": [
+      {
+        "id": "node/9259607261",
+        "name": "凤山",
+        "coordinates": [
+          114.0317076,
+          38.0412809
+        ]
+      },
+      {
+        "id": "node/13614157094",
+        "name": "凤山",
+        "coordinates": [
+          128.4988564,
+          46.3888316
+        ]
+      }
+    ]
+  },
+  {
+    "name": "到发场",
+    "candidates": [
+      {
+        "id": "node/9759626617",
+        "name": "到发场",
+        "coordinates": [
+          126.7053808,
+          45.7855355
+        ]
+      },
+      {
+        "id": "node/10143420161",
+        "name": "到发场",
+        "coordinates": [
+          117.7271949,
+          38.9526718
+        ]
+      },
+      {
+        "id": "way/788695627",
+        "name": "到发场",
+        "coordinates": [
+          120.3348018,
+          31.5514034
+        ]
+      }
+    ]
+  },
+  {
+    "name": "北场",
+    "candidates": [
+      {
+        "id": "node/8946800808",
+        "name": "北场",
+        "coordinates": [
+          126.6407879,
+          45.9977118
+        ]
+      },
+      {
+        "id": "node/9125461468",
+        "name": "北场",
+        "coordinates": [
+          119.8378719,
+          49.3326452
+        ]
+      }
+    ]
+  },
+  {
+    "name": "北斗",
+    "candidates": [
+      {
+        "id": "node/8341184013",
+        "name": "北斗",
+        "coordinates": [
+          99.7150603,
+          25.5199582
+        ]
+      },
+      {
+        "id": "node/9202090139",
+        "name": "北斗",
+        "coordinates": [
+          116.1201856,
+          23.837657
+        ]
+      }
+    ]
+  },
+  {
+    "name": "华安",
+    "candidates": [
+      {
+        "id": "node/11835248960",
+        "name": "华安",
+        "coordinates": [
+          117.5336511,
+          24.989577
+        ]
+      },
+      {
+        "id": "way/1274636707",
+        "name": "华安",
+        "coordinates": [
+          117.5340705,
+          25.0019415
+        ]
+      }
+    ]
+  },
+  {
+    "name": "南台",
+    "candidates": [
+      {
+        "id": "node/2349464753",
+        "name": "南台",
+        "coordinates": [
+          122.808001,
+          40.9222557
+        ]
+      },
+      {
+        "id": "node/10917569598",
+        "name": "南台",
+        "coordinates": [
+          123.9141448,
+          41.8578076
+        ]
+      }
+    ]
+  },
+  {
+    "name": "南场",
+    "candidates": [
+      {
+        "id": "node/5277525942",
+        "name": "南场",
+        "coordinates": [
+          123.9776927,
+          47.3172103
+        ]
+      },
+      {
+        "id": "node/8946800807",
+        "name": "南场",
+        "coordinates": [
+          126.6410483,
+          45.9839996
+        ]
+      }
+    ]
+  },
+  {
+    "name": "南岗",
+    "candidates": [
+      {
+        "id": "node/3624896593",
+        "name": "南岗",
+        "coordinates": [
+          117.1262343,
+          34.3198531
+        ]
+      },
+      {
+        "id": "node/8846820746",
+        "name": "南岗",
+        "coordinates": [
+          117.0735358,
+          31.8452108
+        ]
+      }
+    ]
+  },
+  {
+    "name": "双河",
+    "candidates": [
+      {
+        "id": "node/11944888827",
+        "name": "双河",
+        "coordinates": [
+          130.9781005,
+          45.2146569
+        ]
+      },
+      {
+        "id": "node/12981749289",
+        "name": "双河",
+        "coordinates": [
+          112.3130347,
+          31.280093
+        ]
+      }
+    ]
+  },
+  {
+    "name": "古城子",
+    "candidates": [
+      {
+        "id": "node/8840528310",
+        "name": "古城子",
+        "coordinates": [
+          125.4621986,
+          41.483003
+        ]
+      },
+      {
+        "id": "node/10973711950",
+        "name": "古城子",
+        "coordinates": [
+          123.8523571,
+          41.8335853
+        ]
+      }
+    ]
+  },
+  {
+    "name": "古尔班",
+    "candidates": [
+      {
+        "id": "node/4172561675",
+        "name": "古尔班",
+        "coordinates": [
+          115.406383,
+          42.4464443
+        ]
+      },
+      {
+        "id": "node/10574044806",
+        "name": "古尔班",
+        "coordinates": [
+          89.3055155,
+          44.763917
+        ]
+      }
+    ]
+  },
+  {
+    "name": "古市",
+    "candidates": [
+      {
+        "id": "node/3797730465",
+        "name": "古市",
+        "coordinates": [
+          114.2422743,
+          25.0683167
+        ]
+      },
+      {
+        "id": "node/7935598870",
+        "name": "古市",
+        "coordinates": [
+          119.3528906,
+          28.5439737
+        ]
+      }
+    ]
+  },
+  {
+    "name": "吴家山线路所",
+    "candidates": [
+      {
+        "id": "node/7199506233",
+        "name": "吴家山线路所",
+        "coordinates": [
+          113.9923733,
+          30.6248923
+        ]
+      },
+      {
+        "id": "node/12185527272",
+        "name": "吴家山线路所",
+        "coordinates": [
+          114.0180018,
+          30.6304885
+        ]
+      }
+    ]
+  },
+  {
+    "name": "哈西线路所",
+    "candidates": [
+      {
+        "id": "node/9131669860",
+        "name": "哈西线路所",
+        "coordinates": [
+          126.5510625,
+          45.6817836
+        ]
+      },
+      {
+        "id": "node/9695171721",
+        "name": "哈西线路所",
+        "coordinates": [
+          126.5166627,
+          45.642415
+        ]
+      }
+    ]
+  },
+  {
+    "name": "四方台火车站",
+    "candidates": [
+      {
+        "id": "node/634878085",
+        "name": "四方台",
+        "coordinates": [
+          122.9722755,
+          41.0805342
+        ]
+      },
+      {
+        "id": "node/2344167674",
+        "name": "四方台",
+        "coordinates": [
+          126.989429,
+          46.9209145
+        ]
+      }
+    ]
+  },
+  {
+    "name": "四方台站",
+    "candidates": [
+      {
+        "id": "node/634878085",
+        "name": "四方台",
+        "coordinates": [
+          122.9722755,
+          41.0805342
+        ]
+      },
+      {
+        "id": "node/2344167674",
+        "name": "四方台",
+        "coordinates": [
+          126.989429,
+          46.9209145
+        ]
+      }
+    ]
+  },
+  {
+    "name": "团山",
+    "candidates": [
+      {
+        "id": "node/1623929715",
+        "name": "团山",
+        "coordinates": [
+          102.7425181,
+          23.6481042
+        ]
+      },
+      {
+        "id": "node/4162472432",
+        "name": "团山",
+        "coordinates": [
+          125.966776,
+          44.9083253
+        ]
+      },
+      {
+        "id": "node/11147672001",
+        "name": "团山",
+        "coordinates": [
+          102.64809,
+          25.0481767
+        ]
+      }
+    ]
+  },
+  {
+    "name": "城口",
+    "candidates": [
+      {
+        "id": "node/7236103634",
+        "name": "城口",
+        "coordinates": [
+          117.5008392,
+          25.6746831
+        ]
+      },
+      {
+        "id": "node/11233257572",
+        "name": "城口",
+        "coordinates": [
+          108.6825945,
+          31.9445967
+        ]
+      }
+    ]
+  },
+  {
+    "name": "塔山",
+    "candidates": [
+      {
+        "id": "node/1657245438",
+        "name": "塔山",
+        "coordinates": [
+          120.9295976,
+          40.8184233
+        ]
+      },
+      {
+        "id": "node/9287647751",
+        "name": "塔山",
+        "coordinates": [
+          113.0809343,
+          39.9298053
+        ]
+      }
+    ]
+  },
+  {
+    "name": "大平",
+    "candidates": [
+      {
+        "id": "node/8163363245",
+        "name": "大平",
+        "coordinates": [
+          113.2807718,
+          34.4449873
+        ]
+      },
+      {
+        "id": "node/8390968778",
+        "name": "大平",
+        "coordinates": [
+          112.8545506,
+          36.5353845
+        ]
+      },
+      {
+        "id": "node/12519624557",
+        "name": "大平",
+        "coordinates": [
+          123.3272535,
+          42.6537583
+        ]
+      }
+    ]
+  },
+  {
+    "name": "大田火车站",
+    "candidates": [
+      {
+        "id": "node/7707072348",
+        "name": "大田",
+        "coordinates": [
+          113.197841,
+          23.2679015
+        ]
+      },
+      {
+        "id": "node/7781469275",
+        "name": "大田北",
+        "coordinates": [
+          117.8414933,
+          25.7068642
+        ]
+      }
+    ]
+  },
+  {
+    "name": "大田站",
+    "candidates": [
+      {
+        "id": "node/7707072348",
+        "name": "大田",
+        "coordinates": [
+          113.197841,
+          23.2679015
+        ]
+      },
+      {
+        "id": "node/7781469275",
+        "name": "大田北",
+        "coordinates": [
+          117.8414933,
+          25.7068642
+        ]
+      }
+    ]
+  },
+  {
+    "name": "大荒地线路所",
+    "candidates": [
+      {
+        "id": "node/9179735868",
+        "name": "大荒地线路所",
+        "coordinates": [
+          121.868661,
+          41.3374127
+        ]
+      },
+      {
+        "id": "node/12627525323",
+        "name": "大荒地线路所",
+        "coordinates": [
+          120.8233774,
+          41.0759101
+        ]
+      }
+    ]
+  },
+  {
+    "name": "大通",
+    "candidates": [
+      {
+        "id": "node/8154633304",
+        "name": "大通",
+        "coordinates": [
+          105.8277833,
+          30.730909
+        ]
+      },
+      {
+        "id": "node/9226664096",
+        "name": "大通",
+        "coordinates": [
+          117.0514137,
+          32.6402806
+        ]
+      }
+    ]
+  },
+  {
+    "name": "天成",
+    "candidates": [
+      {
+        "id": "node/9081732784",
+        "name": "天成",
+        "coordinates": [
+          112.869083,
+          40.4920831
+        ]
+      },
+      {
+        "id": "node/9747042332",
+        "name": "天成",
+        "coordinates": [
+          113.6087823,
+          37.8675995
+        ]
+      }
+    ]
+  },
+  {
+    "name": "天桥",
+    "candidates": [
+      {
+        "id": "node/7527334064",
+        "name": "天桥",
+        "coordinates": [
+          124.5014445,
+          40.8113177
+        ]
+      },
+      {
+        "id": "node/9123967457",
+        "name": "天桥",
+        "coordinates": [
+          121.0481197,
+          40.8389845
+        ]
+      }
+    ]
+  },
+  {
+    "name": "太平",
+    "candidates": [
+      {
+        "id": "node/2913752530",
+        "name": "太平",
+        "coordinates": [
+          118.4946032,
+          35.2092375
+        ]
+      },
+      {
+        "id": "node/8341181634",
+        "name": "太平",
+        "coordinates": [
+          99.7960571,
+          25.5963247
+        ]
+      }
+    ]
+  },
+  {
+    "name": "姜庄",
+    "candidates": [
+      {
+        "id": "node/4068182366",
+        "name": "姜庄",
+        "coordinates": [
+          112.2478275,
+          38.9731222
+        ]
+      },
+      {
+        "id": "node/8158566861",
+        "name": "姜庄",
+        "coordinates": [
+          113.6951056,
+          33.7210751
+        ]
+      }
+    ]
+  },
+  {
+    "name": "孟家湾",
+    "candidates": [
+      {
+        "id": "node/8481094419",
+        "name": "孟家湾",
+        "coordinates": [
+          104.9340972,
+          37.4473934
+        ]
+      },
+      {
+        "id": "node/9292699667",
+        "name": "孟家湾",
+        "coordinates": [
+          109.7411717,
+          38.5538932
+        ]
+      }
+    ]
+  },
+  {
+    "name": "宁阳东",
+    "candidates": [
+      {
+        "id": "node/8429529323",
+        "name": "宁阳东",
+        "coordinates": [
+          117.0236015,
+          35.9287612
+        ]
+      },
+      {
+        "id": "node/12501009358",
+        "name": "宁阳东",
+        "coordinates": [
+          117.1044863,
+          35.8738
+        ]
+      }
+    ]
+  },
+  {
+    "name": "宝山",
+    "candidates": [
+      {
+        "id": "node/9176129490",
+        "name": "宝山",
+        "coordinates": [
+          125.6339461,
+          42.4852876
+        ]
+      },
+      {
+        "id": "node/13506321554",
+        "name": "宝山",
+        "coordinates": [
+          131.3964884,
+          46.5670704
+        ]
+      }
+    ]
+  },
+  {
+    "name": "宽轨到发场",
+    "candidates": [
+      {
+        "id": "node/9989942128",
+        "name": "宽轨到发场",
+        "coordinates": [
+          117.4222049,
+          49.5883216
+        ]
+      },
+      {
+        "id": "node/10011291980",
+        "name": "宽轨到发场",
+        "coordinates": [
+          132.648392,
+          47.7499183
+        ]
+      }
+    ]
+  },
+  {
+    "name": "密江",
+    "candidates": [
+      {
+        "id": "node/9131669903",
+        "name": "密江",
+        "coordinates": [
+          129.1382226,
+          44.487793
+        ]
+      },
+      {
+        "id": "node/9171411664",
+        "name": "密江",
+        "coordinates": [
+          130.1338699,
+          42.9958638
+        ]
+      }
+    ]
+  },
+  {
+    "name": "小桥火车站",
+    "candidates": [
+      {
+        "id": "node/5166295809",
+        "name": "白岩",
+        "coordinates": [
+          106.7141533,
+          31.0419773
+        ]
+      },
+      {
+        "id": "node/7315534542",
+        "name": "小桥",
+        "coordinates": [
+          101.7855433,
+          36.6345267
+        ]
+      }
+    ]
+  },
+  {
+    "name": "小桥站",
+    "candidates": [
+      {
+        "id": "node/5166295809",
+        "name": "白岩",
+        "coordinates": [
+          106.7141533,
+          31.0419773
+        ]
+      },
+      {
+        "id": "node/7315534542",
+        "name": "小桥",
+        "coordinates": [
+          101.7855433,
+          36.6345267
+        ]
+      }
+    ]
+  },
+  {
+    "name": "岭东",
+    "candidates": [
+      {
+        "id": "node/13505962546",
+        "name": "岭东",
+        "coordinates": [
+          131.1434033,
+          46.5669295
+        ]
+      },
+      {
+        "id": "node/14156675335",
+        "name": "岭东",
+        "coordinates": [
+          130.3300302,
+          47.3556781
+        ]
+      }
+    ]
+  },
+  {
+    "name": "工业园",
+    "candidates": [
+      {
+        "id": "node/9226690970",
+        "name": "工业园",
+        "coordinates": [
+          116.5578579,
+          33.9308234
+        ]
+      },
+      {
+        "id": "node/11395661801",
+        "name": "工业园",
+        "coordinates": [
+          115.2640389,
+          30.0866904
+        ]
+      }
+    ]
+  },
+  {
+    "name": "巴日图",
+    "candidates": [
+      {
+        "id": "node/9122624801",
+        "name": "巴日图",
+        "coordinates": [
+          119.2383206,
+          43.2628156
+        ]
+      },
+      {
+        "id": "node/9125461476",
+        "name": "巴日图",
+        "coordinates": [
+          119.4720974,
+          47.8278
+        ]
+      }
+    ]
+  },
+  {
+    "name": "常村",
+    "candidates": [
+      {
+        "id": "node/8398804169",
+        "name": "常村",
+        "coordinates": [
+          113.319484,
+          36.4336487
+        ]
+      },
+      {
+        "id": "node/10885904305",
+        "name": "常村",
+        "coordinates": [
+          112.9718217,
+          36.3650042
+        ]
+      }
+    ]
+  },
+  {
+    "name": "庆丰火车站",
+    "candidates": [
+      {
+        "id": "node/1665825560",
+        "name": "庆丰镇",
+        "coordinates": [
+          119.893062,
+          33.48242
+        ]
+      },
+      {
+        "id": "node/1732027898",
+        "name": "庆丰",
+        "coordinates": [
+          123.35604,
+          44.60496
+        ]
+      }
+    ]
+  },
+  {
+    "name": "庆丰站",
+    "candidates": [
+      {
+        "id": "node/1665825560",
+        "name": "庆丰镇",
+        "coordinates": [
+          119.893062,
+          33.48242
+        ]
+      },
+      {
+        "id": "node/1732027898",
+        "name": "庆丰",
+        "coordinates": [
+          123.35604,
+          44.60496
+        ]
+      }
+    ]
+  },
+  {
+    "name": "建设",
+    "candidates": [
+      {
+        "id": "node/6715109132",
+        "name": "建设",
+        "coordinates": [
+          128.7896084,
+          46.0295946
+        ]
+      }
+    ]
+  },
+  {
+    "name": "张庄",
+    "candidates": [
+      {
+        "id": "node/8437839707",
+        "name": "张庄",
+        "coordinates": [
+          116.5615894,
+          37.0380781
+        ]
+      },
+      {
+        "id": "node/9223898609",
+        "name": "张庄",
+        "coordinates": [
+          116.8686694,
+          33.9837254
+        ]
+      }
+    ]
+  },
+  {
+    "name": "惠农南",
+    "candidates": [
+      {
+        "id": "node/10908472608",
+        "name": "惠农南",
+        "coordinates": [
+          106.7025853,
+          39.2081806
+        ]
+      },
+      {
+        "id": "node/13808856976",
+        "name": "惠农南",
+        "coordinates": [
+          106.704226,
+          39.2208223
+        ]
+      }
+    ]
+  },
+  {
+    "name": "戴集",
+    "candidates": [
+      {
+        "id": "node/8009300154",
+        "name": "戴集",
+        "coordinates": [
+          117.1866252,
+          32.3969939
+        ]
+      },
+      {
+        "id": "node/9226690950",
+        "name": "戴集",
+        "coordinates": [
+          116.3449946,
+          33.505906
+        ]
+      }
+    ]
+  },
+  {
+    "name": "新哨",
+    "candidates": [
+      {
+        "id": "node/3695433677",
+        "name": "新哨",
+        "coordinates": [
+          103.461454,
+          24.25933
+        ]
+      },
+      {
+        "id": "node/9186758541",
+        "name": "新哨",
+        "coordinates": [
+          100.8581293,
+          25.3789516
+        ]
+      }
+    ]
+  },
+  {
+    "name": "新港",
+    "candidates": [
+      {
+        "id": "node/9196734316",
+        "name": "新港",
+        "coordinates": [
+          113.5126305,
+          23.0608243
+        ]
+      },
+      {
+        "id": "node/9235497289",
+        "name": "新港",
+        "coordinates": [
+          117.7096653,
+          39.0107946
+        ]
+      }
+    ]
+  },
+  {
+    "name": "新街",
+    "candidates": [
+      {
+        "id": "node/3045710295",
+        "name": "新街",
+        "coordinates": [
+          109.8357844,
+          39.2764503
+        ]
+      },
+      {
+        "id": "node/5020270571",
+        "name": "新街",
+        "coordinates": [
+          105.1064942,
+          28.0408868
+        ]
+      }
+    ]
+  },
+  {
+    "name": "方城站",
+    "candidates": [
+      {
+        "id": "node/3699736998",
+        "name": "八柳树",
+        "coordinates": [
+          111.7249992,
+          39.4983072
+        ]
+      },
+      {
+        "id": "node/9526166087",
+        "name": "方城",
+        "coordinates": [
+          112.9439579,
+          33.2404508
+        ]
+      }
+    ]
+  },
+  {
+    "name": "朝阳北",
+    "candidates": [
+      {
+        "id": "node/9123967452",
+        "name": "朝阳北",
+        "coordinates": [
+          120.3374577,
+          41.5465084
+        ]
+      },
+      {
+        "id": "node/9169258491",
+        "name": "朝阳北",
+        "coordinates": [
+          120.3635207,
+          41.62389
+        ]
+      }
+    ]
+  },
+  {
+    "name": "朱庄",
+    "candidates": [
+      {
+        "id": "node/8502689176",
+        "name": "朱庄",
+        "coordinates": [
+          117.0265901,
+          33.7267023
+        ]
+      },
+      {
+        "id": "node/9223898608",
+        "name": "朱庄",
+        "coordinates": [
+          116.864748,
+          33.9693255
+        ]
+      }
+    ]
+  },
+  {
+    "name": "李家寨",
+    "candidates": [
+      {
+        "id": "node/8014005627",
+        "name": "李家寨",
+        "coordinates": [
+          114.0941441,
+          31.89764
+        ]
+      },
+      {
+        "id": "node/8163363247",
+        "name": "李家寨",
+        "coordinates": [
+          113.5024726,
+          34.5049623
+        ]
+      }
+    ]
+  },
+  {
+    "name": "杨家河",
+    "candidates": [
+      {
+        "id": "node/3840288574",
+        "name": "杨家河",
+        "coordinates": [
+          105.8281013,
+          34.6225111
+        ]
+      },
+      {
+        "id": "node/8142850731",
+        "name": "杨家河",
+        "coordinates": [
+          107.5927343,
+          34.6547408
+        ]
+      }
+    ]
+  },
+  {
+    "name": "杨屋线路所",
+    "candidates": [
+      {
+        "id": "node/9192069853",
+        "name": "杨屋线路所",
+        "coordinates": [
+          108.4369972,
+          22.8265675
+        ]
+      },
+      {
+        "id": "node/12091300814",
+        "name": "杨屋线路所",
+        "coordinates": [
+          108.4411762,
+          22.84007
+        ]
+      }
+    ]
+  },
+  {
+    "name": "杨庄",
+    "candidates": [
+      {
+        "id": "node/3949949760",
+        "name": "杨庄",
+        "coordinates": [
+          117.6667044,
+          38.2876798
+        ]
+      },
+      {
+        "id": "node/9223898606",
+        "name": "杨庄",
+        "coordinates": [
+          116.8081802,
+          33.8936003
+        ]
+      }
+    ]
+  },
+  {
+    "name": "杨庄线路所",
+    "candidates": [
+      {
+        "id": "node/9254936102",
+        "name": "杨庄线路所",
+        "coordinates": [
+          118.8400056,
+          37.161778
+        ]
+      },
+      {
+        "id": "node/9521483770",
+        "name": "杨庄线路所",
+        "coordinates": [
+          113.824638,
+          34.8341086
+        ]
+      }
+    ]
+  },
+  {
+    "name": "林场",
+    "candidates": [
+      {
+        "id": "node/1524297084",
+        "name": "林场",
+        "coordinates": [
+          118.6752038,
+          32.1624468
+        ]
+      },
+      {
+        "id": "node/13452844558",
+        "name": "林场",
+        "coordinates": [
+          118.6890467,
+          32.1490253
+        ]
+      }
+    ]
+  },
+  {
+    "name": "桃林",
+    "candidates": [
+      {
+        "id": "node/3045724409",
+        "name": "桃林",
+        "coordinates": [
+          109.5519145,
+          39.4149111
+        ]
+      },
+      {
+        "id": "node/8330381402",
+        "name": "桃林",
+        "coordinates": [
+          113.1011879,
+          28.9449744
+        ]
+      }
+    ]
+  },
+  {
+    "name": "桥头",
+    "candidates": [
+      {
+        "id": "node/2349438745",
+        "name": "桥头",
+        "coordinates": [
+          123.7235341,
+          41.1911615
+        ]
+      },
+      {
+        "id": "node/9121997539",
+        "name": "桥头",
+        "coordinates": [
+          118.8917845,
+          42.6631487
+        ]
+      }
+    ]
+  },
+  {
+    "name": "梁山火车站",
+    "candidates": [
+      {
+        "id": "node/1672448034",
+        "name": "梁山",
+        "coordinates": [
+          115.9323108,
+          35.8191339
+        ]
+      },
+      {
+        "id": "node/3003935026",
+        "name": "梁山",
+        "coordinates": [
+          108.1819689,
+          34.5869837
+        ]
+      }
+    ]
+  },
+  {
+    "name": "梁山站",
+    "candidates": [
+      {
+        "id": "node/1672448034",
+        "name": "梁山",
+        "coordinates": [
+          115.9323108,
+          35.8191339
+        ]
+      },
+      {
+        "id": "node/3003935026",
+        "name": "梁山",
+        "coordinates": [
+          108.1819689,
+          34.5869837
+        ]
+      }
+    ]
+  },
+  {
+    "name": "横山",
+    "candidates": [
+      {
+        "id": "node/8154580317",
+        "name": "横山",
+        "coordinates": [
+          110.1285112,
+          25.1689195
+        ]
+      },
+      {
+        "id": "node/9292699670",
+        "name": "横山",
+        "coordinates": [
+          109.2986993,
+          38.0196756
+        ]
+      }
+    ]
+  },
+  {
+    "name": "永丰",
+    "candidates": [
+      {
+        "id": "node/3589354520",
+        "name": "永丰",
+        "coordinates": [
+          106.0684197,
+          38.0436867
+        ]
+      },
+      {
+        "id": "node/11202356349",
+        "name": "永丰",
+        "coordinates": [
+          103.6594181,
+          30.9833455
+        ]
+      }
+    ]
+  },
+  {
+    "name": "永新",
+    "candidates": [
+      {
+        "id": "node/2502938885",
+        "name": "永新",
+        "coordinates": [
+          114.2337251,
+          26.9647062
+        ]
+      },
+      {
+        "id": "node/8341358203",
+        "name": "永新",
+        "coordinates": [
+          98.9428931,
+          24.8402293
+        ]
+      }
+    ]
+  },
+  {
+    "name": "永红",
+    "candidates": [
+      {
+        "id": "node/1575631551",
+        "name": "永红",
+        "coordinates": [
+          127.1116774,
+          42.0944235
+        ]
+      },
+      {
+        "id": "node/3958029559",
+        "name": "永红",
+        "coordinates": [
+          102.8212612,
+          36.581926
+        ]
+      }
+    ]
+  },
+  {
+    "name": "汉口线路所",
+    "candidates": [
+      {
+        "id": "node/7199156403",
+        "name": "汉口线路所",
+        "coordinates": [
+          114.2406873,
+          30.6241186
+        ]
+      },
+      {
+        "id": "node/9923669316",
+        "name": "汉口线路所",
+        "coordinates": [
+          114.2264843,
+          30.616655
+        ]
+      }
+    ]
+  },
+  {
+    "name": "汉阳",
+    "candidates": [
+      {
+        "id": "node/8378245807",
+        "name": "汉阳",
+        "coordinates": [
+          114.2503037,
+          30.5552234
+        ]
+      },
+      {
+        "id": "node/13227238993",
+        "name": "汉阳",
+        "coordinates": [
+          114.1603866,
+          30.5415103
+        ]
+      },
+      {
+        "id": "way/1215902145",
+        "name": "汉阳",
+        "coordinates": [
+          114.2397528,
+          30.5593754
+        ]
+      }
+    ]
+  },
+  {
+    "name": "沙湾",
+    "candidates": [
+      {
+        "id": "node/1588514487",
+        "name": "沙湾",
+        "coordinates": [
+          103.53568,
+          29.41521
+        ]
+      },
+      {
+        "id": "node/9307694647",
+        "name": "沙湾",
+        "coordinates": [
+          111.4676607,
+          30.4313207
+        ]
+      }
+    ]
+  },
+  {
+    "name": "河口",
+    "candidates": [
+      {
+        "id": "node/3369785952",
+        "name": "河口",
+        "coordinates": [
+          103.9653358,
+          22.5105228
+        ]
+      },
+      {
+        "id": "node/9251972101",
+        "name": "河口",
+        "coordinates": [
+          118.5674545,
+          37.804289
+        ]
+      }
+    ]
+  },
+  {
+    "name": "河西",
+    "candidates": [
+      {
+        "id": "node/4072805993",
+        "name": "河西",
+        "coordinates": [
+          109.7043553,
+          40.5589045
+        ]
+      },
+      {
+        "id": "node/7369068582",
+        "name": "河西",
+        "coordinates": [
+          94.5955253,
+          41.669594
+        ]
+      }
+    ]
+  },
+  {
+    "name": "温泉火车站",
+    "candidates": [
+      {
+        "id": "node/274366810",
+        "name": "温泉",
+        "coordinates": [
+          102.4795234,
+          24.9623002
+        ]
+      },
+      {
+        "id": "node/2381431796",
+        "name": "氡泉",
+        "coordinates": [
+          127.1875163,
+          42.1483745
+        ]
+      }
+    ]
+  },
+  {
+    "name": "温泉站",
+    "candidates": [
+      {
+        "id": "node/274366810",
+        "name": "温泉",
+        "coordinates": [
+          102.4795234,
+          24.9623002
+        ]
+      },
+      {
+        "id": "node/2381431796",
+        "name": "氡泉",
+        "coordinates": [
+          127.1875163,
+          42.1483745
+        ]
+      }
+    ]
+  },
+  {
+    "name": "港前",
+    "candidates": [
+      {
+        "id": "node/9223366445",
+        "name": "港前",
+        "coordinates": [
+          117.4402268,
+          34.3299419
+        ]
+      },
+      {
+        "id": "node/11027126905",
+        "name": "港前",
+        "coordinates": [
+          114.2468684,
+          30.529876
+        ]
+      },
+      {
+        "id": "node/13333616439",
+        "name": "港前",
+        "coordinates": [
+          122.1906562,
+          37.4350065
+        ]
+      }
+    ]
+  },
+  {
+    "name": "港口",
+    "candidates": [
+      {
+        "id": "node/3084570169",
+        "name": "港口",
+        "coordinates": [
+          110.2727009,
+          34.6038832
+        ]
+      },
+      {
+        "id": "node/4021619862",
+        "name": "港口",
+        "coordinates": [
+          117.792046,
+          38.2791142
+        ]
+      },
+      {
+        "id": "node/4021619863",
+        "name": "港口",
+        "coordinates": [
+          117.8568661,
+          38.3030607
+        ]
+      }
+    ]
+  },
+  {
+    "name": "狼尾山",
+    "candidates": [
+      {
+        "id": "node/1810630880",
+        "name": "狼尾山",
+        "coordinates": [
+          97.9952762,
+          39.4761809
+        ]
+      },
+      {
+        "id": "node/14064241891",
+        "name": "狼尾山",
+        "coordinates": [
+          98.0123137,
+          39.597696
+        ]
+      }
+    ]
+  },
+  {
+    "name": "王庄",
+    "candidates": [
+      {
+        "id": "node/1577895134",
+        "name": "王庄",
+        "coordinates": [
+          112.488571,
+          34.887248
+        ]
+      },
+      {
+        "id": "node/10885859823",
+        "name": "王庄",
+        "coordinates": [
+          113.0339226,
+          36.3708254
+        ]
+      }
+    ]
+  },
+  {
+    "name": "王村",
+    "candidates": [
+      {
+        "id": "node/2419166513",
+        "name": "王村",
+        "coordinates": [
+          117.7107623,
+          36.6863917
+        ]
+      },
+      {
+        "id": "node/4677731669",
+        "name": "王村",
+        "coordinates": [
+          110.0583943,
+          35.2061237
+        ]
+      }
+    ]
+  },
+  {
+    "name": "王村火车站",
+    "candidates": [
+      {
+        "id": "node/2419166513",
+        "name": "王村",
+        "coordinates": [
+          117.7107623,
+          36.6863917
+        ]
+      },
+      {
+        "id": "node/4677731669",
+        "name": "王村",
+        "coordinates": [
+          110.0583943,
+          35.2061237
+        ]
+      }
+    ]
+  },
+  {
+    "name": "王村站",
+    "candidates": [
+      {
+        "id": "node/2419166513",
+        "name": "王村",
+        "coordinates": [
+          117.7107623,
+          36.6863917
+        ]
+      },
+      {
+        "id": "node/4677731669",
+        "name": "王村",
+        "coordinates": [
+          110.0583943,
+          35.2061237
+        ]
+      }
+    ]
+  },
+  {
+    "name": "田庄",
+    "candidates": [
+      {
+        "id": "node/1793537386",
+        "name": "田庄",
+        "coordinates": [
+          110.1628657,
+          37.425648
+        ]
+      },
+      {
+        "id": "node/8095297276",
+        "name": "田庄",
+        "coordinates": [
+          113.3560927,
+          33.7441997
+        ]
+      },
+      {
+        "id": "node/9274358858",
+        "name": "田庄",
+        "coordinates": [
+          117.9275465,
+          39.4125235
+        ]
+      }
+    ]
+  },
+  {
+    "name": "电厂",
+    "candidates": [
+      {
+        "id": "node/9118905058",
+        "name": "电厂",
+        "coordinates": [
+          106.5968174,
+          38.0560664
+        ]
+      },
+      {
+        "id": "node/9242869551",
+        "name": "电厂",
+        "coordinates": [
+          116.9231772,
+          35.3281685
+        ]
+      },
+      {
+        "id": "node/12918922791",
+        "name": "电厂",
+        "coordinates": [
+          117.5841317,
+          34.8171095
+        ]
+      },
+      {
+        "id": "node/13506342943",
+        "name": "电厂",
+        "coordinates": [
+          131.674712,
+          46.560455
+        ]
+      },
+      {
+        "id": "node/13508852350",
+        "name": "电厂",
+        "coordinates": [
+          131.0538894,
+          45.763529
+        ]
+      }
+    ]
+  },
+  {
+    "name": "白岩",
+    "candidates": [
+      {
+        "id": "node/5166295809",
+        "name": "白岩",
+        "coordinates": [
+          106.7141533,
+          31.0419773
+        ]
+      },
+      {
+        "id": "node/14177579126",
+        "name": "白岩",
+        "coordinates": [
+          106.7092645,
+          28.5703575
+        ]
+      }
+    ]
+  },
+  {
+    "name": "白水",
+    "candidates": [
+      {
+        "id": "node/8175902362",
+        "name": "白水",
+        "coordinates": [
+          106.0263308,
+          32.2595458
+        ]
+      },
+      {
+        "id": "node/11490175236",
+        "name": "白水",
+        "coordinates": [
+          106.9371307,
+          35.4768003
+        ]
+      }
+    ]
+  },
+  {
+    "name": "白沙镇",
+    "candidates": [
+      {
+        "id": "node/7252546294",
+        "name": "白沙镇",
+        "coordinates": [
+          119.071683,
+          26.2051963
+        ]
+      },
+      {
+        "id": "node/13374222463",
+        "name": "白沙镇",
+        "coordinates": [
+          109.680237,
+          21.6522236
+        ]
+      }
+    ]
+  },
+  {
+    "name": "白沙镇火车站",
+    "candidates": [
+      {
+        "id": "node/7252546294",
+        "name": "白沙镇",
+        "coordinates": [
+          119.071683,
+          26.2051963
+        ]
+      },
+      {
+        "id": "node/13374222463",
+        "name": "白沙镇",
+        "coordinates": [
+          109.680237,
+          21.6522236
+        ]
+      }
+    ]
+  },
+  {
+    "name": "石城火车站",
+    "candidates": [
+      {
+        "id": "node/1592559602",
+        "name": "石城",
+        "coordinates": [
+          124.3038056,
+          40.6321931
+        ]
+      },
+      {
+        "id": "node/3699740690",
+        "name": "石城村",
+        "coordinates": [
+          111.3831052,
+          39.4303058
+        ]
+      },
+      {
+        "id": "node/4019707142",
+        "name": "石城东",
+        "coordinates": [
+          116.3449593,
+          26.300227
+        ]
+      }
+    ]
+  },
+  {
+    "name": "石城站",
+    "candidates": [
+      {
+        "id": "node/1592559602",
+        "name": "石城",
+        "coordinates": [
+          124.3038056,
+          40.6321931
+        ]
+      },
+      {
+        "id": "node/3699740690",
+        "name": "石城村",
+        "coordinates": [
+          111.3831052,
+          39.4303058
+        ]
+      },
+      {
+        "id": "node/4019707142",
+        "name": "石城东",
+        "coordinates": [
+          116.3449593,
+          26.300227
+        ]
+      }
+    ]
+  },
+  {
+    "name": "石岭",
+    "candidates": [
+      {
+        "id": "node/2327447496",
+        "name": "石岭",
+        "coordinates": [
+          124.6971603,
+          43.0887368
+        ]
+      },
+      {
+        "id": "node/9263223094",
+        "name": "石岭",
+        "coordinates": [
+          119.5889443,
+          40.1416766
+        ]
+      }
+    ]
+  },
+  {
+    "name": "石河",
+    "candidates": [
+      {
+        "id": "node/8756070733",
+        "name": "石河",
+        "coordinates": [
+          121.8558262,
+          39.3411611
+        ]
+      },
+      {
+        "id": "node/9131669905",
+        "name": "石河",
+        "coordinates": [
+          129.2480501,
+          44.506878
+        ]
+      }
+    ]
+  },
+  {
+    "name": "石滩",
+    "candidates": [
+      {
+        "id": "node/1607295759",
+        "name": "石滩",
+        "coordinates": [
+          109.56064,
+          35.0339
+        ]
+      },
+      {
+        "id": "node/8383166681",
+        "name": "石滩",
+        "coordinates": [
+          113.7800816,
+          23.172782
+        ]
+      }
+    ]
+  },
+  {
+    "name": "石门",
+    "candidates": [
+      {
+        "id": "node/1582507261",
+        "name": "石门",
+        "coordinates": [
+          118.8492096,
+          39.7239315
+        ]
+      },
+      {
+        "id": "node/14099372616",
+        "name": "石门",
+        "coordinates": [
+          113.65768,
+          23.2889612
+        ]
+      }
+    ]
+  },
+  {
+    "name": "磨砂溪线路所",
+    "candidates": [
+      {
+        "id": "node/12486695571",
+        "name": "磨砂溪线路所",
+        "coordinates": [
+          109.9276785,
+          27.554815
+        ]
+      },
+      {
+        "id": "node/12486695572",
+        "name": "磨砂溪线路所",
+        "coordinates": [
+          109.9330695,
+          27.5628461
+        ]
+      }
+    ]
+  },
+  {
+    "name": "祁阳站",
+    "candidates": [
+      {
+        "id": "node/2422697205",
+        "name": "祁阳北",
+        "coordinates": [
+          111.8184874,
+          26.7040229
+        ]
+      },
+      {
+        "id": "node/3975677440",
+        "name": "祁阳",
+        "coordinates": [
+          111.826098,
+          26.6124696
+        ]
+      }
+    ]
+  },
+  {
+    "name": "禹州火车站",
+    "candidates": [
+      {
+        "id": "node/9313028644",
+        "name": "禹州",
+        "coordinates": [
+          113.4453043,
+          34.1405469
+        ]
+      }
+    ]
+  },
+  {
+    "name": "立井",
+    "candidates": [
+      {
+        "id": "node/11944888828",
+        "name": "立井",
+        "coordinates": [
+          130.936904,
+          45.2024793
+        ]
+      },
+      {
+        "id": "node/12211994990",
+        "name": "立井",
+        "coordinates": [
+          88.2003429,
+          40.3296596
+        ]
+      }
+    ]
+  },
+  {
+    "name": "策克",
+    "candidates": [
+      {
+        "id": "node/7473325533",
+        "name": "策克",
+        "coordinates": [
+          101.3413399,
+          42.5419948
+        ]
+      },
+      {
+        "id": "node/9081732729",
+        "name": "策克",
+        "coordinates": [
+          101.2950415,
+          42.5732266
+        ]
+      }
+    ]
+  },
+  {
+    "name": "红升",
+    "candidates": [
+      {
+        "id": "node/12078908868",
+        "name": "红升",
+        "coordinates": [
+          132.4037195,
+          46.2149
+        ]
+      },
+      {
+        "id": "node/13684002743",
+        "name": "红升",
+        "coordinates": [
+          123.5500148,
+          50.7769962
+        ]
+      }
+    ]
+  },
+  {
+    "name": "红卫",
+    "candidates": [
+      {
+        "id": "node/8481094903",
+        "name": "红卫",
+        "coordinates": [
+          104.7947323,
+          37.4505917
+        ]
+      },
+      {
+        "id": "node/12982932296",
+        "name": "红卫",
+        "coordinates": [
+          112.8809685,
+          26.2977078
+        ]
+      }
+    ]
+  },
+  {
+    "name": "红土",
+    "candidates": [
+      {
+        "id": "node/3697044155",
+        "name": "红土",
+        "coordinates": [
+          109.2648957,
+          35.1412822
+        ]
+      },
+      {
+        "id": "node/7202301455",
+        "name": "红土",
+        "coordinates": [
+          111.5820515,
+          30.6515224
+        ]
+      }
+    ]
+  },
+  {
+    "name": "红柳",
+    "candidates": [
+      {
+        "id": "node/5010524114",
+        "name": "红柳",
+        "coordinates": [
+          94.638505,
+          38.0961833
+        ]
+      },
+      {
+        "id": "node/9118904881",
+        "name": "红柳",
+        "coordinates": [
+          106.761843,
+          37.8544407
+        ]
+      }
+    ]
+  },
+  {
+    "name": "红石崖",
+    "candidates": [
+      {
+        "id": "node/1596579468",
+        "name": "红石崖",
+        "coordinates": [
+          112.9646662,
+          39.9493421
+        ]
+      },
+      {
+        "id": "node/9246201034",
+        "name": "红石崖",
+        "coordinates": [
+          120.1161009,
+          36.0919549
+        ]
+      }
+    ]
+  },
+  {
+    "name": "线路所",
+    "candidates": [
+      {
+        "id": "node/12369706676",
+        "name": "线路所",
+        "coordinates": [
+          106.4387489,
+          29.7207567
+        ]
+      },
+      {
+        "id": "node/12404314582",
+        "name": "线路所",
+        "coordinates": [
+          120.0098878,
+          29.357418
+        ]
+      },
+      {
+        "id": "node/12466414932",
+        "name": "线路所",
+        "coordinates": [
+          95.6367889,
+          29.9236325
+        ]
+      },
+      {
+        "id": "node/12486695573",
+        "name": "线路所",
+        "coordinates": [
+          109.9057123,
+          27.5486381
+        ]
+      },
+      {
+        "id": "node/12981921309",
+        "name": "线路所",
+        "coordinates": [
+          116.4259281,
+          31.7212967
+        ]
+      },
+      {
+        "id": "node/13114677469",
+        "name": "线路所",
+        "coordinates": [
+          122.2408175,
+          43.5742162
+        ]
+      },
+      {
+        "id": "node/13250081084",
+        "name": "线路所",
+        "coordinates": [
+          95.6398059,
+          29.9074091
+        ]
+      },
+      {
+        "id": "node/13325733862",
+        "name": "线路所",
+        "coordinates": [
+          118.4209481,
+          35.0862131
+        ]
+      },
+      {
+        "id": "node/13325733863",
+        "name": "线路所",
+        "coordinates": [
+          118.4317606,
+          35.0866823
+        ]
+      },
+      {
+        "id": "node/13608933985",
+        "name": "线路所",
+        "coordinates": [
+          117.9180858,
+          24.5080286
+        ]
+      },
+      {
+        "id": "way/1293098382",
+        "name": "线路所",
+        "coordinates": [
+          108.670555,
+          38.3577445
+        ]
+      }
+    ]
+  },
+  {
+    "name": "编组场",
+    "candidates": [
+      {
+        "id": "node/9759623016",
+        "name": "编组场",
+        "coordinates": [
+          126.7070106,
+          45.7847764
+        ]
+      },
+      {
+        "id": "node/9871048338",
+        "name": "编组场",
+        "coordinates": [
+          123.8373072,
+          47.0950911
+        ]
+      }
+    ]
+  },
+  {
+    "name": "肖家",
+    "candidates": [
+      {
+        "id": "node/4666461821",
+        "name": "肖家",
+        "coordinates": [
+          117.0149437,
+          28.0841987
+        ]
+      },
+      {
+        "id": "node/9081732801",
+        "name": "肖家",
+        "coordinates": [
+          111.2154719,
+          39.7786583
+        ]
+      }
+    ]
+  },
+  {
+    "name": "芜湖北站",
+    "candidates": [
+      {
+        "id": "node/3686468743",
+        "name": "二坝",
+        "coordinates": [
+          118.3301689,
+          31.348976
+        ]
+      },
+      {
+        "id": "node/4592096951",
+        "name": "芜湖北",
+        "coordinates": [
+          118.2507481,
+          31.3574512
+        ]
+      }
+    ]
+  },
+  {
+    "name": "花庄",
+    "candidates": [
+      {
+        "id": "node/7315354783",
+        "name": "花庄",
+        "coordinates": [
+          103.1659153,
+          36.1903127
+        ]
+      },
+      {
+        "id": "node/9320122083",
+        "name": "花庄",
+        "coordinates": [
+          113.5963744,
+          35.2637721
+        ]
+      }
+    ]
+  },
+  {
+    "name": "莲花寺",
+    "candidates": [
+      {
+        "id": "node/2940423447",
+        "name": "莲花寺",
+        "coordinates": [
+          109.8267474,
+          34.5191301
+        ]
+      },
+      {
+        "id": "node/9079046330",
+        "name": "莲花寺",
+        "coordinates": [
+          99.0989427,
+          39.6268279
+        ]
+      }
+    ]
+  },
+  {
+    "name": "葡萄",
+    "candidates": [
+      {
+        "id": "node/8154580320",
+        "name": "葡萄",
+        "coordinates": [
+          109.9947971,
+          24.9126587
+        ]
+      },
+      {
+        "id": "node/9280035523",
+        "name": "葡萄",
+        "coordinates": [
+          118.9509447,
+          39.3166125
+        ]
+      }
+    ]
+  },
+  {
+    "name": "葫芦山",
+    "candidates": [
+      {
+        "id": "node/2616639486",
+        "name": "葫芦山",
+        "coordinates": [
+          98.8794338,
+          41.4517883
+        ]
+      },
+      {
+        "id": "node/7252546303",
+        "name": "葫芦山",
+        "coordinates": [
+          118.3848202,
+          26.5159721
+        ]
+      }
+    ]
+  },
+  {
+    "name": "蒲阳",
+    "candidates": [
+      {
+        "id": "node/7291125780",
+        "name": "蒲阳",
+        "coordinates": [
+          103.6422389,
+          31.0206173
+        ]
+      },
+      {
+        "id": "node/11202356350",
+        "name": "蒲阳",
+        "coordinates": [
+          103.6629062,
+          31.0223475
+        ]
+      }
+    ]
+  },
+  {
+    "name": "西场",
+    "candidates": [
+      {
+        "id": "node/8526787924",
+        "name": "西场",
+        "coordinates": [
+          120.6049416,
+          32.4893959
+        ]
+      },
+      {
+        "id": "node/9131669910",
+        "name": "西场",
+        "coordinates": [
+          130.9325392,
+          45.3121626
+        ]
+      },
+      {
+        "id": "node/9157555168",
+        "name": "西场",
+        "coordinates": [
+          123.6116222,
+          47.2195781
+        ]
+      },
+      {
+        "id": "node/9871048337",
+        "name": "西场",
+        "coordinates": [
+          123.8359402,
+          47.0954447
+        ]
+      },
+      {
+        "id": "node/10047271478",
+        "name": "西场",
+        "coordinates": [
+          125.0998766,
+          46.5407118
+        ]
+      }
+    ]
+  },
+  {
+    "name": "西沟",
+    "candidates": [
+      {
+        "id": "node/3029572802",
+        "name": "西沟",
+        "coordinates": [
+          110.3329913,
+          38.8187723
+        ]
+      },
+      {
+        "id": "node/3644667928",
+        "name": "西沟",
+        "coordinates": [
+          113.0562445,
+          36.3698658
+        ]
+      },
+      {
+        "id": "node/9295636274",
+        "name": "西沟",
+        "coordinates": [
+          97.9691997,
+          39.6698793
+        ]
+      }
+    ]
+  },
+  {
+    "name": "西河",
+    "candidates": [
+      {
+        "id": "node/12714048659",
+        "name": "西河",
+        "coordinates": [
+          111.1699427,
+          27.8310169
+        ]
+      },
+      {
+        "id": "way/899361044",
+        "name": "西河",
+        "coordinates": [
+          104.2178938,
+          30.6497636
+        ]
+      }
+    ]
+  },
+  {
+    "name": "赵家屯",
+    "candidates": [
+      {
+        "id": "node/7457814008",
+        "name": "赵家屯",
+        "coordinates": [
+          127.2294743,
+          46.4525756
+        ]
+      },
+      {
+        "id": "node/13437566553",
+        "name": "赵家屯",
+        "coordinates": [
+          120.7260158,
+          41.147351
+        ]
+      }
+    ]
+  },
+  {
+    "name": "辛庄",
+    "candidates": [
+      {
+        "id": "node/4076149843",
+        "name": "辛庄",
+        "coordinates": [
+          111.1652082,
+          35.294201
+        ]
+      },
+      {
+        "id": "node/9287647753",
+        "name": "辛庄",
+        "coordinates": [
+          113.1891426,
+          39.972074
+        ]
+      }
+    ]
+  },
+  {
+    "name": "边检场",
+    "candidates": [
+      {
+        "id": "node/9885230457",
+        "name": "边检场",
+        "coordinates": [
+          132.7049903,
+          47.8935286
+        ]
+      },
+      {
+        "id": "node/9989942129",
+        "name": "边检场",
+        "coordinates": [
+          117.352426,
+          49.6219427
+        ]
+      }
+    ]
+  },
+  {
+    "name": "郑蒲港",
+    "candidates": [
+      {
+        "id": "node/9229648671",
+        "name": "郑蒲港",
+        "coordinates": [
+          118.3732867,
+          31.6757952
+        ]
+      },
+      {
+        "id": "node/11332813139",
+        "name": "郑蒲港",
+        "coordinates": [
+          118.3329098,
+          31.5985068
+        ]
+      }
+    ]
+  },
+  {
+    "name": "金沟",
+    "candidates": [
+      {
+        "id": "node/7368618932",
+        "name": "金沟",
+        "coordinates": [
+          90.2965236,
+          44.5936379
+        ]
+      },
+      {
+        "id": "node/9506868280",
+        "name": "金沟",
+        "coordinates": [
+          120.545463,
+          41.6248263
+        ]
+      }
+    ]
+  },
+  {
+    "name": "铁厂",
+    "candidates": [
+      {
+        "id": "node/1550539301",
+        "name": "铁厂",
+        "coordinates": [
+          126.1974225,
+          41.7147998
+        ]
+      },
+      {
+        "id": "node/12725718355",
+        "name": "铁厂",
+        "coordinates": [
+          107.2138708,
+          27.4377916
+        ]
+      }
+    ]
+  },
+  {
+    "name": "长胜",
+    "candidates": [
+      {
+        "id": "node/2662698207",
+        "name": "长胜",
+        "coordinates": [
+          125.69338,
+          42.45044
+        ]
+      },
+      {
+        "id": "node/9122624805",
+        "name": "长胜",
+        "coordinates": [
+          120.1602414,
+          42.8693711
+        ]
+      }
+    ]
+  },
+  {
+    "name": "陈家沟",
+    "candidates": [
+      {
+        "id": "node/8387184315",
+        "name": "陈家沟",
+        "coordinates": [
+          112.2701632,
+          39.0524413
+        ]
+      },
+      {
+        "id": "node/13645169083",
+        "name": "陈家沟",
+        "coordinates": [
+          106.6390901,
+          35.205081
+        ]
+      }
+    ]
+  },
+  {
+    "name": "集配",
+    "candidates": [
+      {
+        "id": "node/9226690982",
+        "name": "集配",
+        "coordinates": [
+          116.4143363,
+          33.8964339
+        ]
+      },
+      {
+        "id": "node/13508852338",
+        "name": "集配",
+        "coordinates": [
+          130.9198801,
+          45.7952839
+        ]
+      },
+      {
+        "id": "node/14156675325",
+        "name": "集配",
+        "coordinates": [
+          130.2797906,
+          47.3367153
+        ]
+      }
+    ]
+  },
+  {
+    "name": "青沟子",
+    "candidates": [
+      {
+        "id": "node/10901470924",
+        "name": "青沟子",
+        "coordinates": [
+          126.4420814,
+          42.0164001
+        ]
+      },
+      {
+        "id": "node/12844704701",
+        "name": "青沟子",
+        "coordinates": [
+          127.0678242,
+          42.0154959
+        ]
+      }
+    ]
+  },
+  {
+    "name": "首山",
+    "candidates": [
+      {
+        "id": "node/635061854",
+        "name": "首山",
+        "coordinates": [
+          123.0666336,
+          41.2192756
+        ]
+      },
+      {
+        "id": "node/8043424412",
+        "name": "首山",
+        "coordinates": [
+          113.4192923,
+          33.8172819
+        ]
+      }
+    ]
+  },
+  {
+    "name": "首山火车站",
+    "candidates": [
+      {
+        "id": "node/635061854",
+        "name": "首山",
+        "coordinates": [
+          123.0666336,
+          41.2192756
+        ]
+      },
+      {
+        "id": "node/8043424412",
+        "name": "首山",
+        "coordinates": [
+          113.4192923,
+          33.8172819
+        ]
+      }
+    ]
+  },
+  {
+    "name": "首山站",
+    "candidates": [
+      {
+        "id": "node/635061854",
+        "name": "首山",
+        "coordinates": [
+          123.0666336,
+          41.2192756
+        ]
+      },
+      {
+        "id": "node/8043424412",
+        "name": "首山",
+        "coordinates": [
+          113.4192923,
+          33.8172819
+        ]
+      }
+    ]
+  },
+  {
+    "name": "马寨",
+    "candidates": [
+      {
+        "id": "node/8419766777",
+        "name": "马寨",
+        "coordinates": [
+          115.7484287,
+          35.4865217
+        ]
+      },
+      {
+        "id": "node/9015643721",
+        "name": "马寨",
+        "coordinates": [
+          113.6286649,
+          34.3965844
+        ]
+      }
+    ]
+  },
+  {
+    "name": "马庄",
+    "candidates": [
+      {
+        "id": "node/8086780669",
+        "name": "马庄",
+        "coordinates": [
+          116.4520392,
+          33.6262516
+        ]
+      },
+      {
+        "id": "node/8378245804",
+        "name": "马庄",
+        "coordinates": [
+          114.0369701,
+          32.8952388
+        ]
+      }
+    ]
+  },
+  {
+    "name": "马跑泉",
+    "candidates": [
+      {
+        "id": "node/3589651630",
+        "name": "马跑泉",
+        "coordinates": [
+          106.6386647,
+          38.1301349
+        ]
+      },
+      {
+        "id": "node/8093975758",
+        "name": "马跑泉",
+        "coordinates": [
+          113.1048864,
+          33.8289358
+        ]
+      }
+    ]
+  },
+  {
+    "name": "高台子",
+    "candidates": [
+      {
+        "id": "node/1595854606",
+        "name": "高台子",
+        "coordinates": [
+          122.7956246,
+          47.9346088
+        ]
+      },
+      {
+        "id": "node/9507383343",
+        "name": "高台子",
+        "coordinates": [
+          124.0300317,
+          42.5066677
+        ]
+      }
+    ]
+  },
+  {
+    "name": "高庄",
+    "candidates": [
+      {
+        "id": "node/8163363261",
+        "name": "高庄",
+        "coordinates": [
+          112.862318,
+          33.9010866
+        ]
+      },
+      {
+        "id": "node/8410712138",
+        "name": "高庄",
+        "coordinates": [
+          114.3651575,
+          38.0992297
+        ]
+      },
+      {
+        "id": "node/9242869566",
+        "name": "高庄",
+        "coordinates": [
+          117.0292023,
+          34.8545832
+        ]
+      }
+    ]
+  },
+  {
+    "name": "黄岗",
+    "candidates": [
+      {
+        "id": "node/5655200581",
+        "name": "黄岗",
+        "coordinates": [
+          113.554003,
+          24.8550195
+        ]
+      },
+      {
+        "id": "node/8772819609",
+        "name": "黄岗",
+        "coordinates": [
+          114.4993206,
+          28.4567714
+        ]
+      }
+    ]
+  },
+  {
+    "name": "黄骅东",
+    "candidates": [
+      {
+        "id": "node/8410555586",
+        "name": "黄骅东",
+        "coordinates": [
+          117.3761405,
+          38.3773223
+        ]
+      },
+      {
+        "id": "node/11297405062",
+        "name": "黄骅东",
+        "coordinates": [
+          117.4957346,
+          38.2949031
+        ]
+      }
+    ]
+  },
+  {
+    "name": "黄骅南",
+    "candidates": [
+      {
+        "id": "node/1668282547",
+        "name": "黄骅南",
+        "coordinates": [
+          117.2998925,
+          38.3339328
+        ]
+      },
+      {
+        "id": "node/11297399866",
+        "name": "黄骅南",
+        "coordinates": [
+          117.3338208,
+          38.3226354
+        ]
+      }
+    ]
+  },
+  {
+    "name": "黄骅港",
+    "candidates": [
+      {
+        "id": "node/4021619860",
+        "name": "黄骅港",
+        "coordinates": [
+          117.7920411,
+          38.2834372
+        ]
+      },
+      {
+        "id": "node/11297405064",
+        "name": "黄骅港",
+        "coordinates": [
+          117.7265753,
+          38.2764025
+        ]
+      }
+    ]
+  },
+  {
+    "name": "黎明",
+    "candidates": [
+      {
+        "id": "node/8060376207",
+        "name": "黎明",
+        "coordinates": [
+          126.6784011,
+          45.6417575
+        ]
+      },
+      {
+        "id": "node/14003841757",
+        "name": "黎明",
+        "coordinates": [
+          131.3158756,
+          46.7984995
+        ]
+      }
+    ]
+  },
+  {
+    "name": "黑山",
+    "candidates": [
+      {
+        "id": "node/6506098921",
+        "name": "黑山",
+        "coordinates": [
+          122.0976381,
+          41.6977659
+        ]
+      },
+      {
+        "id": "node/7368618930",
+        "name": "黑山",
+        "coordinates": [
+          90.4531001,
+          44.5169501
+        ]
+      }
+    ]
+  },
+  {
+    "name": "龙山",
+    "candidates": [
+      {
+        "id": "node/9176129491",
+        "name": "龙山",
+        "coordinates": [
+          125.3529766,
+          42.3466548
+        ]
+      },
+      {
+        "id": "node/9312908627",
+        "name": "龙山",
+        "coordinates": [
+          115.1937795,
+          30.153631
+        ]
+      }
+    ]
+  },
+  {
+    "name": "龙池",
+    "candidates": [
+      {
+        "id": "node/1681825098",
+        "name": "龙池",
+        "coordinates": [
+          108.9925468,
+          28.6018735
+        ]
+      },
+      {
+        "id": "node/11202356352",
+        "name": "龙池",
+        "coordinates": [
+          103.559252,
+          31.064602
+        ]
+      }
+    ]
+  },
+  {
+    "name": "龙湖",
+    "candidates": [
+      {
+        "id": "node/5564278234",
+        "name": "龙湖",
+        "coordinates": [
+          116.6469777,
+          23.5364532
+        ]
+      },
+      {
+        "id": "node/13508900516",
+        "name": "龙湖",
+        "coordinates": [
+          131.2452965,
+          45.8620372
+        ]
+      }
+    ]
+  }
+]
