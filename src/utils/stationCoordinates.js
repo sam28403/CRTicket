@@ -6971,7 +6971,47 @@ export async function loadChinaMap(echarts) {
 
     const filteredFeatures = chinaGeoJson.features.filter(
       item => item.properties && item.properties.name !== '南海诸岛'
-    )
+    ).map(feature => {
+      if (feature.properties.name === '广东省' && feature.geometry?.type === 'MultiPolygon') {
+        // 按东沙群岛所在范围过滤，保留广东本土及其他沿海岛屿。
+        const coordinates = feature.geometry.coordinates.filter(polygon => (
+          !polygon[0].every(([longitude, latitude]) => (
+            longitude >= 115.8 && longitude <= 117 && latitude >= 20.5 && latitude <= 21.2
+          ))
+        ))
+        return {
+          ...feature,
+          geometry: {
+            ...feature.geometry,
+            coordinates
+          }
+        }
+      }
+
+      if (feature.properties.name !== '海南省' || feature.geometry?.type !== 'MultiPolygon') {
+        return feature
+      }
+
+      // 海南本岛是该区域面积最大的多边形；仅处理加载数据，保留原始地图文件。
+      const polygonArea = polygon => {
+        const ring = polygon[0]
+        return Math.abs(ring.reduce((area, point, index) => {
+          const next = ring[(index + 1) % ring.length]
+          return area + point[0] * next[1] - next[0] * point[1]
+        }, 0)) / 2
+      }
+      const mainIsland = feature.geometry.coordinates.reduce((largest, polygon) => (
+        polygonArea(polygon) > polygonArea(largest) ? polygon : largest
+      ))
+
+      return {
+        ...feature,
+        geometry: {
+          ...feature.geometry,
+          coordinates: [mainIsland]
+        }
+      }
+    })
 
     const combinedGeoJson = {
       ...chinaGeoJson,

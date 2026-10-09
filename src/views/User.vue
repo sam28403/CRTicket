@@ -906,7 +906,13 @@ function renderMapChart() {
       title: {
         text: '全部铁路运转轨迹',
         left: 'center',
-        textStyle: { fontSize: 24, fontWeight: 'bold', color: chartText() }
+        textStyle: {
+          fontSize: 24,
+          fontWeight: 'bold',
+          color: chartText(),
+          textBorderColor: '#000',
+          textBorderWidth: 3
+        }
       },
       tooltip: {
       renderMode: 'richText',
@@ -923,6 +929,28 @@ function renderMapChart() {
         roam: true,
         zoom: 1.2,
         center: [105, 36],
+        // ECharts 会为 china 地图自动补画南海诸岛插图，需要单独隐藏。
+        regions: [
+          {
+            name: '南海诸岛',
+            silent: true,
+            itemStyle: { opacity: 0 },
+            label: { show: false },
+            emphasis: {
+              disabled: true,
+              itemStyle: { opacity: 0 },
+              label: { show: false }
+            },
+            select: {
+              itemStyle: { opacity: 0 },
+              label: { show: false }
+            },
+            blur: {
+              itemStyle: { opacity: 0 },
+              label: { show: false }
+            }
+          }
+        ],
         label: {
           show: false
         },
