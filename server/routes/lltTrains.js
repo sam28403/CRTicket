@@ -59,6 +59,7 @@ export function listLltTrains(database, date) {
       from: first.station,
       to: last.station,
       duration,
+      stationCount: item.stops.length,
       mileage: last.mileage,
     })
   }

@@ -1,7 +1,7 @@
 <script setup>
-import { computed, h, onBeforeUnmount, ref, shallowRef, watch } from 'vue'
+import { computed, h, onActivated, onBeforeUnmount, onDeactivated, ref, shallowRef, watch } from 'vue'
 import { useElementSize } from '@vueuse/core'
-import { RouterLink } from 'vue-router'
+import { onBeforeRouteLeave, RouterLink } from 'vue-router'
 import AppBrand from '@/components/AppBrand.vue'
 import ThemeSelect from '@/components/ThemeSelect.vue'
 import api from '@/api.js'
@@ -41,15 +41,20 @@ const sortedRows = computed(() => {
 })
 const tableContainer = ref(null)
 const table = ref(null)
+const scrollTop = ref(0)
+let active = true
+let restoringScroll = false
+let restoreFrame
 const { width, height } = useElementSize(tableContainer)
 const compactTable = computed(() => width.value < 600)
 const columns = computed(() => {
   // 预留纵向滚动条，列宽总和始终小于容器宽度。
   const available = Math.max(0, width.value - 16)
   const stationWidth = available * 0.18
-  const trainWidth = available * 0.20
+  const trainWidth = available * 0.14
+  const stationCountWidth = available * 0.06
   const durationWidth = available * 0.16
-  const numberWidth = (available - stationWidth * 2 - trainWidth - durationWidth) / 2
+  const numberWidth = (available - stationWidth * 2 - trainWidth - stationCountWidth - durationWidth) / 2
   const textCell = ({ cellData }) => h('span', { class: 'cell-text' }, cellData ?? '暂无')
   const unitHeader = (title, unit) => () => h('span', { class: 'unit-heading' }, [
     h('span', title),
@@ -97,6 +102,19 @@ const columns = computed(() => {
       cellRenderer: textCell,
     },
     {
+      key: 'stationCount',
+      dataKey: 'stationCount',
+      title: '车站数量',
+      width: stationCountWidth,
+      headerCellRenderer: () => compactTable.value
+        ? h('span', { class: 'cell-text' }, '站数')
+        : h('span', { class: 'unit-heading' }, [
+          h('span', '车站'),
+          h('span', '数量'),
+        ]),
+      cellRenderer: textCell,
+    },
+    {
       key: 'mileage',
       dataKey: 'mileage',
       title: '总里程（km）',
@@ -121,11 +139,37 @@ const columns = computed(() => {
 let controller
 let requestId = 0
 
+function rememberScroll({ scrollTop: top }) {
+  if (active && !restoringScroll) scrollTop.value = top
+}
+
+function restoreScroll() {
+  if (!active || !table.value || !width.value || !height.value) return
+  cancelAnimationFrame(restoreFrame)
+  restoringScroll = true
+  table.value.scrollToTop(scrollTop.value)
+  // 等虚拟表格完成重建与滚动同步，避免初始的 0 覆盖离开前的位置。
+  restoreFrame = requestAnimationFrame(() => {
+    table.value?.scrollToTop(scrollTop.value)
+    restoreFrame = requestAnimationFrame(() => { restoringScroll = false })
+  })
+}
+
+// 缓存页面重新插入时尺寸会变化，虚拟表格也可能重建。
+watch([table, width, height], restoreScroll, { flush: 'post' })
+onActivated(() => {
+  active = true
+  restoreScroll()
+})
+onBeforeRouteLeave(() => { active = false })
+onDeactivated(() => { active = false })
+
 function sortColumns({ key, order }) {
   sortBy.value = {
     key,
     order: key === 'train' || sortBy.value.key !== key ? 'asc' : order,
   }
+  scrollTop.value = 0
   table.value?.scrollToTop(0)
 }
 
@@ -137,6 +181,7 @@ async function query() {
   loading.value = true
   error.value = ''
   result.value = null
+  scrollTop.value = 0
   table.value?.scrollToTop(0)
   try {
     const { data } = await api.get('/llt-trains', {
@@ -161,6 +206,7 @@ async function query() {
 
 watch(date, query, { immediate: true })
 onBeforeUnmount(() => {
+  cancelAnimationFrame(restoreFrame)
   requestId++
   controller?.abort()
 })
@@ -185,25 +231,23 @@ onBeforeUnmount(() => {
             aria-label="始发日期"
           />
         </div>
-      </div>
-      <el-card shadow="never" class="results">
-        <div class="result-heading">
+        <div class="result-summary">
           <el-text v-if="result">
             {{ result.date }} 始发 · 共 {{ result.total.toLocaleString() }} 趟 · 路路通 {{ result.version }}
           </el-text>
           <el-text v-else>{{ date }} 始发 · 路路通离线时刻表</el-text>
-          <el-button :loading="loading" @click="query">刷新</el-button>
-        </div>
-        <el-text type="info" size="small">
-          按离线库的生效日期与开行规则筛选；日期不限，所选日期使用当前版本数据。
-          排序：G、D、C、S、Z、T、K、L、普车，其他车次列在末尾。
-        </el-text>
-        <p class="sort-hint">
+          <el-text type="info" size="small">
+            按离线库的生效日期与开行规则筛选；日期不限，所选日期使用当前版本数据。
+            排序：G、D、C、S、Z、T、K、L、普车，其他车次列在末尾。
+          </el-text>
           <el-text type="info" size="small">
             点击历时、里程或均速表头切换升降序，点击车次恢复默认顺序。
             均速按总里程 ÷ 全程历时计算，包含停站时间。
           </el-text>
-        </p>
+        </div>
+        <el-button :loading="loading" @click="query">刷新</el-button>
+      </div>
+      <el-card shadow="never" class="results">
         <el-alert
           v-if="error"
           :title="error"
@@ -235,6 +279,7 @@ onBeforeUnmount(() => {
             row-key="train"
             fixed
             @column-sort="sortColumns"
+            @scroll="rememberScroll"
           />
           <el-empty
             v-else
@@ -252,7 +297,10 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .train-list-page {
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
   color: var(--el-text-color-primary);
 }
 .top-header {
@@ -261,29 +309,49 @@ onBeforeUnmount(() => {
   justify-content: space-between;
   gap: 10px;
   height: 50px;
+  flex-shrink: 0;
   padding: 5px 15px;
   background: var(--app-surface, rgb(10 10 0 / 0.1));
 }
 .query-content {
-  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1248px;
   margin: 0 auto;
   padding: 24px;
+  gap: 16px;
 }
 .page-heading,
-.heading-controls,
-.result-heading {
+.heading-controls {
   display: flex;
   align-items: center;
   gap: 16px;
 }
-.page-heading,
-.result-heading {
+.page-heading {
   justify-content: space-between;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+  flex-shrink: 0;
 }
 .heading-controls {
+  flex-shrink: 0;
   flex-wrap: wrap;
+}
+.result-summary {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  gap: 4px;
+  line-height: 1.4;
+}
+.result-summary .el-text {
+  align-self: stretch;
+}
+.page-heading > .el-button {
+  flex-shrink: 0;
 }
 h1 {
   margin: 0;
@@ -291,18 +359,31 @@ h1 {
   font-weight: 500;
 }
 .results {
-  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+.results :deep(.el-card__body) {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
 }
 .query-message {
-  margin-top: 16px;
-}
-.sort-hint {
-  margin: 8px 0 0;
+  flex-shrink: 0;
+  margin-bottom: 12px;
 }
 .table-container {
   width: 100%;
-  height: clamp(300px, calc(100dvh - 280px), 850px);
-  margin-top: 20px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.table-container > .el-empty {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0;
 }
 .table-container :deep(.cell-text) {
   min-width: 0;
@@ -351,7 +432,19 @@ h1 {
 }
 @media (max-width: 600px) {
   .query-content {
-    padding: 20px 12px;
+    padding: 12px;
+    gap: 12px;
+  }
+  .page-heading {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .result-summary {
+    flex-basis: 100%;
+    order: 1;
+  }
+  .heading-controls :deep(.el-date-editor) {
+    width: 160px;
   }
   .heading-controls {
     gap: 12px;

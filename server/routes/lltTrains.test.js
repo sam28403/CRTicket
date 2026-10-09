@@ -48,7 +48,7 @@ test('指定类别与数字排序，保留多车次和后缀，跨日历时与�
     'S1', 'Z1', 'T1', 'K10', 'L1', '1461', 'Y1',
   ])
   assert.equal(result.total, 14)
-  assert.deepEqual(result.trains[0], { train: 'G2', from: '始发站', to: '终到站', duration: '29:05', mileage: 1318 })
+  assert.deepEqual(result.trains[0], { train: 'G2', from: '始发站', to: '终到站', duration: '29:05', stationCount: 2, mileage: 1318 })
   assert.equal(result.trains[4].duration, '01:02')
   assert.equal(result.trains[4].mileage, null)
 })
@@ -73,6 +73,7 @@ test('列表 HTTP 接口验证输入、返回摘要并报告数据源故障', as
       const body = await response.json()
       assert.equal(body.total, 1)
       assert.equal(body.trains[0].train, 'G1')
+      assert.equal(body.trains[0].stationCount, stops.length)
       assert.equal(body.trains[0].stops, undefined)
     }
     assert.equal((await fetch(`${base}/api/llt-trains?date=1900-01-01`)).status, 200)
