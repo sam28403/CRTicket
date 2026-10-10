@@ -1,0 +1,92 @@
+.ticket-record-dialog.el-dialog {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  margin-bottom: 16px;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.ticket-record-dialog .el-dialog__header {
+  flex-shrink: 0;
+  padding-bottom: 16px;
+}
+
+.ticket-record-dialog .el-dialog__body {
+  min-height: 0;
+  padding: 0 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+}
+
+.ticket-record-form .el-form-item {
+  margin-bottom: 20px;
+}
+
+.ticket-record-form .el-form-item__label {
+  height: auto;
+  margin-bottom: 8px;
+  line-height: 22px;
+}
+
+.ticket-record-form .el-form-item__content {
+  min-width: 0;
+}
+
+.ticket-record-form .el-input,
+.ticket-record-form .el-autocomplete,
+.ticket-record-form .el-select,
+.ticket-record-form .el-input-number {
+  width: 100%;
+  min-width: 0;
+}
+
+.ticket-record-dialog .el-dialog__footer {
+  flex-shrink: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--el-border-color-lighter);
+}
+
+.ticket-record-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.ticket-record-footer .el-button + .el-button {
+  margin-left: 0;
+}
+
+@media (max-width: 767px) {
+  .ticket-record-dialog.el-dialog {
+    width: calc(100vw - 24px);
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding: 16px;
+  }
+
+  .ticket-record-form .el-input__wrapper,
+  .ticket-record-form .el-select__wrapper {
+    min-height: 40px;
+    box-sizing: border-box;
+  }
+
+  .ticket-record-form .el-input__inner,
+  .ticket-record-form .el-textarea__inner {
+    font-size: 16px;
+  }
+
+  .ticket-record-form .el-switch {
+    height: 40px;
+  }
+
+  .ticket-record-footer .el-button {
+    flex: 1;
+    min-height: 44px;
+  }
+}

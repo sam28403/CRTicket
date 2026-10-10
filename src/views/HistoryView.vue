@@ -16,177 +16,15 @@
 
         </el-aside>
         <el-main>
-          <el-dialog v-model="dialogFormVisible1" :title="isEditMode ? '编辑记录' : '补登记录'" width="50%">
-            <el-form
-                :model="ticket"
-                :rules="rules"
-                ref="formRef"
-                label-width="100px"
-                label-position="left"
-            >
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <el-form-item label="票号" :required="true">
-                    <el-input v-model="ticket.number" placeholder="例如：E351822734"></el-input>
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="12">
-                  <el-form-item label="车次" prop="trainNo" :required="true">
-                    <el-input v-model="ticket.trainNo" placeholder="例如：G25 或 1461" />
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="12">
-                  <el-form-item label="起点" :required="true">
-                    <el-autocomplete
-                        v-model="ticket.from"
-                        :fetch-suggestions="querySearch"
-                        placeholder="输入站名或拼音"
-                        clearable
-                        @select="handleSelect('from', $event)"
-                    />
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="12">
-                  <el-form-item label="终点" :required="true">
-                    <el-autocomplete
-                        v-model="ticket.to"
-                        :fetch-suggestions="querySearch"
-                        placeholder="输入站名或拼音"
-                        clearable
-                        @select="handleSelect('to', $event)"
-                    />
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="12">
-                  <el-form-item label="开车日期" :required="true">
-                    <el-date-picker
-                        v-model="ticket.date"
-                        type="date"
-                        placeholder="请选择乘车日期"
-                        format="YYYY/MM/DD"
-                        value-format="YYYY年MM月DD日"
-                    />
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="12">
-                  <el-form-item label="开车时间" :required="true">
-                    <el-time-picker
-                        v-model="ticket.time"
-                        placeholder="选择开车时间"
-                        format="HH:mm"
-                        value-format="HH:mm"
-                    />
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="12">
-                  <el-form-item label="票价" :required="true">
-                    <el-input-number v-model="ticket.price" placeholder="请输入数字" :min="0" :step="0.5"></el-input-number>
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="6">
-                  <el-form-item label="使用积分">
-                    <el-switch
-                        v-model="credit"
-                        inline-prompt
-                        :active-icon="Check"
-                        :inactive-icon="Close"
-                    />
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="6">
-                  <el-form-item label="空调选择">
-                    <el-switch
-                        v-model="value3"
-                        :disabled="airSwitchDisabled"
-                        inline-prompt
-                        :active-icon="Check"
-                        :inactive-icon="Close"
-                    />
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="12">
-                  <el-form-item label="席位名称" :required="true">
-                    <el-select v-model="ticket.seatType" placeholder="Select">
-                      <el-option
-                          v-for="item in options"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
-                      />
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="12">
-                  <el-form-item label="座位号" :required="true">
-                    <el-input v-model="ticket.seatNo" placeholder="03车12A号"></el-input>
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="12">
-                  <el-form-item label="售票地点" :required="true">
-                    <el-input v-model="ticket.sellPlace" placeholder="XX站"></el-input>
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="12">
-                  <el-form-item label="检票/候车">
-                    <el-input v-model="ticket.gate" placeholder="检票：1A / 候车：一候"></el-input>
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="12">
-                  <el-form-item label="选择背景" :required="true">
-                    <el-select v-model="ticket.theme" placeholder="请选择主题" style="width: 240px">
-                      <el-option
-                          v-for="item in themeOptions"
-                          :key="item.id"
-                          :label="item.label"
-                          :value="item.id"
-                          :disabled="item.disabled"
-                      />
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-
-                <el-col :span="12">
-                  <el-form-item label="里程">
-                    <el-input-number v-model="ticket.distance" placeholder="请输入数字" :min="0"></el-input-number>
-                  </el-form-item>
-                </el-col>
-
-                <!-- 提示语单独占一行 -->
-                <el-col :span="24">
-                  <el-form-item label="提示语" :required="true">
-                    <el-input
-                        v-model="ticket.message"
-                        :rows="3"
-                        type="textarea"
-                        placeholder="输入提示语"
-                    />
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-form>
-
-            <template #footer>
-              <div class="dialog-footer">
-                <el-button @click="dialogFormVisible1 = false">Cancel</el-button>
-                <el-button type="primary" @click="saveTicket()">
-                  Confirm
-                </el-button>
-              </div>
-            </template>
-          </el-dialog>
+          <TicketRecordDialog
+            v-model="dialogFormVisible1"
+            v-model:credit="credit"
+            v-model:conditioner="value3"
+            :ticket="ticket"
+            :is-edit-mode="isEditMode"
+            :air-switch-disabled="airSwitchDisabled"
+            @save="saveTicket"
+          />
           <div v-if="userStore.isLogin">
             <el-backtop :right="20" :bottom="20" />
             <el-card class="user-card">
@@ -339,11 +177,12 @@
 
 <script setup>
 import ThemeSelect from '@/components/ThemeSelect.vue'
+import TicketRecordDialog from '@/components/TicketRecordDialog.vue'
 import AppBrand from '@/components/AppBrand.vue'
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useTransition } from '@vueuse/core'
 import {
-  Check, Close, CloseBold, Delete, DocumentAdd, Download, Edit, User, UserFilled,
+  CloseBold, Delete, DocumentAdd, Download, Edit, User, UserFilled,
 } from '@element-plus/icons-vue'
 import html2canvas from 'html2canvas'
 import QRCode from 'qrcode'
@@ -358,16 +197,11 @@ import {
   DEFAULT_TICKET_MESSAGE,
   DEFAULT_TICKET_THEME,
   hasRequiredTicketFields,
-  seatOptions,
-  themeOptions,
-  ticketRules,
   ticketQRCodeOptions,
 } from '@/utils/ticketShared.js'
 import {
   formatStationName as formatTicketStationName,
   getStationEnglish as getTicketStationEnglish,
-  handleStationSelect,
-  queryStationSearch,
   useSeatType,
 } from '@/composables/useTicketShared.js'
 
@@ -412,9 +246,6 @@ const dialogFormVisible1 = ref(false)
 const editingTicketId = ref(null)
 const isEditMode = computed(() => editingTicketId.value !== null)
 const ticket = reactive(createDefaultTicket())
-const formRef = ref(null)
-const rules = ticketRules
-const options = seatOptions
 
 const {
   value3,
@@ -423,8 +254,6 @@ const {
   finalSeatType,
 } = useSeatType(ticket)
 
-const querySearch = queryStationSearch
-const handleSelect = (field, item) => handleStationSelect(ticket, field, item)
 const formatStationName = (name) => formatTicketStationName(name, true)
 const getStationEnglish = (name) => getTicketStationEnglish(name, true)
 
@@ -821,9 +650,5 @@ html, body {
     padding: 10px;
   }
 
-  .history-page :deep(.el-dialog) {
-    width: 92vw !important;
-    max-width: 720px;
-  }
 }
 </style>

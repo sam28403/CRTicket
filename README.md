@@ -8,9 +8,15 @@
 
 请点击右上角的图标，为我们的项目标一个免费的星星⭐！
 
-## 前端演示网址
+## 演示网址
+
+#### 仅前端演示（支持所有带有浏览器的设备）
 
 https://sam28403.github.io
+
+#### 完整功能
+
+可以在[Release](https://github.com/sam28403/CRTicket/releases)页面下载Android App进行使用。
 
 ## 项目截图
 
@@ -37,130 +43,130 @@ https://sam28403.github.io
 <details>
 <summary><strong>根目录</strong></summary>
 
-| 文件 | 用途 |
-| --- | --- |
-| `index.html` | Vite 应用入口 HTML，提供 Vue 挂载节点。 |
-| `package.json` | 项目元数据、Node.js 版本要求、依赖和 npm 命令。 |
-| `package-lock.json` | 锁定 npm 依赖的具体版本，供安装时复现依赖树。 |
-| `vite.config.js` | Vue 插件、`@` 源码别名，以及开发／预览时转发 `/api` 到本地后端。 |
-| `jsconfig.json` | JavaScript 编辑器和 `@` 路径别名的项目配置。 |
-| `.env.ghpages` | GitHub Pages 静态构建环境标记。 |
-| `.gitattributes` | Git 对文本和换行符等文件属性的设置。 |
-| `.gitignore` | 排除依赖、构建结果、数据库和本地环境文件等。 |
-| `LICENSE` | 项目许可证。 |
-| `SECURITY.md` | 安全问题报告指引。 |
-| `README.md` | 功能介绍、使用说明、部署方法和本文件结构索引。 |
-| `scripts/run-full.js` | 同时启动 Vite 前端与 Express 后端的开发／预览进程管理脚本。 |
-| `.github/workflows/deploy-to-pages-repo.yml` | GitHub Actions 的 Pages 部署工作流。 |
-| `.vscode/extensions.json` | 推荐的 VS Code 扩展列表。 |
+| 文件                                         | 用途                                                             |
+| -------------------------------------------- | ---------------------------------------------------------------- |
+| `index.html`                                 | Vite 应用入口 HTML，提供 Vue 挂载节点。                          |
+| `package.json`                               | 项目元数据、Node.js 版本要求、依赖和 npm 命令。                  |
+| `package-lock.json`                          | 锁定 npm 依赖的具体版本，供安装时复现依赖树。                    |
+| `vite.config.js`                             | Vue 插件、`@` 源码别名，以及开发／预览时转发 `/api` 到本地后端。 |
+| `jsconfig.json`                              | JavaScript 编辑器和 `@` 路径别名的项目配置。                     |
+| `.env.ghpages`                               | GitHub Pages 静态构建环境标记。                                  |
+| `.gitattributes`                             | Git 对文本和换行符等文件属性的设置。                             |
+| `.gitignore`                                 | 排除依赖、构建结果、数据库和本地环境文件等。                     |
+| `LICENSE`                                    | 项目许可证。                                                     |
+| `SECURITY.md`                                | 安全问题报告指引。                                               |
+| `README.md`                                  | 功能介绍、使用说明、部署方法和本文件结构索引。                   |
+| `scripts/run-full.js`                        | 同时启动 Vite 前端与 Express 后端的开发／预览进程管理脚本。      |
+| `.github/workflows/deploy-to-pages-repo.yml` | GitHub Actions 的 Pages 部署工作流。                             |
+| `.vscode/extensions.json`                    | 推荐的 VS Code 扩展列表。                                        |
 
 </details>
 
 <details>
 <summary><strong>前端：<code>src/</code></strong></summary>
 
-| 文件或目录 | 用途 |
-| --- | --- |
-| `src/main.js` | 初始化主题、样式、Vue、Element Plus、Pinia 和路由，并挂载应用。 |
-| `src/App.vue` | 应用外层组件，渲染当前路由页面。 |
-| `src/api.js` | 前端 API 请求封装。 |
-| `src/router/index.js` | 页面路由、部署模式下的访问限制和页面映射。 |
-| `src/station_name.js` | 车站名称和电报码等车站主数据。 |
-| `src/stores/user.js` | Pinia 用户状态。 |
-| `src/config/deploy.js` | 读取部署目标和 API 地址等部署配置。 |
-| `src/views/MainView.vue` | 车票生成首页和表单。 |
-| `src/views/Monitor.vue` | 余票查询、筛选、定时监控和提醒页面。 |
-| `src/views/TrainQuery.vue` | 车次经停、时间和里程查询页面，结果下方展示途经站点线路图。 |
-| `src/views/TrainList.vue` | 路路通离线车次列表，支持按日期筛选、排序和跳转经停详情。 |
-| `src/views/HistoryView.vue` | 已保存车票历史及记录操作页面。 |
-| `src/views/Login.vue` | 登录页面。 |
-| `src/views/Register.vue` | 注册页面。 |
-| `src/views/User.vue` | 用户资料、车票统计和运转地图页面。 |
-| `src/views/Debug.vue` | 调试和诊断页面。 |
-| `src/components/LeftTicketCard.vue` | 余票查询结果卡片。 |
-| `src/components/AppBrand.vue` | 登录、注册、历史记录和用户页面共用的品牌标题。 |
-| `src/components/ThemeSelect.vue` | 外观主题选择控件。 |
-| `src/components/TrainRouteMap.vue` | 车次途经站点地图，支持线路居中、全画布拖动缩放和到发时间提示。 |
-| `src/composables/useTheme.js` | 主题状态、系统配色同步和持久化逻辑。 |
-| `src/composables/useTicketShared.js` | 车票和余票页面共用的车站搜索及表单逻辑。 |
-| `src/utils/captcha.js` | 验证码相关工具。 |
-| `src/utils/seatAvailability.js` | 余票席别数量及状态解析工具。 |
-| `src/utils/stations.js` | 车站名称搜索和匹配工具。 |
-| `src/utils/maps/stationCoordinates.js` | 现役车站及别名的 WGS84 坐标、已核实旧站坐标，以及共用底图加载和显示过滤。 |
-| `src/utils/maps/railwayMap.js` | `/user`、`/train` 共用的底图样式及全画布拖动缩放设置。 |
-| `src/utils/maps/trainRouteMap.js` | 按查询站序生成站点和连线，计算默认线路居中视图。 |
-| `src/utils/maps/stationCoordinates.test.js`、`trainRouteMap.test.js` | 坐标来源、缺失站点、线路适配及地图交互回归测试。 |
-| `src/utils/ticketShared.js` | 前端车票数据共用处理逻辑。 |
-| `src/utils/ticketFields.js` | 前后端共用的车票字段顺序、原始字段取值和备份比较值。 |
-| `src/utils/ticketExport.js` | 车票离屏渲染、PNG 数据生成和下载，供首页预览及 PNG／PDF 导出、历史车票下载复用。 |
-| `src/utils/trainTime.js` | 车次经停时间和跨日展示工具。 |
-| `src/utils/trainQueryDate.js` | 车次查询日期范围及格式处理。 |
-| `src/utils/trainDisplay.js` | 去除离线方案后缀，统一车次页面及导出文档的显示名称。 |
-| `src/utils/trainInfoPdf.js` | 车次经停信息 PDF 排版与导出。 |
-| `src/utils/trainInfoPdf.test.js` | 车次 PDF 导出工具的测试。 |
-| `src/assets/styles/App.css` | 应用通用样式。 |
-| `src/assets/styles/theme.css` | 主题色及亮／暗色样式变量。 |
-| `src/assets/styles/fonts.css` | 前端字体定义。 |
-| `src/assets/styles/History.css` | 历史车票页面样式。 |
-| `src/assets/styles/Login.css` | 登录和注册页面样式。 |
+| 文件或目录                                                           | 用途                                                                             |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `src/main.js`                                                        | 初始化主题、样式、Vue、Element Plus、Pinia 和路由，并挂载应用。                  |
+| `src/App.vue`                                                        | 应用外层组件，渲染当前路由页面。                                                 |
+| `src/api.js`                                                         | 前端 API 请求封装。                                                              |
+| `src/router/index.js`                                                | 页面路由、部署模式下的访问限制和页面映射。                                       |
+| `src/station_name.js`                                                | 车站名称和电报码等车站主数据。                                                   |
+| `src/stores/user.js`                                                 | Pinia 用户状态。                                                                 |
+| `src/config/deploy.js`                                               | 读取部署目标和 API 地址等部署配置。                                              |
+| `src/views/MainView.vue`                                             | 车票生成首页和表单。                                                             |
+| `src/views/Monitor.vue`                                              | 余票查询、筛选、定时监控和提醒页面。                                             |
+| `src/views/TrainQuery.vue`                                           | 车次经停、时间和里程查询页面，结果下方展示途经站点线路图。                       |
+| `src/views/TrainList.vue`                                            | 路路通离线车次列表，支持按日期筛选、排序和跳转经停详情。                         |
+| `src/views/HistoryView.vue`                                          | 已保存车票历史及记录操作页面。                                                   |
+| `src/views/Login.vue`                                                | 登录页面。                                                                       |
+| `src/views/Register.vue`                                             | 注册页面。                                                                       |
+| `src/views/User.vue`                                                 | 用户资料、车票统计和运转地图页面。                                               |
+| `src/views/Debug.vue`                                                | 调试和诊断页面。                                                                 |
+| `src/components/LeftTicketCard.vue`                                  | 余票查询结果卡片。                                                               |
+| `src/components/AppBrand.vue`                                        | 登录、注册、历史记录和用户页面共用的品牌标题。                                   |
+| `src/components/ThemeSelect.vue`                                     | 外观主题选择控件。                                                               |
+| `src/components/TrainRouteMap.vue`                                   | 车次途经站点地图，支持线路居中、全画布拖动缩放和到发时间提示。                   |
+| `src/composables/useTheme.js`                                        | 主题状态、系统配色同步和持久化逻辑。                                             |
+| `src/composables/useTicketShared.js`                                 | 车票和余票页面共用的车站搜索及表单逻辑。                                         |
+| `src/utils/captcha.js`                                               | 验证码相关工具。                                                                 |
+| `src/utils/seatAvailability.js`                                      | 余票席别数量及状态解析工具。                                                     |
+| `src/utils/stations.js`                                              | 车站名称搜索和匹配工具。                                                         |
+| `src/utils/maps/stationCoordinates.js`                               | 现役车站及别名的 WGS84 坐标、已核实旧站坐标，以及共用底图加载和显示过滤。        |
+| `src/utils/maps/railwayMap.js`                                       | `/user`、`/train` 共用的底图样式及全画布拖动缩放设置。                           |
+| `src/utils/maps/trainRouteMap.js`                                    | 按查询站序生成站点和连线，计算默认线路居中视图。                                 |
+| `src/utils/maps/stationCoordinates.test.js`、`trainRouteMap.test.js` | 坐标来源、缺失站点、线路适配及地图交互回归测试。                                 |
+| `src/utils/ticketShared.js`                                          | 前端车票数据共用处理逻辑。                                                       |
+| `src/utils/ticketFields.js`                                          | 前后端共用的车票字段顺序、原始字段取值和备份比较值。                             |
+| `src/utils/ticketExport.js`                                          | 车票离屏渲染、PNG 数据生成和下载，供首页预览及 PNG／PDF 导出、历史车票下载复用。 |
+| `src/utils/trainTime.js`                                             | 车次经停时间和跨日展示工具。                                                     |
+| `src/utils/trainQueryDate.js`                                        | 车次查询日期范围及格式处理。                                                     |
+| `src/utils/trainDisplay.js`                                          | 去除离线方案后缀，统一车次页面及导出文档的显示名称。                             |
+| `src/utils/trainInfoPdf.js`                                          | 车次经停信息 PDF 排版与导出。                                                    |
+| `src/utils/trainInfoPdf.test.js`                                     | 车次 PDF 导出工具的测试。                                                        |
+| `src/assets/styles/App.css`                                          | 应用通用样式。                                                                   |
+| `src/assets/styles/theme.css`                                        | 主题色及亮／暗色样式变量。                                                       |
+| `src/assets/styles/fonts.css`                                        | 前端字体定义。                                                                   |
+| `src/assets/styles/History.css`                                      | 历史车票页面样式。                                                               |
+| `src/assets/styles/Login.css`                                        | 登录和注册页面样式。                                                             |
 
 </details>
 
 <details>
 <summary><strong>后端：<code>server/</code></strong></summary>
 
-| 文件或目录 | 用途 |
-| --- | --- |
-| `server/app.js` | Express 服务入口，安装安全中间件并挂载各 API 路由；直接运行时监听 `127.0.0.1:3000`。 |
-| `server/auth.js` | 登录身份验证和密码处理辅助逻辑。 |
-| `server/security.js` | 请求来源、跨域和安全响应头等服务端安全配置。 |
-| `server/security.test.js` | 服务端安全配置测试。 |
-| `server/db/db.js` | SQLite 数据库连接、初始化和共享数据库设置。 |
-| `server/db/ticketQueries.js` | 添加车票与导入备份共用的车票插入 SQL。 |
-| `server/db/train.db` | 本地运行生成的 SQLite 数据库文件，包含用户和车票记录；被 `.gitignore` 忽略。 |
-| `server/routes/user.js` | 注册、登录、用户资料和账户相关 API。 |
-| `server/routes/ticket.js` | 车票记录的增删改查 API。 |
-| `server/routes/ticketValidation.js` | 车票输入数据校验规则。 |
-| `server/routes/leftTicket.js` | 12306 余票查询 API 及官网查询流程。 |
-| `server/routes/leftTicketSeats.js` | 余票席别字段解析和归一化。 |
-| `server/routes/leftTicket.test.js` | 余票查询路由测试。 |
-| `server/routes/lltskb.js` | 路路通车次数据库获取、缓存和经停／里程查询。 |
-| `server/routes/lltskb.test.js` | 路路通数据处理测试。 |
-| `server/routes/lltTrains.js` | 离线车次列表和详情 API，按生效日期及循环开行规则筛选。 |
-| `server/routes/lltTrains.test.js` | 离线日期筛选、车次排序和详情接口测试。 |
-| `server/routes/trainInfo.js` | 车次信息 API，组合 12306 与路路通查询结果。 |
-| `server/routes/trainClock.js` | 车次信息与离线车次列表共用的时刻转分钟工具。 |
-| `server/routes/trainInfo.test.js` | 车次信息路由测试。 |
+| 文件或目录                          | 用途                                                                                 |
+| ----------------------------------- | ------------------------------------------------------------------------------------ |
+| `server/app.js`                     | Express 服务入口，安装安全中间件并挂载各 API 路由；直接运行时监听 `127.0.0.1:3000`。 |
+| `server/auth.js`                    | 登录身份验证和密码处理辅助逻辑。                                                     |
+| `server/security.js`                | 请求来源、跨域和安全响应头等服务端安全配置。                                         |
+| `server/security.test.js`           | 服务端安全配置测试。                                                                 |
+| `server/db/db.js`                   | SQLite 数据库连接、初始化和共享数据库设置。                                          |
+| `server/db/ticketQueries.js`        | 添加车票与导入备份共用的车票插入 SQL。                                               |
+| `server/db/train.db`                | 本地运行生成的 SQLite 数据库文件，包含用户和车票记录；被 `.gitignore` 忽略。         |
+| `server/routes/user.js`             | 注册、登录、用户资料和账户相关 API。                                                 |
+| `server/routes/ticket.js`           | 车票记录的增删改查 API。                                                             |
+| `server/routes/ticketValidation.js` | 车票输入数据校验规则。                                                               |
+| `server/routes/leftTicket.js`       | 12306 余票查询 API 及官网查询流程。                                                  |
+| `server/routes/leftTicketSeats.js`  | 余票席别字段解析和归一化。                                                           |
+| `server/routes/leftTicket.test.js`  | 余票查询路由测试。                                                                   |
+| `server/routes/lltskb.js`           | 路路通车次数据库获取、缓存和经停／里程查询。                                         |
+| `server/routes/lltskb.test.js`      | 路路通数据处理测试。                                                                 |
+| `server/routes/lltTrains.js`        | 离线车次列表和详情 API，按生效日期及循环开行规则筛选。                               |
+| `server/routes/lltTrains.test.js`   | 离线日期筛选、车次排序和详情接口测试。                                               |
+| `server/routes/trainInfo.js`        | 车次信息 API，组合 12306 与路路通查询结果。                                          |
+| `server/routes/trainClock.js`       | 车次信息与离线车次列表共用的时刻转分钟工具。                                         |
+| `server/routes/trainInfo.test.js`   | 车次信息路由测试。                                                                   |
 
 </details>
 
 <details>
 <summary><strong>静态资源：<code>public/</code></strong></summary>
 
-| 文件或目录 | 用途 |
-| --- | --- |
-| `public/Blank.jpg`、`Blue_Sister.jpg`、`CIT_Yellow.jpg`、`CR400BF.jpg`、`DF11.jpg`、`DF11G.jpg`、`EMU_Green.jpg`、`FXN5C.jpg`、`Harmony_White.jpg`、`Red.jpg`、`Sanya_1.jpg`、`Sanya_2.jpg` | 车票背景／装饰图片资源。 |
-| `public/Picture1.png` | 项目页面使用的 PNG 图片资源。 |
-| `public/GitHub.gif` | GitHub 动画图片资源。 |
-| `public/consola.ttf`、`FZCDXK.TTF`、`OCRB.ttf`、`Roboto.ttf`、`google_sans_rounded_regular.ttf`、`simsun.ttf`、`times.ttf` | 页面、车票或 PDF 使用的字体文件。 |
-| `public/maps/china.json`、`laos.json`、`countries.geojson` | 地理边界资源；`china.json` 与 `laos.json` 用于 `/user` 和 `/train` 的共用底图。 |
+| 文件或目录                                                                                                                                                                                  | 用途                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `public/Blank.jpg`、`Blue_Sister.jpg`、`CIT_Yellow.jpg`、`CR400BF.jpg`、`DF11.jpg`、`DF11G.jpg`、`EMU_Green.jpg`、`FXN5C.jpg`、`Harmony_White.jpg`、`Red.jpg`、`Sanya_1.jpg`、`Sanya_2.jpg` | 车票背景／装饰图片资源。                                                        |
+| `public/Picture1.png`                                                                                                                                                                       | 项目页面使用的 PNG 图片资源。                                                   |
+| `public/GitHub.gif`                                                                                                                                                                         | GitHub 动画图片资源。                                                           |
+| `public/consola.ttf`、`FZCDXK.TTF`、`OCRB.ttf`、`Roboto.ttf`、`google_sans_rounded_regular.ttf`、`simsun.ttf`、`times.ttf`                                                                  | 页面、车票或 PDF 使用的字体文件。                                               |
+| `public/maps/china.json`、`laos.json`、`countries.geojson`                                                                                                                                  | 地理边界资源；`china.json` 与 `laos.json` 用于 `/user` 和 `/train` 的共用底图。 |
 
 </details>
 
 <details>
 <summary><strong>仓库图片与数据文件</strong></summary>
 
-| 文件或目录 | 用途 |
-| --- | --- |
-| `Screenshot1.png`–`Screenshot10.png` | README 项目截图。 |
-| `E535975368.png`、`E708794075.png`、`E741577963.png` | README 中展示的车票生成样例。 |
-| `data/maps/legacy/overpass_station_statuses.json`、`overpass_train_all_statuses.json`、`overpass_train_trainyes.json` | 从根目录归档的旧版 Overpass 查询数据，原样保存，不用于当前地图定位。 |
-| `data/maps/legacy/station_exact_results.json`、`station_exact_progress.json`、`station_exact_missing_progress.json` | 从根目录归档的旧版精确匹配结果和处理进度，不作为现役坐标来源。 |
-| `data/maps/station-coordinate-audit/` | 当前原始快照、完整设施目录、逐项核查、来源记录、同名站决策和核查报告。 |
-| `scripts/maps/fetch-railway-stations.ps1` | 从 Overpass 获取 CN、HK、LA 的站点设施快照，检查完成计数并记录 SHA-256。 |
-| `scripts/maps/simplify-railway-names.ps1` | 用 Windows 内置简繁转换生成站名变体。 |
-| `scripts/maps/rebuild-station-coordinates.js` | 筛选、匹配和核查源数据，生成报告；加 `--write` 时更新前端坐标查找表。 |
-| `scripts/maps/lib/railway-station-audit.js`、`railway-station-audit.test.js` | 设施类型和状态分类、几何坐标、别名及同名地点聚类工具与测试。 |
+| 文件或目录                                                                                                            | 用途                                                                     |
+| --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `Screenshot1.png`–`Screenshot10.png`                                                                                  | README 项目截图。                                                        |
+| `E535975368.png`、`E708794075.png`、`E741577963.png`                                                                  | README 中展示的车票生成样例。                                            |
+| `data/maps/legacy/overpass_station_statuses.json`、`overpass_train_all_statuses.json`、`overpass_train_trainyes.json` | 从根目录归档的旧版 Overpass 查询数据，原样保存，不用于当前地图定位。     |
+| `data/maps/legacy/station_exact_results.json`、`station_exact_progress.json`、`station_exact_missing_progress.json`   | 从根目录归档的旧版精确匹配结果和处理进度，不作为现役坐标来源。           |
+| `data/maps/station-coordinate-audit/`                                                                                 | 当前原始快照、完整设施目录、逐项核查、来源记录、同名站决策和核查报告。   |
+| `scripts/maps/fetch-railway-stations.ps1`                                                                             | 从 Overpass 获取 CN、HK、LA 的站点设施快照，检查完成计数并记录 SHA-256。 |
+| `scripts/maps/simplify-railway-names.ps1`                                                                             | 用 Windows 内置简繁转换生成站名变体。                                    |
+| `scripts/maps/rebuild-station-coordinates.js`                                                                         | 筛选、匹配和核查源数据，生成报告；加 `--write` 时更新前端坐标查找表。    |
+| `scripts/maps/lib/railway-station-audit.js`、`railway-station-audit.test.js`                                          | 设施类型和状态分类、几何坐标、别名及同名地点聚类工具与测试。             |
 
 </details>
 
@@ -358,9 +364,9 @@ GitHub Pages 演示版不部署后端，因此禁用首页“车次查询”入�
 运转地图支持全画布拖动、缩放，“全部铁路运转轨迹”标题带黑色描边。定位优先使用现役车站坐标，缺失时使用已核实旧站坐标，以保留历史运转记录；同名新旧站暂不按票据日期自动切换位置。
 
 > [!CAUTION]
-> 
+>
 > ### 运转地图只有`CN`（中国大陆/中国内地）, `HK`（香港）, `LA`（老挝/寮国）三个地区，没有俄罗斯、北朝鲜、越南、蒙古、台湾、澳门、哈萨克等地区，如果你是“小粉红”、“基本盘”且你的玻璃心碎了，你可以选择：
-> 
+>
 > - 自行在`/public/maps`下补全你想要的地图；
 > - 删除`User.vue`；
 > - 不使用此项目。
@@ -381,14 +387,14 @@ GitHub Pages 演示版不部署后端，因此禁用首页“车次查询”入�
 
 ### 文件分工
 
-| 目录或文件 | 用途 |
-| --- | --- |
-| `data/maps/station-coordinate-audit/raw/` | 三个地域的压缩原始响应、确切 Overpass 查询、源时间及完整性校验记录。 |
-| `catalog.json.gz`、`excluded.json.gz` | 完整候选设施和排除对象；位于上述核查目录。 |
-| `previous-coordinates.json.gz`、`previous-coordinate-audit.json` | 更新前的坐标基线与逐项审核记录。 |
-| `coordinate-provenance.json`、`historical-provenance.json` | 每个现役／历史名称对应的源对象和匹配依据。 |
-| `reviewed-name-resolutions.json`、`blocked-name-resolutions.json`、`identity/` | 已审阅同名站决策、身份冲突及节点／线路核查证据。 |
-| `summary.json`、`report.md` | 最新生成的统计与可读报告。 |
+| 目录或文件                                                                     | 用途                                                                 |
+| ------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| `data/maps/station-coordinate-audit/raw/`                                      | 三个地域的压缩原始响应、确切 Overpass 查询、源时间及完整性校验记录。 |
+| `catalog.json.gz`、`excluded.json.gz`                                          | 完整候选设施和排除对象；位于上述核查目录。                           |
+| `previous-coordinates.json.gz`、`previous-coordinate-audit.json`               | 更新前的坐标基线与逐项审核记录。                                     |
+| `coordinate-provenance.json`、`historical-provenance.json`                     | 每个现役／历史名称对应的源对象和匹配依据。                           |
+| `reviewed-name-resolutions.json`、`blocked-name-resolutions.json`、`identity/` | 已审阅同名站决策、身份冲突及节点／线路核查证据。                     |
+| `summary.json`、`report.md`                                                    | 最新生成的统计与可读报告。                                           |
 
 ### 更新与验证
 
@@ -406,11 +412,7 @@ npm run build
 
 ## 车票生成样例
 
-<img src="E535975368.png" alt="E535975368" style="zoom:50%;" />
-
-<img src="E708794075.png" alt="E708794075" style="zoom:50%;" />
-
-<img src="E741577963.png" alt="E741577963" style="zoom:50%;" />
+![](Ticket.png)
 
 ## 构建
 
@@ -497,7 +499,7 @@ A：先检查是否正确启动后端，如果还是失败请提交Issue。
 
 ### Q：在哪里获得运转里程数据
 
-A：[路路通](https://www.lltskb.com)提供了一趟车次的计价里程，注意计价里程不等于实际距离。另外可以去查接算站示意图或维基百科获得。
+A：可以在**车次查询**模块内查询列车里程。
 
 ## 提交
 
@@ -508,7 +510,3 @@ A：[路路通](https://www.lltskb.com)提供了一趟车次的计价里程，�
 **如果发现车站缺失或者坐标不对，请提交issue并提供缺失的车站及坐标！**
 
 如果您有代码优化的方案，直接提交Pull Request即可。
-
-## 未来规划
-
-- Android等移动平台应用程式开发。

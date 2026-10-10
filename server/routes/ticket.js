@@ -5,6 +5,9 @@ import { INSERT_TICKET_SQL } from "../db/ticketQueries.js";
 import { requireSession } from "../auth.js";
 import { validTicket, ticketQuota } from "./ticketValidation.js";
 import { ticketFieldValues } from "../../src/utils/ticketFields.js";
+import { createTicketBatchHandler } from "./ticketBatch.js";
+
+router.post("/add-batch", createTicketBatchHandler(db));
 
 // 添加车票
 router.post("/add", (req, res) => {

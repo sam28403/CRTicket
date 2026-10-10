@@ -21,12 +21,14 @@ import ticketRoutes from "./routes/ticket.js";
 import leftTicketRoutes from "./routes/leftTicket.js";
 import trainInfoRoutes from "./routes/trainInfo.js";
 import lltTrainsRoutes from "./routes/lltTrains.js";
+import ticketSamplesRoutes from "./routes/ticketSamples.js";
 
 app.use("/api/user", userRoutes);
 app.use("/api/ticket", ticketRoutes);
 app.use("/api/left-ticket", leftTicketRoutes);
 app.use("/api/train-info", trainInfoRoutes);
 app.use("/api/llt-trains", lltTrainsRoutes);
+app.use("/api/ticket-samples", ticketSamplesRoutes);
 
 app.use((err, req, res, next) => {
     const status = err.type === "entity.too.large" ? 413 : err instanceof SyntaxError ? 400 : 500;
