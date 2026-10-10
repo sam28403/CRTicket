@@ -1,20 +1,22 @@
 <template>
-  <nav class="home-navigation page-header-actions" aria-label="页面导航">
-    <ThemeSelect />
-    <el-button
-      :disabled="isGithubPagesBuild"
-      :title="isGithubPagesBuild ? 'GitHub Pages 无法跨域访问 12306 余票接口' : ''"
-      @click="goToMonitor"
-    >余票监控</el-button>
-    <el-button
-      :disabled="isGithubPagesBuild"
-      :title="isGithubPagesBuild ? 'GitHub Pages 未部署车次查询后端' : ''"
-      @click="goToTrainQuery"
-    >车次查询</el-button>
-    <el-button :disabled="isGithubPagesBuild" @click="goToHistory()">
-      <el-icon><User /></el-icon>历史记录
-    </el-button>
-  </nav>
+  <Teleport to="#home-mobile-navigation" :disabled="!isMobilePreview" defer>
+    <nav class="home-navigation page-header-actions" aria-label="页面导航">
+      <ThemeSelect />
+      <el-button
+        :disabled="isGithubPagesBuild"
+        :title="isGithubPagesBuild ? 'GitHub Pages 无法跨域访问 12306 余票接口' : ''"
+        @click="goToMonitor"
+      >余票监控</el-button>
+      <el-button
+        :disabled="isGithubPagesBuild"
+        :title="isGithubPagesBuild ? 'GitHub Pages 未部署车次查询后端' : ''"
+        @click="goToTrainQuery"
+      >车次查询</el-button>
+      <el-button :disabled="isGithubPagesBuild" @click="goToHistory()">
+        <el-icon><User /></el-icon>历史记录
+      </el-button>
+    </nav>
+  </Teleport>
   <el-container class="main-layout">
     <el-aside width="350px" class="main-aside">
       <h2
@@ -159,10 +161,13 @@
       <h3 style="font-family: Consolas, 'Courier New', monospace">Version 260930</h3>
       <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10118</h3>
 
-      <el-space>
-        <el-button type="primary" @click="note">更新内容</el-button>
-        <el-button color="black" @click="goToGitHub()"><el-icon><Star /></el-icon><span>GitHub</span></el-button>
-      </el-space>
+      <div class="home-tools">
+        <div id="home-mobile-navigation" class="home-mobile-navigation"></div>
+        <div class="home-info-actions">
+          <el-button type="primary" @click="note">更新内容</el-button>
+          <el-button color="black" @click="goToGitHub()"><el-icon><Star /></el-icon><span>GitHub</span></el-button>
+        </div>
+      </div>
 
     </el-aside>
 
@@ -602,8 +607,42 @@ const saveTicket = async () => {
 @import "../assets/styles/App.css";
 
 .home-navigation { position: absolute; top: 1%; right: 1%; display: flex; z-index: 2; }
+.home-mobile-navigation { display: none; }
+.home-info-actions { display: flex; gap: 8px; }
+.home-info-actions .el-button + .el-button { margin-left: 0; }
 @media (max-width: 768px) {
-  .home-navigation { position: relative; top: auto; right: auto; justify-content: flex-end; padding: 10px 12px 0; }
+  .home-tools {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--el-border-color-light);
+  }
+
+  .home-mobile-navigation,
+  .home-navigation,
+  .home-info-actions { display: contents; }
+
+  .home-tools :deep(.theme-select) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .home-tools :deep(.el-select__wrapper) {
+    min-height: 40px;
+    border-radius: 8px;
+  }
+
+  .home-tools .el-button {
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+    margin: 0;
+    border-radius: 8px;
+  }
+
+  .home-tools .el-button .el-icon { margin-right: 4px; }
 }
 
 .main-layout {
