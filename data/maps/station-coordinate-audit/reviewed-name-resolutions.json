@@ -16,30 +16,29 @@
   "古城子": {
     "selectedId": "node/8840528310",
     "matchReason": "user-confirmed-osm-identity",
-    "reason": "用户明确指定古城子站的 OSM 节点，并确认该站又叫天桥。",
+    "reason": "用户明确指定古城子站的 OSM 节点；此前将天桥作为古城子别名的确认有误，用户已更正，两站分别匹配各自节点。",
     "sources": ["https://www.openstreetmap.org/node/8840528310"],
     "verificationFile": "raw/CN.json.gz"
   },
   "天桥": {
-    "selectedId": "node/8840528310",
-    "aliasOf": "古城子",
+    "selectedId": "node/7527334064",
     "matchReason": "user-confirmed-osm-identity",
-    "reason": "用户明确确认天桥为所指定古城子节点的别名；原始 OSM 标签不含该别名，按用户确认单独保存。",
-    "sources": ["https://www.openstreetmap.org/node/8840528310"],
+    "reason": "用户更正此前错误节点，明确指定凤城市天桥 node/7527334064；4317/4320、4318/4319 在庙阳与灌水之间停靠该站，并另外停靠古城子，两站不能使用相同坐标。",
+    "sources": ["https://www.openstreetmap.org/node/7527334064"],
     "verificationFile": "raw/CN.json.gz"
   },
   "遥林": {
     "selectedId": "node/2156363610",
     "matchReason": "user-confirmed-osm-identity",
-    "reason": "用户明确指定遥林站的 OSM 节点，并确认该站又叫林头子。",
+    "reason": "用户明确指定遥林站的 OSM 节点，并确认该站又叫林子头；此前林头子为用户笔误，已更正。",
     "sources": ["https://www.openstreetmap.org/node/2156363610"],
     "verificationFile": "raw/CN.json.gz"
   },
-  "林头子": {
+  "林子头": {
     "selectedId": "node/2156363610",
     "aliasOf": "遥林",
     "matchReason": "user-confirmed-osm-identity",
-    "reason": "用户明确确认林头子为所指定遥林节点的别名；原始 OSM 标签不含该别名，按用户确认单独保存。",
+    "reason": "用户明确确认林子头为所指定遥林节点的别名，并更正此前林头子的笔误；原始 OSM 标签不含该别名，按用户确认单独保存。",
     "sources": ["https://www.openstreetmap.org/node/2156363610"],
     "verificationFile": "raw/CN.json.gz"
   },
@@ -91,6 +90,27 @@
     "matchReason": "user-confirmed-osm-identity",
     "reason": "按用户明确确认，将大柴旦东节点的旧名饮马峡用于站名匹配；不将其他未经确认的 old_name 自动混入现役名称。",
     "sources": ["https://www.openstreetmap.org/node/7276945325"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "惠农南": {
+    "selectedId": "node/10908472608",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户核查同名冲突后明确指定惠农南使用该 OSM 节点；另一同名节点仍保留在完整目录中。",
+    "sources": ["https://www.openstreetmap.org/node/10908472608"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "沙湾": {
+    "selectedId": "node/1588514487",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确指定沙湾站的 OSM 节点；同名异地站仍保留在完整目录中。",
+    "sources": ["https://www.openstreetmap.org/node/1588514487"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "共和": {
+    "selectedId": "node/1588514366",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确指定共和站的 OSM 节点；同名异地站仍保留在完整目录中。",
+    "sources": ["https://www.openstreetmap.org/node/1588514366"],
     "verificationFile": "raw/CN.json.gz"
   },
   "郏县": {

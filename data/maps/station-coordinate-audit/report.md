@@ -13,7 +13,7 @@
 按 OSM 对象 ID 去重后共有 11846 个符合条件的设施。CN 范围已经覆盖 HK，因此不可把三个地域的数量直接相加。所有 215 个无名称设施也保留在完整目录中。
 按优先类型统计：train 11844 个、suburban 2 个；多类型中含 train 的设施计入 train。源标签 types 完整保留。
 
-地图查找表支持 28420 个名称及别名；其中 3 个名称使用明确的用户补充坐标，其余来自符合现役筛选的 OSM 对象。该数量不是实际车站数。官方站名索引共 3404 项，已匹配 3357 项，尚未确认 47 项。
+地图查找表支持 28429 个名称及别名；其中 9 个名称使用明确的用户补充坐标，其余来自符合现役筛选的 OSM 对象。该数量不是实际车站数。官方站名索引共 3404 项，已匹配 3360 项，尚未确认 44 项。
 
 三个原始响应均检查了末尾完成计数、JSON 完整性、无运行错误 remark、SHA-256。坐标均为 WGS84，经度在前、纬度在后。
 
@@ -21,12 +21,12 @@
 
 | 当前审核状态 | 名称数 |
 | --- | ---: |
-| verified-within-50m | 6509 |
+| verified-within-50m | 6514 |
 | corrected-over-1km | 60 |
 | updated-50m-to-1km | 84 |
 | verified-historical-only | 35 |
-| ambiguous | 92 |
-| unverified | 159 |
+| ambiguous | 89 |
+| unverified | 157 |
 
 按用户确认，另保留 75 个已核实旧站名称，其中 35 个补充现役查找表没有的历史名称，仅用于 /user。旧站只能来自实际 OSM 几何及现有旧名称，不生成估算坐标。
 
@@ -61,14 +61,15 @@
 
 - 按 ORM 导入代码解释 station、多交通模式标签及默认 train 类型，不要求每个车站必须写 train=yes；接受 train 和 suburban，仍排除明确只有 subway、tram 等类型的设施。
 - 新桥使用用户明确提供的 node/7742242697（上海金山铁路）；其余异地同名新桥保留在完整目录中。云山 node/3677430195、西湖东 node/3693383858 按 suburban/present 纳入；identity/supplement-stations.json 保存三个节点的当前 OSM API 核查响应，标签、坐标均与全量快照一致。
-- 常村、古城子、遥林、铁厂、桥头、青沟子、三家子使用用户指定的 OSM 节点消歧；天桥对应古城子，林头子对应遥林。确认依据保存在 reviewed-name-resolutions.json；两个别名标记为 user-confirmed-alias，不改写 OSM 原始标签。
+- 常村、古城子、遥林、铁厂、桥头、青沟子、三家子使用用户指定的 OSM 节点消歧；林子头对应遥林（林头子为用户确认的笔误，已更正），该别名标记为 user-confirmed-alias，不改写 OSM 原始标签。天桥按用户更正使用凤城市 node/7527334064，不再作为古城子 node/8840528310 的别名；两站在 4317/4320、4318/4319 中分别停靠。确认依据保存在 reviewed-name-resolutions.json。
 - 龙池使用用户指定的 node/1681825098 消歧；大柴旦东 node/7276945325 的饮马峡旧名按用户确认加入匹配，其余未经确认的 old_name 仍不自动加入。蒋村使用用户提供的 38.532911N/113.027942E，保存于 user-provided-coordinates.json；附近 node/1668749941 的生命周期标签矛盾，不将其标记为已核实现役 OSM 对象。
+- 惠农南使用用户核查后指定的 node/10908472608，沙湾使用 node/1588514487，共和使用 node/1588514366；同名冲突的其他源对象继续保留。前山使用用户提供的 GeoHack 经纬度；房山东使用用户指定 node/13706600750 的坐标，该节点现役/建设中标签矛盾，按用户确认单独补入，原始分类不变。来源分别保存于 reviewed-name-resolutions.json 和 user-provided-coordinates.json。
 - 当前候选必须只有 present 状态；同时具有多个生命周期标签的矛盾对象留在排除清单中。present 表示地图标签状态，不能单独证明某日期有客运列车。
 - 名称支持简繁、多语言、站名后缀；不将站场编号截成车站名，不把 old_name 自动混入现役名称。
 - 同名异地站核对官方电报码、地域或已审阅的线路证据；不会用原来的错误坐标作为唯一选点依据。
 - 原始节点优先；面、线对象使用完整几何的 Web Mercator 中心。应用坐标不保证与 ORM 把出入口、站台聚合后的图标像素中心完全相同。
 - /user 优先使用现役坐标，再使用已核实旧站；同名新旧站不会自动按票据日期切换地址。
-- 尚未确认名称见 unresolved-official-stations.json，全部同名冲突见 ambiguous-names.json。包括原始源有重复节点的惠农南、狼尾山，以及地域身份冲突的建设。原始设施均保留在目录中。
+- 尚未确认名称见 unresolved-official-stations.json，尚未解决的同名冲突见 ambiguous-names.json，包括原始源有重复节点的狼尾山，以及地域身份冲突的建设。已由用户确认选点的惠农南等名称的所有候选仍保留在完整目录和 coordinate-provenance.json。
 - identity/yuzhou.json 的 ORM 搜索响应在这次查询中把 latitude/longitude 字段的数值顺序反置；本流程只用原始 OSM lon/lat，不从该响应取坐标。
 
 ## 证据文件

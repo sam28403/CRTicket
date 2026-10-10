@@ -78,11 +78,11 @@ test('新桥按用户指定节点定位，云山和西湖东按 suburban 纳入�
   assert.ok(records.has('node/8341413017'), '异地同名新桥仍应保留源对象')
 })
 
-test('用户指定的七个站点消歧且天桥、林头子别名可追溯，异地同名节点仍保留', async () => {
+test('用户指定站点消歧，天桥与古城子分别定位，林子头别名可追溯，异地同名节点仍保留', async () => {
   const reviewed = await json('reviewed-name-resolutions.json')
   const expected = {
-    常村: 8398804169, 古城子: 8840528310, 天桥: 8840528310,
-    遥林: 2156363610, 林头子: 2156363610, 铁厂: 1550539301,
+    常村: 8398804169, 古城子: 8840528310, 天桥: 7527334064,
+    遥林: 2156363610, 林子头: 2156363610, 铁厂: 1550539301,
     桥头: 2349438745, 青沟子: 12844704701, 三家子: 9169253672
   }
   for (const [name, id] of Object.entries(expected)) {
@@ -95,7 +95,13 @@ test('用户指定的七个站点消歧且天桥、林头子别名可追溯，�
     assert.equal(reviewed[name].selectedId, sourceId)
     assert.deepEqual(records.get(sourceId).tags, element.tags, '保留原始 OSM 标签')
   }
-  for (const [alias, canonical] of [['天桥', '古城子'], ['林头子', '遥林']]) {
+  assert.notDeepEqual(coordinates['天桥'], coordinates['古城子'])
+  assert.equal(reviewed['天桥'].aliasOf, undefined)
+  for (const suffix of ['', '站', '火车站']) {
+    assert.deepEqual(coordinates['天桥' + suffix], coordinates['天桥'])
+    assert.equal(provenance['天桥' + suffix].selectedId, 'node/7527334064')
+  }
+  for (const [alias, canonical] of [['林子头', '遥林']]) {
     assert.equal(reviewed[alias].aliasOf, canonical)
     assert.equal(provenance[alias].matchSource, 'user-confirmed-alias')
     for (const suffix of ['', '站', '火车站']) {

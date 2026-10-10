@@ -54,13 +54,14 @@ test('环线重复站名中的空白不影响坐标匹配，保留各次停靠�
 })
 
 test('补充站点及用户别名在查询地图中均可定位并按站序连线', () => {
-  const names = ['常村', '古城子', '天桥', '遥林', '林头子', '铁厂', '桥头', '青沟子', '三家子',
+  const names = ['常村', '古城子', '天桥', '遥林', '林子头', '铁厂', '桥头', '青沟子', '三家子',
     '龙池', '大柴旦东', '饮马峡', '蒋村']
   const route = buildTrainRouteData(names.map(station => ({ station })))
   assert.deepEqual(route.missingStations, [])
   assert.deepEqual(route.points.map(point => point.name), names)
   assert.equal(route.lines.length, names.length - 1)
-  assert.deepEqual(route.points[1].value, route.points[2].value)
+  assert.deepEqual(route.points[2].value, [124.5014445, 40.8113177])
+  assert.notDeepEqual(route.points[1].value, route.points[2].value)
   assert.deepEqual(route.points[3].value, route.points[4].value)
   assert.deepEqual(route.points[10].value, route.points[11].value)
   assert.deepEqual(route.points[12].value, [113.027942, 38.532911])

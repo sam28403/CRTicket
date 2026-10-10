@@ -1,12 +1,5 @@
 [
   {
-    "name": "房山东",
-    "code": "CYI",
-    "city": "北京",
-    "status": "unverified",
-    "candidates": []
-  },
-  {
     "name": "北营",
     "code": "BIV",
     "city": "太原",
@@ -133,30 +126,6 @@
     "candidates": []
   },
   {
-    "name": "惠农南",
-    "code": "KNJ",
-    "city": "石嘴山",
-    "status": "ambiguous",
-    "candidates": [
-      {
-        "id": "node/10908472608",
-        "name": "惠农南",
-        "coordinates": [
-          106.7025853,
-          39.2081806
-        ]
-      },
-      {
-        "id": "node/13808856976",
-        "name": "惠农南",
-        "coordinates": [
-          106.704226,
-          39.2208223
-        ]
-      }
-    ]
-  },
-  {
     "name": "横琴北",
     "code": "HOA",
     "city": "珠海",
@@ -270,13 +239,6 @@
     "name": "葡萄菁",
     "code": "PTW",
     "city": "六盘水",
-    "status": "unverified",
-    "candidates": []
-  },
-  {
-    "name": "前山",
-    "code": "QXQ",
-    "city": "珠海",
     "status": "unverified",
     "candidates": []
   },

@@ -1,4 +1,22 @@
 {
+  "前山": {
+    "coordinates": [113.5205806, 22.2373806],
+    "aliases": ["前山站", "前山火车站"],
+    "source": "user-provided",
+    "originalCoordinate": "22.237380555556N/113.52058055556E",
+    "reason": "用户明确提供广东前山站的 GeoHack 经纬度，按 WGS84 [经度, 纬度] 和项目七位小数精度补入地图查找表。",
+    "sources": ["https://geohack.toolforge.org/geohack.php?pagename=Category:Qianshan_Railway_Station_(Guangdong)&params=22.237380555556_N_113.52058055556_E_globe:Earth_&language=en"]
+  },
+  "房山东": {
+    "coordinates": [116.170501, 39.7649308],
+    "aliases": ["房山东站", "房山东火车站"],
+    "source": "user-provided",
+    "originalCoordinate": "39.7649308N/116.170501E",
+    "reason": "用户明确指定房山东 node/13706600750，坐标与原始 OSM 快照一致；该节点同时具有 railway=station 与 construction:railway=station，按用户确认单独补入，不改写现役分类或原始标签。",
+    "relatedOsmId": "node/13706600750",
+    "sources": ["https://www.openstreetmap.org/node/13706600750"],
+    "verificationFile": "raw/CN.json.gz"
+  },
   "蒋村": {
     "coordinates": [113.027942, 38.532911],
     "aliases": ["蒋村站", "蒋村火车站"],

@@ -100542,21 +100542,57 @@
     "reason": "unique-source-location",
     "matchSource": "name"
   },
+  "共和": {
+    "selectedId": "node/1588514366",
+    "sourceIds": [
+      "node/1588514366",
+      "node/13825636647"
+    ],
+    "reason": "user-confirmed-osm-identity",
+    "matchSource": "name:zh",
+    "evidence": {
+      "selectedId": "node/1588514366",
+      "matchReason": "user-confirmed-osm-identity",
+      "reason": "用户明确指定共和站的 OSM 节点；同名异地站仍保留在完整目录中。",
+      "sources": [
+        "https://www.openstreetmap.org/node/1588514366"
+      ],
+      "verificationFile": "raw/CN.json.gz"
+    }
+  },
   "共和火车站": {
     "selectedId": "node/1588514366",
     "sourceIds": [
       "node/1588514366"
     ],
-    "reason": "unique-source-location",
-    "matchSource": "alt_name"
+    "reason": "user-confirmed-osm-identity",
+    "matchSource": "alt_name",
+    "evidence": {
+      "selectedId": "node/1588514366",
+      "matchReason": "user-confirmed-osm-identity",
+      "reason": "用户明确指定共和站的 OSM 节点；同名异地站仍保留在完整目录中。",
+      "sources": [
+        "https://www.openstreetmap.org/node/1588514366"
+      ],
+      "verificationFile": "raw/CN.json.gz"
+    }
   },
   "共和站": {
     "selectedId": "node/1588514366",
     "sourceIds": [
       "node/1588514366"
     ],
-    "reason": "unique-source-location",
-    "matchSource": "alt_name"
+    "reason": "user-confirmed-osm-identity",
+    "matchSource": "alt_name",
+    "evidence": {
+      "selectedId": "node/1588514366",
+      "matchReason": "user-confirmed-osm-identity",
+      "reason": "用户明确指定共和站的 OSM 节点；同名异地站仍保留在完整目录中。",
+      "sources": [
+        "https://www.openstreetmap.org/node/1588514366"
+      ],
+      "verificationFile": "raw/CN.json.gz"
+    }
   },
   "共青城": {
     "selectedId": "node/2447053249",
@@ -111411,7 +111447,7 @@
     "evidence": {
       "selectedId": "node/8840528310",
       "matchReason": "user-confirmed-osm-identity",
-      "reason": "用户明确指定古城子站的 OSM 节点，并确认该站又叫天桥。",
+      "reason": "用户明确指定古城子站的 OSM 节点；此前将天桥作为古城子别名的确认有误，用户已更正，两站分别匹配各自节点。",
       "sources": [
         "https://www.openstreetmap.org/node/8840528310"
       ],
@@ -124246,21 +124282,19 @@
     "matchSource": "name"
   },
   "天桥": {
-    "selectedId": "node/8840528310",
+    "selectedId": "node/7527334064",
     "sourceIds": [
       "node/7527334064",
-      "node/8840528310",
       "node/9123967457"
     ],
     "reason": "user-confirmed-osm-identity",
-    "matchSource": "user-confirmed-alias",
+    "matchSource": "name",
     "evidence": {
-      "selectedId": "node/8840528310",
-      "aliasOf": "古城子",
+      "selectedId": "node/7527334064",
       "matchReason": "user-confirmed-osm-identity",
-      "reason": "用户明确确认天桥为所指定古城子节点的别名；原始 OSM 标签不含该别名，按用户确认单独保存。",
+      "reason": "用户更正此前错误节点，明确指定凤城市天桥 node/7527334064；4317/4320、4318/4319 在庙阳与灌水之间停靠该站，并另外停靠古城子，两站不能使用相同坐标。",
       "sources": [
-        "https://www.openstreetmap.org/node/8840528310"
+        "https://www.openstreetmap.org/node/7527334064"
       ],
       "verificationFile": "raw/CN.json.gz"
     }
@@ -124298,39 +124332,35 @@
     "matchSource": "name"
   },
   "天桥火车站": {
-    "selectedId": "node/8840528310",
+    "selectedId": "node/7527334064",
     "sourceIds": [
-      "node/7527334064",
-      "node/8840528310"
+      "node/7527334064"
     ],
     "reason": "user-confirmed-osm-identity",
-    "matchSource": "user-confirmed-alias",
+    "matchSource": "alt_name",
     "evidence": {
-      "selectedId": "node/8840528310",
-      "aliasOf": "古城子",
+      "selectedId": "node/7527334064",
       "matchReason": "user-confirmed-osm-identity",
-      "reason": "用户明确确认天桥为所指定古城子节点的别名；原始 OSM 标签不含该别名，按用户确认单独保存。",
+      "reason": "用户更正此前错误节点，明确指定凤城市天桥 node/7527334064；4317/4320、4318/4319 在庙阳与灌水之间停靠该站，并另外停靠古城子，两站不能使用相同坐标。",
       "sources": [
-        "https://www.openstreetmap.org/node/8840528310"
+        "https://www.openstreetmap.org/node/7527334064"
       ],
       "verificationFile": "raw/CN.json.gz"
     }
   },
   "天桥站": {
-    "selectedId": "node/8840528310",
+    "selectedId": "node/7527334064",
     "sourceIds": [
-      "node/7527334064",
-      "node/8840528310"
+      "node/7527334064"
     ],
     "reason": "user-confirmed-osm-identity",
-    "matchSource": "user-confirmed-alias",
+    "matchSource": "alt_name",
     "evidence": {
-      "selectedId": "node/8840528310",
-      "aliasOf": "古城子",
+      "selectedId": "node/7527334064",
       "matchReason": "user-confirmed-osm-identity",
-      "reason": "用户明确确认天桥为所指定古城子节点的别名；原始 OSM 标签不含该别名，按用户确认单独保存。",
+      "reason": "用户更正此前错误节点，明确指定凤城市天桥 node/7527334064；4317/4320、4318/4319 在庙阳与灌水之间停靠该站，并另外停靠古城子，两站不能使用相同坐标。",
       "sources": [
-        "https://www.openstreetmap.org/node/8840528310"
+        "https://www.openstreetmap.org/node/7527334064"
       ],
       "verificationFile": "raw/CN.json.gz"
     }
@@ -143839,6 +143869,24 @@
     "reason": "unique-source-location",
     "matchSource": "name"
   },
+  "惠农南": {
+    "selectedId": "node/10908472608",
+    "sourceIds": [
+      "node/10908472608",
+      "node/13808856976"
+    ],
+    "reason": "user-confirmed-osm-identity",
+    "matchSource": "name",
+    "evidence": {
+      "selectedId": "node/10908472608",
+      "matchReason": "user-confirmed-osm-identity",
+      "reason": "用户核查同名冲突后明确指定惠农南使用该 OSM 节点；另一同名节点仍保留在完整目录中。",
+      "sources": [
+        "https://www.openstreetmap.org/node/10908472608"
+      ],
+      "verificationFile": "raw/CN.json.gz"
+    }
+  },
   "惠刘": {
     "selectedId": "node/2956850477",
     "sourceIds": [
@@ -156141,7 +156189,7 @@
     "reason": "unique-source-location",
     "matchSource": "name:ja"
   },
-  "林头子": {
+  "林子头": {
     "selectedId": "node/2156363610",
     "sourceIds": [
       "node/2156363610"
@@ -156152,14 +156200,14 @@
       "selectedId": "node/2156363610",
       "aliasOf": "遥林",
       "matchReason": "user-confirmed-osm-identity",
-      "reason": "用户明确确认林头子为所指定遥林节点的别名；原始 OSM 标签不含该别名，按用户确认单独保存。",
+      "reason": "用户明确确认林子头为所指定遥林节点的别名，并更正此前林头子的笔误；原始 OSM 标签不含该别名，按用户确认单独保存。",
       "sources": [
         "https://www.openstreetmap.org/node/2156363610"
       ],
       "verificationFile": "raw/CN.json.gz"
     }
   },
-  "林头子火车站": {
+  "林子头火车站": {
     "selectedId": "node/2156363610",
     "sourceIds": [
       "node/2156363610"
@@ -156170,14 +156218,14 @@
       "selectedId": "node/2156363610",
       "aliasOf": "遥林",
       "matchReason": "user-confirmed-osm-identity",
-      "reason": "用户明确确认林头子为所指定遥林节点的别名；原始 OSM 标签不含该别名，按用户确认单独保存。",
+      "reason": "用户明确确认林子头为所指定遥林节点的别名，并更正此前林头子的笔误；原始 OSM 标签不含该别名，按用户确认单独保存。",
       "sources": [
         "https://www.openstreetmap.org/node/2156363610"
       ],
       "verificationFile": "raw/CN.json.gz"
     }
   },
-  "林头子站": {
+  "林子头站": {
     "selectedId": "node/2156363610",
     "sourceIds": [
       "node/2156363610"
@@ -156188,7 +156236,7 @@
       "selectedId": "node/2156363610",
       "aliasOf": "遥林",
       "matchReason": "user-confirmed-osm-identity",
-      "reason": "用户明确确认林头子为所指定遥林节点的别名；原始 OSM 标签不含该别名，按用户确认单独保存。",
+      "reason": "用户明确确认林子头为所指定遥林节点的别名，并更正此前林头子的笔误；原始 OSM 标签不含该别名，按用户确认单独保存。",
       "sources": [
         "https://www.openstreetmap.org/node/2156363610"
       ],
@@ -166988,6 +167036,24 @@
     "reason": "unique-source-location",
     "matchSource": "name"
   },
+  "沙湾": {
+    "selectedId": "node/1588514487",
+    "sourceIds": [
+      "node/1588514487",
+      "node/9307694647"
+    ],
+    "reason": "user-confirmed-osm-identity",
+    "matchSource": "name",
+    "evidence": {
+      "selectedId": "node/1588514487",
+      "matchReason": "user-confirmed-osm-identity",
+      "reason": "用户明确指定沙湾站的 OSM 节点；同名异地站仍保留在完整目录中。",
+      "sources": [
+        "https://www.openstreetmap.org/node/1588514487"
+      ],
+      "verificationFile": "raw/CN.json.gz"
+    }
+  },
   "沙湾南": {
     "selectedId": "node/10284226399",
     "sourceIds": [
@@ -167025,16 +167091,34 @@
     "sourceIds": [
       "node/1588514487"
     ],
-    "reason": "unique-source-location",
-    "matchSource": "alt_name"
+    "reason": "user-confirmed-osm-identity",
+    "matchSource": "alt_name",
+    "evidence": {
+      "selectedId": "node/1588514487",
+      "matchReason": "user-confirmed-osm-identity",
+      "reason": "用户明确指定沙湾站的 OSM 节点；同名异地站仍保留在完整目录中。",
+      "sources": [
+        "https://www.openstreetmap.org/node/1588514487"
+      ],
+      "verificationFile": "raw/CN.json.gz"
+    }
   },
   "沙湾站": {
     "selectedId": "node/1588514487",
     "sourceIds": [
       "node/1588514487"
     ],
-    "reason": "unique-source-location",
-    "matchSource": "alt_name"
+    "reason": "user-confirmed-osm-identity",
+    "matchSource": "alt_name",
+    "evidence": {
+      "selectedId": "node/1588514487",
+      "matchReason": "user-confirmed-osm-identity",
+      "reason": "用户明确指定沙湾站的 OSM 节点；同名异地站仍保留在完整目录中。",
+      "sources": [
+        "https://www.openstreetmap.org/node/1588514487"
+      ],
+      "verificationFile": "raw/CN.json.gz"
+    }
   },
   "沙溪坝": {
     "selectedId": "node/1546239764",
@@ -207623,7 +207707,7 @@
     "evidence": {
       "selectedId": "node/2156363610",
       "matchReason": "user-confirmed-osm-identity",
-      "reason": "用户明确指定遥林站的 OSM 节点，并确认该站又叫林头子。",
+      "reason": "用户明确指定遥林站的 OSM 节点，并确认该站又叫林子头；此前林头子为用户笔误，已更正。",
       "sources": [
         "https://www.openstreetmap.org/node/2156363610"
       ],
@@ -228666,6 +228750,144 @@
     ],
     "reason": "unique-source-location",
     "matchSource": "name:ko"
+  },
+  "前山": {
+    "source": "user-provided",
+    "reason": "user-provided-coordinates",
+    "station": "前山",
+    "matchSource": "user-provided-name",
+    "evidence": {
+      "coordinates": [
+        113.5205806,
+        22.2373806
+      ],
+      "aliases": [
+        "前山站",
+        "前山火车站"
+      ],
+      "source": "user-provided",
+      "originalCoordinate": "22.237380555556N/113.52058055556E",
+      "reason": "用户明确提供广东前山站的 GeoHack 经纬度，按 WGS84 [经度, 纬度] 和项目七位小数精度补入地图查找表。",
+      "sources": [
+        "https://geohack.toolforge.org/geohack.php?pagename=Category:Qianshan_Railway_Station_(Guangdong)&params=22.237380555556_N_113.52058055556_E_globe:Earth_&language=en"
+      ]
+    }
+  },
+  "前山站": {
+    "source": "user-provided",
+    "reason": "user-provided-coordinates",
+    "station": "前山",
+    "matchSource": "user-provided-alias",
+    "evidence": {
+      "coordinates": [
+        113.5205806,
+        22.2373806
+      ],
+      "aliases": [
+        "前山站",
+        "前山火车站"
+      ],
+      "source": "user-provided",
+      "originalCoordinate": "22.237380555556N/113.52058055556E",
+      "reason": "用户明确提供广东前山站的 GeoHack 经纬度，按 WGS84 [经度, 纬度] 和项目七位小数精度补入地图查找表。",
+      "sources": [
+        "https://geohack.toolforge.org/geohack.php?pagename=Category:Qianshan_Railway_Station_(Guangdong)&params=22.237380555556_N_113.52058055556_E_globe:Earth_&language=en"
+      ]
+    }
+  },
+  "前山火车站": {
+    "source": "user-provided",
+    "reason": "user-provided-coordinates",
+    "station": "前山",
+    "matchSource": "user-provided-alias",
+    "evidence": {
+      "coordinates": [
+        113.5205806,
+        22.2373806
+      ],
+      "aliases": [
+        "前山站",
+        "前山火车站"
+      ],
+      "source": "user-provided",
+      "originalCoordinate": "22.237380555556N/113.52058055556E",
+      "reason": "用户明确提供广东前山站的 GeoHack 经纬度，按 WGS84 [经度, 纬度] 和项目七位小数精度补入地图查找表。",
+      "sources": [
+        "https://geohack.toolforge.org/geohack.php?pagename=Category:Qianshan_Railway_Station_(Guangdong)&params=22.237380555556_N_113.52058055556_E_globe:Earth_&language=en"
+      ]
+    }
+  },
+  "房山东": {
+    "source": "user-provided",
+    "reason": "user-provided-coordinates",
+    "station": "房山东",
+    "matchSource": "user-provided-name",
+    "evidence": {
+      "coordinates": [
+        116.170501,
+        39.7649308
+      ],
+      "aliases": [
+        "房山东站",
+        "房山东火车站"
+      ],
+      "source": "user-provided",
+      "originalCoordinate": "39.7649308N/116.170501E",
+      "reason": "用户明确指定房山东 node/13706600750，坐标与原始 OSM 快照一致；该节点同时具有 railway=station 与 construction:railway=station，按用户确认单独补入，不改写现役分类或原始标签。",
+      "relatedOsmId": "node/13706600750",
+      "sources": [
+        "https://www.openstreetmap.org/node/13706600750"
+      ],
+      "verificationFile": "raw/CN.json.gz"
+    }
+  },
+  "房山东站": {
+    "source": "user-provided",
+    "reason": "user-provided-coordinates",
+    "station": "房山东",
+    "matchSource": "user-provided-alias",
+    "evidence": {
+      "coordinates": [
+        116.170501,
+        39.7649308
+      ],
+      "aliases": [
+        "房山东站",
+        "房山东火车站"
+      ],
+      "source": "user-provided",
+      "originalCoordinate": "39.7649308N/116.170501E",
+      "reason": "用户明确指定房山东 node/13706600750，坐标与原始 OSM 快照一致；该节点同时具有 railway=station 与 construction:railway=station，按用户确认单独补入，不改写现役分类或原始标签。",
+      "relatedOsmId": "node/13706600750",
+      "sources": [
+        "https://www.openstreetmap.org/node/13706600750"
+      ],
+      "verificationFile": "raw/CN.json.gz"
+    }
+  },
+  "房山东火车站": {
+    "source": "user-provided",
+    "reason": "user-provided-coordinates",
+    "station": "房山东",
+    "matchSource": "user-provided-alias",
+    "evidence": {
+      "coordinates": [
+        116.170501,
+        39.7649308
+      ],
+      "aliases": [
+        "房山东站",
+        "房山东火车站"
+      ],
+      "source": "user-provided",
+      "originalCoordinate": "39.7649308N/116.170501E",
+      "reason": "用户明确指定房山东 node/13706600750，坐标与原始 OSM 快照一致；该节点同时具有 railway=station 与 construction:railway=station，按用户确认单独补入，不改写现役分类或原始标签。",
+      "relatedOsmId": "node/13706600750",
+      "sources": [
+        "https://www.openstreetmap.org/node/13706600750"
+      ],
+      "verificationFile": "raw/CN.json.gz"
+    }
   },
   "蒋村": {
     "source": "user-provided",

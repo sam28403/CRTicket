@@ -64,24 +64,24 @@
     "LA": 23
   },
   "unnamedObjects": 215,
-  "coordinateNames": 28420,
-  "userProvidedCoordinateNames": 3,
+  "coordinateNames": 28429,
+  "userProvidedCoordinateNames": 9,
   "previousNames": 6939,
   "previousStatusCounts": {
-    "verified-within-50m": 6509,
+    "verified-within-50m": 6514,
     "corrected-over-1km": 60,
     "updated-50m-to-1km": 84,
     "verified-historical-only": 35,
-    "ambiguous": 92,
-    "unverified": 159
+    "ambiguous": 89,
+    "unverified": 157
   },
-  "addedNames": 21799,
-  "ambiguousNames": 421,
+  "addedNames": 21803,
+  "ambiguousNames": 418,
   "officialStations": 3404,
-  "officialMatched": 3357,
+  "officialMatched": 3360,
   "verifiedHistoricalNames": 75,
   "historicalFallbackNames": 35,
-  "unresolvedOfficial": 47,
+  "unresolvedOfficial": 44,
   "excludedObjects": 11798,
   "caveats": [
     "present follows OSM lifecycle tags; it does not independently confirm passenger service or operation on a particular date.",

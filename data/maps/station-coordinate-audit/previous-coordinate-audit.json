@@ -25323,9 +25323,12 @@
       116.1704111,
       39.7647306
     ],
-    "current": null,
-    "status": "unverified",
-    "distanceKm": null,
+    "current": [
+      116.170501,
+      39.7649308
+    ],
+    "status": "verified-within-50m",
+    "distanceKm": 0.024,
     "previousExcludedEvidence": [
       {
         "id": "node/13706600750",
@@ -25338,7 +25341,30 @@
         ]
       }
     ],
-    "candidates": []
+    "source": {
+      "source": "user-provided",
+      "reason": "user-provided-coordinates",
+      "station": "房山东",
+      "matchSource": "user-provided-name",
+      "evidence": {
+        "coordinates": [
+          116.170501,
+          39.7649308
+        ],
+        "aliases": [
+          "房山东站",
+          "房山东火车站"
+        ],
+        "source": "user-provided",
+        "originalCoordinate": "39.7649308N/116.170501E",
+        "reason": "用户明确指定房山东 node/13706600750，坐标与原始 OSM 快照一致；该节点同时具有 railway=station 与 construction:railway=station，按用户确认单独补入，不改写现役分类或原始标签。",
+        "relatedOsmId": "node/13706600750",
+        "sources": [
+          "https://www.openstreetmap.org/node/13706600750"
+        ],
+        "verificationFile": "raw/CN.json.gz"
+      }
+    }
   },
   {
     "name": "房庄",
@@ -32063,27 +32089,30 @@
       103.3154712,
       29.3022404
     ],
-    "current": null,
-    "status": "ambiguous",
-    "distanceKm": null,
-    "candidates": [
-      {
-        "id": "node/1588514366",
-        "name": "共和",
-        "coordinates": [
-          103.3154712,
-          29.3022404
-        ]
-      },
-      {
-        "id": "node/13825636647",
-        "name": "共和",
-        "coordinates": [
-          112.7129203,
-          25.6956335
-        ]
+    "current": [
+      103.3154712,
+      29.3022404
+    ],
+    "status": "verified-within-50m",
+    "distanceKm": 0,
+    "source": {
+      "selectedId": "node/1588514366",
+      "sourceIds": [
+        "node/1588514366",
+        "node/13825636647"
+      ],
+      "reason": "user-confirmed-osm-identity",
+      "matchSource": "name:zh",
+      "evidence": {
+        "selectedId": "node/1588514366",
+        "matchReason": "user-confirmed-osm-identity",
+        "reason": "用户明确指定共和站的 OSM 节点；同名异地站仍保留在完整目录中。",
+        "sources": [
+          "https://www.openstreetmap.org/node/1588514366"
+        ],
+        "verificationFile": "raw/CN.json.gz"
       }
-    ]
+    }
   },
   {
     "name": "共青城",
@@ -47528,27 +47557,30 @@
       106.7025853,
       39.2081806
     ],
-    "current": null,
-    "status": "ambiguous",
-    "distanceKm": null,
-    "candidates": [
-      {
-        "id": "node/10908472608",
-        "name": "惠农南",
-        "coordinates": [
-          106.7025853,
-          39.2081806
-        ]
-      },
-      {
-        "id": "node/13808856976",
-        "name": "惠农南",
-        "coordinates": [
-          106.704226,
-          39.2208223
-        ]
+    "current": [
+      106.7025853,
+      39.2081806
+    ],
+    "status": "verified-within-50m",
+    "distanceKm": 0,
+    "source": {
+      "selectedId": "node/10908472608",
+      "sourceIds": [
+        "node/10908472608",
+        "node/13808856976"
+      ],
+      "reason": "user-confirmed-osm-identity",
+      "matchSource": "name",
+      "evidence": {
+        "selectedId": "node/10908472608",
+        "matchReason": "user-confirmed-osm-identity",
+        "reason": "用户核查同名冲突后明确指定惠农南使用该 OSM 节点；另一同名节点仍保留在完整目录中。",
+        "sources": [
+          "https://www.openstreetmap.org/node/10908472608"
+        ],
+        "verificationFile": "raw/CN.json.gz"
       }
-    ]
+    }
   },
   {
     "name": "惠山",
@@ -85898,9 +85930,12 @@
       113.5205738,
       22.2373748
     ],
-    "current": null,
-    "status": "unverified",
-    "distanceKm": null,
+    "current": [
+      113.5205806,
+      22.2373806
+    ],
+    "status": "verified-within-50m",
+    "distanceKm": 0.001,
     "previousExcludedEvidence": [
       {
         "id": "node/7710011714",
@@ -85913,7 +85948,28 @@
         ]
       }
     ],
-    "candidates": []
+    "source": {
+      "source": "user-provided",
+      "reason": "user-provided-coordinates",
+      "station": "前山",
+      "matchSource": "user-provided-name",
+      "evidence": {
+        "coordinates": [
+          113.5205806,
+          22.2373806
+        ],
+        "aliases": [
+          "前山站",
+          "前山火车站"
+        ],
+        "source": "user-provided",
+        "originalCoordinate": "22.237380555556N/113.52058055556E",
+        "reason": "用户明确提供广东前山站的 GeoHack 经纬度，按 WGS84 [经度, 纬度] 和项目七位小数精度补入地图查找表。",
+        "sources": [
+          "https://geohack.toolforge.org/geohack.php?pagename=Category:Qianshan_Railway_Station_(Guangdong)&params=22.237380555556_N_113.52058055556_E_globe:Earth_&language=en"
+        ]
+      }
+    }
   },
   {
     "name": "前亭",
@@ -93293,27 +93349,30 @@
       103.53568,
       29.41521
     ],
-    "current": null,
-    "status": "ambiguous",
-    "distanceKm": null,
-    "candidates": [
-      {
-        "id": "node/1588514487",
-        "name": "沙湾",
-        "coordinates": [
-          103.53568,
-          29.41521
-        ]
-      },
-      {
-        "id": "node/9307694647",
-        "name": "沙湾",
-        "coordinates": [
-          111.4676607,
-          30.4313207
-        ]
+    "current": [
+      103.53568,
+      29.41521
+    ],
+    "status": "verified-within-50m",
+    "distanceKm": 0,
+    "source": {
+      "selectedId": "node/1588514487",
+      "sourceIds": [
+        "node/1588514487",
+        "node/9307694647"
+      ],
+      "reason": "user-confirmed-osm-identity",
+      "matchSource": "name",
+      "evidence": {
+        "selectedId": "node/1588514487",
+        "matchReason": "user-confirmed-osm-identity",
+        "reason": "用户明确指定沙湾站的 OSM 节点；同名异地站仍保留在完整目录中。",
+        "sources": [
+          "https://www.openstreetmap.org/node/1588514487"
+        ],
+        "verificationFile": "raw/CN.json.gz"
       }
-    ]
+    }
   },
   {
     "name": "沙湾南",
