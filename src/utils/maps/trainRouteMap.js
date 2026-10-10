@@ -1,4 +1,5 @@
 import stationCoordinates from './stationCoordinates.js'
+import { normalizeStationName } from '../stationName.js'
 
 export function buildTrainRouteData(stops, coordinates = stationCoordinates) {
   const points = []
@@ -8,7 +9,7 @@ export function buildTrainRouteData(stops, coordinates = stationCoordinates) {
 
   stops.forEach((stop, index) => {
     const name = String(stop.station || '').trim()
-    const value = coordinates[name]
+    const value = coordinates[name] || coordinates[normalizeStationName(name)]
     if (!Array.isArray(value) || value.length !== 2 || !value.every(Number.isFinite)) {
       missingStations.push(name || `第 ${index + 1} 站`)
       previous = null

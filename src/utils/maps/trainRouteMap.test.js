@@ -30,6 +30,42 @@ test('按查询站序标记所有站点，连线保留折返和重复站点', ()
   assert.deepEqual(route.missingStations, [])
 })
 
+test('环线重复站名中的空白不影响坐标匹配，保留各次停靠和闭合连线', () => {
+  for (const station of ['济 南', ' 济\u3000南 ', '济\u00a0南', '济\t 南']) {
+    const route = buildTrainRouteData([
+      { station: '济南', no: '01', departure: '08:00' },
+      { station: '济南西', no: '02', arrival: '08:30', departure: '08:35' },
+      { station, no: '03', arrival: '12:00' }
+    ])
+    assert.deepEqual(route.missingStations, [])
+    assert.equal(route.points.length, 3)
+    assert.equal(route.lines.length, 2)
+    assert.deepEqual(route.points[0].value, route.points[2].value)
+    assert.equal(route.points[2].name, station.trim())
+    assert.equal(route.points[2].no, '03')
+    assert.equal(route.points[2].arrival, '12:00')
+    assert.equal(route.points[2].isLast, true)
+    assert.deepEqual(route.lines[1].coords, [route.points[1].value, route.points[0].value])
+  }
+  const route = buildTrainRouteData([{ station: 'Example Station' }], {
+    'Example Station': [100, 30], ExampleStation: [101, 31]
+  })
+  assert.deepEqual(route.points[0].value, [100, 30], '优先使用原名的精确坐标')
+})
+
+test('补充站点及用户别名在查询地图中均可定位并按站序连线', () => {
+  const names = ['常村', '古城子', '天桥', '遥林', '林头子', '铁厂', '桥头', '青沟子', '三家子',
+    '龙池', '大柴旦东', '饮马峡', '蒋村']
+  const route = buildTrainRouteData(names.map(station => ({ station })))
+  assert.deepEqual(route.missingStations, [])
+  assert.deepEqual(route.points.map(point => point.name), names)
+  assert.equal(route.lines.length, names.length - 1)
+  assert.deepEqual(route.points[1].value, route.points[2].value)
+  assert.deepEqual(route.points[3].value, route.points[4].value)
+  assert.deepEqual(route.points[10].value, route.points[11].value)
+  assert.deepEqual(route.points[12].value, [113.027942, 38.532911])
+})
+
 test('缺失坐标时展示站名，保留其他站点且不跨过未知站点连线', () => {
   const route = buildTrainRouteData([
     { station: '甲' }, { station: '乙' }, { station: '未知站' }, { station: '丙' }, { station: '丁' }

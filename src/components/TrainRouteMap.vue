@@ -55,7 +55,7 @@ async function renderMap() {
         fontSize: 20,
         fontWeight: 'bold',
         color: style.getPropertyValue('--app-text').trim() || '#17324d',
-        textBorderColor: '#000',
+        textBorderColor: isDark.value ? '#000' : '#fff',
         textBorderWidth: 3
       }
     },

@@ -138,6 +138,61 @@ test('里程按完整站序匹配，保留 12306 时刻并标明数据版本', a
   assert.equal(result.source, '12306')
 })
 
+test('G5555/G5558 实际 14 站环线按站序补全里程，保留换号、重复站名和在线时刻', async () => {
+  const loopItem = { ...item, station_train_code: 'G5555', from_station: '济南', to_station: '济  南' }
+  // 12306 2026-10-10 查询结果与路路通 20261013 包中同一车次的站序、里程。
+  const stations = ['济南', '章丘', '昌乐', '潍坊', '胶州北', '青岛北', '青岛西', '日照西',
+    '莒南北', '临沂北', '费县北', '蒙山', '曲阜东', '济  南']
+  const arrivals = ['----', '15:45', '16:33', '16:47', '17:25', '17:57', '18:47', '19:19',
+    '19:41', '19:57', '20:13', '20:25', '20:49', '21:30']
+  const departures = ['15:22', '15:47', '16:35', '16:49', '17:31', '18:13', '18:49', '19:21',
+    '19:43', '19:59', '20:15', '20:27', '20:53', '----']
+  const mileages = [0, 49, 186, 210, 330, 378, 452, 531, 591, 631, 674, 703, 765, 897]
+  const loopRows = stations.map((station_name, index) => ({
+    station_name, station_no: String(index + 1).padStart(2, '0'),
+    station_train_code: index < 12 ? 'G5555' : 'G5558',
+    arrive_time: arrivals[index], start_time: departures[index]
+  }))
+  const offline = normalizeStops(loopRows, 'G5555').map((stop, index) => ({
+    ...stop, station: stop.station.replace(/\s+/g, ''), train: 'G5555/G5558',
+    arrival: '10:00', mileage: mileages[index]
+  }))
+  const loader = stops => async () => ({ version: '20261013', trains: new Map([['G5555/G5558', { train: 'G5555/G5558', stops }]]) })
+  const fetchImpl = async url => response(url.includes('/search/v1/')
+    ? { data: [loopItem] } : { status: true, data: { data: loopRows } })
+  const result = await queryWithMileage('G5555', '2026-10-10', fetchImpl, loader(offline))
+  assert.deepEqual(result.stops.map(stop => stop.mileage), mileages)
+  assert.deepEqual(result.stops.map(stop => stop.station), stations)
+  assert.deepEqual(result.stops.map(stop => stop.no), loopRows.map(row => row.station_no))
+  assert.equal(result.stops[11].train, 'G5555')
+  assert.equal(result.stops[12].train, 'G5558')
+  assert.equal(result.stops.at(-1).arrival, '21:30')
+  assert.equal(result.to, '济  南')
+  assert.equal(result.mileageVersion, '20261013')
+  assert.deepEqual(result.warnings, [])
+  for (const stops of [offline.slice(0, -1), [offline[0], offline[2], offline[1], ...offline.slice(3)]]) {
+    const mismatched = await queryWithMileage('G5555', '2026-10-10', fetchImpl, loader(stops))
+    assert.ok(mismatched.stops.every(stop => stop.mileage === null))
+    assert.equal(mismatched.warnings.length, 1)
+  }
+})
+
+test('备用查询用去空白的始发终到站名获取电报码', async () => {
+  let count = 0
+  const result = await queryTrainInfo('G1', '2026-09-28', async url => {
+    count++
+    if (count === 1) return response({ data: [{ ...item, from_station: '北 京南', to_station: '上海\u3000虹桥' }] })
+    if (count === 2) return response({ status: true, data: { data: [] } })
+    const parsed = new URL(url)
+    assert.equal(parsed.pathname, '/otn/czxx/queryByTrainNo')
+    assert.equal(parsed.searchParams.get('from_station_telecode'), 'VNP')
+    assert.equal(parsed.searchParams.get('to_station_telecode'), 'AOH')
+    return response({ status: true, data: { data: rows } })
+  })
+  assert.equal(count, 3)
+  assert.equal(result.stops.length, 3)
+})
+
 test('站序不一致、里程异常或数据下载失败均保留在线结果，不错误拼接', async () => {
   const stops = normalizeStops(rows, 'G1').map((stop, index) => ({ ...stop, mileage: index * 100 }))
   for (const loader of [mileageDatabase(stops.toReversed()), mileageDatabase(stops.slice(1)),

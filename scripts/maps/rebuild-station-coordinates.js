@@ -14,6 +14,7 @@ const roundCoordinates = value => value.map(number => Math.round(number * 1e7) /
 const simplifications = await readJson(new URL('name-simplifications.json', auditRoot))
 const identitySource = await readJson(new URL('upstream/station-identifiers.json', auditRoot))
 const reviewedResolutions = await readJson(new URL('reviewed-name-resolutions.json', auditRoot))
+const userProvidedCoordinates = await readJson(new URL('user-provided-coordinates.json', auditRoot))
 const blockedResolutions = await readJson(new URL('blocked-name-resolutions.json', auditRoot))
 const baselineUrl = new URL('previous-coordinates.json.gz', auditRoot)
 let baseline
@@ -98,6 +99,20 @@ for (const region of ['CN', 'HK', 'LA']) {
   }
 }
 
+// 用户确认的别名单独留档，不改写 OSM 原始标签；源对象仍须满足现役铁路筛选。
+for (const [name, resolution] of Object.entries(reviewedResolutions)) {
+  if (!resolution.aliasOf) continue
+  const record = records.get(resolution.selectedId)
+  if (!record || !record.aliases.some(alias => alias.name === normalizeName(resolution.aliasOf))) {
+    throw new Error(`Reviewed alias does not match its source station: ${name}`)
+  }
+  for (const alias of stationAliases({ alt_name: `${name};${name}站;${name}火车站` })) {
+    if (!record.aliases.some(existing => existing.name === alias.name)) {
+      record.aliases.push({ ...alias, source: 'user-confirmed-alias' })
+    }
+  }
+}
+
 const nameIndex = new Map()
 for (const record of records.values()) {
   for (const alias of record.aliases) {
@@ -116,6 +131,9 @@ function candidatesFor(name) {
   const normalized = normalizeName(name)
   let candidates = nameIndex.get(normalized) || []
   if (!candidates.length) return []
+  const reviewed = reviewedResolutions[name] || reviewedResolutions[name.replace(/(?:火车站|铁路站|站)$/u, '')]
+  // 已确认的别名可能与异地站的主名称相同，不能先被主名称优先规则排除。
+  if (reviewed && candidates.some(candidate => candidate.id === reviewed.selectedId)) return candidates
   const officialStation = officialByName.get(name)
   if (officialStation?.city.startsWith('老挝') || officialStation?.name === '万象') {
     const laoCandidates = candidates.filter(candidate => candidate.regions.includes('LA'))
@@ -202,6 +220,24 @@ for (const name of [...nameIndex.keys()].sort()) {
   }
 }
 
+// 明确提供的坐标使用独立来源，不冒充符合现役筛选条件的 OSM 对象。
+for (const [station, entry] of Object.entries(userProvidedCoordinates)) {
+  const value = entry.coordinates
+  if (entry.source !== 'user-provided' || !Array.isArray(value) || value.length !== 2
+    || !value.every(Number.isFinite) || Math.abs(value[0]) > 180 || Math.abs(value[1]) > 85) {
+    throw new Error(`Invalid user-provided station coordinates: ${station}`)
+  }
+  for (const name of [station, ...(entry.aliases || [])]) {
+    const normalized = normalizeName(name)
+    coordinates[normalized] = roundCoordinates(value)
+    provenance[normalized] = {
+      source: 'user-provided', reason: 'user-provided-coordinates', station,
+      matchSource: normalized === station ? 'user-provided-name' : 'user-provided-alias',
+      evidence: entry
+    }
+  }
+}
+
 const historicalCoordinates = {}
 const historicalProvenance = {}
 for (const [name, previous] of Object.entries(baseline)) {
@@ -235,7 +271,7 @@ const unresolvedOfficial = official.filter(station => !coordinates[station.name]
 }))
 const statusCounts = previousAudit.reduce((counts, row) => ({ ...counts, [row.status]: (counts[row.status] || 0) + 1 }), {})
 const summary = {
-  source: 'OpenStreetMap via Overpass, filtered with OpenRailwayMap train or suburban / present rules',
+  source: 'OpenStreetMap via Overpass, filtered with OpenRailwayMap train or suburban / present rules, with separately attributed user-provided coordinate supplements',
   acceptedTypes: [...acceptedRailwayTypes],
   ruleSource: 'https://github.com/hiddewie/OpenRailwayMap-vector/blob/106d97af12e5b34af8396ca898682345925dec2c/import/openrailwaymap.lua',
   license: '© OpenStreetMap contributors, ODbL 1.0: https://www.openstreetmap.org/copyright',
@@ -244,6 +280,7 @@ const summary = {
   eligibleByRegion: Object.fromEntries(['CN', 'HK', 'LA'].map(region => [region, [...records.values()].filter(record => record.regions.includes(region)).length])),
   unnamedObjects: [...records.values()].filter(record => !record.aliases.length).length,
   coordinateNames: Object.keys(coordinates).length,
+  userProvidedCoordinateNames: Object.values(provenance).filter(row => row.source === 'user-provided').length,
   previousNames: Object.keys(baseline).length, previousStatusCounts: statusCounts,
   addedNames: Object.keys(coordinates).filter(name => !Object.hasOwn(baseline, name)).length,
   ambiguousNames: ambiguous.length,
@@ -255,7 +292,7 @@ const summary = {
   caveats: [
     'present follows OSM lifecycle tags; it does not independently confirm passenger service or operation on a particular date.',
     'All eligible objects, including unnamed ones and ambiguous names, are preserved in the catalog; ambiguous names are not assigned arbitrary coordinates.',
-    'Unverifiable legacy/estimated coordinates are archived. Verified former train or suburban stations are available separately for historical user journeys; current train maps use present records only.',
+    'Unverifiable legacy/estimated coordinates are archived. Verified former train or suburban stations are available separately for historical user journeys; current train maps use present records and explicitly user-provided coordinate supplements with separate provenance.',
     'Polygons use Web Mercator geometry centroids; overlapping features within 1 km prefer a station node over an area or yard.'
   ]
 }
@@ -285,7 +322,7 @@ const report = [
   `按 OSM 对象 ID 去重后共有 ${summary.eligibleObjects} 个符合条件的设施。CN 范围已经覆盖 HK，因此不可把三个地域的数量直接相加。所有 ${summary.unnamedObjects} 个无名称设施也保留在完整目录中。`,
   `按优先类型统计：train ${summary.eligibleByType.train} 个、suburban ${summary.eligibleByType.suburban} 个；多类型中含 train 的设施计入 train。源标签 types 完整保留。`,
   '',
-  `现役查找表支持 ${summary.coordinateNames} 个名称及别名；该数量不是实际车站数。官方站名索引共 ${summary.officialStations} 项，现役匹配 ${summary.officialMatched} 项，尚未确认 ${summary.unresolvedOfficial} 项。`,
+  `地图查找表支持 ${summary.coordinateNames} 个名称及别名；其中 ${summary.userProvidedCoordinateNames} 个名称使用明确的用户补充坐标，其余来自符合现役筛选的 OSM 对象。该数量不是实际车站数。官方站名索引共 ${summary.officialStations} 项，已匹配 ${summary.officialMatched} 项，尚未确认 ${summary.unresolvedOfficial} 项。`,
   '',
   '三个原始响应均检查了末尾完成计数、JSON 完整性、无运行错误 remark、SHA-256。坐标均为 WGS84，经度在前、纬度在后。',
   '',
@@ -309,6 +346,8 @@ const report = [
   '',
   '- 按 ORM 导入代码解释 station、多交通模式标签及默认 train 类型，不要求每个车站必须写 train=yes；接受 train 和 suburban，仍排除明确只有 subway、tram 等类型的设施。',
   '- 新桥使用用户明确提供的 node/7742242697（上海金山铁路）；其余异地同名新桥保留在完整目录中。云山 node/3677430195、西湖东 node/3693383858 按 suburban/present 纳入；identity/supplement-stations.json 保存三个节点的当前 OSM API 核查响应，标签、坐标均与全量快照一致。',
+  '- 常村、古城子、遥林、铁厂、桥头、青沟子、三家子使用用户指定的 OSM 节点消歧；天桥对应古城子，林头子对应遥林。确认依据保存在 reviewed-name-resolutions.json；两个别名标记为 user-confirmed-alias，不改写 OSM 原始标签。',
+  '- 龙池使用用户指定的 node/1681825098 消歧；大柴旦东 node/7276945325 的饮马峡旧名按用户确认加入匹配，其余未经确认的 old_name 仍不自动加入。蒋村使用用户提供的 38.532911N/113.027942E，保存于 user-provided-coordinates.json；附近 node/1668749941 的生命周期标签矛盾，不将其标记为已核实现役 OSM 对象。',
   '- 当前候选必须只有 present 状态；同时具有多个生命周期标签的矛盾对象留在排除清单中。present 表示地图标签状态，不能单独证明某日期有客运列车。',
   '- 名称支持简繁、多语言、站名后缀；不将站场编号截成车站名，不把 old_name 自动混入现役名称。',
   '- 同名异地站核对官方电报码、地域或已审阅的线路证据；不会用原来的错误坐标作为唯一选点依据。',
@@ -322,8 +361,9 @@ const report = [
   '- raw/*.json.gz：三个地域的完整原始响应；*.overpassql：确切查询；*.receipt.json：源时间、计数和校验值。',
   '- catalog.json.gz：全部符合条件的设施、源 ID、原始标签、坐标和别名；excluded.json.gz：被排除对象及原因。',
   '- previous-coordinates.json.gz：原有坐标备份；previous-coordinate-audit.json：全部原有坐标的逐项核查。',
-  '- coordinate-provenance.json：每个现役查找名称的源对象及匹配理由；historical-provenance.json：旧站来源。',
-  '- reviewed-name-resolutions.json：郏县、禹州的线路核查及用户指定的新桥节点；blocked-name-resolutions.json：仍有身份冲突的名称。',
+  '- coordinate-provenance.json：每个地图查找名称的源对象或用户补充依据及匹配理由；historical-provenance.json：旧站来源。',
+  '- user-provided-coordinates.json：用户明确提供的精确坐标及别名，单独标记来源；该补充不修改 OSM 原始快照或现役分类。',
+  '- reviewed-name-resolutions.json：郏县、禹州的线路核查、用户指定的站点节点及别名；blocked-name-resolutions.json：仍有身份冲突的名称。',
   '- upstream/station-identifiers.json：仅用于核对站点身份的 Wikidata 标识，不从 Wikidata 取应用坐标。',
   '',
   '## 复现与更新',
@@ -352,6 +392,7 @@ if (process.argv.includes('--write')) {
   const header = [
     '// 站点经纬度坐标映射（WGS84：[经度, 纬度]）',
     '// © OpenStreetMap contributors，ODbL 1.0；按 OpenRailwayMap Type: train 或 suburban / State: present 筛选。',
+    '// 用户提供的精确补充坐标单独留档，不作为 OSM 现役分类证据。',
     '// 原始数据、逐项核查及来源：data/maps/station-coordinate-audit；重建：node scripts/maps/rebuild-station-coordinates.js --write',
     ''
   ].join(newline)

@@ -268,6 +268,7 @@ import { refreshCaptchaImage } from "@/utils/captcha.js";
 import { parseStations } from "@/utils/stations.js";
 import stationCoordinates, { historicalStationCoordinates, loadChinaMap } from "@/utils/maps/stationCoordinates.js";
 import { createRailwayGeo } from '@/utils/maps/railwayMap.js';
+import { normalizeStationName } from '@/utils/stationName.js';
 import { buildTicketPayload } from "@/utils/ticketShared.js";
 import { comparableTicketValues } from "@/utils/ticketFields.js";
 import { useUserStore } from "@/stores/user.js";
@@ -834,7 +835,9 @@ async function handleBackupFileChange(event) {
 
 // 通过站点全名获取坐标（直接映射）
 const getStationCoords = (stationName) => {
-  return stationCoordinates[stationName] || historicalStationCoordinates[stationName] || null;
+  const normalizedName = normalizeStationName(stationName);
+  return stationCoordinates[stationName] || stationCoordinates[normalizedName]
+    || historicalStationCoordinates[stationName] || historicalStationCoordinates[normalizedName] || null;
 };
 
 function renderMapChart() {
@@ -911,7 +914,7 @@ function renderMapChart() {
           fontSize: 24,
           fontWeight: 'bold',
           color: chartText(),
-          textBorderColor: '#000',
+          textBorderColor: isDark.value ? '#000' : '#fff',
           textBorderWidth: 3
         }
       },

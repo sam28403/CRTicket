@@ -6,6 +6,93 @@
     "sources": ["https://www.openstreetmap.org/node/7742242697"],
     "verificationFile": "identity/supplement-stations.json"
   },
+  "常村": {
+    "selectedId": "node/8398804169",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确指定常村站的 OSM 节点；同名异地站仍保留在完整目录中。",
+    "sources": ["https://www.openstreetmap.org/node/8398804169"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "古城子": {
+    "selectedId": "node/8840528310",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确指定古城子站的 OSM 节点，并确认该站又叫天桥。",
+    "sources": ["https://www.openstreetmap.org/node/8840528310"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "天桥": {
+    "selectedId": "node/8840528310",
+    "aliasOf": "古城子",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确确认天桥为所指定古城子节点的别名；原始 OSM 标签不含该别名，按用户确认单独保存。",
+    "sources": ["https://www.openstreetmap.org/node/8840528310"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "遥林": {
+    "selectedId": "node/2156363610",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确指定遥林站的 OSM 节点，并确认该站又叫林头子。",
+    "sources": ["https://www.openstreetmap.org/node/2156363610"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "林头子": {
+    "selectedId": "node/2156363610",
+    "aliasOf": "遥林",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确确认林头子为所指定遥林节点的别名；原始 OSM 标签不含该别名，按用户确认单独保存。",
+    "sources": ["https://www.openstreetmap.org/node/2156363610"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "铁厂": {
+    "selectedId": "node/1550539301",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确指定铁厂站的 OSM 节点；同名异地站仍保留在完整目录中。",
+    "sources": ["https://www.openstreetmap.org/node/1550539301"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "桥头": {
+    "selectedId": "node/2349438745",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确指定桥头站的 OSM 节点；同名异地站仍保留在完整目录中。",
+    "sources": ["https://www.openstreetmap.org/node/2349438745"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "青沟子": {
+    "selectedId": "node/12844704701",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确指定青沟子站的 OSM 节点；同名异地站仍保留在完整目录中。",
+    "sources": ["https://www.openstreetmap.org/node/12844704701"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "三家子": {
+    "selectedId": "node/9169253672",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确指定三家子站的 OSM 节点；同名异地站仍保留在完整目录中。",
+    "sources": ["https://www.openstreetmap.org/node/9169253672"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "龙池": {
+    "selectedId": "node/1681825098",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确指定龙池站的 OSM 节点；同名异地站仍保留在完整目录中。",
+    "sources": ["https://www.openstreetmap.org/node/1681825098"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "大柴旦东": {
+    "selectedId": "node/7276945325",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "用户明确指定大柴旦东站的 OSM 节点，并确认该站又叫饮马峡；原始快照的 old_name 为饮马峡。",
+    "sources": ["https://www.openstreetmap.org/node/7276945325"],
+    "verificationFile": "raw/CN.json.gz"
+  },
+  "饮马峡": {
+    "selectedId": "node/7276945325",
+    "aliasOf": "大柴旦东",
+    "matchReason": "user-confirmed-osm-identity",
+    "reason": "按用户明确确认，将大柴旦东节点的旧名饮马峡用于站名匹配；不将其他未经确认的 old_name 自动混入现役名称。",
+    "sources": ["https://www.openstreetmap.org/node/7276945325"],
+    "verificationFile": "raw/CN.json.gz"
+  },
   "郏县": {
     "selectedId": "node/5575721523",
     "reason": "该项目的官方客运站名对应郑渝高铁郏县站，所选 OSM 节点邻近郑渝高速线；另一同名节点邻近禹郏铁路。",

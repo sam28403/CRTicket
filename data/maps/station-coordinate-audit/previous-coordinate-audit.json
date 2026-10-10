@@ -11392,27 +11392,30 @@
       113.319484,
       36.4336487
     ],
-    "current": null,
-    "status": "ambiguous",
-    "distanceKm": null,
-    "candidates": [
-      {
-        "id": "node/8398804169",
-        "name": "常村",
-        "coordinates": [
-          113.319484,
-          36.4336487
-        ]
-      },
-      {
-        "id": "node/10885904305",
-        "name": "常村",
-        "coordinates": [
-          112.9718217,
-          36.3650042
-        ]
+    "current": [
+      113.319484,
+      36.4336487
+    ],
+    "status": "verified-within-50m",
+    "distanceKm": 0,
+    "source": {
+      "selectedId": "node/8398804169",
+      "sourceIds": [
+        "node/8398804169",
+        "node/10885904305"
+      ],
+      "reason": "user-confirmed-osm-identity",
+      "matchSource": "name",
+      "evidence": {
+        "selectedId": "node/8398804169",
+        "matchReason": "user-confirmed-osm-identity",
+        "reason": "用户明确指定常村站的 OSM 节点；同名异地站仍保留在完整目录中。",
+        "sources": [
+          "https://www.openstreetmap.org/node/8398804169"
+        ],
+        "verificationFile": "raw/CN.json.gz"
       }
-    ]
+    }
   },
   {
     "name": "常德",
@@ -51492,9 +51495,12 @@
       113.0279193,
       38.5328605
     ],
-    "current": null,
-    "status": "unverified",
-    "distanceKm": null,
+    "current": [
+      113.027942,
+      38.532911
+    ],
+    "status": "verified-within-50m",
+    "distanceKm": 0.006,
     "previousExcludedEvidence": [
       {
         "id": "node/1668749941",
@@ -51507,7 +51513,27 @@
         ]
       }
     ],
-    "candidates": []
+    "source": {
+      "source": "user-provided",
+      "reason": "user-provided-coordinates",
+      "station": "蒋村",
+      "matchSource": "user-provided-name",
+      "evidence": {
+        "coordinates": [
+          113.027942,
+          38.532911
+        ],
+        "aliases": [
+          "蒋村站",
+          "蒋村火车站"
+        ],
+        "source": "user-provided",
+        "originalCoordinate": "38.532911N/113.027942E",
+        "reason": "用户明确提供蒋村坐标，按 WGS84 [经度, 纬度] 补入地图查找表。附近 OSM 快照节点同时具有 railway=station 与 abandoned:railway=station，不作为现役 OSM 证据。",
+        "relatedOsmId": "node/1668749941",
+        "verificationFile": "raw/CN.json.gz"
+      }
+    }
   },
   {
     "name": "绛帐",
@@ -65918,27 +65944,30 @@
       103.559252,
       31.064602
     ],
-    "current": null,
-    "status": "ambiguous",
-    "distanceKm": null,
-    "candidates": [
-      {
-        "id": "node/1681825098",
-        "name": "龙池",
-        "coordinates": [
-          108.9925468,
-          28.6018735
-        ]
-      },
-      {
-        "id": "node/11202356352",
-        "name": "龙池",
-        "coordinates": [
-          103.559252,
-          31.064602
-        ]
+    "current": [
+      108.9925468,
+      28.6018735
+    ],
+    "status": "corrected-over-1km",
+    "distanceKm": 591.208,
+    "source": {
+      "selectedId": "node/1681825098",
+      "sourceIds": [
+        "node/1681825098",
+        "node/11202356352"
+      ],
+      "reason": "user-confirmed-osm-identity",
+      "matchSource": "name",
+      "evidence": {
+        "selectedId": "node/1681825098",
+        "matchReason": "user-confirmed-osm-identity",
+        "reason": "用户明确指定龙池站的 OSM 节点；同名异地站仍保留在完整目录中。",
+        "sources": [
+          "https://www.openstreetmap.org/node/1681825098"
+        ],
+        "verificationFile": "raw/CN.json.gz"
       }
-    ]
+    }
   },
   {
     "name": "龙川",
@@ -91123,35 +91152,31 @@
       120.6081709,
       41.0430799
     ],
-    "current": null,
-    "status": "ambiguous",
-    "distanceKm": null,
-    "candidates": [
-      {
-        "id": "node/9169253668",
-        "name": "三家子",
-        "coordinates": [
-          123.5854312,
-          42.4438422
-        ]
-      },
-      {
-        "id": "node/9169253672",
-        "name": "三家子",
-        "coordinates": [
-          121.9356925,
-          42.8035517
-        ]
-      },
-      {
-        "id": "node/13437566513",
-        "name": "三家子",
-        "coordinates": [
-          120.6081709,
-          41.0430799
-        ]
+    "current": [
+      121.9356925,
+      42.8035517
+    ],
+    "status": "corrected-over-1km",
+    "distanceKm": 224.454,
+    "source": {
+      "selectedId": "node/9169253672",
+      "sourceIds": [
+        "node/9169253668",
+        "node/9169253672",
+        "node/13437566513"
+      ],
+      "reason": "user-confirmed-osm-identity",
+      "matchSource": "name",
+      "evidence": {
+        "selectedId": "node/9169253672",
+        "matchReason": "user-confirmed-osm-identity",
+        "reason": "用户明确指定三家子站的 OSM 节点；同名异地站仍保留在完整目录中。",
+        "sources": [
+          "https://www.openstreetmap.org/node/9169253672"
+        ],
+        "verificationFile": "raw/CN.json.gz"
       }
-    ]
+    }
   },
   {
     "name": "三间房",
@@ -108391,27 +108416,30 @@
       107.2138708,
       27.4377916
     ],
-    "current": null,
-    "status": "ambiguous",
-    "distanceKm": null,
-    "candidates": [
-      {
-        "id": "node/1550539301",
-        "name": "铁厂",
-        "coordinates": [
-          126.1974225,
-          41.7147998
-        ]
-      },
-      {
-        "id": "node/12725718355",
-        "name": "铁厂",
-        "coordinates": [
-          107.2138708,
-          27.4377916
-        ]
+    "current": [
+      126.1974225,
+      41.7147998
+    ],
+    "status": "corrected-over-1km",
+    "distanceKm": 2343.927,
+    "source": {
+      "selectedId": "node/1550539301",
+      "sourceIds": [
+        "node/1550539301",
+        "node/12725718355"
+      ],
+      "reason": "user-confirmed-osm-identity",
+      "matchSource": "name",
+      "evidence": {
+        "selectedId": "node/1550539301",
+        "matchReason": "user-confirmed-osm-identity",
+        "reason": "用户明确指定铁厂站的 OSM 节点；同名异地站仍保留在完整目录中。",
+        "sources": [
+          "https://www.openstreetmap.org/node/1550539301"
+        ],
+        "verificationFile": "raw/CN.json.gz"
       }
-    ]
+    }
   },
   {
     "name": "铁厂沟",

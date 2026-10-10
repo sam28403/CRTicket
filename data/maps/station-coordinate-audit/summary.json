@@ -1,5 +1,5 @@
 {
-  "source": "OpenStreetMap via Overpass, filtered with OpenRailwayMap train or suburban / present rules",
+  "source": "OpenStreetMap via Overpass, filtered with OpenRailwayMap train or suburban / present rules, with separately attributed user-provided coordinate supplements",
   "acceptedTypes": [
     "train",
     "suburban"
@@ -64,18 +64,19 @@
     "LA": 23
   },
   "unnamedObjects": 215,
-  "coordinateNames": 28403,
+  "coordinateNames": 28420,
+  "userProvidedCoordinateNames": 3,
   "previousNames": 6939,
   "previousStatusCounts": {
-    "verified-within-50m": 6507,
-    "corrected-over-1km": 57,
+    "verified-within-50m": 6509,
+    "corrected-over-1km": 60,
     "updated-50m-to-1km": 84,
     "verified-historical-only": 35,
-    "ambiguous": 96,
-    "unverified": 160
+    "ambiguous": 92,
+    "unverified": 159
   },
-  "addedNames": 21787,
-  "ambiguousNames": 429,
+  "addedNames": 21799,
+  "ambiguousNames": 421,
   "officialStations": 3404,
   "officialMatched": 3357,
   "verifiedHistoricalNames": 75,
@@ -85,7 +86,7 @@
   "caveats": [
     "present follows OSM lifecycle tags; it does not independently confirm passenger service or operation on a particular date.",
     "All eligible objects, including unnamed ones and ambiguous names, are preserved in the catalog; ambiguous names are not assigned arbitrary coordinates.",
-    "Unverifiable legacy/estimated coordinates are archived. Verified former train or suburban stations are available separately for historical user journeys; current train maps use present records only.",
+    "Unverifiable legacy/estimated coordinates are archived. Verified former train or suburban stations are available separately for historical user journeys; current train maps use present records and explicitly user-provided coordinate supplements with separate provenance.",
     "Polygons use Web Mercator geometry centroids; overlapping features within 1 km prefer a station node over an area or yard."
   ]
 }

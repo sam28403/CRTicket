@@ -1,0 +1,11 @@
+{
+  "蒋村": {
+    "coordinates": [113.027942, 38.532911],
+    "aliases": ["蒋村站", "蒋村火车站"],
+    "source": "user-provided",
+    "originalCoordinate": "38.532911N/113.027942E",
+    "reason": "用户明确提供蒋村坐标，按 WGS84 [经度, 纬度] 补入地图查找表。附近 OSM 快照节点同时具有 railway=station 与 abandoned:railway=station，不作为现役 OSM 证据。",
+    "relatedOsmId": "node/1668749941",
+    "verificationFile": "raw/CN.json.gz"
+  }
+}

@@ -37,9 +37,21 @@ test('三个地域的原始响应均有完整计数和校验值，所有符合�
   assert.equal(catalog.length, summary.eligibleObjects)
 })
 
-test('每个现役名称坐标都有可追溯的 train 或 suburban/present 源对象，经纬顺序有效', () => {
+test('每个名称坐标都有可追溯的 OSM 现役对象或明确的用户补充，经纬顺序有效', async () => {
+  const supplements = await json('user-provided-coordinates.json')
   assert.equal(Object.keys(coordinates).length, summary.coordinateNames)
+  assert.equal(Object.values(provenance).filter(row => row.source === 'user-provided').length, summary.userProvidedCoordinateNames)
   for (const [name, value] of Object.entries(coordinates)) {
+    assert.ok(value[0] >= 70 && value[0] <= 140 && value[1] >= 10 && value[1] <= 56, `经纬顺序或地域错误：${name}`)
+    if (provenance[name]?.source === 'user-provided') {
+      const entry = supplements[provenance[name].station]
+      assert.ok(entry, `未留档的用户补充：${name}`)
+      assert.ok([provenance[name].station, ...entry.aliases].includes(name))
+      assert.deepEqual(value, entry.coordinates)
+      assert.deepEqual(provenance[name].evidence, entry)
+      assert.equal(provenance[name].selectedId, undefined, '不伪造现役 OSM 来源')
+      continue
+    }
     const record = records.get(provenance[name]?.selectedId)
     assert.ok(record, `无源对象：${name}`)
     assert.ok(acceptedRailwayTypes.has(record.type))
@@ -47,7 +59,6 @@ test('每个现役名称坐标都有可追溯的 train 或 suburban/present 源�
     assert.equal(record.state, 'present')
     assert.equal(classifyFacility(record.tags).eligible, true)
     assert.deepEqual(value, record.coordinates)
-    assert.ok(value[0] >= 70 && value[0] <= 140 && value[1] >= 10 && value[1] <= 56, `经纬顺序或地域错误：${name}`)
   }
 })
 
@@ -65,6 +76,57 @@ test('新桥按用户指定节点定位，云山和西湖东按 suburban 纳入�
   }
   assert.equal(provenance['新桥'].reason, 'user-confirmed-osm-identity')
   assert.ok(records.has('node/8341413017'), '异地同名新桥仍应保留源对象')
+})
+
+test('用户指定的七个站点消歧且天桥、林头子别名可追溯，异地同名节点仍保留', async () => {
+  const reviewed = await json('reviewed-name-resolutions.json')
+  const expected = {
+    常村: 8398804169, 古城子: 8840528310, 天桥: 8840528310,
+    遥林: 2156363610, 林头子: 2156363610, 铁厂: 1550539301,
+    桥头: 2349438745, 青沟子: 12844704701, 三家子: 9169253672
+  }
+  for (const [name, id] of Object.entries(expected)) {
+    const sourceId = `node/${id}`
+    const element = rawById.get(sourceId)
+    assert.ok(element)
+    assert.deepEqual(coordinates[name], [element.lon, element.lat])
+    assert.equal(provenance[name].selectedId, sourceId)
+    assert.equal(provenance[name].reason, 'user-confirmed-osm-identity')
+    assert.equal(reviewed[name].selectedId, sourceId)
+    assert.deepEqual(records.get(sourceId).tags, element.tags, '保留原始 OSM 标签')
+  }
+  for (const [alias, canonical] of [['天桥', '古城子'], ['林头子', '遥林']]) {
+    assert.equal(reviewed[alias].aliasOf, canonical)
+    assert.equal(provenance[alias].matchSource, 'user-confirmed-alias')
+    for (const suffix of ['', '站', '火车站']) {
+      assert.deepEqual(coordinates[alias + suffix], coordinates[canonical])
+    }
+  }
+  for (const id of ['node/10885904305', 'node/10973711950', 'node/7527334064',
+    'node/9123967457', 'node/12725718355', 'node/9121997539', 'node/10901470924',
+    'node/9169253668', 'node/13437566513']) {
+    assert.ok(records.has(id), `异地同名源对象不应被删除：${id}`)
+  }
+})
+
+test('龙池按指定节点消歧，饮马峡匹配大柴旦东，蒋村保留用户提供的精确坐标及来源', async () => {
+  for (const [name, id] of Object.entries({ 龙池: 1681825098, 大柴旦东: 7276945325, 饮马峡: 7276945325 })) {
+    const element = rawById.get(`node/${id}`)
+    assert.deepEqual(coordinates[name], [element.lon, element.lat])
+    assert.equal(provenance[name].selectedId, `node/${id}`)
+    assert.deepEqual(records.get(`node/${id}`).tags, element.tags)
+  }
+  assert.equal(rawById.get('node/7276945325').tags.old_name, '饮马峡')
+  for (const suffix of ['', '站', '火车站']) {
+    assert.deepEqual(coordinates['饮马峡' + suffix], coordinates['大柴旦东'])
+    assert.equal(provenance['饮马峡' + suffix].matchSource, 'user-confirmed-alias')
+    assert.deepEqual(coordinates['蒋村' + suffix], [113.027942, 38.532911])
+    assert.equal(provenance['蒋村' + suffix].source, 'user-provided')
+  }
+  const supplement = (await json('user-provided-coordinates.json'))['蒋村']
+  assert.equal(supplement.originalCoordinate, '38.532911N/113.027942E')
+  assert.equal(classifyFacility(rawById.get(supplement.relatedOsmId).tags).eligible, false)
+  assert.equal(records.has(supplement.relatedOsmId), false, '不将矛盾生命周期节点改为现役')
 })
 
 test('同名地铁、跨国同名站和已知严重偏移得到修正', () => {

@@ -2,13 +2,14 @@ import express from 'express'
 import stationData from '../../src/station_name.js'
 import { rateLimit } from '../security.js'
 import { isTrainQueryDateInRange } from '../../src/utils/trainQueryDate.js'
+import { normalizeStationName } from '../../src/utils/stationName.js'
 import { loadLltDatabase } from './lltskb.js'
 import { clockMinutes } from './trainClock.js'
 
 const origin = 'https://kyfw.12306.cn'
 const stationCodes = new Map(stationData.split('@').filter(Boolean).map(row => {
   const fields = row.split('|')
-  return [fields[1], fields[2]]
+  return [normalizeStationName(fields[1]), fields[2]]
 }))
 
 export function validateTrainQuery({ train, date }, now = Date.now()) {
@@ -89,7 +90,9 @@ async function query12306(train, date, fetchImpl) {
   let source = '12306'
   if (!rows.length) {
     const codes = new Map(stationCodes)
-    if (!codes.has(item.from_station) || !codes.has(item.to_station)) {
+    const fromStation = normalizeStationName(item.from_station)
+    const toStation = normalizeStationName(item.to_station)
+    if (!codes.has(fromStation) || !codes.has(toStation)) {
       const response = await fetchImpl(`${origin}/otn/resources/js/framework/station_name.js`, {
         headers,
         signal,
@@ -98,13 +101,13 @@ async function query12306(train, date, fetchImpl) {
       if (!response.ok) throw new Error('无法获取车站电报码')
       for (const entry of (await response.text()).split('@').slice(1)) {
         const fields = entry.split('|')
-        if (/^[A-Z]{3}$/.test(fields[2])) codes.set(fields[1], fields[2])
+        if (/^[A-Z]{3}$/.test(fields[2])) codes.set(normalizeStationName(fields[1]), fields[2])
       }
     }
-    if (!codes.has(item.from_station) || !codes.has(item.to_station)) throw new Error('未找到始发站或终到站电报码')
+    if (!codes.has(fromStation) || !codes.has(toStation)) throw new Error('未找到始发站或终到站电报码')
     const fallback = await get(`${origin}/otn/czxx/queryByTrainNo?${new URLSearchParams({
-      train_no: item.train_no, from_station_telecode: codes.get(item.from_station),
-      to_station_telecode: codes.get(item.to_station), depart_date: date,
+      train_no: item.train_no, from_station_telecode: codes.get(fromStation),
+      to_station_telecode: codes.get(toStation), depart_date: date,
     })}`)
     if (!Array.isArray(fallback.data?.data)) throw new Error('12306 备用查询返回格式异常')
     rows = fallback.data.data
@@ -132,7 +135,8 @@ export async function queryTrainInfo(train, date, fetchImpl = fetch, loadDatabas
     /^[A-Z]?\d+(?:\/[A-Z]?\d+)*$/.test(item.train) && matchesTrain(item.train, train))
   if (online?.stops.length) {
     const matched = candidates.filter(item => item.stops.length === online.stops.length &&
-      item.stops.every((stop, index) => stop.station === online.stops[index].station))
+      item.stops.every((stop, index) =>
+        normalizeStationName(stop.station) === normalizeStationName(online.stops[index].station)))
     if (matched.length !== 1 || matched[0].stops.some(stop => stop.mileage == null)) {
       return { ...online, warnings: ['路路通未找到站序一致且里程完整的车次记录，里程暂缺。'] }
     }
