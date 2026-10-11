@@ -10,6 +10,7 @@ defineProps({
   source: { type: String, required: true },
   date: { type: String, required: true },
   current: { type: Boolean, default: false },
+  inStation: { type: Boolean, default: false },
 })
 </script>
 
@@ -19,7 +20,9 @@ defineProps({
       <RouterLink :to="stationTrainLocation(row, source, date)" class="train-link">
         {{ displayTrainCode(row.train) }}
       </RouterLink>
-      <span v-if="current" class="current-badge">当前车次</span>
+      <span v-if="current" class="current-badge">
+        {{ inStation ? '停在站内' : row.highlightLabel }}
+      </span>
     </div>
     <dl class="mobile-train-fields">
       <div v-for="field in fields" :key="field.key" class="mobile-train-field">
@@ -69,7 +72,7 @@ defineProps({
 }
 .current-badge {
   flex-shrink: 0;
-  color: var(--app-warning, #975009);
+  color: var(--board-highlight-color);
   font-size: 12px;
   font-weight: 600;
 }
@@ -96,7 +99,7 @@ dd {
   line-height: 20px;
 }
 .is-current .time-value {
-  color: var(--app-warning, #975009);
+  color: var(--board-highlight-color);
   font-weight: 600;
 }
 </style>

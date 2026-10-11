@@ -1,4 +1,5 @@
 import { trainQueryRange } from './trainQueryDate.js'
+import { stationRowTiming } from './stationBoardTime.js'
 
 export const boardTabs = [
   { name: 'all', label: '全部信息' },
@@ -12,12 +13,9 @@ export function stationClock(now = Date.now()) {
     date: trainQueryRange(now).today,
     time: text.slice(11, 19),
     minutes: Number(text.slice(11, 13)) * 60 + Number(text.slice(14, 16)),
+    seconds: Number(text.slice(11, 13)) * 3600
+      + Number(text.slice(14, 16)) * 60 + Number(text.slice(17, 19)),
   }
-}
-
-function minutes(time) {
-  const parts = time?.split(':').map(Number)
-  return parts?.length === 2 ? parts[0] * 60 + parts[1] : Infinity
 }
 
 export function stationBoardRows(trains, tab) {
@@ -25,24 +23,12 @@ export function stationBoardRows(trains, tab) {
     .filter(row => tab === 'all' || Boolean(row[tab]))
     .map(row => ({
       ...row,
-      timeMinutes: minutes(tab === 'arrival' ? row.arrival : row.departure || row.arrival),
+      ...stationRowTiming(row, tab),
       status: tab === 'arrival'
         ? row.arrivalStatus : row.departureStatus || row.arrivalStatus,
       stayLabel: row.stay == null ? '—' : `${row.stay} 分钟`,
     }))
-    .sort((a, b) => a.timeMinutes - b.timeMinutes || a.train.localeCompare(b.train, 'en', { numeric: true }))
-}
-
-export function currentTrainIndex(rows, currentMinutes) {
-  if (!rows.length) return -1
-  let left = 0
-  let right = rows.length
-  while (left < right) {
-    const middle = Math.floor((left + right) / 2)
-    if (rows[middle].timeMinutes < currentMinutes) left = middle + 1
-    else right = middle
-  }
-  return Math.min(left, rows.length - 1)
+    .sort((a, b) => a.timeSeconds - b.timeSeconds || a.train.localeCompare(b.train, 'en', { numeric: true }))
 }
 
 export function stationBoardColumns(rows, tab) {

@@ -1,13 +1,14 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { currentTrainIndex, stationBoardColumns, stationBoardRows, stationClock } from './stationBoard.js'
+import { stationBoardColumns, stationBoardRows, stationClock } from './stationBoard.js'
+import { currentTrainIndex } from './stationBoardTime.js'
 
 test('系统时钟固定北京时间，在午夜切换当天日期', () => {
   assert.deepEqual(stationClock(Date.parse('2026-10-11T15:59:59Z')), {
-    date: '2026-10-11', time: '23:59:59', minutes: 1439,
+    date: '2026-10-11', time: '23:59:59', minutes: 1439, seconds: 86399,
   })
   assert.deepEqual(stationClock(Date.parse('2026-10-11T16:00:00Z')), {
-    date: '2026-10-12', time: '00:00:00', minutes: 0,
+    date: '2026-10-12', time: '00:00:00', minutes: 0, seconds: 0,
   })
 })
 
@@ -22,7 +23,7 @@ test('三个标签使用本站时间排序，始发终到及跨日事件分别�
   const arrivals = stationBoardRows(trains, 'arrival')
   assert.deepEqual(arrivals.map(row => row.train), ['K2', 'K3'])
   assert.equal(arrivals[1].status, '晚点 5 分钟')
-  assert.equal(trains[0].timeMinutes, undefined)
+  assert.equal(trains[0].timeSeconds, undefined)
 })
 
 test('可选列按当前标签实际提供的数据展示，缺失字段不默认正点', () => {
@@ -41,10 +42,11 @@ test('可选列按当前标签实际提供的数据展示，缺失字段不默�
 })
 
 test('1200 趟车次按当前时间定位，兼容全天结束和空列表', () => {
-  const rows = Array.from({ length: 1200 }, (_, index) => ({ timeMinutes: index }))
-  assert.equal(currentTrainIndex(rows, 720), 720)
-  assert.equal(currentTrainIndex(rows, 720.5), 721)
+  const rows = Array.from({ length: 1200 }, (_, index) => ({ timeSeconds: (index + 1) * 60 }))
+  assert.equal(currentTrainIndex(rows, 720 * 60), 720)
+  assert.equal(currentTrainIndex(rows, 720 * 60 + 30), 720)
   assert.equal(currentTrainIndex(rows, 0), 0)
-  assert.equal(currentTrainIndex(rows, 1439), 1199)
-  assert.equal(currentTrainIndex([], 720), -1)
+  assert.equal(currentTrainIndex(rows, 1200 * 60), -1)
+  assert.equal(currentTrainIndex(rows, 1439 * 60), -1)
+  assert.equal(currentTrainIndex([], 720 * 60), -1)
 })

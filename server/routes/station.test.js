@@ -46,6 +46,28 @@ test('官网请求使用本站参数和初始化会话，时刻只取本站字�
   assert.equal(rows[0].exit, null)
 })
 
+test('列表外车站从官网索引解析电报码，索引无对应名称时仍按名称尝试查询', async () => {
+  for (const code of ['XYZ', '']) {
+    const queried = { name: '列表外甲站', telecode: '' }
+    const calls = []
+    const fetchImpl = async (url, options) => {
+      calls.push({ url: new URL(url), options })
+      if (url.endsWith('/init')) return new Response('init')
+      if (url.endsWith('/station_name.js')) {
+        return new Response(code ? `var station_names ='@lj|列表外甲站|${code}|liebiaowai|lbw|0';` : '')
+      }
+      return Response.json({ status: true, data: { flag: true, data: [{
+        ...onlineRow, station_name: queried.name, start_station_name: queried.name,
+      }] } })
+    }
+    const rows = await query12306Station(queried, date, fetchImpl)
+    assert.equal(calls.length, 3)
+    assert.equal(calls[2].url.searchParams.get('train_station_code'), code)
+    assert.equal(calls[2].url.searchParams.get('train_station_name'), queried.name)
+    assert.equal(rows[0].from, queried.name)
+  }
+})
+
 test('官方缺失动态数据不猜测正点，错误站点、格式及 HTTP 失败触发异常', async () => {
   const rows = normalizeStationTrains([onlineRow], station, date)
   assert.equal(rows[0].arrival, null)
@@ -168,7 +190,10 @@ test('HTTP 限制当天和有效站名，合并并发请求，缓存到期和跨
   try {
     const base = `http://127.0.0.1:${server.address().port}`
     const query = `station=${encodeURIComponent('北京南')}&date=${date}`
-    for (const invalid of ['station=VNP', 'station=北京南&date=2026-10-10', 'station=北京南&station=天津']) {
+    for (const invalid of [
+      '', 'station=', `station=${'站'.repeat(31)}`, 'station=%00',
+      'station=北京南&date=2026-10-10', 'station=北京南&station=天津',
+    ]) {
       assert.equal((await fetch(`${base}/station?${invalid}`)).status, 400)
     }
     const responses = await Promise.all(Array.from({ length: 5 }, () => fetch(`${base}/station?${query}`)))

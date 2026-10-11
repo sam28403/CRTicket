@@ -4,14 +4,15 @@ import { useElementSize } from '@vueuse/core'
 import { RouterLink } from 'vue-router'
 import StationLink from '@/components/StationLink.vue'
 import StationBoardMobileRow from '@/components/StationBoardMobileRow.vue'
-import { currentTrainIndex, stationBoardColumns } from '@/utils/stationBoard.js'
+import { stationBoardColumns } from '@/utils/stationBoard.js'
+import { currentTrainHighlights } from '@/utils/stationBoardTime.js'
 import { stationTrainLocation } from '@/utils/stationNavigation.js'
 import { displayTrainCode } from '@/utils/trainDisplay.js'
 
 const props = defineProps({
   rows: { type: Array, required: true },
   tab: { type: String, required: true },
-  currentMinutes: { type: Number, required: true },
+  currentSeconds: { type: Number, required: true },
   follow: { type: Boolean, default: true },
   source: { type: String, required: true },
   date: { type: String, required: true },
@@ -22,7 +23,11 @@ const table = ref(null)
 let locateFrame
 let locateId = 0
 const { width, height } = useElementSize(container)
-const currentIndex = computed(() => currentTrainIndex(props.rows, props.currentMinutes))
+const highlights = computed(() => currentTrainHighlights(props.rows, props.currentSeconds))
+const currentIndex = computed(() => {
+  const indexes = highlights.value.highlighted
+  return indexes.size ? Math.min(...indexes) : highlights.value.nextIndex
+})
 const compactTable = computed(() => width.value < 600)
 const specs = computed(() => stationBoardColumns(props.rows, props.tab))
 const mobileFields = computed(() => specs.value.filter(column => column.key !== 'train'))
@@ -62,7 +67,8 @@ async function locateCurrent() {
   await nextTick()
   if (id !== locateId || !table.value) return
   // 桌面保留两行上下文，手机直接显示当前卡片，避免高卡片把它挤出视野。
-  const index = Math.max(0, currentIndex.value - (compactTable.value ? 0 : 2))
+  const target = currentIndex.value === -1 ? props.rows.length - 1 : currentIndex.value
+  const index = Math.max(0, target - (compactTable.value ? 0 : 2))
   let pass = 0
   const align = () => {
     if (id !== locateId) return
@@ -80,7 +86,8 @@ function pauseFollow() {
 }
 
 function rowClass({ rowIndex }) {
-  return rowIndex === currentIndex.value ? 'current-train' : ''
+  if (highlights.value.inStation.has(rowIndex)) return 'current-train'
+  return highlights.value.upcoming.has(rowIndex) ? 'upcoming-train' : ''
 }
 
 function browseKey(event) {
@@ -134,7 +141,8 @@ onBeforeUnmount(() => {
           :fields="mobileFields"
           :source="source"
           :date="date"
-          :current="rowIndex === currentIndex"
+          :current="highlights.highlighted.has(rowIndex)"
+          :in-station="highlights.inStation.has(rowIndex)"
         />
       </template>
     </el-table-v2>
@@ -155,13 +163,23 @@ onBeforeUnmount(() => {
   font-variant-numeric: tabular-nums;
 }
 .station-board-table :deep(.current-train) {
+  --board-highlight-color: var(--app-warning, #975009);
   background: var(--el-color-warning-light-9);
   box-shadow: inset 3px 0 0 var(--el-color-warning);
+}
+.station-board-table :deep(.upcoming-train) {
+  --board-highlight-color: var(--app-success, #18763b);
+  background: var(--el-color-success-light-9);
+  box-shadow: inset 3px 0 0 var(--el-color-success);
+}
+.station-board-table :deep(.current-train),
+.station-board-table :deep(.upcoming-train) {
   color: var(--el-text-color-primary);
   font-weight: 600;
 }
-.station-board-table :deep(.current-train span.board-cell) {
-  color: var(--app-warning, #975009);
+.station-board-table :deep(.current-train span.board-cell),
+.station-board-table :deep(.upcoming-train span.board-cell) {
+  color: var(--board-highlight-color);
 }
 .mobile-board :deep(.el-table-v2__row) {
   align-items: stretch;

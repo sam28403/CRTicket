@@ -65,11 +65,31 @@ export async function query12306Station(station, date, fetchImpl = fetch) {
   const cookies = init.headers.getSetCookie?.() || []
   if (cookies.length) headers.Cookie = cookies.map(value => value.split(';')[0]).join('; ')
   await init.body?.cancel()
+  let telecode = station.telecode || ''
+  if (!telecode) {
+    // 本地推荐列表可能缺少新车站，尝试从官网当前索引补齐电报码。
+    try {
+      const response = await fetchImpl(`${origin}/otn/resources/js/framework/station_name.js`, {
+        headers, signal, redirect: 'error',
+      })
+      if (response.ok) {
+        for (const entry of (await response.text()).split('@').slice(1)) {
+          const fields = entry.split('|')
+          if (normalizeStationName(fields[1]) === station.name && /^[A-Z]{3}$/.test(fields[2])) {
+            telecode = fields[2]
+            break
+          }
+        }
+      }
+    } catch {
+      // 索引不可用仍尝试按名称查询，失败后由车站接口切换到路路通。
+    }
+  }
   // 参数来自官方 /otn/resources/merged/czxxcx_js.js 的 execute_search。
   const params = new URLSearchParams({
     train_start_date: date,
     train_station_name: station.name,
-    train_station_code: station.telecode,
+    train_station_code: telecode,
     randCode: '',
   })
   const response = await fetchImpl(`${origin}/otn/czxx/query?${params}`, {

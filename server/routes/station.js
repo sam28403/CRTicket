@@ -1,5 +1,6 @@
 import express from 'express'
 import { parseStations } from '../../src/utils/stations.js'
+import { stationQueryName } from '../../src/utils/stationName.js'
 import { trainQueryRange } from '../../src/utils/trainQueryDate.js'
 import { rateLimit } from '../security.js'
 import { loadLltDatabase } from './lltskb.js'
@@ -38,16 +39,17 @@ export function createStationRouter(options = {}) {
   const pending = new Map()
   router.use(rateLimit(30, 60000))
   router.get('/', async (req, res) => {
-    const station = typeof req.query.station === 'string'
-      ? stations.get(req.query.station.trim()) : null
+    const name = stationQueryName(req.query.station)
+    const station = name ? stations.get(name) || { name, telecode: '' } : null
     const date = trainQueryRange(now()).today
     if (!station || (req.query.date != null && req.query.date !== date)) {
       return res.status(400).json({
         success: false,
-        message: !station ? '请从站名列表中选择有效车站' : '车站大屏仅支持查询当天信息',
+        message: !station ? '请输入车站名称（不超过 30 个字）' : '车站大屏仅支持查询当天信息',
       })
     }
-    const key = `${date}-${station.telecode}`
+    // 列表外车站可能都没有电报码，按站名隔离缓存和并发请求。
+    const key = `${date}-${station.name}`
     try {
       let entry = cache.get(key)
       if (!entry || now() - entry.cachedAt >= 60000) {

@@ -2,7 +2,7 @@ import { computed, onBeforeUnmount, ref, shallowRef, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/api.js'
-import { stations } from '@/composables/useTicketShared.js'
+import { stationQueryName } from '@/utils/stationName.js'
 import { stationClock } from '@/utils/stationBoard.js'
 import { stationLocation } from '@/utils/stationNavigation.js'
 
@@ -20,13 +20,13 @@ export function useStationBoard() {
   const timer = setInterval(() => { now.value = Date.now() }, 1000)
 
   async function query(name = station.value) {
-    const selected = stations.find(item => item.name === name.trim())
+    const selected = stationQueryName(name)
     if (!selected) {
-      ElMessage.warning('请从站名列表中选择有效车站')
+      ElMessage.warning('请输入车站名称（不超过 30 个字）')
       return
     }
-    if (route.query.station !== selected.name) {
-      await router.replace(stationLocation(selected.name))
+    if (route.query.station !== selected) {
+      await router.replace(stationLocation(selected))
       return
     }
     controller?.abort()
@@ -34,13 +34,13 @@ export function useStationBoard() {
     const id = ++requestId
     now.value = Date.now()
     const date = clock.value.date
-    station.value = selected.name
+    station.value = selected
     loading.value = true
     result.value = null
     error.value = ''
     try {
       const { data } = await api.get('/station', {
-        params: { station: selected.name, date },
+        params: { station: selected, date },
         timeout: 60000,
         signal: controller.signal,
       })
@@ -49,7 +49,11 @@ export function useStationBoard() {
       // 防止挂起标签页或长请求在午夜后仍展示昨天的数据。
       now.value = Date.now()
       if (data.date !== clock.value.date) {
-        query(selected.name)
+        query(selected)
+        return
+      }
+      if (!data.trains?.length) {
+        ElMessage.warning('未查询到该车站当天的车次，请确认站名是否正确')
         return
       }
       result.value = data
@@ -84,7 +88,7 @@ export function useStationBoard() {
     controller?.abort()
     requestId++
     loading.value = false
-    if (stations.some(item => item.name === selected.trim())) query(selected)
+    if (stationQueryName(selected)) query(selected)
   })
 
   onBeforeUnmount(() => {

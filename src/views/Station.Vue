@@ -28,6 +28,13 @@ function locateCurrent() {
   follow.value = true
   table.value?.locateCurrent()
 }
+
+function queryOnEnter(event) {
+  if (event.isComposing || event.keyCode === 229) return
+  event.preventDefault()
+  if (event.repeat || loading.value) return
+  query()
+}
 </script>
 
 <template>
@@ -39,7 +46,11 @@ function locateCurrent() {
     <main class="station-content">
       <div class="page-heading">
         <h1>车站大屏</h1>
-        <el-form class="station-form" @submit.prevent="query()">
+        <el-form
+          class="station-form"
+          @submit.prevent="query()"
+          @keydown.enter="queryOnEnter"
+        >
           <el-form-item label="站名">
             <el-autocomplete
               v-model="station"
@@ -76,13 +87,27 @@ function locateCurrent() {
       >
         <template v-if="result">
           <div class="result-heading">
-            <div class="result-summary">
-              <strong>{{ result.station }} · {{ result.date }}</strong>
-              <el-text type="info" size="small">
-                共 {{ result.total.toLocaleString() }} 趟 · {{ result.source }}
-                <template v-if="result.version"> {{ result.version }}</template>
-                · 更新于 {{ updatedTime }}
-              </el-text>
+            <strong>{{ result.station }} · {{ result.date }}</strong>
+            <div class="board-legend">
+              <el-tag type="success" size="small">绿色：即将到发</el-tag>
+              <el-tag type="warning" size="small">琥珀色：站内停靠</el-tag>
+            </div>
+            <div class="board-actions">
+              <el-switch v-model="follow" active-text="跟随当前时间" />
+              <el-button @click="locateCurrent">定位当前时间</el-button>
+            </div>
+          </div>
+          <div class="result-summary">
+            <el-text type="info" size="small">
+              共 {{ result.total.toLocaleString() }} 趟
+              <template v-if="rows.length !== result.total">
+                · 当前显示 {{ rows.length.toLocaleString() }} 趟
+              </template>
+              · {{ result.source }}
+              <template v-if="result.version"> {{ result.version }}</template>
+              · 更新于 {{ updatedTime }} · 按本站到发时间排序
+            </el-text>
+            <div class="result-notes">
               <el-tooltip
                 v-if="warningSummary"
                 :content="result.warnings.join(' ')"
@@ -93,10 +118,9 @@ function locateCurrent() {
                   {{ warningSummary }}
                 </el-text>
               </el-tooltip>
-            </div>
-            <div class="board-actions">
-              <el-switch v-model="follow" active-text="跟随当前时间" />
-              <el-button @click="locateCurrent">定位当前时间</el-button>
+              <el-text type="info" size="small">
+                手动滚动暂停跟随，点击“定位当前时间”恢复。
+              </el-text>
             </div>
           </div>
           <el-tabs v-model="activeTab">
@@ -107,17 +131,11 @@ function locateCurrent() {
               :name="tab.name"
             />
           </el-tabs>
-          <div class="board-description">
-            <el-text type="info" size="small">
-              当前显示 {{ rows.length.toLocaleString() }} 趟，按本站到发时间排序。
-              手动滚动后暂停跟随，可点击“定位当前时间”恢复。
-            </el-text>
-          </div>
           <StationBoardTable
             ref="table"
             :rows="rows"
             :tab="activeTab"
-            :current-minutes="clock.minutes"
+            :current-seconds="clock.seconds"
             :follow="follow"
             :source="result.source"
             :date="result.date"
