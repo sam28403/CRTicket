@@ -78,6 +78,7 @@ https://sam28403.github.io
 | `src/views/Monitor.vue`                                              | 余票查询、筛选、定时监控和提醒页面。                                             |
 | `src/views/TrainQuery.vue`                                           | 车次经停、时间和里程查询页面，结果下方展示途经站点线路图。                       |
 | `src/views/TrainList.vue`                                            | 路路通离线车次列表，支持按日期筛选、排序和跳转经停详情。                         |
+| `src/views/Station.Vue`                                              | 当天车站大屏，提供全部信息、出发与到达标签，以及当前时间定位。                   |
 | `src/views/HistoryView.vue`                                          | 已保存车票历史及记录操作页面。                                                   |
 | `src/views/Login.vue`                                                | 登录页面。                                                                       |
 | `src/views/Register.vue`                                             | 注册页面。                                                                       |
@@ -87,8 +88,12 @@ https://sam28403.github.io
 | `src/components/AppBrand.vue`                                        | 登录、注册、历史记录和用户页面共用的品牌标题。                                   |
 | `src/components/ThemeSelect.vue`                                     | 外观主题选择控件。                                                               |
 | `src/components/TrainRouteMap.vue`                                   | 车次途经站点地图，支持线路居中、全画布拖动缩放和到发时间提示。                   |
+| `src/components/StationBoardTable.vue`                               | 车站大屏虚拟表格、桌面与手机布局切换及当前车次定位。                             |
+| `src/components/StationBoardMobileRow.vue`                           | 手机端车次信息卡片，字段分列排列，长内容自动换行。                               |
+| `src/components/StationLink.vue`                                    | 站名链接，跳转并查询目标车站的当天大屏。                                         |
 | `src/composables/useTheme.js`                                        | 主题状态、系统配色同步和持久化逻辑。                                             |
 | `src/composables/useTicketShared.js`                                 | 车票和余票页面共用的车站搜索及表单逻辑。                                         |
+| `src/composables/useStationBoard.js`                                 | 车站查询、路由站名参数同步、系统时间与跨日刷新。                                 |
 | `src/utils/captcha.js`                                               | 验证码相关工具。                                                                 |
 | `src/utils/seatAvailability.js`                                      | 余票席别数量及状态解析工具。                                                     |
 | `src/utils/stations.js`                                              | 车站名称搜索和匹配工具。                                                         |
@@ -102,11 +107,15 @@ https://sam28403.github.io
 | `src/utils/trainTime.js`                                             | 车次经停时间和跨日展示工具。                                                     |
 | `src/utils/trainQueryDate.js`                                        | 车次查询日期范围及格式处理。                                                     |
 | `src/utils/trainDisplay.js`                                          | 去除离线方案后缀，统一车次页面及导出文档的显示名称。                             |
+| `src/utils/stationBoard.js`                                         | 大屏标签字段、到发时刻排序、北京时间及当前车次索引。                             |
+| `src/utils/stationNavigation.js`                                    | 车站与车次跳转，保留列车始发日期及完整离线记录号。                               |
+| `src/utils/stationBoard.test.js`、`stationNavigation.test.js`        | 大屏日期、排序、可选字段、时间定位及跨日／双车次跳转测试。                       |
 | `src/utils/trainInfoPdf.js`                                          | 车次经停信息 PDF 排版与导出。                                                    |
 | `src/utils/trainInfoPdf.test.js`                                     | 车次 PDF 导出工具的测试。                                                        |
 | `src/assets/styles/App.css`                                          | 应用通用样式。                                                                   |
 | `src/assets/styles/theme.css`                                        | 主题色及亮／暗色样式变量。                                                       |
 | `src/assets/styles/fonts.css`                                        | 前端字体定义。                                                                   |
+| `src/assets/styles/station.css`                                     | 车站大屏标题栏、查询控件及响应式页面布局。                                       |
 | `src/assets/styles/History.css`                                      | 历史车票页面样式。                                                               |
 | `src/assets/styles/Login.css`                                        | 登录和注册页面样式。                                                             |
 
@@ -137,6 +146,10 @@ https://sam28403.github.io
 | `server/routes/trainInfo.js`        | 车次信息 API，组合 12306 与路路通查询结果。                                          |
 | `server/routes/trainClock.js`       | 车次信息与离线车次列表共用的时刻转分钟工具。                                         |
 | `server/routes/trainInfo.test.js`   | 车次信息路由测试。                                                                   |
+| `server/routes/station.js`          | 当天车站查询 API、输入校验、数据源降级、缓存与并发请求合并。                         |
+| `server/routes/station12306.js`     | 12306 车站查询及本站到发时刻、可选动态字段归一化。                                   |
+| `server/routes/stationLlt.js`       | 路路通车站索引，按本站到发日反推始发日并筛选开行记录。                               |
+| `server/routes/station.test.js`     | 车站接口、数据源优先级、跨午夜停车、日期限制及缓存测试。                             |
 
 </details>
 
@@ -185,6 +198,7 @@ https://sam28403.github.io
 
 ```bash
 node --test src/stores/user.test.js src/utils/trainInfoPdf.test.js server/security.test.js server/routes/*.test.js
+node --test src/utils/stationBoard.test.js src/utils/stationNavigation.test.js
 node --test scripts/maps/lib/railway-station-audit.test.js src/utils/maps/stationCoordinates.test.js src/utils/maps/trainRouteMap.test.js
 npm run build
 npm run build:ghpages
@@ -300,6 +314,8 @@ npm run build:ghpages
 
 在本地或自行部署的完整服务中，点击首页右上角“车次查询”进入 `#/train`，无需登录。输入车次并选择始发日期（北京时间今天前 2 天至后 15 天），即可查看车次、站名、到达时间、出发时间、停留时长和里程。跨日到达时间用 `+1`、`+2` 等标签标注；手机端以卡片展示经停信息。
 
+点击结果标题中的始发站、终到站或经停时刻表中的站名，可跳转到该车站大屏并自动查询。车站大屏只展示北京时间当天的信息，不沿用车次查询中选择的历史或未来日期。
+
 查询优先使用 12306 车次接口；无结果时尝试路路通数据。12306 不提供里程时，若路路通车站序列可准确对应，则补充路路通里程，否则显示“暂无”。点击结果下方“导出数据”可按模板导出 A4 PDF，文件名为 `车次_日期.pdf`，优先采用 14 号字；站点较多时采用 12 号字，仍无法容纳时分页。导出使用 `public/google_sans_rounded_regular.ttf`。
 
 结果表格下方的“车次线路图”与用户运转地图共用底图，按经停顺序标记可定位的每一站并连线。初始视图自动将线路居中，适配桌面和手机；在整个地图画布内可拖动、缩放，点击“线路居中”恢复默认视图。悬停站点可查看到发时间。没有可靠坐标的站名会显示提示，相关区间暂不连线；连线表示站序，不代表实际铁路走向。
@@ -324,6 +340,28 @@ GitHub Pages 演示版不部署后端，因此禁用首页“车次查询”入�
 - `GET /api/llt-trains/detail?train=完整车次&date=YYYY-MM-DD`：精确匹配离线记录并返回经停时刻表；车次参数中的 `/` 等字符需要进行 URL 编码。
 
 当路路通主下载源不可达时，后端尝试官方备用数据包，以包内版本号为准。GitHub Pages 演示版没有部署后端，直接访问 `#/list` 同样会重定向回首页。
+
+## 车站大屏使用说明
+
+在本地或自行部署的完整服务中，点击首页或车次查询页的“车站大屏”，进入 `#/station`，无需登录。站名输入复用车票生成界面的站名列表，支持中文、拼音和简拼搜索。选择车站后点击“查询”，也可通过 `#/station?station=北京南` 自动查询指定车站；分享链接时需对站名进行 URL 编码。
+
+大屏仅查询北京时间当天，标题栏显示系统时间，日期不可选择。页面跨午夜后会清除前一天的结果并重新查询当天信息。查询优先尝试 12306，服务异常或未返回本站车次时再读取路路通离线时刻表；页面注明数据来源、离线版本及更新时间。离线数据按开行日期和循环规则筛选，并按本站到发日期反推列车始发日期，处理前一天始发及跨午夜停车；临时调图、停运和动态信息仍以车站公告为准。
+
+显示区域分为三个标签，均按本站对应时刻排序：
+
+- **全部信息**：车次、始发站、终到站、到达时间、开车时间、停留时间，以及上游提供的检票口和正晚点。
+- **出发大屏**：车次、终到站、开车时间，以及上游提供的检票口和正晚点；不包含当天仅终到本站的车次。
+- **到达大屏**：车次、始发站、到达时间，以及上游提供的出站口和正晚点；不包含当天仅从本站始发的车次。
+
+检票口、出站口和正晚点没有有效数据时，对应列不显示，不默认标注“正点”。跨午夜停站会分别归入实际到达日和出发日的大屏，在全部信息中标注“昨日”或“次日”时刻。
+
+查询完成和切换标签时自动定位当前时间附近的车次；当前车次以琥珀色背景及左侧标记强调，车次和站名链接保持蓝色。开启“跟随当前时间”后会随时间更新定位，手动滚动会暂停跟随，点击“定位当前时间”可恢复。桌面使用表格，手机使用两列字段的信息卡片，长内容自动换行，无需左右滑动；两种布局均使用虚拟滚动，仅渲染可视范围附近的车次，适合上千趟车次的车站。
+
+点击车次进入对应时刻表，携带列车实际始发日期；路路通结果同时保留完整离线记录号与方案后缀，准确匹配跨日或双车次记录。点击始发站或终到站，会切换到目标车站并自动查询其当天大屏。车次时刻表中的站名也可跳回对应车站大屏。
+
+本地需同时运行前端和 `node server/app.js`。接口为 `GET /api/station?station=北京南&date=YYYY-MM-DD`：`station` 必须是站名列表中的名称，`date` 可省略；传入非当天日期会被拒绝。后端将同站同日的结果缓存 1 分钟并合并并发请求，最多缓存 40 个结果，复用现有路路通数据库缓存。
+
+GitHub Pages 演示版禁用首页“车站大屏”按钮，点击处理也会检查部署模式；直接访问 `#/station` 或带站名参数的地址均重定向回首页，不发起车站查询请求。
 
 ## 历史车票使用说明
 
@@ -446,6 +484,9 @@ node server/app.js
 - `/api/user`
 - `/api/ticket`
 - `/api/left-ticket`
+- `/api/train-info`
+- `/api/llt-trains`
+- `/api/station`
 
 ### 生产构建
 
@@ -457,12 +498,12 @@ npm run build
 
 ### GitHub Pages 演示版构建（受限功能）
 
-> GitHub Pages 仅托管静态前端。12306 余票接口不允许来自 `sam28403.github.io` 的跨域请求，也不提供可用的预检响应；浏览器会按同源策略拦截请求。Service Worker、前端 JavaScript 或把解析脚本放进仓库都不能绕过这一限制。车次查询还需要后端访问 12306 和路路通，因此演示版冻结余票监控与车次查询入口。
+> GitHub Pages 仅托管静态前端。12306 余票接口不允许来自 `sam28403.github.io` 的跨域请求，也不提供可用的预检响应；浏览器会按同源策略拦截请求。Service Worker、前端 JavaScript 或把解析脚本放进仓库都不能绕过这一限制。车次查询与车站大屏还需要后端访问 12306 和路路通，因此演示版冻结余票监控、车次查询与车站大屏入口。
 
 该模式下会做如下限制：
 
-- 仅允许访问生成车票首页（`#/`）；`#/monitor`、`#/train`、`#/list`、`#/history`、`#/login`、`#/register`、`#/user`、`#/debug` 及其他路径均重定向回首页；
-- `MainView` 右上角“余票监控”、“车次查询”和“历史记录”按钮均禁用；
+- 仅允许访问生成车票首页（`#/`）；`#/monitor`、`#/train`、`#/list`、`#/station`、`#/history`、`#/login`、`#/register`、`#/user`、`#/debug` 及其他路径均重定向回首页，带查询参数的地址同样受限；
+- `MainView` 右上角“余票监控”、“车次查询”、“车站大屏”和“历史记录”按钮均禁用；
 - 车票预览下方“存储到账户”按钮禁用。
 
 构建方式：
@@ -477,9 +518,9 @@ npm run build:ghpages
 VITE_DEPLOY_TARGET=github
 ```
 
-余票监控与车次查询仍可在本地完整服务中使用。若未来另行部署 HTTPS 后端代理，可在构建时将 `VITE_API_BASE_URL` 指向该服务，并在后端 `ALLOWED_ORIGINS` 中加入 Pages 域名；完成部署和安全验证后，再单独放开 `/monitor` 和 `/train`。不要使用公开 CORS 代理：查询内容和访问来源会交给第三方，稳定性与限流也无法控制。
+余票监控、车次查询与车站大屏仍可在本地完整服务中使用。若未来另行部署 HTTPS 后端代理，可在构建时将 `VITE_API_BASE_URL` 指向该服务，并在后端 `ALLOWED_ORIGINS` 中加入 Pages 域名；完成部署和安全验证后，再单独放开 `/monitor`、`/train` 和 `/station`。不要使用公开 CORS 代理：查询内容和访问来源会交给第三方，稳定性与限流也无法控制。
 
-仓库现有 GitHub Actions 工作流为 `.github/workflows/deploy-to-pages-repo.yml`。当前工作流不部署 `server/app.js`，GitHub Pages 也不会提供本地 Vite 的 `/api` 代理，所以构建产物会保持余票监控与车次查询入口冻结。
+仓库现有 GitHub Actions 工作流为 `.github/workflows/deploy-to-pages-repo.yml`。当前工作流不部署 `server/app.js`，GitHub Pages 也不会提供本地 Vite 的 `/api` 代理，所以构建产物会保持余票监控、车次查询与车站大屏入口冻结。
 
 ### 本地预览构建产物
 

@@ -12,6 +12,11 @@
         :title="isGithubPagesBuild ? 'GitHub Pages 未部署车次查询后端' : ''"
         @click="goToTrainQuery"
       >车次查询</el-button>
+      <el-button
+        :disabled="isGithubPagesBuild"
+        :title="isGithubPagesBuild ? 'GitHub Pages 未部署车站查询后端' : ''"
+        @click="goToStation"
+      >车站大屏</el-button>
       <el-button :disabled="isGithubPagesBuild" @click="goToHistory()">
         <el-icon><User /></el-icon>历史记录
       </el-button>
@@ -518,6 +523,10 @@ const goToMonitor = () => {
 const goToTrainQuery = () => {
   if (isGithubPagesBuild) return
   router.push('/train')
+}
+const goToStation = () => {
+  if (isGithubPagesBuild) return
+  router.push('/station')
 }
 const goToHistory = () => {
   if (isGithubPagesBuild) return

@@ -9,7 +9,7 @@ export default defineConfig({
   server: { proxy: { '/api': 'http://127.0.0.1:3000' } },
   preview: { proxy: { '/api': 'http://127.0.0.1:3000' } },
   plugins: [
-    vue(),
+    vue({ include: /\.vue$/i }),
     vueDevTools(),
   ],
   resolve: {

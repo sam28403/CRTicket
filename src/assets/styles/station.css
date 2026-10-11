@@ -1,0 +1,128 @@
+.station-page {
+  min-height: 100vh;
+  color: var(--el-text-color-primary);
+}
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  height: 50px;
+  padding: 5px 15px;
+  background: var(--app-surface, rgb(10 10 0 / 0.1));
+}
+.station-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.result-heading,
+.heading-actions,
+.board-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.page-heading {
+  display: grid;
+  grid-template-columns: auto minmax(260px, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+}
+.page-heading,
+.result-heading {
+  margin-bottom: 20px;
+}
+h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+.station-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.station-form .el-form-item {
+  flex: 1;
+  min-width: 0;
+  max-width: 320px;
+  margin-bottom: 0;
+}
+.station-form :deep(.el-form-item__content) {
+  min-width: 0;
+}
+.station-form :deep(.el-autocomplete) {
+  width: 100%;
+}
+.station-form .query-action {
+  flex: none;
+}
+.system-clock {
+  color: var(--el-text-color-regular);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.results {
+  min-height: 280px;
+}
+.result-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.query-message {
+  margin: 16px 0;
+}
+.board-description {
+  margin-bottom: 12px;
+}
+.warning-note {
+  align-self: flex-start;
+}
+@media (max-width: 1000px) {
+  .page-heading {
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+  }
+  .station-form {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .station-form .el-form-item {
+    max-width: none;
+  }
+  .heading-actions {
+    justify-content: flex-end;
+  }
+}
+@media (max-width: 600px) {
+  .station-content {
+    padding: 20px 12px;
+  }
+  .heading-actions {
+    display: contents;
+  }
+  .heading-actions .el-button {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .system-clock {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: 13px;
+  }
+  .station-form {
+    grid-row: 3;
+  }
+  .results :deep(.el-card__body) {
+    padding: 16px;
+  }
+  .board-actions {
+    width: 100%;
+  }
+}
