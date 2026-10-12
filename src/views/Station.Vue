@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, defineAsyncComponent, ref } from 'vue'
 import AppBrand from '@/components/AppBrand.vue'
 import ThemeSelect from '@/components/ThemeSelect.vue'
 import StationBoardTable from '@/components/StationBoardTable.vue'
@@ -7,12 +7,15 @@ import { queryStationSearch } from '@/composables/useTicketShared.js'
 import { useStationBoard } from '@/composables/useStationBoard.js'
 import { boardTabs, stationBoardRows } from '@/utils/stationBoard.js'
 
+const StationLocationMap = defineAsyncComponent(() => import('@/components/StationLocationMap.vue'))
 const { station, clock, loading, result, error, query } = useStationBoard()
 const activeTab = ref('all')
 const follow = ref(true)
 const table = ref(null)
 // 时间更新不重新遍历和排序车次；仅查询结果和标签变化时重算。
-const rows = computed(() => stationBoardRows(result.value?.trains || [], activeTab.value))
+const rows = computed(() => activeTab.value === 'map'
+  ? []
+  : stationBoardRows(result.value?.trains || [], activeTab.value))
 const updatedTime = computed(() => result.value
   ? new Date(result.value.generatedAt).toLocaleTimeString('zh-CN', {
     timeZone: 'Asia/Shanghai', hour12: false,
@@ -86,7 +89,7 @@ function queryOnEnter(event) {
         element-loading-text="正在查询当天车站信息…"
       >
         <template v-if="result">
-          <div class="result-heading">
+          <div v-if="activeTab !== 'map'" class="result-heading">
             <strong>{{ result.station }} · {{ result.date }}</strong>
             <div class="board-legend">
               <el-tag type="success" size="small">绿色：即将到发</el-tag>
@@ -97,7 +100,7 @@ function queryOnEnter(event) {
               <el-button @click="locateCurrent">定位当前时间</el-button>
             </div>
           </div>
-          <div class="result-summary">
+          <div v-if="activeTab !== 'map'" class="result-summary">
             <el-text type="info" size="small">
               共 {{ result.total.toLocaleString() }} 趟
               <template v-if="rows.length !== result.total">
@@ -130,8 +133,15 @@ function queryOnEnter(event) {
               :label="tab.label"
               :name="tab.name"
             />
+            <el-tab-pane label="地图" name="map" />
           </el-tabs>
+          <StationLocationMap
+            v-if="activeTab === 'map'"
+            :key="result.station"
+            :station="result.station"
+          />
           <StationBoardTable
+            v-else
             ref="table"
             :rows="rows"
             :tab="activeTab"
