@@ -1,7 +1,13 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import express from 'express'
-import { createLltTrainsRouter, listLltTrains, runsOnDate, validListDate } from './lltTrains.js'
+import {
+  createLltTrainsRouter,
+  findLltTrainCandidates,
+  listLltTrains,
+  runsOnDate,
+  validListDate,
+} from './lltTrains.js'
 
 const daily = { startDate: '2026-09-24', endDate: '2026-10-10', rule: null }
 const stops = [
@@ -53,6 +59,35 @@ test('指定类别与数字排序，保留多车次和后缀，跨日历时与�
   assert.equal(result.trains[4].mileage, null)
 })
 
+test('变更上下行车次可按任一完整车次号查询，并遵守日期及精确记录优先', () => {
+  const item = { train: 'G100/G97', schedule: daily, stops }
+  const database = { trains: new Map([[item.train, item]]) }
+  for (const train of ['G100', 'G97', 'G100/G97']) {
+    assert.deepEqual(findLltTrainCandidates(database, train, '2026-10-08'), [item])
+  }
+  for (const train of ['G9', 'G970', 'G97B', 'G97/G100']) {
+    assert.deepEqual(findLltTrainCandidates(database, train, '2026-10-08'), [])
+  }
+  assert.deepEqual(findLltTrainCandidates(database, 'G97', '2026-10-11'), [])
+  const exact = { train: 'G97', schedule: daily, stops }
+  database.trains.set(exact.train, exact)
+  assert.deepEqual(findLltTrainCandidates(database, 'G97', '2026-10-08'), [exact])
+  exact.schedule = { ...daily, endDate: '2026-10-07' }
+  assert.deepEqual(findLltTrainCandidates(database, 'G97', '2026-10-08'), [item])
+})
+
+test('省略类别前缀的沿途车次可以匹配，方案后缀只接受精确记录号', () => {
+  const abbreviated = { train: 'G100/97', schedule: daily, stops }
+  const variant = { train: 'G100/G97B', schedule: daily, stops }
+  const database = { trains: new Map([
+    [abbreviated.train, abbreviated], [variant.train, variant],
+  ]) }
+  assert.deepEqual(findLltTrainCandidates(database, 'G97', '2026-10-08'), [abbreviated])
+  assert.deepEqual(findLltTrainCandidates(database, variant.train, '2026-10-08'), [variant])
+  database.trains.delete(abbreviated.train)
+  assert.deepEqual(findLltTrainCandidates(database, 'G97', '2026-10-08'), [])
+})
+
 test('列表 HTTP 接口验证输入、返回摘要并报告数据源故障', async () => {
   const database = { version: '20261010', trains: new Map([['G1', { train: 'G1', schedule: daily, stops }]]) }
   const app = express()
@@ -62,6 +97,17 @@ test('列表 HTTP 接口验证输入、返回摘要并报告数据源故障', as
     ['G1/G2', { train: 'G1/G2', schedule: daily, stops: [{ ...stops[0], station: '其他方案' }, stops[1]] }],
   ]) })))
   app.use('/failure', createLltTrainsRouter(async () => { throw new Error('offline') }))
+  app.use('/aliases', createLltTrainsRouter(async () => ({
+    version: '20261010',
+    trains: new Map([
+      ['G100/G97', { train: 'G100/G97', schedule: daily, stops }],
+      ['G102/G97', {
+        train: 'G102/G97',
+        schedule: { ...daily, startDate: '2026-10-09' },
+        stops,
+      }],
+    ]),
+  })))
   const server = app.listen(0, '127.0.0.1')
   await new Promise(resolve => server.once('listening', resolve))
   try {
@@ -94,6 +140,19 @@ test('列表 HTTP 接口验证输入、返回摘要并报告数据源故障', as
     assert.equal((await fetch(`${base}/variants/detail?train=G1%2FG2B&date=2000-02-30`)).status, 400)
     assert.equal((await fetch(`${base}/variants/detail?train=G1&train=G2&date=2026-10-08`)).status, 400)
     assert.equal((await fetch(`${base}/failure/detail?train=G1&date=2026-10-08`)).status, 502)
+    for (const train of ['G100', 'G97']) {
+      const response = await fetch(`${base}/aliases/detail?train=${train}&date=2026-10-08`)
+      assert.equal(response.status, 200)
+      const body = await response.json()
+      assert.equal(body.train, 'G100/G97')
+      assert.deepEqual(body.stops, stops)
+    }
+    const ambiguous = await fetch(`${base}/aliases/detail?train=G97&date=2026-10-09`)
+    assert.equal(ambiguous.status, 409)
+    assert.match((await ambiguous.json()).message, /选择完整车次/)
+    const exactRecord = await fetch(`${base}/aliases/detail?train=G100%2FG97&date=2026-10-09`)
+    assert.equal(exactRecord.status, 200)
+    assert.deepEqual((await exactRecord.json()).stops, stops)
   } finally {
     await new Promise(resolve => server.close(resolve))
   }

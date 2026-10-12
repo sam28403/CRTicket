@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import ThemeSelect from '@/components/ThemeSelect.vue'
 import AppBrand from '@/components/AppBrand.vue'
@@ -9,18 +9,43 @@ import StationLink from '@/components/StationLink.vue'
 import api from '@/api.js'
 import { isTrainQueryDateInRange, trainQueryRange } from '@/utils/trainQueryDate.js'
 import { displayTrainCode, trainInfoForDisplay } from '@/utils/trainDisplay.js'
+import { trainQuerySourceLocation } from '@/utils/trainQuerySource.js'
+
+defineOptions({ name: 'TrainQuery' })
 
 const train = ref('')
 const date = ref(trainQueryRange().today)
 const loading = ref(false)
+const switchingSource = ref(false)
 const exporting = ref(false)
 const error = ref('')
 const result = ref(null)
 const route = useRoute()
+const router = useRouter()
 const offlineMode = computed(() => route.query.source === 'llt')
 const offlineRecord = ref('')
 let controller
 let requestId = 0
+let previousRouteQuery
+
+async function switchSource() {
+  if (switchingSource.value) return
+  const location = trainQuerySourceLocation({
+    train: train.value,
+    date: date.value,
+    offline: !offlineMode.value,
+    offlineRecord: offlineRecord.value,
+  })
+  if (location.query.date !== date.value) {
+    ElMessage.info('所选日期超出在线查询范围，已切换到今天')
+  }
+  switchingSource.value = true
+  try {
+    await router.replace(location)
+  } finally {
+    switchingSource.value = false
+  }
+}
 
 async function exportData() {
   if (!result.value?.stops.length || exporting.value) return
@@ -64,6 +89,8 @@ async function query() {
     return
   }
   if (offlineMode.value) offlineRecord.value = code
+  const selectedDate = date.value
+  const source = offlineMode.value ? 'llt' : undefined
   train.value = displayTrainCode(code)
   loading.value = true
   error.value = ''
@@ -71,8 +98,15 @@ async function query() {
   controller = new AbortController()
   const id = ++requestId
   try {
-    const { data } = await api.get(offlineMode.value ? '/llt-trains/detail' : '/train-info', {
-      params: { train: code, date: date.value },
+    // 同步网址时跳过路由监听的重查，保留当前请求和完整离线记录号。
+    previousRouteQuery = [code, selectedDate, source]
+    await router.replace({
+      path: '/train',
+      query: { train: code, date: selectedDate, source },
+    })
+    if (id !== requestId) return
+    const { data } = await api.get(source === 'llt' ? '/llt-trains/detail' : '/train-info', {
+      params: { train: code, date: selectedDate },
       timeout: 45000,
       signal: controller.signal,
     })
@@ -92,15 +126,22 @@ async function query() {
 }
 
 watch(
-  () => [route.query.train, route.query.date, route.query.source],
-  ([code, selectedDate]) => {
+  () => [route.path, route.query.train, route.query.date, route.query.source],
+  ([path, code, selectedDate, source]) => {
+    if (path !== '/train') return
+    const routeQuery = [code, selectedDate, source]
+    // 缓存页面仍会收到其他路由的变化，返回同一查询时保留表单和结果。
+    if (previousRouteQuery && routeQuery.every((value, index) => value === previousRouteQuery[index])) {
+      return
+    }
+    previousRouteQuery = routeQuery
     controller?.abort()
     requestId++
     loading.value = false
     result.value = null
     error.value = ''
     const record = typeof code === 'string' ? code.trim().toUpperCase() : ''
-    offlineRecord.value = offlineMode.value ? record : ''
+    if (offlineMode.value) offlineRecord.value = record
     train.value = displayTrainCode(record)
     date.value = typeof selectedDate === 'string' ? selectedDate : trainQueryRange().today
     if (train.value && /^\d{4}-\d{2}-\d{2}$/.test(date.value)) query()
@@ -131,10 +172,11 @@ onBeforeUnmount(() => {
         </div>
       </div>
       <el-card shadow="never">
-        <el-form class="query-form" label-position="top" :disabled="loading" @submit.prevent="query">
+        <el-form class="query-form" label-position="top" @submit.prevent="query">
           <el-form-item label="车次">
             <el-input
               v-model="train"
+              :disabled="loading"
               :placeholder="offlineMode ? '输入离线库中的完整车次' : '例如 G1、D3068、1461'"
               clearable
               :maxlength="offlineMode ? 40 : 6"
@@ -143,6 +185,7 @@ onBeforeUnmount(() => {
           <el-form-item label="始发日期">
             <el-date-picker
               v-model="date"
+              :disabled="loading"
               type="date"
               value-format="YYYY-MM-DD"
               :disabled-date="disabledDate"
@@ -151,13 +194,18 @@ onBeforeUnmount(() => {
             />
           </el-form-item>
           <el-form-item class="query-action">
-            <el-button type="primary" native-type="submit" :loading="loading">查询</el-button>
+            <div class="query-buttons">
+              <el-button type="primary" native-type="submit" :loading="loading">查询</el-button>
+              <el-button native-type="button" :disabled="switchingSource" @click="switchSource">
+                {{ offlineMode ? '切换为在线查询' : '切换为路路通离线' }}
+              </el-button>
+            </div>
           </el-form-item>
         </el-form>
         <el-text type="info" size="small">
           {{ offlineMode
             ? '当前显示路路通离线时刻表，日期按始发当天选择，不限制日期，使用当前离线库版本。'
-            : '日期按列车从始发站出发当天选择，可查询今天前 2 天至后 15 天。' }}
+            : '当前使用在线时刻表，日期按列车从始发站出发当天选择，可查询今天前 2 天至后 15 天。' }}
         </el-text>
       </el-card>
 
@@ -302,6 +350,13 @@ h1 {
   font-size: 22px;
   font-weight: 500;
 }
+.query-buttons {
+  display: flex;
+  gap: 12px;
+}
+.query-buttons :deep(.el-button + .el-button) {
+  margin-left: 0;
+}
 .query-form {
   display: flex;
   align-items: flex-end;
@@ -403,8 +458,11 @@ h1 {
   .query-form .el-form-item {
     width: 100%;
   }
-  .query-action :deep(.el-button) {
+  .query-buttons {
     width: 100%;
+  }
+  .query-buttons :deep(.el-button) {
+    flex: 1;
   }
   .results :deep(.el-card__body) {
     padding: 16px;

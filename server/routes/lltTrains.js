@@ -67,6 +67,20 @@ export function listLltTrains(database, date) {
   return { date, version: database.version, total: rows.length, trains: rows }
 }
 
+export function findLltTrainCandidates(database, train, date) {
+  const exact = database.trains.get(train)
+  if (exact && runsOnDate(exact.schedule, date)) return [exact]
+  // 完整记录号和方案后缀仍须精确匹配，单车次才按沿途车次号查找。
+  if (!/^[A-Z]?\d{1,5}$/.test(train)) return []
+  return [...database.trains.values()].filter(item => {
+    if (!runsOnDate(item.schedule, date)) return false
+    if (!/^[A-Z]?\d+(?:\/[A-Z]?\d+)+$/.test(item.train)) return false
+    const parts = item.train.split('/')
+    const prefix = parts[0].match(/^[A-Z]/)?.[0] || ''
+    return parts.some(part => (/^\d/.test(part) ? `${prefix}${part}` : part) === train)
+  })
+}
+
 export function createLltTrainsRouter(loadDatabase = loadLltDatabase) {
   const router = express.Router()
   // 每个数据库版本仅保留最近 8 个日期的摘要，避免重复排序与无限增长。
@@ -87,11 +101,18 @@ export function createLltTrainsRouter(loadDatabase = loadLltDatabase) {
     }
     try {
       const database = await loadDatabase()
-      const item = database.trains.get(train)
-      const stops = item && runsOnDate(item.schedule, date) ? item.stops : []
+      const candidates = findLltTrainCandidates(database, train, date)
+      if (candidates.length > 1) {
+        return res.status(409).json({
+          success: false,
+          message: '该日期存在多个同名车次，请从车次列表选择完整车次',
+        })
+      }
+      const item = candidates[0]
+      const stops = item?.stops || []
       res.json({
         success: true,
-        train,
+        train: item?.train || train,
         date,
         source: '路路通',
         mileageVersion: database.version,

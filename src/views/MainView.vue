@@ -163,7 +163,7 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261011</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261013</h3>
       <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10118</h3>
 
       <div class="home-tools">
@@ -354,8 +354,8 @@ watch(() => ticket.number, (newVal) => {
 
 const note = () => {
   ElNotification({
-    title: '新增车次列表、列车参考地图；Android软件开始测试',
-    message: '现在您可以查看全部车次的列表，并查看列车运行参考地图。Android端软件已经准备好，可供测试。',
+    title: '新增车次列表、列车参考地图、车站大屏；Android软件开始测试',
+    message: '现在您可以查看全部车次的列表，并查看列车运行参考地图。点击车站名称可以跳转至车站大屏和参考地图。Android端软件已经准备好，可供测试。',
     type: 'info',
     position: 'bottom-right'
   })

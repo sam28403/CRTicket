@@ -1,5 +1,13 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import {
+  computed,
+  onActivated,
+  onBeforeUnmount,
+  onDeactivated,
+  onMounted,
+  ref,
+  watch,
+} from 'vue'
 import * as echarts from 'echarts'
 import { useTheme } from '@/composables/useTheme'
 import { loadChinaMap } from '@/utils/maps/stationCoordinates.js'
@@ -22,6 +30,31 @@ const report = () => {
 let chart
 let observer
 let renderId = 0
+let active = true
+
+function hasMapSize() {
+  return active && mapRef.value?.clientWidth > 0 && mapRef.value?.clientHeight > 0
+}
+
+function resizeMap() {
+  // KeepAlive 隐藏页面时容器尺寸为 0，不能让动画画布缩放到这个尺寸。
+  if (!hasMapSize()) return
+  if (!chart || chart.isDisposed()) {
+    if (!loading.value && !error.value) renderMap()
+    return
+  }
+  chart.resize()
+  centerRoute()
+}
+
+function deactivateMap() {
+  active = false
+  renderId++
+  loading.value = false
+  observer?.disconnect()
+  chart?.dispose()
+  chart = null
+}
 
 function centerRoute() {
   if (!chart || chart.isDisposed()) return
@@ -31,6 +64,7 @@ function centerRoute() {
 }
 
 async function renderMap() {
+  if (!hasMapSize()) return
   const id = ++renderId
   chart?.dispose()
   chart = null
@@ -40,8 +74,9 @@ async function renderMap() {
   if (!mapRef.value || !points.length) return
   loading.value = true
   const loaded = await loadChinaMap(echarts)
-  if (id !== renderId || !mapRef.value) return
+  if (id !== renderId) return
   loading.value = false
+  if (!hasMapSize()) return
   if (!loaded) {
     error.value = '地图数据加载失败，请重试'
     return
@@ -122,20 +157,19 @@ async function renderMap() {
 }
 
 onMounted(() => {
-  observer = new ResizeObserver(() => {
-    if (!chart || chart.isDisposed()) return
-    chart.resize()
-    centerRoute()
-  })
+  observer = new ResizeObserver(resizeMap)
   observer.observe(mapRef.value)
   renderMap()
 })
-watch(() => [props.stops, props.train, resolvedTheme.value], renderMap, { flush: 'post' })
-onBeforeUnmount(() => {
-  renderId++
-  observer?.disconnect()
-  chart?.dispose()
+onActivated(() => {
+  active = true
+  observer?.observe(mapRef.value)
+  if (!chart && !loading.value) renderMap()
+  else resizeMap()
 })
+onDeactivated(deactivateMap)
+watch(() => [props.stops, props.train, resolvedTheme.value], renderMap, { flush: 'post' })
+onBeforeUnmount(deactivateMap)
 </script>
 
 <template>
