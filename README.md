@@ -20,15 +20,31 @@ https://sam28403.github.io
 
 ## 项目截图
 
-![Screenshot](Screenshot1.png)
-![Screenshot](Screenshot2.png)
-![Screenshot](Screenshot3.png)
-![Screenshot](Screenshot4.png)
-![Screenshot](Screenshot5.png)
-![Screenshot](Screenshot9.png)
-![Screenshot](Screenshot10.png)
-![Screenshot](Screenshot6.png)
-![Screenshot](Screenshot7.png)
+<details>
+<summary><strong>网页版</strong></summary>
+
+![Screenshot](Screenshot/Screenshot1.png)
+![Screenshot](Screenshot/Screenshot2.png)
+![Screenshot](Screenshot/Screenshot3.png)
+![Screenshot](Screenshot/Screenshot4.png)
+![Screenshot](Screenshot/Screenshot5.png)
+![Screenshot](Screenshot/Screenshot9.png)
+![Screenshot](Screenshot/Screenshot10.png)
+![Screenshot](Screenshot/Screenshot6.png)
+![Screenshot](Screenshot/Screenshot7.png)
+
+</details>
+
+<details>
+<summary><strong>Android版</strong></summary>
+
+![Screenshot](Screenshot/Screenshot11.png)
+![Screenshot](Screenshot/Screenshot12.png)
+![Screenshot](Screenshot/Screenshot13.png)
+![Screenshot](Screenshot/Screenshot14.png)
+![Screenshot](Screenshot/Screenshot15.png)
+
+</details>
 
 ## 优点
 
@@ -172,7 +188,7 @@ https://sam28403.github.io
 
 | 文件或目录                                                                                                            | 用途                                                                     |
 | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| `Screenshot1.png`–`Screenshot10.png`                                                                                  | README 项目截图。                                                        |
+| `Screenshot/`                                                                                                        | README 项目截图，包含网页版与 Android 版截图。                           |
 | `E535975368.png`、`E708794075.png`、`E741577963.png`                                                                  | README 中展示的车票生成样例。                                            |
 | `data/maps/legacy/overpass_station_statuses.json`、`overpass_train_all_statuses.json`、`overpass_train_trainyes.json` | 从根目录归档的旧版 Overpass 查询数据，原样保存，不用于当前地图定位。     |
 | `data/maps/legacy/station_exact_results.json`、`station_exact_progress.json`、`station_exact_missing_progress.json`   | 从根目录归档的旧版精确匹配结果和处理进度，不作为现役坐标来源。           |
