@@ -6,7 +6,7 @@ import ThemeSelect from '@/components/ThemeSelect.vue'
 import AppBrand from '@/components/AppBrand.vue'
 import TrainRouteMap from '@/components/TrainRouteMap.vue'
 import StationLink from '@/components/StationLink.vue'
-import api from '@/api.js'
+import api, { timetableTimeout } from '@/api.js'
 import { isTrainQueryDateInRange, trainQueryRange } from '@/utils/trainQueryDate.js'
 import { displayTrainCode, trainInfoForDisplay } from '@/utils/trainDisplay.js'
 import { trainQuerySourceLocation } from '@/utils/trainQuerySource.js'
@@ -107,7 +107,7 @@ async function query() {
     if (id !== requestId) return
     const { data } = await api.get(source === 'llt' ? '/llt-trains/detail' : '/train-info', {
       params: { train: code, date: selectedDate },
-      timeout: 45000,
+      timeout: timetableTimeout,
       signal: controller.signal,
     })
     if (!data.success) throw new Error(data.message || '查询失败')
@@ -202,11 +202,6 @@ onBeforeUnmount(() => {
             </div>
           </el-form-item>
         </el-form>
-        <el-text type="info" size="small">
-          {{ offlineMode
-            ? '当前显示路路通离线时刻表，日期按始发当天选择，不限制日期，使用当前离线库版本。'
-            : '当前使用在线时刻表，日期按列车从始发站出发当天选择，可查询今天前 2 天至后 15 天。' }}
-        </el-text>
       </el-card>
 
       <el-alert v-if="error" :title="error" type="error" show-icon :closable="false" class="query-message" />
@@ -227,7 +222,7 @@ onBeforeUnmount(() => {
             </strong>
             <el-text type="info" size="small">
               查询日期：{{ result.date }}；车站数据：{{ result.source }}；车站数量：{{ result.stops.length }} 站；
-              <template v-if="result.mileageVersion"> 里程数据来源：路路通 {{ result.mileageVersion }}</template>
+              <template v-if="result.mileageVersion"> 里程数据来源：路路通 {{ result.mileageVersion }}。</template>
             </el-text>
           </div>
           <el-table class="desktop-stops" :data="result.stops" stripe border style="width: 100%">

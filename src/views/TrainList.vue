@@ -4,7 +4,7 @@ import { useElementSize } from '@vueuse/core'
 import { onBeforeRouteLeave, RouterLink } from 'vue-router'
 import AppBrand from '@/components/AppBrand.vue'
 import ThemeSelect from '@/components/ThemeSelect.vue'
-import api from '@/api.js'
+import api, { timetableTimeout } from '@/api.js'
 import { trainQueryRange } from '@/utils/trainQueryDate.js'
 
 defineOptions({ name: 'TrainList' })
@@ -186,7 +186,7 @@ async function query() {
   try {
     const { data } = await api.get('/llt-trains', {
       params: { date: selectedDate },
-      timeout: 45000,
+      timeout: timetableTimeout,
       signal: controller.signal,
     })
     if (!data.success) throw new Error(data.message || '读取失败')
@@ -233,17 +233,9 @@ onBeforeUnmount(() => {
         </div>
         <div class="result-summary">
           <el-text v-if="result">
-            {{ result.date }} 始发 · 共 {{ result.total.toLocaleString() }} 趟 · 路路通 {{ result.version }}
+            {{ result.date }} 始发；共 {{ result.total.toLocaleString() }} 趟。路路通版本： {{ result.version }}。
           </el-text>
-          <el-text v-else>{{ date }} 始发 · 路路通离线时刻表</el-text>
-          <el-text type="info" size="small">
-            按离线库的生效日期与开行规则筛选；日期不限，所选日期使用当前版本数据。
-            排序：G、D、C、S、Z、T、K、L、普车，其他车次列在末尾。
-          </el-text>
-          <el-text type="info" size="small">
-            点击历时、里程或均速表头切换升降序，点击车次恢复默认顺序。
-            均速按总里程 ÷ 全程历时计算，包含停站时间。
-          </el-text>
+          <el-text v-else>{{ date }} 始发；来源：路路通。</el-text>
         </div>
         <el-button :loading="loading" @click="query">刷新</el-button>
       </div>

@@ -198,7 +198,7 @@ onBeforeUnmount(deactivateMap)
         </el-empty>
       </div>
     </div>
-    <p class="map-caption">按站序连线，仅表示站点顺序；可拖动、缩放地图，悬停站点查看到发时间。如果遇到错误，请使用下面的按钮提交问题，请注明车次和站点。</p>
+    <p class="map-caption">连线表示站序，不代表实际铁路走向。</p>
 
     <el-tooltip
         effect="dark"

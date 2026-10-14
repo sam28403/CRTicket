@@ -452,14 +452,16 @@ onBeforeUnmount(stop)
         </el-form>
 
         <p class="hint">
-          成人票 · 今天起 15 天内 · 最短间隔 10 秒。查询后可按实际出发车站和到达车站筛选；监控仅在此页面打开时运行，电脑休眠或后台标签页可能延迟。余票以官网实时结果为准。
+          监控需保持页面打开；余票以 12306 实时结果为准。
         </p>
       </el-card>
 
       <el-alert
         v-if="error"
         :title="error"
-        :description="queriedAt ? '下方保留的是上次成功结果，可能已过期；监控已停止，请手动重试。' : '请检查查询条件、后端服务或官网状态后重试。'"
+        :description="queriedAt
+          ? '监控已停止，上次结果可能过期，请重试。'
+          : '请检查查询条件或服务状态后重试。'"
         type="error"
         show-icon
         :closable="false"
@@ -592,18 +594,15 @@ onBeforeUnmount(stop)
         <p class="hint">
           <span class="seat-plenty">绿色：大于 20 张</span> ·
           <span class="seat-limited">橙色：1–20 张</span> ·
-          <span class="seat-empty">红色：0 张</span>。有座明细的截断值 21 显示为“&gt;20张”；无座保留实际数量。
+          <span class="seat-empty">红色：0 张</span>
         </p>
       </section>
 
       <section class="events">
         <h2>
           有票提醒
-          <small>最近 30 条</small>
+          <small v-if="events.length">{{ events.length }} 条</small>
         </h2>
-        <p class="hint">
-          监控首次发现有票或余票数量变化时，会发送浏览器通知并在页面内提醒；只关注所选车站、时间、车次、车种与席别。席别可多选，任一所选席别有票即视为有票；清空选择则关注全部席别。
-        </p>
         <p v-if="!events.length" class="hint">暂无提醒</p>
         <ul v-else>
           <li v-for="(event, index) in events" :key="index">

@@ -161,25 +161,26 @@ export function createLltLoader(fetchImpl = fetch) {
   let cached
   let pending
   let refreshAt = 0
-  let failure
   return async function load() {
-    if (Date.now() < refreshAt) {
-      if (failure) throw failure
-      return cached
-    }
+    if (Date.now() < refreshAt) return cached
     if (pending) return pending
     pending = (async () => {
-      const options = { signal: AbortSignal.timeout(15000), redirect: 'error' }
+      const loadSignal = AbortSignal.timeout(90000)
+      const requestOptions = timeout => ({
+        signal: AbortSignal.any([loadSignal, AbortSignal.timeout(timeout)]),
+        redirect: 'error',
+      })
       try {
         let manifestBytes
         try {
-          manifestBytes = await readResponse(await fetchImpl(`${base}/android.ver`, options))
+          manifestBytes = await readResponse(await fetchImpl(
+            `${base}/android.ver`, requestOptions(15000),
+          ))
         } catch {
           // 官方备用源的 manifest 长期未更新，直接以包内 ver.txt 为准。
-          const archive = await readResponse(await fetchImpl(archiveFallback, {
-            ...options,
-            signal: AbortSignal.timeout(15000),
-          }))
+          const archive = await readResponse(await fetchImpl(
+            archiveFallback, requestOptions(60000),
+          ))
           cached = parseLltArchive(archive)
         }
         if (manifestBytes) {
@@ -190,26 +191,25 @@ export function createLltLoader(fetchImpl = fetch) {
           if (cached?.version !== version) {
             let archive
             try {
-              archive = await readResponse(await fetchImpl(`${base}/an.db`, options))
+              archive = await readResponse(await fetchImpl(
+                `${base}/an.db`, requestOptions(60000),
+              ))
             } catch {
-              archive = await readResponse(await fetchImpl(archiveFallback, {
-                ...options,
-                signal: AbortSignal.timeout(15000),
-              }))
+              archive = await readResponse(await fetchImpl(
+                archiveFallback, requestOptions(60000),
+              ))
             }
             const next = parseLltArchive(archive)
             if (next.version !== version) throw new Error('路路通正在更新数据，请稍后重试')
             cached = next
           }
         }
-        failure = null
         refreshAt = Date.now() + 3600000
         return cached
-      } catch (error) {
-        failure = error
-        refreshAt = Date.now() + 60000
-        throw error
-      } finally { pending = null }
+      } finally {
+        // 仅缓存成功结果；下载失败后，刷新页面或再次查询应立即重试。
+        pending = null
+      }
     })()
     return pending
   }

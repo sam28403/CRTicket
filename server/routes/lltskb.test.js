@@ -1,5 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { setTimeout as delay } from 'node:timers/promises'
 import { zipSync } from 'fflate'
 import { createLltLoader, parseLltArchive, parseLltFiles, readLltNumber, readLltDate } from './lltskb.js'
 
@@ -72,7 +73,94 @@ test('版本不一致时不使用更新到一半的数据包', async () => {
   })
   await assert.rejects(load(), /正在更新/)
   await assert.rejects(load(), /正在更新/)
-  assert.equal(calls, 2)
+  assert.equal(calls, 4)
+})
+
+test('下载超时后立即重新下载，失败与重试期间仍合并并发请求', async () => {
+  const urls = []
+  let timedOut = true
+  const load = createLltLoader(async url => {
+    urls.push(url)
+    if (timedOut) throw new DOMException('下载超时', 'TimeoutError')
+    return new Response(url.endsWith('android.ver')
+      ? '{"version":{"data":"20261004"}}'
+      : zipSync(fixture()))
+  })
+
+  const failures = await Promise.allSettled([load(), load()])
+  for (const result of failures) {
+    assert.equal(result.status, 'rejected')
+    assert.equal(result.reason.name, 'TimeoutError')
+  }
+  assert.equal(urls.length, 2)
+
+  timedOut = false
+  const [first, second] = await Promise.all([load(), load()])
+  assert.equal(first.version, '20261004')
+  assert.equal(second, first)
+  assert.equal(await load(), first)
+  assert.deepEqual(urls, [
+    'http://down.lltskb.com/android.ver',
+    'http://223.107.87.50:8011/an.db',
+    'http://down.lltskb.com/android.ver',
+    'http://down.lltskb.com/an.db',
+  ])
+})
+
+function delayedArchive(signal) {
+  return new Response(new ReadableStream({
+    async start(controller) {
+      try {
+        await delay(60, undefined, { signal })
+        controller.enqueue(zipSync(fixture()))
+        controller.close()
+      } catch {
+        controller.error(signal.reason)
+      }
+    },
+  }))
+}
+
+test('数据包独立计时，慢速响应体不会被版本请求的时限中断', async context => {
+  const timeout = AbortSignal.timeout
+  context.mock.method(AbortSignal, 'timeout', milliseconds =>
+    timeout(milliseconds === 15000 ? 20 : 2000))
+  const urls = []
+  const load = createLltLoader(async (url, options) => {
+    urls.push(url)
+    return url.endsWith('android.ver')
+      ? new Response('{"version":{"data":"20261004"}}')
+      : delayedArchive(options.signal)
+  })
+
+  assert.equal((await load()).version, '20261004')
+  assert.deepEqual(urls, [
+    'http://down.lltskb.com/android.ver',
+    'http://down.lltskb.com/an.db',
+  ])
+})
+
+test('整轮加载超时会中断备用包的响应体，之后仍可立即重试', async context => {
+  const timeout = AbortSignal.timeout
+  context.mock.method(AbortSignal, 'timeout', milliseconds =>
+    timeout(milliseconds === 90000 ? 20 : 2000))
+  let slow = true
+  let fallbackCalls = 0
+  const load = createLltLoader(async (url, options) => {
+    options.signal.throwIfAborted()
+    if (url.endsWith('android.ver')) {
+      return new Response('{"version":{"data":"20261004"}}')
+    }
+    if (!slow) return new Response(zipSync(fixture()))
+    if (url.startsWith('http://down.lltskb.com')) throw new TypeError('fetch failed')
+    fallbackCalls++
+    return delayedArchive(options.signal)
+  })
+
+  await assert.rejects(load(), { name: 'TimeoutError' })
+  assert.equal(fallbackCalls, 1)
+  slow = false
+  assert.equal((await load()).version, '20261004')
 })
 
 test('开行日期使用小端 128 进制，循环规则按零基索引关联', () => {

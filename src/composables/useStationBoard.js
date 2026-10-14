@@ -1,7 +1,7 @@
 import { computed, onBeforeUnmount, ref, shallowRef, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRoute, useRouter } from 'vue-router'
-import api from '@/api.js'
+import api, { timetableTimeout } from '@/api.js'
 import { stationQueryName } from '@/utils/stationName.js'
 import { stationClock } from '@/utils/stationBoard.js'
 import { stationLocation } from '@/utils/stationNavigation.js'
@@ -41,7 +41,7 @@ export function useStationBoard() {
     try {
       const { data } = await api.get('/station', {
         params: { station: selected, date },
-        timeout: 60000,
+        timeout: timetableTimeout,
         signal: controller.signal,
       })
       if (!data.success) throw new Error(data.message || '查询失败')

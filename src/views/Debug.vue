@@ -33,9 +33,6 @@ const {
       <div>
         <p class="eyebrow">Debug Workspace</p>
         <h1>真实运转数据生成器</h1>
-        <p class="subtitle">
-          根据 12306 在线时刻、席别和票价，以及路路通里程，按当前登录用户批量生成并保存车票。
-        </p>
       </div>
 
       <div class="user-card">
@@ -82,16 +79,10 @@ const {
           :disabled="!userStore.isLogin"
           @click="handleGenerate"
         >
-          确定生成
+          生成并保存
         </el-button>
       </div>
 
-      <el-alert
-        title="只生成能核验车次、站序、时刻、里程、席别和票价的记录。中途上车日期按跨日顺延；背景、票号和座位号随机，检票候车留空，售票统一为“网”，不使用积分，不添加未经核实的“新空调”标记。"
-        type="info"
-        show-icon
-        :closable="false"
-      />
       <p v-if="progress" class="generation-note" role="status">{{ progress }}</p>
       <p v-if="dataNotice" class="generation-note" role="status">{{ dataNotice }}</p>
     </section>
@@ -181,13 +172,6 @@ const {
   margin: 0;
   font-size: 36px;
   line-height: 1.1;
-}
-
-.subtitle {
-  max-width: 720px;
-  margin: 12px 0 0;
-  font-size: 15px;
-  color: var(--app-muted, #52617d);
 }
 
 .user-card {

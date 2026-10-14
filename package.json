@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite",
     "dev:full": "node scripts/run-full.js dev",
+    "test": "node --test",
     "build": "vite build",
     "build:ghpages": "vite build --mode ghpages",
     "preview": "vite preview",
@@ -34,7 +35,7 @@
     "pdf-lib": "^1.17.1",
     "pinia": "^4.0.3",
     "qrcode": "^1.5.4",
-    "vue": "^3.5.43",
+    "vue": "^3.5.44",
     "vue-router": "^5.4.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },

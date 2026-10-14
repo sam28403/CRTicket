@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import api from '@/api.js'
+import api, { timetableTimeout } from '@/api.js'
 import { buildTicketPayload } from '@/utils/ticketShared.js'
 import { buildDebugTicket, randomChoice } from '@/utils/debugTickets.js'
 import { trainQueryRange, isTrainQueryDateInRange } from '@/utils/trainQueryDate.js'
@@ -50,7 +50,7 @@ export function useDebugGeneration(currentUser) {
         try {
           const response = await api.get('/ticket-samples', {
             params: { date },
-            timeout: 90000,
+            timeout: timetableTimeout,
           })
           data = response.data
         } catch (error) {

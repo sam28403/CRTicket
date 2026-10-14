@@ -108,11 +108,10 @@ function queryOnEnter(event) {
               </template>
               · {{ result.source }}
               <template v-if="result.version"> {{ result.version }}</template>
-              · 更新于 {{ updatedTime }} · 按本站到发时间排序
+              · 更新于 {{ updatedTime }}
             </el-text>
-            <div class="result-notes">
+            <div v-if="warningSummary" class="result-notes">
               <el-tooltip
-                v-if="warningSummary"
                 :content="result.warnings.join(' ')"
                 placement="top-start"
                 :show-after="300"
@@ -121,9 +120,6 @@ function queryOnEnter(event) {
                   {{ warningSummary }}
                 </el-text>
               </el-tooltip>
-              <el-text type="info" size="small">
-                手动滚动暂停跟随，点击“定位当前时间”恢复。
-              </el-text>
             </div>
           </div>
           <el-tabs v-model="activeTab">
