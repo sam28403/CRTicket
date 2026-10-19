@@ -10,6 +10,7 @@ import api, { timetableTimeout } from '@/api.js'
 import { isTrainQueryDateInRange, trainQueryRange } from '@/utils/trainQueryDate.js'
 import { displayTrainCode, trainInfoForDisplay } from '@/utils/trainDisplay.js'
 import { trainQuerySourceLocation } from '@/utils/trainQuerySource.js'
+import { getTrainNumberError } from '@/utils/ticketShared.js'
 
 defineOptions({ name: 'TrainQuery' })
 
@@ -73,14 +74,16 @@ function disabledDate(value) {
 
 async function query() {
   if (loading.value) return
+  const trainError = getTrainNumberError(train.value)
+  if (trainError) {
+    ElMessage.warning(trainError)
+    return
+  }
   const entered = train.value.trim().toUpperCase()
   const code = offlineMode.value && offlineRecord.value && entered === displayTrainCode(offlineRecord.value)
     ? offlineRecord.value
     : entered
-  const validCode = offlineMode.value
-    ? /^[A-Z]?\d{1,5}[A-Z]?(?:\/[A-Z]?\d{1,5}[A-Z]?)*$/.test(code) && code.length <= 40
-    : /^[A-Z]?\d{1,5}$/.test(code)
-  if (!validCode || !date.value) {
+  if (!date.value) {
     ElMessage.warning('请输入完整车次并选择始发日期')
     return
   }
@@ -173,7 +176,7 @@ onBeforeUnmount(() => {
       </div>
       <el-card shadow="never">
         <el-form class="query-form" label-position="top" @submit.prevent="query">
-          <el-form-item label="车次">
+          <el-form-item label="车次" :error="train ? getTrainNumberError(train) : ''">
             <el-input
               v-model="train"
               :disabled="loading"

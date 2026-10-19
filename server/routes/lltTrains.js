@@ -5,6 +5,10 @@ import { clockMinutes } from './trainClock.js'
 
 const dayMs = 86400000
 const categories = ['G', 'D', 'C', 'S', 'Z', 'T', 'K', 'L']
+// 新规则 1：启用时替换上方 categories 定义。
+// const categories = ['G', 'D', 'C', 'S', 'Z', 'N', 'V', 'Y']
+// 新规则 2：启用时替换上方 categories 定义。
+// const categories = ['X', 'G', 'T', 'K', 'D', 'C', 'S', 'Z', 'N', 'V', 'Y']
 
 export function validListDate(date) {
   if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return false
@@ -28,7 +32,9 @@ function sortKey(train) {
   const prefix = first.match(/^[A-Z]/)?.[0]
   const category = categories.indexOf(prefix)
   return [
-    category >= 0 ? category : /^\d{4}[A-Z]*$/.test(first) ? 8 : 9,
+    category >= 0
+      ? category
+      : categories.length + (/^\d{4}[A-Z]*$/.test(first) ? 0 : 1),
     Number(first.match(/\d+/)?.[0] || 0),
   ]
 }

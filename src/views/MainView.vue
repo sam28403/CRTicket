@@ -1,4 +1,5 @@
 <template>
+  <ImportantNoticeDialog v-model="importantNoticeVisible" @closed="note" />
   <Teleport to="#home-mobile-navigation" :disabled="!isMobilePreview" defer>
     <nav class="home-navigation page-header-actions" aria-label="页面导航">
       <ThemeSelect />
@@ -187,7 +188,7 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261013</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261019</h3>
       <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10118</h3>
 
       <div class="home-tools">
@@ -288,6 +289,7 @@
 </template>
 
 <script setup>
+import ImportantNoticeDialog from '@/components/ImportantNoticeDialog.vue'
 import ThemeSelect from '@/components/ThemeSelect.vue'
 import {computed, h, onMounted, onUnmounted, reactive, ref, watch} from 'vue'
 import {ElButton, ElIcon, ElMessage, ElMessageBox, ElNotification} from 'element-plus'
@@ -304,6 +306,7 @@ import {
   buildTicketPayload,
   createDefaultTicket,
   hasRequiredTicketFields,
+  getTrainNumberError,
   seatOptions,
   themeOptions,
   ticketRules,
@@ -371,10 +374,12 @@ watch(() => ticket.number, (newVal) => {
   generateQRCode(newVal)
 })
 
+const importantNoticeVisible = ref(false)
+
 const note = () => {
   ElNotification({
-    title: '新增车次列表、列车参考地图、车站大屏；Android软件开始测试',
-    message: '现在您可以查看全部车次的列表，并查看列车运行参考地图。点击车站名称可以跳转至车站大屏和参考地图。Android端软件已经准备好，可供测试。',
+    title: '中国铁路车次大洗牌即将开始，加入车次新规则',
+    message: '新增对新的车次规则的支援，',
     type: 'info',
     position: 'bottom-right'
   })
@@ -475,7 +480,7 @@ onMounted(() => {
   window.addEventListener('resize', updateMobilePreviewFlag, { passive: true })
   window.addEventListener('resize', scheduleMobilePreviewRender, { passive: true })
   if (!sessionStorage.getItem('notified')) {
-    note()
+    importantNoticeVisible.value = true
     star()
     sessionStorage.setItem('notified', '1')
   }
@@ -500,6 +505,10 @@ watch(qrCodeUrl, () => {
 })
 
 const downloadPDF = async () => {
+  if (getTrainNumberError(ticket.trainNo)) {
+    ElMessage.warning(getTrainNumberError(ticket.trainNo))
+    return
+  }
   if (!hasRequiredTicketFields(ticket)) {
     ElMessage.warning('请填写所有必填项')
     return
@@ -519,6 +528,10 @@ const downloadPDF = async () => {
 }
 
 const downloadPNG = async () => {
+  if (getTrainNumberError(ticket.trainNo)) {
+    ElMessage.warning(getTrainNumberError(ticket.trainNo))
+    return
+  }
   if (!hasRequiredTicketFields(ticket)) {
     ElMessage.warning('请填写所有必填项')
     return
@@ -571,6 +584,10 @@ const getCurrentUser = () => {
 }
 
 const saveTicket = async () => {
+  if (getTrainNumberError(ticket.trainNo)) {
+    ElMessage.warning(getTrainNumberError(ticket.trainNo))
+    return
+  }
   if (isSavingTicket.value) return
   if (isGithubPagesBuild) {
     ElMessage.warning('GitHub Pages 演示版不支持账号存储/历史记录功能')

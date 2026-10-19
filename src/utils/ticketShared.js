@@ -1,3 +1,5 @@
+import { isValidTrainNumber } from './trainNumberRules.js'
+
 export const DEFAULT_TICKET_MESSAGE = '买票请到12306 发货请到95306\n中国铁路祝您旅途愉快'
 export const DEFAULT_TICKET_THEME = 'EMU_Green.jpg'
 
@@ -28,17 +30,19 @@ export function createDefaultTicket() {
   }
 }
 
+export function getTrainNumberError(value) {
+  if (!value) return '请输入车次'
+  return isValidTrainNumber(value)
+    ? ''
+    : '请输入正确的车次'
+}
+
 export const ticketRules = {
   trainNo: [
     {
       validator: (rule, value, callback) => {
-        if (!value) {
-          callback(new Error('请输入车次'))
-        } else if (!/^(\d{4}|5\d{4}|[GCDZTKLYS]\d{1,4})$/i.test(value)) {
-          callback(new Error('请输入正确的车次'))
-        } else {
-          callback()
-        }
+        const error = getTrainNumberError(value)
+        callback(error ? new Error(error) : undefined)
       },
       trigger: 'blur'
     }

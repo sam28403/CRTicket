@@ -9,6 +9,8 @@ import { hasAvailableSeat as available } from '@/utils/seatAvailability.js'
 import { matchesDepartureTime } from '@/utils/trainTime.js'
 import LeftTicketCard from '@/components/LeftTicketCard.vue'
 import { queryStationSearch, stations } from '@/composables/useTicketShared.js'
+import { getTrainNumberError } from '@/utils/ticketShared.js'
+import { isOrdinaryTrain, trainTypeLabels } from '@/utils/trainTypeRules.js'
 
 const today = () => new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10)
 
@@ -19,6 +21,12 @@ const selectedArrivalStations = ref([])
 const date = ref(today())
 const interval = ref(60)
 const trainFilters = ref([])
+const pendingTrainFilter = ref('')
+const trainFilterError = computed(() => {
+  const values = [...trainFilters.value]
+  if (pendingTrainFilter.value) values.push(pendingTrainFilter.value)
+  return values.map(getTrainNumberError).find(Boolean) || ''
+})
 const seatFilters = ref([])
 const timeRange = ref([0, 24])
 const onlyAvailable = ref(false)
@@ -65,31 +73,6 @@ const departureStations = computed(() =>
 const arrivalStations = computed(() =>
   Array.from(new Set(rows.value.map((row) => row.to))).filter(Boolean)
 )
-
-function isOrdinaryTrain(trainNo) {
-  const normalized = String(trainNo || '').trim().toUpperCase()
-  if (/^(?:[ZTKLY]\d+|\d+)$/.test(normalized)) return true
-
-  const dTrain = normalized.match(/^D(\d+)$/)
-  if (dTrain) {
-    const number = Number(dTrain[1])
-    return (number >= 1 && number <= 300) || (number >= 701 && number <= 800)
-  }
-
-  const cTrain = normalized.match(/^C(\d+)$/)
-  if (cTrain) {
-    const number = Number(cTrain[1])
-    return (number >= 1 && number <= 999) || (number >= 4001 && number <= 4999)
-  }
-
-  const sTrain = normalized.match(/^S(\d+)$/)
-  if (sTrain) {
-    const number = Number(sTrain[1])
-    return (number >= 101 && number <= 999) || (number >= 1001 && number <= 2999)
-  }
-
-  return false
-}
 
 function matches(row) {
   const wantedTrains = trainFilters.value.map((value) => value.trim().toUpperCase())
@@ -240,6 +223,14 @@ function reset() {
 }
 
 watch([from, to, date], reset, { flush: 'sync' })
+watch(trainFilterError, (message, previousMessage) => {
+  if (!message) {
+    if (error.value === previousMessage) error.value = ''
+    return
+  }
+  stop()
+  error.value = message
+}, { flush: 'sync' })
 watch(
   [
     trainFilters,
@@ -258,6 +249,7 @@ watch(
 )
 
 function parameters() {
+  if (trainFilterError.value) throw new Error(trainFilterError.value)
   const start = stations.find((station) => station.name === from.value.trim())
   const end = stations.find((station) => station.name === to.value.trim())
 
@@ -284,6 +276,10 @@ async function query(startMonitor = false) {
   clearTimeout(timer)
   if (startMonitor) {
     await requestNotificationPermission()
+    if (trainFilterError.value) {
+      error.value = trainFilterError.value
+      return
+    }
     monitoring.value = true
     previous = new Map()
   }
@@ -537,13 +533,19 @@ onBeforeUnmount(stop)
             <small>{{ filtered.length }} 趟 · 关注席别有票 {{ ticketCount }} 趟</small>
           </h2>
           <div class="filters">
-            <el-input-tag
-              v-model="trainFilters"
-              class="train-filter-input"
-              placeholder="输入车次后回车，如 G1"
-              clearable
-              aria-label="筛选车次"
-            />
+            <el-form-item :error="trainFilterError">
+              <el-input-tag
+                :model-value="trainFilters"
+                class="train-filter-input"
+                placeholder="输入车次后回车，如 G1"
+                clearable
+                aria-label="筛选车次"
+                @update:model-value="trainFilters = $event || []"
+                @input="pendingTrainFilter = $event"
+                @add-tag="pendingTrainFilter = ''"
+                @clear="pendingTrainFilter = ''"
+              />
+            </el-form-item>
             <el-select
               v-model="seatFilters"
               multiple
@@ -562,16 +564,16 @@ onBeforeUnmount(stop)
               />
             </el-select>
             <div class="train-type-switches" aria-label="车种筛选">
-              <span>高速动车</span>
+              <span>{{ trainTypeLabels.highSpeed }}</span>
               <el-switch
                 v-model="highSpeedOnly"
-                aria-label="仅显示高速动车"
+                :aria-label="`仅显示${trainTypeLabels.highSpeed}`"
                 @change="selectTrainType('highSpeed', $event)"
               />
-              <span>普速列车</span>
+              <span>{{ trainTypeLabels.ordinary }}</span>
               <el-switch
                 v-model="ordinaryOnly"
-                aria-label="仅显示普速列车"
+                :aria-label="`仅显示${trainTypeLabels.ordinary}`"
                 @change="selectTrainType('ordinary', $event)"
               />
             </div>
