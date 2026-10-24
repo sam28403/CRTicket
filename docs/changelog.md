@@ -63,3 +63,14 @@ git push origin v261024
 
 在 Actions 中打开本次 Publish Release 运行，查看构建摘要后，
 点击 Review deployments，选择 release，再点击 Approve and deploy。
+
+### 对已有标签重新发起发布
+
+如果工作流配置错误导致发布失败，先将修复后的工作流推送到默认分支。
+在 Actions → Publish Release → Run workflow 中选择默认分支，
+并在 `tag` 中填写已有标签，例如 `v261024`。
+工作流会从该标签检出代码、重新测试和构建，然后等待同样的发布审批。
+无需删除或重新指向标签。
+
+旧运行的 Re-run jobs 会继续使用原运行的工作流版本，
+无法加载默认分支上刚修复的发布命令，因此应使用 Run workflow 发起新运行。

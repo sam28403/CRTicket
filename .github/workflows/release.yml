@@ -4,12 +4,21 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to publish, for example v261024
+        required: true
+        type: string
+
+env:
+  RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
 
 permissions:
   contents: read
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-${{ inputs.tag || github.ref_name }}
   cancel-in-progress: false
 
 jobs:
@@ -18,6 +27,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.RELEASE_TAG }}
 
       - uses: actions/setup-node@v7
         with:
@@ -29,8 +40,6 @@ jobs:
       - run: npm run build
 
       - name: Prepare release title and changelog
-        env:
-          RELEASE_TAG: ${{ github.ref_name }}
         run: node scripts/prepare-release.js
 
       - name: Package frontend
@@ -59,14 +68,14 @@ jobs:
           path: release-files
 
       - name: Publish GitHub Release
+        shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
-          RELEASE_TAG: ${{ github.ref_name }}
         run: |
           previous_tag=$(gh api --paginate --slurp \
             "repos/$GH_REPO/releases?per_page=100" \
-            --jq '[.[][] | select(.draft == false and .prerelease == false)] | sort_by(.published_at) | last | .tag_name // empty')
+            | jq -r '[.[][] | select(.draft == false and .prerelease == false)] | sort_by(.published_at) | last | .tag_name // empty')
 
           notes_args=(-f "tag_name=$RELEASE_TAG")
           if [ -n "$previous_tag" ]; then
