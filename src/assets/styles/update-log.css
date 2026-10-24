@@ -1,0 +1,91 @@
+.update-log {
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  line-height: 1.8;
+  color: var(--el-text-color-regular);
+}
+
+.update-log-entry + .update-log-entry {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--el-border-color);
+}
+
+.update-log-entry h1,
+.update-log-entry h2,
+.update-log-entry h3 {
+  margin: 20px 0 12px;
+  line-height: 1.5;
+  color: var(--el-text-color-primary);
+}
+
+.update-log-entry > :first-child {
+  margin-top: 0;
+}
+
+.update-log-entry h1 {
+  font-size: 22px;
+}
+
+.update-log-entry h2 {
+  font-size: 18px;
+}
+
+.update-log-entry h3 {
+  font-size: 16px;
+}
+
+.update-log-entry p,
+.update-log-entry ul,
+.update-log-entry ol {
+  margin: 0 0 12px;
+}
+
+.update-log-entry ul,
+.update-log-entry ol {
+  padding-left: 24px;
+}
+
+.update-log-entry li + li {
+  margin-top: 8px;
+}
+
+.update-log-entry blockquote {
+  margin: 12px 0;
+  padding: 8px 16px;
+  border-left: 3px solid var(--el-color-warning);
+  background: var(--el-fill-color-light);
+}
+
+.update-log-entry blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.update-log-entry a {
+  color: var(--el-color-primary);
+}
+
+.update-log-entry pre {
+  overflow-x: auto;
+  padding: 12px;
+  background: var(--el-fill-color-light);
+}
+
+.update-log-entry img {
+  max-width: 100%;
+  height: auto;
+}
+
+.update-log-entry table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.update-log-entry th,
+.update-log-entry td {
+  padding: 6px 12px;
+  border: 1px solid var(--el-border-color);
+}

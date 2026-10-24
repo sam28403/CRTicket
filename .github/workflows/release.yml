@@ -1,0 +1,89 @@
+name: Publish Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          cache: npm
+
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
+      - name: Prepare release title and changelog
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: node scripts/prepare-release.js
+
+      - name: Package frontend
+        run: zip -r release-files/CRTicket-frontend.zip dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-files
+          path: release-files/
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: release
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-files
+          path: release-files
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          previous_tag=$(gh api --paginate --slurp \
+            "repos/$GH_REPO/releases?per_page=100" \
+            --jq '[.[][] | select(.draft == false and .prerelease == false)] | sort_by(.published_at) | last | .tag_name // empty')
+
+          notes_args=(-f "tag_name=$RELEASE_TAG")
+          if [ -n "$previous_tag" ]; then
+            notes_args+=(-f "previous_tag_name=$previous_tag")
+          fi
+
+          gh api --method POST \
+            "repos/$GH_REPO/releases/generate-notes" \
+            "${notes_args[@]}" \
+            --jq '.body' > generated-notes.md
+
+          cat release-files/changelog.md > release-body.md
+          printf '\n## Release notes\n\n' >> release-body.md
+          cat generated-notes.md >> release-body.md
+
+          gh release create "$RELEASE_TAG" \
+            release-files/CRTicket-frontend.zip \
+            --verify-tag \
+            --title "$(cat release-files/title.txt)" \
+            --notes-file release-body.md

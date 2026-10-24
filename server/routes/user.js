@@ -1,68 +1,24 @@
 import express from "express";
 const router = express.Router();
 import db from "../db/db.js";
-import { INSERT_TICKET_SQL } from "../db/ticketQueries.js";
+import { INSERT_BACKUP_TICKET_SQL } from "../db/ticketQueries.js";
 import bcrypt from "bcryptjs";
 import { attachSession, clearSession, requireSession, revokeUserSessions } from "../auth.js";
 
 import { rateLimit, validPassword, validUsername } from "../security.js";
 import { validTicket, ticketQuota } from "./ticketValidation.js";
-import { comparableTicketValues, ticketFieldValues } from "../../src/utils/ticketFields.js";
+import { ticketFieldValues } from "../../src/utils/ticketFields.js";
+import {
+    backupTicketFingerprint as ticketFingerprint,
+    normalizeBackupTicket as mapBackupTicket,
+    parseTicketBackup,
+} from "../../src/utils/ticketBackup.js";
 
 const authLimiter = rateLimit(20, 15 * 60 * 1000);
 router.use([
     "/login", "/register", "/update-profile", "/update-avatar", "/delete-account", "/confirm-delete"
 ], authLimiter);
 const dummyHash = bcrypt.hashSync("dummy-password-9", 10);
-
-const ticketFingerprint = (ticket) => JSON.stringify(comparableTicketValues(ticket));
-
-const toNullableText = (value) => {
-    if (value === null || value === undefined || value === "") {
-        return null;
-    }
-    return String(value);
-};
-
-const toNullableNumber = (value) => {
-    if (value === null || value === undefined || value === "") {
-        return null;
-    }
-
-    const num = Number(value);
-    return Number.isFinite(num) ? num : null;
-};
-
-const mapBackupTicket = (ticket) => {
-    if (
-        !ticket
-        || typeof ticket !== "object"
-        || Array.isArray(ticket)
-        || Object.values(ticket).some(value =>
-            value != null && (typeof value === "object" || String(value).length > 2000))
-    ) {
-        return null;
-    }
-
-    return {
-        ticket_number: toNullableText(ticket.ticket_number ?? ticket.number),
-        train_no: toNullableText(ticket.train_no ?? ticket.trainNo),
-        departure_station: toNullableText(ticket.departure_station ?? ticket.departureStation ?? ticket.from),
-        arrival_station: toNullableText(ticket.arrival_station ?? ticket.arrivalStation ?? ticket.to),
-        travel_date: toNullableText(ticket.travel_date ?? ticket.travelDate ?? ticket.date),
-        departure_time: toNullableText(ticket.departure_time ?? ticket.departureTime ?? ticket.time),
-        price: toNullableNumber(ticket.price),
-        use_credit: toNullableNumber(ticket.use_credit ?? ticket.useCredit) ?? 0,
-        seat_type: toNullableText(ticket.seat_type ?? ticket.seatType),
-        has_conditioner: toNullableNumber(ticket.has_conditioner ?? ticket.hasConditioner) ?? 0,
-        seat_no: toNullableText(ticket.seat_no ?? ticket.seatNo),
-        sell_place: toNullableText(ticket.sell_place ?? ticket.sellPlace),
-        gate_info: toNullableText(ticket.gate_info ?? ticket.gate),
-        message: toNullableText(ticket.message),
-        theme: toNullableText(ticket.theme),
-        distance: toNullableNumber(ticket.distance) ?? 0,
-    };
-};
 
 // 注册接口
 router.post("/register", async (req, res) => {
@@ -444,23 +400,11 @@ router.post("/import-backup", (req, res) => {
         return res.json({ success: false, message: "用户不存在" });
     }
 
-    let payload = backup;
-    if (typeof payload === "string") {
-        try {
-            payload = JSON.parse(payload);
-        } catch (err) {
-            return res.json({ success: false, message: "备份文件格式错误" });
-        }
-    }
-
-    const sourceTickets = Array.isArray(payload)
-        ? payload
-        : Array.isArray(payload?.tickets)
-            ? payload.tickets
-            : null;
-
-    if (!sourceTickets || sourceTickets.length > 1000) {
-        return res.json({ success: false, message: "未找到可导入的车票数据，或超过单次1000条限制" });
+    let sourceTickets;
+    try {
+        sourceTickets = parseTicketBackup(backup, 1000);
+    } catch (error) {
+        return res.json({ success: false, message: error.message || "备份文件格式错误" });
     }
 
     try {
@@ -486,11 +430,8 @@ router.post("/import-backup", (req, res) => {
             WHERE user_id = ?
         `).all(sessionUser.userId);
 
-        if (existingTickets.length + sourceTickets.length > ticketQuota) {
-            return res.status(409).json({ success: false, message: "导入后车票数量不可超过10000条" });
-        }
         const existingSet = new Set(existingTickets.map(ticketFingerprint));
-        const insertStmt = db.prepare(INSERT_TICKET_SQL);
+        const insertStmt = db.prepare(INSERT_BACKUP_TICKET_SQL);
 
         let imported = 0;
         let skipped = 0;
@@ -510,9 +451,13 @@ router.post("/import-backup", (req, res) => {
                     continue;
                 }
 
+                if (existingTickets.length + imported >= ticketQuota) {
+                    throw new RangeError("导入后车票数量不可超过10000条");
+                }
                 insertStmt.run(
                     sessionUser.userId,
-                    ...ticketFieldValues(ticket)
+                    ...ticketFieldValues(ticket),
+                    ticket.created_at ?? null
                 );
 
                 existingSet.add(fingerprint);
@@ -533,6 +478,9 @@ router.post("/import-backup", (req, res) => {
             }
         });
     } catch (err) {
+        if (err instanceof RangeError) {
+            return res.status(409).json({ success: false, message: err.message });
+        }
         console.error(err);
         return res.json({ success: false, message: "导入备份失败" });
     }

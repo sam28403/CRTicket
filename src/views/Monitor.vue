@@ -371,14 +371,7 @@ onBeforeUnmount(stop)
       <header class="page-heading">
         <h1>
           余票查询与监控
-          <el-tag type="warning">Beta</el-tag>
         </h1>
-        <nav class="monitor-navigation" aria-label="页面导航">
-          <RouterLink to="/">生成车票</RouterLink>
-          <a href="https://www.12306.cn" target="_blank" rel="noopener noreferrer">
-            打开 12306 官网 ↗
-          </a>
-        </nav>
       </header>
 
       <el-card shadow="never">
@@ -441,8 +434,8 @@ onBeforeUnmount(stop)
             </el-button>
             <el-button :disabled="!monitoring && !loading" @click="stop">停止</el-button>
             <span role="status">
-              {{ monitoring ? '监控中' : '未监控' }} · 上次成功：{{ time(queriedAt) }}
-              <template v-if="nextAt"> · 下次查询：{{ time(nextAt) }}</template>
+              {{ monitoring ? '监控中' : '未监控' }}，上次成功：{{ time(queriedAt) }}
+              <template v-if="nextAt">，下次查询：{{ time(nextAt) }}</template>
             </span>
           </div>
         </el-form>
@@ -530,10 +523,10 @@ onBeforeUnmount(stop)
         <div class="result-header">
           <h2>
             查询结果
-            <small>{{ filtered.length }} 趟 · 关注席别有票 {{ ticketCount }} 趟</small>
+            <small>{{ filtered.length }} 趟，关注席别有票 {{ ticketCount }} 趟</small>
           </h2>
           <div class="filters">
-            <el-form-item :error="trainFilterError">
+            <el-form-item class="train-filter-field" :error="trainFilterError">
               <el-input-tag
                 :model-value="trainFilters"
                 class="train-filter-input"
@@ -594,8 +587,8 @@ onBeforeUnmount(stop)
           :description="loading ? '正在查询…' : !queriedAt ? '请选择车站和日期，开始查询' : rows.length ? '没有符合筛选条件的车次' : '该日期区间暂无车次'"
         />
         <p class="hint">
-          <span class="seat-plenty">绿色：大于 20 张</span> ·
-          <span class="seat-limited">橙色：1–20 张</span> ·
+          <span class="seat-plenty">绿色：大于 20 张</span>，
+          <span class="seat-limited">橙色：1–20 张</span>，
           <span class="seat-empty">红色：0 张</span>
         </p>
       </section>
@@ -654,12 +647,6 @@ onBeforeUnmount(stop)
   margin: 0 auto;
   padding: 4px 24px;
   color: var(--app-text, #223249);
-  font-family: 'MonitorFangzheng', serif;
-}
-
-.monitor-content :deep(input),
-.monitor-content :deep(button) {
-  font-family: inherit;
 }
 
 .page-heading,
@@ -679,12 +666,8 @@ onBeforeUnmount(stop)
   margin-bottom: 20px;
 }
 
-.monitor-navigation {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 12px;
-  margin-left: auto;
+.page-heading {
+  margin-bottom: 8px;
 }
 
 .form-grid {
@@ -786,7 +769,6 @@ onBeforeUnmount(stop)
 
 .time-range-value {
   color: var(--app-muted, #52749a);
-  font-family: 'MonitorConsolas', monospace;
   white-space: nowrap;
 }
 
@@ -820,8 +802,18 @@ onBeforeUnmount(stop)
   margin-top: 18px;
 }
 
-.train-filter-input {
+.filters .train-filter-field {
   width: 260px;
+  min-width: 0;
+  margin: 0;
+}
+
+.train-filter-input {
+  width: 100%;
+}
+
+.filters {
+  row-gap: 24px;
 }
 
 .filters .el-select {
@@ -847,7 +839,7 @@ onBeforeUnmount(stop)
 }
 
 h1 {
-  margin: 12px 0;
+  margin: 12px 0 4px;
   font-size: 28px;
 }
 
@@ -952,6 +944,7 @@ time {
   }
 
   .filters,
+  .filters .train-filter-field,
   .train-filter-input,
   .filters .el-select {
     width: 100%;
@@ -963,6 +956,5 @@ time {
 .monitor-seat-options .el-select-dropdown__item {
   padding-right: 20px;
   padding-left: 20px;
-  font-family: 'MonitorFangzheng', serif;
 }
 </style>

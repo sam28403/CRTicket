@@ -268,8 +268,11 @@ import { parseStations } from "@/utils/stations.js";
 import stationCoordinates, { historicalStationCoordinates, loadChinaMap } from "@/utils/maps/stationCoordinates.js";
 import { createRailwayGeo } from '@/utils/maps/railwayMap.js';
 import { normalizeStationName } from '@/utils/stationName.js';
-import { buildTicketPayload } from "@/utils/ticketShared.js";
-import { comparableTicketValues } from "@/utils/ticketFields.js";
+import {
+  buildBackupPayload,
+  importTicketBackup,
+  parseTicketBackup,
+} from "@/utils/ticketBackup.js";
 import { useUserStore } from "@/stores/user.js";
 
 const router = useRouter()
@@ -531,58 +534,6 @@ async function loadAllTicketRecords() {
   return tickets;
 }
 
-const buildBackupTicket = (ticket) => ({
-  ticket_number: ticket.ticket_number ?? "",
-  train_no: ticket.train_no ?? "",
-  departure_station: ticket.departure_station ?? "",
-  arrival_station: ticket.arrival_station ?? "",
-  travel_date: ticket.travel_date ?? "",
-  departure_time: ticket.departure_time ?? "",
-  price: ticket.price ?? "",
-  use_credit: ticket.use_credit ?? 0,
-  seat_type: ticket.seat_type ?? "",
-  has_conditioner: ticket.has_conditioner ?? 0,
-  seat_no: ticket.seat_no ?? "",
-  sell_place: ticket.sell_place ?? "",
-  gate_info: ticket.gate_info ?? "",
-  message: ticket.message ?? "",
-  theme: ticket.theme ?? "",
-  distance: ticket.distance ?? 0,
-})
-
-const buildTicketFingerprint = (ticket) => comparableTicketValues(ticket).join("||")
-
-const mapBackupTicketToTicketForm = (ticket) => ({
-  number: ticket.ticket_number ?? "",
-  trainNo: ticket.train_no ?? "",
-  from: ticket.departure_station ?? "",
-  to: ticket.arrival_station ?? "",
-  date: ticket.travel_date ?? "",
-  time: ticket.departure_time ?? "",
-  price: ticket.price ?? "",
-  seatType: ticket.seat_type ?? "",
-  seatNo: ticket.seat_no ?? "",
-  sellPlace: ticket.sell_place ?? "",
-  gate: ticket.gate_info ?? "",
-  message: ticket.message ?? "",
-  theme: ticket.theme ?? "",
-  distance: ticket.distance ?? 0,
-})
-
-const buildBackupPayload = (tickets) => {
-  const user = getCurrentUser()
-  return {
-    schemaVersion: 1,
-    exportedAt: new Date().toISOString(),
-    app: "CRTicket",
-    user: user ? {
-      id: user.id,
-      username: user.username,
-    } : null,
-    tickets: tickets.map(buildBackupTicket),
-  }
-}
-
 const buildExcelRows = (tickets) => {
   return tickets.map((ticket) => ({
     "票号/订单号": ticket.ticket_number ?? "",
@@ -726,18 +677,9 @@ async function handleBackupFileChange(event) {
 
   try {
     importingBackup.value = true
+    if (file.size > 20 * 1024 * 1024) throw new Error("备份文件不能超过 20 MB")
     const text = await file.text()
-    const parsed = JSON.parse(text)
-    const tickets = Array.isArray(parsed)
-      ? parsed
-      : Array.isArray(parsed?.tickets)
-        ? parsed.tickets
-        : null
-
-    if (!tickets) {
-      ElMessage.error("备份文件中没有找到车票数据")
-      return
-    }
+    const tickets = parseTicketBackup(text)
 
     await ElMessageBox.confirm(
       `将导入 ${tickets.length} 条车票记录，数据库中完全相同的记录会自动略过。是否继续？`,
@@ -750,73 +692,11 @@ async function handleBackupFileChange(event) {
     )
 
     const currentTickets = await loadAllTicketRecords()
-    const existingSet = new Set(currentTickets.map(buildTicketFingerprint))
-    const userTickets = Array.isArray(tickets) ? tickets : []
+    const { imported, skipped, invalid } = await importTicketBackup(tickets, currentTickets, api)
 
-    let imported = 0
-    let skipped = 0
-    let invalid = 0
-    const pendingTickets = []
-
-    for (const rawTicket of userTickets) {
-      const mapped = rawTicket && typeof rawTicket === "object"
-        ? mapBackupTicketToTicketForm(rawTicket)
-        : null
-
-      if (
-        !mapped || !mapped.number || !mapped.trainNo || !mapped.from || !mapped.to
-        || !mapped.date || !mapped.time || !mapped.seatType || !mapped.seatNo || !mapped.price
-      ) {
-        invalid += 1
-        continue
-      }
-
-      const ticketPayload = buildTicketPayload(mapped, {
-        userId: user.id,
-        useCredit: Number(rawTicket.use_credit) === 1,
-        finalSeatType: rawTicket.seat_type ?? mapped.seatType,
-        hasConditioner: Number(rawTicket.has_conditioner) === 1,
-        distance: rawTicket.distance ?? mapped.distance ?? 0,
-      })
-
-      const fingerprint = buildTicketFingerprint({
-        ticket_number: ticketPayload.ticket_number,
-        train_no: ticketPayload.train_no,
-        departure_station: ticketPayload.departure_station,
-        arrival_station: ticketPayload.arrival_station,
-        travel_date: ticketPayload.travel_date,
-        departure_time: ticketPayload.departure_time,
-        price: ticketPayload.price,
-        use_credit: ticketPayload.use_credit,
-        seat_type: ticketPayload.seat_type,
-        has_conditioner: ticketPayload.has_conditioner,
-        seat_no: ticketPayload.seat_no,
-        sell_place: ticketPayload.sell_place,
-        gate_info: ticketPayload.gate_info,
-        message: ticketPayload.message,
-        theme: ticketPayload.theme,
-        distance: ticketPayload.distance,
-      })
-
-      if (existingSet.has(fingerprint)) {
-        skipped += 1
-        continue
-      }
-
-      pendingTickets.push(ticketPayload)
-      existingSet.add(fingerprint)
-    }
-
-    // 控制每批大小，同时避免逐张请求触发接口频率限制。
-    for (let offset = 0; offset < pendingTickets.length; offset += 100) {
-      const response = await api.post("/user/import-backup", { backup: pendingTickets.slice(offset, offset + 100) })
-      if (!response.data.success) throw new Error(response.data.message || "导入失败")
-      imported += response.data.data.imported
-      skipped += response.data.data.skipped
-      invalid += response.data.data.invalid
-    }
-
-    ElMessage.success(`导入完成：新增 ${imported} 条，略过 ${skipped} 条，未处理 ${invalid} 条`)
+    ElMessage.success(
+      `导入完成：新增 ${imported} 条，略过 ${skipped} 条，未处理 ${invalid} 条`
+    )
     await Promise.all([
       loadStatistics(),
       loadMonthlyData(),

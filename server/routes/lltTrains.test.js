@@ -37,7 +37,11 @@ test('日期不限查询窗口，校验闰日并按生效区间与循环掩码�
 })
 
 test('指定类别与数字排序，保留多车次和后缀，跨日历时与缺失里程正确展示', () => {
-  const codes = ['1461', 'K10', 'T1', 'Z1', 'S1', 'C1', 'D1', 'G10', 'G2', 'L1', 'G2B', 'G3/G4', 'Y1']
+  const codes = [
+    '1461', 'K10', 'T1', 'Z1', 'S1', 'C1', 'D1', 'G10', 'G2', 'L1',
+    'G2B', 'G3/G4', 'Y10', 'Y2', 'N10', 'N2B', 'N2', 'N3/N4',
+    'V10', 'V2', 'V3B', 'V4/V5', '1462B', '50001', 'X1',
+  ]
   const trains = new Map(codes.map(train => [train, { train, schedule: daily, stops }]))
   trains.set('G99', { train: 'G99', schedule: { ...daily, endDate: '2026-10-07' }, stops })
   trains.set('G100', {
@@ -51,9 +55,11 @@ test('指定类别与数字排序，保留多车次和后缀，跨日历时与�
   const result = listLltTrains({ version: '20261010', trains }, '2026-10-08')
   assert.deepEqual(result.trains.map(row => row.train), [
     'G2', 'G2B', 'G3/G4', 'G10', 'G100', 'D1', 'C1',
-    'S1', 'Z1', 'T1', 'K10', 'L1', '1461', 'Y1',
+    'S1', 'Z1', 'N2', 'N2B', 'N3/N4', 'N10',
+    'V2', 'V3B', 'V4/V5', 'V10', 'T1', 'K10', 'L1',
+    '1461', '1462B', 'Y2', 'Y10', 'X1', '50001',
   ])
-  assert.equal(result.total, 14)
+  assert.equal(result.total, 26)
   assert.deepEqual(result.trains[0], { train: 'G2', from: '始发站', to: '终到站', duration: '29:05', stationCount: 2, mileage: 1318 })
   assert.equal(result.trains[4].duration, '01:02')
   assert.equal(result.trains[4].mileage, null)
@@ -74,6 +80,17 @@ test('变更上下行车次可按任一完整车次号查询，并遵守日期�
   assert.deepEqual(findLltTrainCandidates(database, 'G97', '2026-10-08'), [exact])
   exact.schedule = { ...daily, endDate: '2026-10-07' }
   assert.deepEqual(findLltTrainCandidates(database, 'G97', '2026-10-08'), [item])
+})
+
+test('N、V 字头车次支持双车次查询，省略前缀时沿用首段类别', () => {
+  for (const prefix of ['N', 'V']) {
+    const item = { train: `${prefix}100/97`, schedule: daily, stops }
+    const database = { trains: new Map([[item.train, item]]) }
+    for (const train of [`${prefix}100`, `${prefix}97`, item.train]) {
+      assert.deepEqual(findLltTrainCandidates(database, train, '2026-10-08'), [item])
+    }
+    assert.deepEqual(findLltTrainCandidates(database, `${prefix}97`, '2026-10-11'), [])
+  }
 })
 
 test('省略类别前缀的沿途车次可以匹配，方案后缀只接受精确记录号', () => {

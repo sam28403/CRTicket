@@ -1,5 +1,5 @@
 <template>
-  <ImportantNoticeDialog v-model="importantNoticeVisible" @closed="note" />
+  <UpdateLogDialog v-model="updateLogVisible" />
   <Teleport to="#home-mobile-navigation" :disabled="!isMobilePreview" defer>
     <nav class="home-navigation page-header-actions" aria-label="页面导航">
       <ThemeSelect />
@@ -188,7 +188,7 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261019</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261024</h3>
       <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10118</h3>
 
       <div class="home-tools">
@@ -289,7 +289,7 @@
 </template>
 
 <script setup>
-import ImportantNoticeDialog from '@/components/ImportantNoticeDialog.vue'
+import UpdateLogDialog from '@/components/UpdateLogDialog.vue'
 import ThemeSelect from '@/components/ThemeSelect.vue'
 import {computed, h, onMounted, onUnmounted, reactive, ref, watch} from 'vue'
 import {ElButton, ElIcon, ElMessage, ElMessageBox, ElNotification} from 'element-plus'
@@ -374,15 +374,10 @@ watch(() => ticket.number, (newVal) => {
   generateQRCode(newVal)
 })
 
-const importantNoticeVisible = ref(false)
+const updateLogVisible = ref(false)
 
 const note = () => {
-  ElNotification({
-    title: '中国铁路车次大洗牌即将开始，加入车次新规则',
-    message: '新增对新的车次规则的支援，',
-    type: 'info',
-    position: 'bottom-right'
-  })
+  updateLogVisible.value = true
 }
 
 const star = () => {
@@ -480,7 +475,7 @@ onMounted(() => {
   window.addEventListener('resize', updateMobilePreviewFlag, { passive: true })
   window.addEventListener('resize', scheduleMobilePreviewRender, { passive: true })
   if (!sessionStorage.getItem('notified')) {
-    importantNoticeVisible.value = true
+    updateLogVisible.value = true
     star()
     sessionStorage.setItem('notified', '1')
   }
