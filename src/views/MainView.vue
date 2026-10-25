@@ -5,6 +5,10 @@
       <ThemeSelect />
       <el-button
         :disabled="isGithubPagesBuild"
+        @click="$router.push('/price')"
+      >票价计算</el-button>
+      <el-button
+        :disabled="isGithubPagesBuild"
         :title="isGithubPagesBuild ? '演示版暂不支持余票监控' : ''"
         @click="goToMonitor"
       >余票监控</el-button>
@@ -188,7 +192,7 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261024</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261025</h3>
       <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10118</h3>
 
       <div class="home-tools">
