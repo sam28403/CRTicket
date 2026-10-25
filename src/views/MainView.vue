@@ -4,7 +4,6 @@
     <nav class="home-navigation page-header-actions" aria-label="页面导航">
       <ThemeSelect />
       <el-button
-        :disabled="isGithubPagesBuild"
         @click="$router.push('/price')"
       >票价计算</el-button>
       <el-button

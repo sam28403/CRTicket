@@ -6,6 +6,7 @@ import Register from "@/views/Register.vue";
 import Debug from "@/views/Debug.vue";
 import User from "@/views/User.vue";
 import { isGithubPagesBuild } from '@/config/deploy.js'
+import { isGithubPagesRoute } from './githubPagesAccess.js'
 import api from '@/api.js'
 import { useUserStore } from '@/stores/user.js'
 import { ElMessage } from 'element-plus'
@@ -91,7 +92,7 @@ api.interceptors.response.use(response => response, error => {
 })
 
 router.beforeEach(async (to) => {
-    if (isGithubPagesBuild && to.path !== '/') {
+    if (isGithubPagesBuild && !isGithubPagesRoute(to.path)) {
         return { path: '/' }
     }
 

@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import AppBrand from '@/components/AppBrand.vue'
 import ThemeSelect from '@/components/ThemeSelect.vue'
+import { isGithubPagesBuild } from '@/config/deploy.js'
 import { airTypes, calculateOrdinaryFare, getPriceTrainGrade } from '@/utils/ordinaryFare.js'
 
 const train = ref('')
@@ -44,7 +45,7 @@ function calculate() {
       <div class="page-heading">
         <h1>普速票价计算</h1>
         <div class="page-header-actions">
-          <el-button @click="$router.push('/train')">车次查询</el-button>
+          <el-button v-if="!isGithubPagesBuild" @click="$router.push('/train')">车次查询</el-button>
           <el-button @click="$router.push('/price/list')">价格列表</el-button>
         </div>
       </div>
