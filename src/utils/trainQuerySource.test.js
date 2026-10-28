@@ -1,7 +1,8 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { trainQuerySourceLocation } from './trainQuerySource.js'
+import { trainQueryCode, trainQuerySourceLocation } from './trainQuerySource.js'
 import { trainQueryRange } from './trainQueryDate.js'
+import { getTrainNumberError } from './ticketShared.js'
 
 const date = trainQueryRange().today
 
@@ -12,15 +13,33 @@ test('切换离线来源保留车次和日期，并设置路路通参数', () =>
   })
 })
 
-test('离线双车次切换在线时使用单车次，并可切回完整离线记录', () => {
+test('双车次切换查询来源时均使用第一个车次', () => {
   const offlineRecord = 'G1/G2B'
   const online = trainQuerySourceLocation({ train: 'G1/G2', date, offline: false })
   assert.deepEqual(online.query, { train: 'G1', date, source: undefined })
   const offline = trainQuerySourceLocation({
     train: online.query.train, date, offline: true, offlineRecord,
   })
-  assert.equal(offline.query.train, offlineRecord)
+  assert.equal(offline.query.train, 'G1')
   assert.equal(offline.query.source, 'llt')
+})
+
+test('双车次在校验和查询前提取第一个车次', () => {
+  assert.equal(trainQueryCode('V6501/V6504'), 'V6501')
+  assert.equal(getTrainNumberError(trainQueryCode('V6501/V6504')), '')
+  assert.equal(trainQueryCode(' v6501 / v6504 '), 'V6501')
+  assert.equal(trainQueryCode('G1/G2/G3'), 'G1')
+  assert.equal(trainQueryCode('D3068'), 'D3068')
+  assert.equal(trainQueryCode(''), '')
+  assert.equal(trainQuerySourceLocation({
+    train: 'V6501/V6504', date: '2026-12-03', offline: true,
+  }).query.train, 'V6501')
+})
+
+test('单车次切回离线保留方案后缀', () => {
+  assert.equal(trainQuerySourceLocation({
+    train: 'G1', date, offline: true, offlineRecord: 'G1B',
+  }).query.train, 'G1B')
 })
 
 test('输入新车次后切换离线不会套用旧记录', () => {

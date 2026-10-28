@@ -9,7 +9,7 @@ import StationLink from '@/components/StationLink.vue'
 import api, { timetableTimeout } from '@/api.js'
 import { isTrainQueryDateInRange, trainQueryRange } from '@/utils/trainQueryDate.js'
 import { displayTrainCode, trainInfoForDisplay } from '@/utils/trainDisplay.js'
-import { trainQuerySourceLocation } from '@/utils/trainQuerySource.js'
+import { trainQueryCode, trainQuerySourceLocation } from '@/utils/trainQuerySource.js'
 import { getTrainNumberError } from '@/utils/ticketShared.js'
 
 defineOptions({ name: 'TrainQuery' })
@@ -74,13 +74,14 @@ function disabledDate(value) {
 
 async function query() {
   if (loading.value) return
-  const trainError = getTrainNumberError(train.value)
+  const entered = trainQueryCode(train.value)
+  const trainError = getTrainNumberError(entered)
   if (trainError) {
     ElMessage.warning(trainError)
     return
   }
-  const entered = train.value.trim().toUpperCase()
-  const code = offlineMode.value && offlineRecord.value && entered === displayTrainCode(offlineRecord.value)
+  const code = offlineMode.value && offlineRecord.value
+    && !offlineRecord.value.includes('/') && entered === displayTrainCode(offlineRecord.value)
     ? offlineRecord.value
     : entered
   if (!date.value) {
@@ -145,7 +146,7 @@ watch(
     error.value = ''
     const record = typeof code === 'string' ? code.trim().toUpperCase() : ''
     if (offlineMode.value) offlineRecord.value = record
-    train.value = displayTrainCode(record)
+    train.value = trainQueryCode(record)
     date.value = typeof selectedDate === 'string' ? selectedDate : trainQueryRange().today
     if (train.value && /^\d{4}-\d{2}-\d{2}$/.test(date.value)) query()
   },
@@ -176,7 +177,7 @@ onBeforeUnmount(() => {
       </div>
       <el-card shadow="never">
         <el-form class="query-form" label-position="top" @submit.prevent="query">
-          <el-form-item label="车次" :error="train ? getTrainNumberError(train) : ''">
+          <el-form-item label="车次" :error="train ? getTrainNumberError(trainQueryCode(train)) : ''">
             <el-input
               v-model="train"
               :disabled="loading"
