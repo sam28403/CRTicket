@@ -1,6 +1,6 @@
 {
   "name": "crticket",
-  "version": "261028",
+  "version": "261030",
   "private": false,
   "type": "module",
   "engines": {
@@ -20,7 +20,7 @@
     "@pdf-lib/fontkit": "^1.1.1",
     "@vue/devtools-api": "^8.2.1",
     "@vueuse/core": "^15.0.0",
-    "axios": "^1.20.0",
+    "axios": "^1.21.0",
     "bcryptjs": "^3.0.3",
     "better-sqlite3": "^13.0.3",
     "cors": "^2.8.6",
@@ -33,9 +33,9 @@
     "html2canvas": "^1.4.1",
     "jspdf": "4.2.1",
     "leaflet": "^1.9.4",
-    "marked": "^18.1.1",
+    "marked": "^18.1.2",
     "pdf-lib": "^1.17.1",
-    "pinia": "^4.0.3",
+    "pinia": "^4.1.0",
     "qrcode": "^1.5.4",
     "vue": "^3.5.44",
     "vue-router": "^5.4.0",
@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.10",
-    "vite": "8.3.4",
+    "vite": "8.3.5",
     "vite-plugin-vue-devtools": "^8.2.1"
   },
   "allowScripts": {
