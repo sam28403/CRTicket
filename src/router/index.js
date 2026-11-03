@@ -39,6 +39,10 @@ const routes = [
     },
     {
         path: '/',
+        redirect: '/ticket'
+    },
+    {
+        path: '/ticket',
         component: MainView
     },
     {
@@ -93,7 +97,7 @@ api.interceptors.response.use(response => response, error => {
 
 router.beforeEach(async (to) => {
     if (isGithubPagesBuild && !isGithubPagesRoute(to.path)) {
-        return { path: '/' }
+        return { path: '/ticket' }
     }
 
     if (!to.meta.requiresAuth) {
