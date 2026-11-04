@@ -8,7 +8,9 @@
 
 [打开网页版演示](https://sam28403.github.io)
 
-演示站点仅提供静态车票生成功能。账户、历史记录、余票监控、车次查询和车站大屏需部署后端。
+演示站点首页展示功能演示，车票制作位于 `#/ticket`，另提供前端票价计算与价格列表。
+账户、历史记录、余票监控、车次查询和车站大屏的实际使用需部署后端。
+首页实现说明见[首页展示与交互](docs/home-page.md)。
 
 Android 客户端已独立维护，见 [CRTicket-Android](https://github.com/sam28403/CRTicket-Android)。
 

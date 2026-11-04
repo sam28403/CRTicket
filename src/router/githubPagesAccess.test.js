@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { isGithubPagesRoute } from './githubPagesAccess.js'
 
-test('GitHub Pages 允许首页、票价计算及价格列表', () => {
+test('GitHub Pages 允许首页、车票制作、票价计算及价格列表', () => {
   for (const path of ['/', '/ticket', '/price', '/price/list']) {
     assert.equal(isGithubPagesRoute(path), true, path)
   }

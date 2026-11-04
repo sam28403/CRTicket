@@ -191,7 +191,7 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261030</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261104</h3>
       <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10119</h3>
 
       <div class="home-tools">
@@ -212,56 +212,15 @@
             <div v-else class="ticket-photo-loading">正在渲染预览…</div>
           </div>
           <div class="ticket-preview-scale" :style="{ transform: `scale(${ticketScale})` }">
-            <div ref="ticketRef" class="ticket-container" :class="{ 'ticket-dom-source': isMobilePreview }">
-            <div class="ticket-bg" :style="{ backgroundImage: `url(./${ticket.theme})` }">
-              <div class="ticket-number">{{ticket.number}}</div>
-            </div>
-
-            <div class="station-block">
-              <div class="station-left">
-                <div class="station-name">{{ formatStationName(ticket.from) }}<span class="small">站</span></div>
-                <div class="station-en">{{ getStationEnglish(ticket.from) }}</div>
-              </div>
-
-              <div class="station-middle">
-                <div class="train-no">{{ ticket.trainNo }}</div>
-                <div class="arrow">
-                  <span class="line"></span>
-                  <span class="head"></span>
-                </div>
-              </div>
-
-              <div class="station-right">
-                <div class="station-name">{{ formatStationName(ticket.to) }}<span class="small">站</span></div>
-                <div class="station-en">{{ getStationEnglish(ticket.to) }}</div>
-              </div>
-            </div>
-
-            <div class="ticket-gate">{{ticket.gate}}</div>
-
-            <div class="date-time">{{ticket.date}}&nbsp;&nbsp; {{ticket.time}}开</div>
-
-            <div class="price">￥{{ticket.price}}元</div>
-
-            <div class="tip"><strong>限乘当日当次车</strong></div>
-
-            <div class="seat">{{ticket.seatNo}}</div>
-
-            <div class="seat-class">{{finalSeatType}}</div>
-
-            <div class="ticket-message">
-              <p>{{ ticket.message }}</p>
-            </div>
-
-            <div class="ticket-type">{{ specialTicketType }}</div>
-            <div class="credit">{{ useCredit}}</div>
-
-            <div class="ticket-qrcode" v-if="qrCodeUrl">
-              <img :src="qrCodeUrl" alt="QR Code" />
-            </div>
-
-            <div class="sell-place">{{ticket.sellPlace}}售</div>
-          </div>
+            <TicketArtwork
+              :ref="component => { ticketRef = component?.$el }"
+              :class="{ 'ticket-dom-source': isMobilePreview }"
+              :ticket="ticket"
+              :final-seat-type="finalSeatType"
+              :special-ticket-type="specialTicketType"
+              :use-credit="useCredit"
+              :qr-code-url="qrCodeUrl"
+            />
 
           </div>
         </div>
@@ -296,7 +255,8 @@ import UpdateLogDialog from '@/components/UpdateLogDialog.vue'
 import ThemeSelect from '@/components/ThemeSelect.vue'
 import {computed, h, onMounted, onUnmounted, reactive, ref, watch} from 'vue'
 import {ElButton, ElIcon, ElMessage, ElMessageBox, ElNotification} from 'element-plus'
-import QRCode from 'qrcode'
+import TicketArtwork from '@/components/TicketArtwork.vue'
+import { useTicketQRCode } from '@/composables/useTicketQRCode.js'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import {Check, Checked, Close, Document, Picture, Star, User} from '@element-plus/icons-vue'
@@ -313,11 +273,8 @@ import {
   seatOptions,
   themeOptions,
   ticketRules,
-  ticketQRCodeOptions,
 } from '@/utils/ticketShared.js'
 import {
-  formatStationName as formatTicketStationName,
-  getStationEnglish as getTicketStationEnglish,
   handleStationSelect,
   queryStationSearch,
   useSeatType,
@@ -346,8 +303,6 @@ const {
 const useCredit = computed(() => useCreditLabel.value)
 const querySearch = queryStationSearch
 const handleSelect = (field, item) => handleStationSelect(ticket, field, item)
-const formatStationName = (name) => formatTicketStationName(name)
-const getStationEnglish = (name) => getTicketStationEnglish(name)
 
 const distanceRules = [
   {
@@ -359,23 +314,7 @@ const distanceRules = [
   },
 ]
 
-const qrCodeUrl = ref('')
-
-function generateQRCode(text) {
-  if (!text) {
-    qrCodeUrl.value = ''
-    return
-  }
-  QRCode.toDataURL(text, ticketQRCodeOptions(), (err, url) => {
-    if (!err) {
-      qrCodeUrl.value = url
-    }
-  })
-}
-
-watch(() => ticket.number, (newVal) => {
-  generateQRCode(newVal)
-})
+const qrCodeUrl = useTicketQRCode(() => ticket.number)
 
 const updateLogVisible = ref(false)
 
@@ -470,7 +409,6 @@ function scheduleMobilePreviewRender() {
 }
 
 onMounted(() => {
-  generateQRCode(ticket.number)
   updateTicketScale()
   updateMobilePreviewFlag()
   scheduleMobilePreviewRender()

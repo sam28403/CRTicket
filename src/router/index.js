@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import MainView from '../views/MainView.vue'
 import HistoryView from '../views/HistoryView.vue'
 import Login from "@/views/Login.vue";
@@ -39,7 +39,8 @@ const routes = [
     },
     {
         path: '/',
-        redirect: '/ticket'
+        name: 'home',
+        component: () => import('@/views/HomeView.vue')
     },
     {
         path: '/ticket',
@@ -97,7 +98,7 @@ api.interceptors.response.use(response => response, error => {
 
 router.beforeEach(async (to) => {
     if (isGithubPagesBuild && !isGithubPagesRoute(to.path)) {
-        return { path: '/ticket' }
+        return { path: '/' }
     }
 
     if (!to.meta.requiresAuth) {

@@ -69,7 +69,8 @@ html.high-contrast {
 html, body { margin: 0; background: var(--app-page, #fff); color: var(--app-text, #000); }
 html.dark { color-scheme: dark; }
 html:not(.dark) { color-scheme: light; }
-html.dark a, html.high-contrast a { color: var(--app-link); }
+html.dark a:not(.el-button),
+html.high-contrast a:not(.el-button) { color: var(--app-link); }
 html.high-contrast :focus-visible { outline: 2px solid var(--app-link); outline-offset: 3px; }
 .page-header-actions {
   display: flex;

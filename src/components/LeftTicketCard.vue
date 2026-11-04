@@ -11,6 +11,7 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  showSeatSource: { type: Boolean, default: true },
 })
 
 const trainParts = computed(() => {
@@ -94,7 +95,7 @@ function countClass(value) {
         <span>{{ label }}</span>
         <span
           :class="countClass(train.seats[key])"
-          :title="train.seats[key] === '>20' || train.seats[key] === '有'
+          :title="!showSeatSource ? undefined : train.seats[key] === '>20' || train.seats[key] === '有'
             ? '官网未提供可解析的数量'
             : '官网返回数量'"
         >

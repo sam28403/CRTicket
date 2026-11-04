@@ -1,0 +1,19 @@
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 650ms ease, transform 650ms cubic-bezier(.2, .65, .3, 1);
+}
+.scroll-reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+@media print {
+  .scroll-reveal { opacity: 1; transform: none; transition: none; }
+}

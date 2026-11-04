@@ -8,7 +8,7 @@
       <el-container>
         <el-aside width="220px" class="user-sidebar">
           <el-space direction="vertical" fill style="width: 100%">
-            <el-button size="large" @click="goHome()">车票生成</el-button>
+            <el-button size="large" @click="goTicket()">车票生成</el-button>
             <el-button size="large" @click="goHistory()">车票历史</el-button>
             <el-button size="large" type="primary">账户管理</el-button>
           </el-space>
@@ -279,8 +279,8 @@ const router = useRouter()
 const userStore = useUserStore()
 userStore.init()
 
-const goHome = () => {
-  router.push('/')
+const goTicket = () => {
+  router.push('/ticket')
 }
 const goHistory = () => {
   router.push('/history')

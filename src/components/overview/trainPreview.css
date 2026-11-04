@@ -1,0 +1,161 @@
+
+.train-query-page {
+  min-height: 100vh;
+  color: var(--el-text-color-primary);
+}
+.top-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 50px;
+  padding: 5px 15px;
+  background: var(--app-surface, rgb(10 10 0 / 0.1));
+}
+.top-header h2 {
+  margin: 0;
+  font-family: 'Roboto', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 20px;
+}
+.query-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.page-heading, .result-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+.query-buttons {
+  display: flex;
+  gap: 12px;
+}
+.query-buttons :deep(.el-button + .el-button) {
+  margin-left: 0;
+}
+.query-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.query-form .el-form-item {
+  width: 240px;
+  margin-bottom: 16px;
+}
+.query-form .query-action {
+  width: auto;
+}
+.query-form :deep(.el-date-editor) {
+  width: 100%;
+}
+.results {
+  margin-top: 20px;
+  min-height: 280px;
+}
+.query-message {
+  margin: 16px 0;
+}
+.arrival-day {
+  margin-left: 6px;
+}
+.export-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.mobile-stops {
+  display: none;
+}
+@media (max-width: 800px) {
+  .desktop-stops {
+    display: none;
+  }
+  .mobile-stops {
+    display: block;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .mobile-stop {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--el-border-color-lighter);
+  }
+  .mobile-stop:first-child {
+    padding-top: 0;
+  }
+  .stop-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .stop-heading strong {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .stop-heading > :last-child {
+    flex-shrink: 0;
+  }
+  .stop-number {
+    color: var(--el-text-color-secondary);
+    font-weight: normal;
+    margin-right: 10px;
+  }
+  .stop-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 16px;
+    margin: 12px 0 0;
+  }
+  .stop-details dt {
+    color: var(--el-text-color-secondary);
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  .stop-details dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  .result-heading {
+    overflow-wrap: anywhere;
+  }
+}
+@media (max-width: 600px) {
+  .top-header h2 {
+    font-size: 15px;
+  }
+  .query-content {
+    padding: 20px 12px;
+  }
+  .query-form {
+    gap: 0;
+  }
+  .query-form .el-form-item {
+    width: 100%;
+  }
+  .query-buttons {
+    width: 100%;
+  }
+  .query-buttons :deep(.el-button) {
+    flex: 1;
+  }
+  .results :deep(.el-card__body) {
+    padding: 16px;
+  }
+  .export-actions .el-button {
+    width: 100%;
+  }
+}
+

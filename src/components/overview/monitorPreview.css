@@ -1,0 +1,140 @@
+@font-face {
+  font-family: 'MonitorConsolas';
+  src: url('/consola.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MonitorFangzheng';
+  src: url('/FZCDXK.TTF') format('truetype');
+  font-display: swap;
+}
+.monitor-preview {
+  min-width: 0;
+  text-align: left;
+  color: var(--el-text-color-primary);
+}
+h3 { margin: 0; font-size: 20px; font-weight: 500; }
+.page-heading { margin-bottom: 20px; }
+.form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.station-route-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 12px;
+}
+.route-arrow { align-self: center; margin-top: 10px; }
+.form-grid :deep(.el-date-editor),
+.form-grid :deep(.el-input-number) { width: 100%; }
+.form-grid .el-form-item { min-width: 0; }
+.actions, .filters, .result-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.actions :deep(.el-button + .el-button) { margin-left: 0; }
+.station-filters {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 14px 18px;
+  border: 1px solid var(--el-border-color);
+  border-radius: 4px;
+  background: var(--el-bg-color);
+  font-size: 14px;
+}
+.station-filter-row {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 32px;
+}
+.station-filter-row :deep(.el-checkbox-group) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 28px;
+}
+.station-filter-row :deep(.el-checkbox) {
+  min-width: 92px;
+  margin-right: 0;
+}
+.all-stations-button {
+  height: 26px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--el-text-color-regular);
+  font-size: 14px;
+  cursor: pointer;
+}
+.all-stations-button.active { background: var(--el-color-primary); color: var(--el-color-white); }
+.time-filter-row {
+  display: grid;
+  grid-template-columns: auto 105px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 18px;
+}
+.time-filter-row :deep(.el-slider) { width: calc(100% - 24px); margin: 0 12px; }
+.results { margin-top: 28px; }
+.result-header { justify-content: space-between; margin-bottom: 20px; }
+.filters { flex: 1; justify-content: flex-end; }
+.filters .el-input, .filters .el-select { width: 180px; }
+.ticket-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  gap: 12px;
+}
+.ticket-grid :deep(.ticket-card) { min-width: 0; }
+.dark-preview .ticket-grid :deep(.ticket-card:not(.border-sold-out):not(.border-standing-only):not(.border-plenty)) {
+  border-color: #fff;
+}
+.ticket-grid :deep(.seat-grid) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 7%;
+  margin-top: 12px;
+}
+.ticket-grid :deep(.seat-item) {
+  gap: 8px;
+  font-size: 4.9cqw;
+}
+.ticket-grid :deep(.journey-time) {
+  font-size: 5.1cqw;
+}
+.ticket-grid :deep(.journey-route) {
+  grid-column: 2 / 4;
+  grid-row: 2;
+  margin-top: 0;
+  font-size: 4.6cqw;
+}
+@media (max-width: 1000px) {
+  .ticket-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .station-route-fields { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .monitor-preview :deep(.el-card__body) { padding: 14px; }
+  .station-filters { padding: 12px; }
+  .station-filter-row { grid-template-columns: auto 1fr; }
+  .station-filter-row :deep(.el-checkbox-group) { grid-column: 1 / -1; }
+  .time-filter-row { grid-template-columns: auto 1fr; }
+  .time-filter-row :deep(.el-slider) { grid-column: 1 / -1; }
+  .filters { flex-basis: 100%; justify-content: flex-start; }
+  .filters .el-input, .filters .el-select { width: 100%; }
+  .ticket-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .form-grid { grid-template-columns: 1fr; gap: 0; }
+  .station-route-fields { gap: 8px; }
+  .station-filter-row { gap: 6px; }
+  .station-filter-row strong { white-space: nowrap; font-size: 13px; }
+  .station-filter-row :deep(.el-checkbox) { margin: 0; }
+  .actions { gap: 8px; }
+  .actions .el-button { padding: 8px 10px; }
+}
