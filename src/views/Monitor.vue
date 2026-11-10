@@ -617,12 +617,6 @@ onBeforeUnmount(stop)
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'MonitorFangzheng';
-  src: url('/FZCDXK.TTF') format('truetype');
-  font-display: swap;
-}
-
 .monitor-page {
   min-height: 100vh;
 }

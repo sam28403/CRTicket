@@ -1,4 +1,5 @@
 <script setup>
+import { Ticket } from '@element-plus/icons-vue'
 import { entries } from '@/utils/updateLog.js'
 import '@/assets/styles/update-log.css'
 import AppBrand from '@/components/AppBrand.vue'
@@ -23,12 +24,23 @@ import { vScrollReveal } from '@/components/overview/scrollReveal.js'
     <main>
       <section class="hero">
         <div class="hero-copy">
-          <span>CR TICKET MAKER</span>
+          <span class="hero-kicker">CR TICKET MAKER</span>
           <h1>把旅程<br>留在票面上。</h1>
           <p>从一张自制车票开始，查沿途的列车，收藏自己的铁路足迹。</p>
-          <el-button size="large" round @click="$refs.story.scrollIntoView()">
-            看一张车票如何生成 ↓
-          </el-button>
+          <div class="hero-actions">
+            <el-button
+              type="primary"
+              size="large"
+              round
+              :icon="Ticket"
+              @click="$router.push('/ticket')"
+            >
+              制作车票
+            </el-button>
+            <el-button size="large" round @click="$refs.story.scrollIntoView()">
+              看一张车票如何生成 ↓
+            </el-button>
+          </div>
         </div>
       </section>
       <div ref="story"><TicketStory /></div>
@@ -91,7 +103,7 @@ header {
   margin: auto;
   padding: clamp(44px, 8vw, 120px) clamp(24px, 6vw, 84px);
 }
-.hero-copy span, .overview :deep(.kicker) {
+.hero-kicker, .overview :deep(.kicker) {
   font-size: 14px;
   font-weight: 650;
   letter-spacing: .12em;
@@ -119,6 +131,19 @@ h1 {
 .hero .hero-copy p {
   color: white;
   max-width: 27em;
+}
+.hero-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.hero-actions .el-button + .el-button {
+  margin-left: 0;
+}
+@media (max-width: 700px) {
+  .hero-actions {
+    flex-direction: column;
+  }
 }
 footer {
   text-align: center;

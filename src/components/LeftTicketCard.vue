@@ -121,7 +121,7 @@ function countClass(value) {
   border-radius: 24px;
   background: var(--app-surface, #fff);
   color: var(--app-text, #080808);
-  font-family: 'MonitorFangzheng', serif;
+  font-family: 'FZCDXK', serif;
 }
 
 .ticket-card.border-sold-out {

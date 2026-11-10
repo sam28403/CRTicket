@@ -3,11 +3,6 @@
   src: url('/consola.ttf') format('truetype');
   font-display: swap;
 }
-@font-face {
-  font-family: 'MonitorFangzheng';
-  src: url('/FZCDXK.TTF') format('truetype');
-  font-display: swap;
-}
 .monitor-preview {
   min-width: 0;
   text-align: left;
