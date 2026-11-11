@@ -191,7 +191,7 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261104</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261111</h3>
       <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10119</h3>
 
       <div class="home-tools">
@@ -258,13 +258,12 @@ import {ElButton, ElIcon, ElMessage, ElMessageBox, ElNotification} from 'element
 import TicketArtwork from '@/components/TicketArtwork.vue'
 import { useTicketQRCode } from '@/composables/useTicketQRCode.js'
 import html2canvas from 'html2canvas'
-import jsPDF from 'jspdf'
 import {Check, Checked, Close, Document, Picture, Star, User} from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 import api from '@/api.js'
 import { useUserStore } from '@/stores/user.js'
 import { isGithubPagesBuild } from '@/config/deploy.js'
-import { downloadTicketPNG, renderTicketImage } from '@/utils/ticketExport.js'
+import { downloadTicketPDF, downloadTicketPNG, renderTicketImage } from '@/utils/ticketExport.js'
 import {
   buildTicketPayload,
   createDefaultTicket,
@@ -453,14 +452,7 @@ const downloadPDF = async () => {
   const element = ticketRef.value
   const imgData = await renderTicketImage(html2canvas, element)
 
-  const pdf = new jsPDF({
-    orientation: 'landscape',
-    unit: 'cm',
-    format: [8.6, 5.4]
-  })
-
-  pdf.addImage(imgData, 'PNG', 0, 0, 8.6, 5.4)
-  pdf.save(`${ticket.number}.pdf`)
+  await downloadTicketPDF(imgData, ticket.number)
 }
 
 const downloadPNG = async () => {

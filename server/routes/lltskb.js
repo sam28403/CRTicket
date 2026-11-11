@@ -1,9 +1,11 @@
-import { unzipSync } from 'fflate'
+import yauzl from 'yauzl'
 
 const base = 'http://down.lltskb.com'
 const archiveFallback = 'http://223.107.87.50:8011/an.db'
 const maxArchiveBytes = 16 * 1024 * 1024
 const maxFileBytes = 4 * 1024 * 1024
+const maxUncompressedBytes = 32 * 1024 * 1024
+const maxArchiveEntries = 256
 
 // an.db 的字典长度是标准大端整数；T*.dat 的索引、里程使用 255 进制。
 // 实测 20261004 包的 18783 条车次，全部车次及站点索引均能对应字典。
@@ -134,13 +136,40 @@ export function parseLltFiles(files) {
   return { version, trains }
 }
 
-export function parseLltArchive(bytes) {
+export async function parseLltArchive(bytes, signal) {
   if (bytes.byteLength > maxArchiveBytes) throw new Error('路路通数据包过大')
-  const files = unzipSync(bytes, { filter: entry => {
-    if (!/^(?:[st]\.i|t\.rule|ver\.txt|T\d{1,2}\.dat)$/.test(entry.name)) return false
-    if (entry.originalSize > maxFileBytes) throw new Error('路路通数据文件过大')
-    return true
-  } })
+  signal?.throwIfAborted()
+  const archive = await yauzl.fromBufferPromise(Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength), {
+    validateEntrySizes: true,
+  })
+  const files = Object.create(null)
+  let total = 0
+  try {
+    if (archive.entryCount > maxArchiveEntries) throw new Error('路路通数据包文件过多')
+    for await (const entry of archive.eachEntry()) {
+      signal?.throwIfAborted()
+      const name = entry.fileName
+      if (!/^(?:[st]\.i|t\.rule|ver\.txt|T(?:[0-9]|1[0-9])\.dat)$/.test(name)) continue
+      if (Object.hasOwn(files, name)) throw new Error('路路通数据包包含重复文件')
+      if (entry.uncompressedSize > maxFileBytes) throw new Error('路路通数据文件过大')
+      if (total + entry.uncompressedSize > maxUncompressedBytes) throw new Error('路路通解压数据过大')
+
+      const stream = await archive.openReadStreamPromise(entry)
+      const chunks = []
+      let size = 0
+      for await (const chunk of stream) {
+        signal?.throwIfAborted()
+        size += chunk.length
+        if (size > maxFileBytes || total + size > maxUncompressedBytes) throw new Error('路路通解压数据过大')
+        chunks.push(chunk)
+      }
+      total += size
+      files[name] = Buffer.concat(chunks, size)
+    }
+  } finally {
+    archive.close()
+  }
+  signal?.throwIfAborted()
   return parseLltFiles(files)
 }
 
@@ -181,7 +210,7 @@ export function createLltLoader(fetchImpl = fetch) {
           const archive = await readResponse(await fetchImpl(
             archiveFallback, requestOptions(60000),
           ))
-          cached = parseLltArchive(archive)
+          cached = await parseLltArchive(archive, loadSignal)
         }
         if (manifestBytes) {
           const manifest = manifestBytes.toString('utf8')
@@ -199,7 +228,7 @@ export function createLltLoader(fetchImpl = fetch) {
                 archiveFallback, requestOptions(60000),
               ))
             }
-            const next = parseLltArchive(archive)
+            const next = await parseLltArchive(archive, loadSignal)
             if (next.version !== version) throw new Error('路路通正在更新数据，请稍后重试')
             cached = next
           }

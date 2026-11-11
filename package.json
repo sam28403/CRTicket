@@ -29,9 +29,7 @@
     "echarts": "^6.1.0",
     "element-plus": "2.14.8",
     "express": "^5.3.0",
-    "fflate": "^0.8.3",
     "html2canvas": "^1.4.1",
-    "jspdf": "4.2.1",
     "leaflet": "^1.9.4",
     "marked": "^18.2.0",
     "pdf-lib": "^1.17.1",
@@ -39,12 +37,14 @@
     "qrcode": "^1.5.4",
     "vue": "^3.5.45",
     "vue-router": "^5.5.0",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
+    "yauzl": "^3.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.10",
     "vite": "8.3.8",
-    "vite-plugin-vue-devtools": "^8.2.1"
+    "vite-plugin-vue-devtools": "^8.2.1",
+    "yazl": "^3.3.1"
   },
   "allowScripts": {
     "core-js@3.50.0": true,

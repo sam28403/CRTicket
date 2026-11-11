@@ -1,7 +1,8 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { setTimeout as delay } from 'node:timers/promises'
-import { zipSync } from 'fflate'
+import { buffer } from 'node:stream/consumers'
+import yazl from 'yazl'
 import { createLltLoader, parseLltArchive, parseLltFiles, readLltNumber, readLltDate } from './lltskb.js'
 
 function dictionary(names) {
@@ -30,15 +31,30 @@ function fixture() {
   return files
 }
 
-test('按 255 进制解析车次索引、站点索引和累计里程', () => {
+async function zipFiles(files) {
+  const archive = new yazl.ZipFile()
+  for (const [name, content] of Object.entries(files)) archive.addBuffer(content, name)
+  archive.end()
+  return buffer(archive.outputStream)
+}
+
+const archivedFixture = await zipFiles(fixture())
+
+test('按 255 进制解析车次索引、站点索引和累计里程', async () => {
   assert.equal(readLltNumber(Buffer.from([0x21, 0xa1]), 0), 8576)
-  const data = parseLltArchive(zipSync(fixture()))
+  const data = await parseLltArchive(archivedFixture)
   assert.equal(data.version, '20261004')
   const stops = data.trains.get('G1').stops
   assert.equal(stops[2].station, '车站256')
   assert.deepEqual(stops.map(stop => stop.mileage), [0, 1023, 1318])
   assert.equal(stops[1].departure, '00:03')
   assert.deepEqual(stops.map(stop => stop.arrivalDay), [0, 0, 1])
+})
+
+test('路路通解压拒绝超过单文件上限的条目', async () => {
+  const files = fixture()
+  files['T0.dat'] = Buffer.alloc(4 * 1024 * 1024 + 1)
+  await assert.rejects(parseLltArchive(await zipFiles(files)), /数据文件过大/)
 })
 
 test('拒绝损坏数据，里程倒退的记录不参与补全', () => {
@@ -57,7 +73,7 @@ test('更新包下载合并并发请求、兼容 manifest 格式错误，缓存�
   let calls = 0
   const load = createLltLoader(async url => {
     calls++
-    return new Response(url.endsWith('android.ver') ? '\uFEFF{"version":{"data":"20261004"},"market":[{"name": 应用宝"}]}' : zipSync(fixture()))
+    return new Response(url.endsWith('android.ver') ? '\uFEFF{"version":{"data":"20261004"},"market":[{"name": 应用宝"}]}' : archivedFixture)
   })
   const [first, second] = await Promise.all([load(), load()])
   assert.equal(first, second)
@@ -69,7 +85,7 @@ test('版本不一致时不使用更新到一半的数据包', async () => {
   let calls = 0
   const load = createLltLoader(async url => {
     calls++
-    return new Response(url.endsWith('android.ver') ? '{"version":{"data":"20261005"}}' : zipSync(fixture()))
+    return new Response(url.endsWith('android.ver') ? '{"version":{"data":"20261005"}}' : archivedFixture)
   })
   await assert.rejects(load(), /正在更新/)
   await assert.rejects(load(), /正在更新/)
@@ -84,7 +100,7 @@ test('下载超时后立即重新下载，失败与重试期间仍合并并发�
     if (timedOut) throw new DOMException('下载超时', 'TimeoutError')
     return new Response(url.endsWith('android.ver')
       ? '{"version":{"data":"20261004"}}'
-      : zipSync(fixture()))
+      : archivedFixture)
   })
 
   const failures = await Promise.allSettled([load(), load()])
@@ -112,7 +128,7 @@ function delayedArchive(signal) {
     async start(controller) {
       try {
         await delay(60, undefined, { signal })
-        controller.enqueue(zipSync(fixture()))
+        controller.enqueue(archivedFixture)
         controller.close()
       } catch {
         controller.error(signal.reason)
@@ -151,7 +167,7 @@ test('整轮加载超时会中断备用包的响应体，之后仍可立即重�
     if (url.endsWith('android.ver')) {
       return new Response('{"version":{"data":"20261004"}}')
     }
-    if (!slow) return new Response(zipSync(fixture()))
+    if (!slow) return new Response(archivedFixture)
     if (url.startsWith('http://down.lltskb.com')) throw new TypeError('fetch failed')
     fallbackCalls++
     return delayedArchive(options.signal)
@@ -163,14 +179,14 @@ test('整轮加载超时会中断备用包的响应体，之后仍可立即重�
   assert.equal((await load()).version, '20261004')
 })
 
-test('开行日期使用小端 128 进制，循环规则按零基索引关联', () => {
+test('开行日期使用小端 128 进制，循环规则按零基索引关联', async () => {
   const files = fixture()
   files['T0.dat'].set([60, 80, 84, 9], 5) // 20260924
   files['T0.dat'].set([15, 81, 84, 9], 9) // 20261007
   files['T0.dat'].set([0, 1], 13)
   files['t.rule'] = Buffer.from('1 1\r\n2 1\r\n')
   assert.equal(readLltDate(files['T0.dat'], 5), '2026-09-24')
-  assert.deepEqual(parseLltArchive(zipSync(files)).trains.get('G1').schedule, {
+  assert.deepEqual((await parseLltArchive(await zipFiles(files))).trains.get('G1').schedule, {
     startDate: '2026-09-24', endDate: '2026-10-07', rule: { period: 2, mask: 1 },
   })
   assert.throws(() => parseLltFiles({ ...files, 't.rule': Buffer.from('1 1\n2 4') }), /规则无效/)
@@ -182,7 +198,7 @@ test('主版本接口不可达时读取官方备用包，并缓存包内版本',
   const load = createLltLoader(async url => {
     urls.push(url)
     if (url.endsWith('android.ver')) throw new TypeError('fetch failed')
-    return new Response(zipSync(fixture()))
+    return new Response(archivedFixture)
   })
   assert.equal((await load()).version, '20261004')
   await load()

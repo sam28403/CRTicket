@@ -64,3 +64,23 @@ export function downloadTicketPNG(imageData, number) {
   link.click()
 }
 
+export async function buildTicketPdf(imageData) {
+  const { PDFDocument } = await import('pdf-lib')
+  const pdf = await PDFDocument.create()
+  const pointsPerCm = 72 / 2.54
+  const page = pdf.addPage([8.6 * pointsPerCm, 5.4 * pointsPerCm])
+  const image = await pdf.embedPng(imageData)
+  page.drawImage(image, { x: 0, y: 0, width: page.getWidth(), height: page.getHeight() })
+  return pdf.save()
+}
+
+export async function downloadTicketPDF(imageData, number) {
+  const bytes = await buildTicketPdf(imageData)
+  const url = URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' }))
+  const link = document.createElement('a')
+  link.href = url
+  link.download = `${number}.pdf`
+  link.click()
+  setTimeout(() => URL.revokeObjectURL(url), 60000)
+}
+
