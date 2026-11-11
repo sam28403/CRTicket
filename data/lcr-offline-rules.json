@@ -1,0 +1,14 @@
+{
+  "startDate": "2026-11-01",
+  "endDate": "2027-01-15",
+  "trains": {
+    "C85": {},
+    "C86": {},
+    "C91": {},
+    "C92": {},
+    "C95": { "weekdays": ["Friday", "Saturday", "Sunday", "Monday", "Tuesday"] },
+    "C96": { "weekdays": ["Thursday", "Friday", "Saturday", "Sunday", "Monday"] },
+    "K11": { "endDate": "2026-11-24", "weekdays": ["Wednesday", "Thursday", "Friday", "Saturday"] },
+    "K12": { "endDate": "2026-11-24", "weekdays": ["Wednesday", "Thursday", "Friday", "Saturday"] }
+  }
+}

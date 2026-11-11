@@ -167,14 +167,57 @@ test('优先返回官方数据；官方失败或空结果后才尝试路路通',
   }
 })
 
+test('老挝段在换算后按当地日期筛选在线与离线到发时刻', async () => {
+  const vientiane = { name: '万象', telecode: '' }
+  const queriedDates = []
+  const online = await queryStation(vientiane, date, {
+    queryOnline: async (requestedStation, day) => {
+      queriedDates.push(day)
+      return normalizeStationTrains([{
+        ...onlineRow,
+        train_no: 'LCR01', station_train_code: 'D88',
+        station_name: '万象', start_station_name: '磨丁', end_station_name: '昆明',
+        arrive_time: day === date ? '00:15' : '00:45',
+        start_time: day === date ? '00:20' : '01:10',
+        start_train_date: day,
+      }], requestedStation, day)
+    },
+  })
+  assert.deepEqual(queriedDates, [date, '2026-10-12'])
+  assert.deepEqual(online.trains.map(row => [row.arrival, row.departure, row.departureLabel]), [
+    ['23:45', null, '次日 00:10'],
+  ])
+
+  const database = databaseFor([{
+    train: 'D88',
+    schedule: { ...schedule, startDate: '2026-10-12', endDate: '2026-10-12' },
+    stops: [
+      { station: '磨丁', departure: '00:10' },
+      { station: '万象', arrival: '00:45', departure: '01:10', stay: 25 },
+      { station: '昆明', arrival: '08:00' },
+    ],
+  }])
+  const [arrival] = listLltStation(database, '万象', date)
+  assert.deepEqual([arrival.trainDate, arrival.arrival, arrival.departureLabel, arrival.stay], [
+    '2026-10-12', '23:45', '次日 00:10', 25,
+  ])
+  const [departure] = listLltStation(database, '万象', '2026-10-12')
+  assert.deepEqual([departure.arrivalLabel, departure.departure], ['昨日 23:45', '00:10'])
+})
+
 test('HTTP 限制当天和有效站名，合并并发请求，缓存到期和跨日重新查询', async () => {
   let time = now
   let calls = 0
   const options = {
     now: () => time,
-    queryOnline: async () => {
+    queryOnline: async (requestedStation, day) => {
       calls++
       await new Promise(resolve => setTimeout(resolve, 10))
+      if (requestedStation.name === '万象') {
+        return normalizeStationTrains([{
+          ...onlineRow, station_name: '万象', start_station_name: '万象', start_train_date: day,
+        }], requestedStation, day)
+      }
       return normalizeStationTrains([onlineRow], station, date)
     },
   }
@@ -215,6 +258,14 @@ test('HTTP 限制当天和有效站名，合并并发请求，缓存到期和跨
     const nextDay = await (await fetch(`${base}/station?station=北京南`)).json()
     assert.equal(nextDay.date, '2026-10-12')
     assert.equal(calls, 3)
+    const laos = `${base}/station?station=万象`
+    assert.equal((await fetch(`${laos}&date=2026-10-12`)).status, 400)
+    const localToday = await (await fetch(laos)).json()
+    assert.equal(localToday.date, date)
+    assert.equal(localToday.trains[0].departure, '07:00')
+    time = Date.parse('2026-10-12T01:00:00+08:00')
+    assert.equal((await fetch(`${laos}&date=2026-10-11`)).status, 400)
+    assert.equal((await (await fetch(laos)).json()).date, '2026-10-12')
     assert.equal((await fetch(`${base}/failure?${query}`)).status, 502)
   } finally {
     await new Promise(resolve => server.close(resolve))

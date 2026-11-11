@@ -1,4 +1,5 @@
 import { normalizeStationName } from '../../src/utils/stationName.js'
+import { isVientianeStation, shiftClock } from '../../src/utils/stationTimeZone.js'
 import { clockMinutes } from './trainClock.js'
 
 const origin = 'https://kyfw.12306.cn'
@@ -101,4 +102,32 @@ export async function query12306Station(station, date, fetchImpl = fetch) {
     throw new Error('12306 车站查询暂不可用')
   }
   return normalizeStationTrains(body.data.data, station, date)
+}
+
+export async function query12306StationForLocalDate(station, date, queryOnline) {
+  if (!isVientianeStation(station.name)) return queryOnline(station, date)
+
+  // 万象当天的末一小时属于北京时间次日。
+  const nextDate = new Date(Date.parse(date) + 86400000).toISOString().slice(0, 10)
+  const batches = await Promise.all([date, nextDate].map(day => queryOnline(station, day)))
+  const trains = new Map()
+  batches.forEach((rows, day) => {
+    for (const row of rows) {
+      const arrivalClock = row.arrival || row.arrivalLabel?.match(/^昨日 (.+)$/)?.[1]
+      const departureClock = row.departure || row.departureLabel?.match(/^次日 (.+)$/)?.[1]
+      const localArrival = arrivalClock && shiftClock(arrivalClock, row.arrival ? day : day - 1, -60)
+      const localDeparture = departureClock && shiftClock(departureClock, row.departure ? day : day + 1, -60)
+      const arrival = localArrival?.day === 0 ? localArrival.clock : null
+      const departure = localDeparture?.day === 0 ? localDeparture.clock : null
+      if (!arrival && !departure) continue
+
+      const arrivalLabel = arrival || (localArrival ? `昨日 ${localArrival.clock}` : '始发站')
+      const departureLabel = departure || (localDeparture ? `次日 ${localDeparture.clock}` : '终到站')
+      const key = JSON.stringify([row.train, row.trainDate, row.from, row.to, arrivalLabel, departureLabel])
+      if (!trains.has(key)) {
+        trains.set(key, { ...row, id: `${row.id}-${day}`, arrival, departure, arrivalLabel, departureLabel })
+      }
+    }
+  })
+  return [...trains.values()]
 }

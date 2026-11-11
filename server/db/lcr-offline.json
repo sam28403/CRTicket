@@ -1,0 +1,593 @@
+{
+  "checkedAt": "2026-11-10T23:00:07.638Z",
+  "timeZone": "beijing",
+  "trains": [
+    {
+      "train": "C85",
+      "schedule": {
+        "startDate": "2026-11-01",
+        "endDate": "2027-01-15",
+        "rule": null
+      },
+      "stops": [
+        {
+          "no": "01",
+          "train": "C85",
+          "station": "琅勃拉邦",
+          "arrival": null,
+          "departure": "19:35",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 0
+        },
+        {
+          "no": "02",
+          "train": "C85",
+          "station": "万荣",
+          "arrival": "20:31",
+          "departure": "20:35",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 4,
+          "mileage": 116
+        },
+        {
+          "no": "03",
+          "train": "C85",
+          "station": "万象",
+          "arrival": "21:28",
+          "departure": null,
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 239
+        }
+      ]
+    },
+    {
+      "train": "C86",
+      "schedule": {
+        "startDate": "2026-11-01",
+        "endDate": "2027-01-15",
+        "rule": null
+      },
+      "stops": [
+        {
+          "no": "01",
+          "train": "C86",
+          "station": "万象",
+          "arrival": null,
+          "departure": "16:15",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 0
+        },
+        {
+          "no": "02",
+          "train": "C86",
+          "station": "蓬洪",
+          "arrival": "16:44",
+          "departure": "16:47",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 3,
+          "mileage": 64
+        },
+        {
+          "no": "03",
+          "train": "C86",
+          "station": "万荣",
+          "arrival": "17:26",
+          "departure": "17:30",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 4,
+          "mileage": 123
+        },
+        {
+          "no": "04",
+          "train": "C86",
+          "station": "琅勃拉邦",
+          "arrival": "18:26",
+          "departure": null,
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 239
+        }
+      ]
+    },
+    {
+      "train": "C91",
+      "schedule": {
+        "startDate": "2026-11-01",
+        "endDate": "2027-01-15",
+        "rule": null
+      },
+      "stops": [
+        {
+          "no": "01",
+          "train": "C91",
+          "station": "琅勃拉邦",
+          "arrival": null,
+          "departure": "13:28",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 0
+        },
+        {
+          "no": "02",
+          "train": "C91",
+          "station": "万荣",
+          "arrival": "14:34",
+          "departure": "14:38",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 4,
+          "mileage": 116
+        },
+        {
+          "no": "03",
+          "train": "C91",
+          "station": "万象",
+          "arrival": "15:31",
+          "departure": null,
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 239
+        }
+      ]
+    },
+    {
+      "train": "C92",
+      "schedule": {
+        "startDate": "2026-11-01",
+        "endDate": "2027-01-15",
+        "rule": null
+      },
+      "stops": [
+        {
+          "no": "01",
+          "train": "C92",
+          "station": "万象",
+          "arrival": null,
+          "departure": "10:20",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 0
+        },
+        {
+          "no": "02",
+          "train": "C92",
+          "station": "万荣",
+          "arrival": "11:12",
+          "departure": "11:16",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 4,
+          "mileage": 123
+        },
+        {
+          "no": "03",
+          "train": "C92",
+          "station": "琅勃拉邦",
+          "arrival": "12:38",
+          "departure": null,
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 239
+        }
+      ]
+    },
+    {
+      "train": "C95",
+      "schedule": {
+        "startDate": "2026-11-01",
+        "endDate": "2027-01-15",
+        "rule": {
+          "period": 7,
+          "mask": 103
+        }
+      },
+      "stops": [
+        {
+          "no": "01",
+          "train": "C95",
+          "station": "磨丁",
+          "arrival": null,
+          "departure": "09:00",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 0
+        },
+        {
+          "no": "02",
+          "train": "C95",
+          "station": "纳堆",
+          "arrival": "09:09",
+          "departure": "09:14",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 5,
+          "mileage": 12
+        },
+        {
+          "no": "03",
+          "train": "C95",
+          "station": "孟赛",
+          "arrival": "09:41",
+          "departure": "09:48",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 7,
+          "mileage": 67
+        },
+        {
+          "no": "04",
+          "train": "C95",
+          "station": "琅勃拉邦",
+          "arrival": "10:35",
+          "departure": "10:48",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 13,
+          "mileage": 167
+        },
+        {
+          "no": "05",
+          "train": "C95",
+          "station": "万荣",
+          "arrival": "11:42",
+          "departure": "11:46",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 4,
+          "mileage": 283
+        },
+        {
+          "no": "06",
+          "train": "C95",
+          "station": "万象",
+          "arrival": "12:47",
+          "departure": null,
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 406
+        }
+      ]
+    },
+    {
+      "train": "C96",
+      "schedule": {
+        "startDate": "2026-11-01",
+        "endDate": "2027-01-15",
+        "rule": {
+          "period": 7,
+          "mask": 115
+        }
+      },
+      "stops": [
+        {
+          "no": "01",
+          "train": "C96",
+          "station": "万象",
+          "arrival": null,
+          "departure": "15:05",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 0
+        },
+        {
+          "no": "02",
+          "train": "C96",
+          "station": "万荣",
+          "arrival": "16:08",
+          "departure": "16:15",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 7,
+          "mileage": 123
+        },
+        {
+          "no": "03",
+          "train": "C96",
+          "station": "琅勃拉邦",
+          "arrival": "17:48",
+          "departure": "17:52",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 4,
+          "mileage": 239
+        },
+        {
+          "no": "04",
+          "train": "C96",
+          "station": "孟赛",
+          "arrival": "18:50",
+          "departure": "18:53",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 3,
+          "mileage": 339
+        },
+        {
+          "no": "05",
+          "train": "C96",
+          "station": "纳堆",
+          "arrival": "19:20",
+          "departure": "19:25",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 5,
+          "mileage": 394
+        },
+        {
+          "no": "06",
+          "train": "C96",
+          "station": "磨丁",
+          "arrival": "19:35",
+          "departure": null,
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 406
+        }
+      ]
+    },
+    {
+      "train": "K11",
+      "schedule": {
+        "startDate": "2026-11-01",
+        "endDate": "2026-11-24",
+        "rule": {
+          "period": 7,
+          "mask": 120
+        }
+      },
+      "stops": [
+        {
+          "no": "01",
+          "train": "K11",
+          "station": "磨丁",
+          "arrival": null,
+          "departure": "15:10",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 0
+        },
+        {
+          "no": "02",
+          "train": "K11",
+          "station": "纳堆",
+          "arrival": "15:21",
+          "departure": "15:26",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 5,
+          "mileage": 12
+        },
+        {
+          "no": "03",
+          "train": "K11",
+          "station": "纳磨",
+          "arrival": "15:39",
+          "departure": "15:42",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 3,
+          "mileage": 28
+        },
+        {
+          "no": "04",
+          "train": "K11",
+          "station": "孟赛",
+          "arrival": "16:08",
+          "departure": "16:13",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 5,
+          "mileage": 67
+        },
+        {
+          "no": "05",
+          "train": "K11",
+          "station": "孟阿",
+          "arrival": "16:42",
+          "departure": "16:48",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 6,
+          "mileage": 113
+        },
+        {
+          "no": "06",
+          "train": "K11",
+          "station": "琅勃拉邦",
+          "arrival": "17:24",
+          "departure": "17:31",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 7,
+          "mileage": 167
+        },
+        {
+          "no": "07",
+          "train": "K11",
+          "station": "嘎西",
+          "arrival": "18:29",
+          "departure": "18:33",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 4,
+          "mileage": 239
+        },
+        {
+          "no": "08",
+          "train": "K11",
+          "station": "万荣",
+          "arrival": "19:00",
+          "departure": "19:06",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 6,
+          "mileage": 283
+        },
+        {
+          "no": "09",
+          "train": "K11",
+          "station": "蓬洪",
+          "arrival": "19:42",
+          "departure": "19:46",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 4,
+          "mileage": 342
+        },
+        {
+          "no": "10",
+          "train": "K11",
+          "station": "万象",
+          "arrival": "20:25",
+          "departure": null,
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 406
+        }
+      ]
+    },
+    {
+      "train": "K12",
+      "schedule": {
+        "startDate": "2026-11-01",
+        "endDate": "2026-11-24",
+        "rule": {
+          "period": 7,
+          "mask": 120
+        }
+      },
+      "stops": [
+        {
+          "no": "01",
+          "train": "K12",
+          "station": "万象",
+          "arrival": null,
+          "departure": "09:25",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 0
+        },
+        {
+          "no": "02",
+          "train": "K12",
+          "station": "蓬洪",
+          "arrival": "10:04",
+          "departure": "10:08",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 4,
+          "mileage": 64
+        },
+        {
+          "no": "03",
+          "train": "K12",
+          "station": "万荣",
+          "arrival": "10:44",
+          "departure": "10:49",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 5,
+          "mileage": 123
+        },
+        {
+          "no": "04",
+          "train": "K12",
+          "station": "嘎西",
+          "arrival": "11:16",
+          "departure": "11:24",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 8,
+          "mileage": 167
+        },
+        {
+          "no": "05",
+          "train": "K12",
+          "station": "琅勃拉邦",
+          "arrival": "12:09",
+          "departure": "12:15",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 6,
+          "mileage": 239
+        },
+        {
+          "no": "06",
+          "train": "K12",
+          "station": "孟阿",
+          "arrival": "12:52",
+          "departure": "12:55",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 3,
+          "mileage": 293
+        },
+        {
+          "no": "07",
+          "train": "K12",
+          "station": "孟赛",
+          "arrival": "13:23",
+          "departure": "13:28",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 5,
+          "mileage": 339
+        },
+        {
+          "no": "08",
+          "train": "K12",
+          "station": "纳磨",
+          "arrival": "13:54",
+          "departure": "13:57",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 3,
+          "mileage": 378
+        },
+        {
+          "no": "09",
+          "train": "K12",
+          "station": "纳堆",
+          "arrival": "14:10",
+          "departure": "14:13",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 3,
+          "mileage": 394
+        },
+        {
+          "no": "10",
+          "train": "K12",
+          "station": "磨丁",
+          "arrival": "14:24",
+          "departure": null,
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 406
+        }
+      ]
+    }
+  ]
+}

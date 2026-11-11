@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 import { useRoute, useRouter } from 'vue-router'
 import api, { timetableTimeout } from '@/api.js'
 import { stationQueryName } from '@/utils/stationName.js'
-import { stationClock } from '@/utils/stationBoard.js'
+import { isVientianeStation, stationClock } from '@/utils/stationTimeZone.js'
 import { stationLocation } from '@/utils/stationNavigation.js'
 
 export function useStationBoard() {
@@ -11,7 +11,8 @@ export function useStationBoard() {
   const router = useRouter()
   const station = ref('')
   const now = ref(Date.now())
-  const clock = computed(() => stationClock(now.value))
+  const clock = computed(() => stationClock(now.value, route.query.station))
+  const timeZoneLabel = computed(() => isVientianeStation(route.query.station) ? '万象时间' : '北京时间')
   const loading = ref(false)
   const result = shallowRef(null)
   const error = ref('')
@@ -48,10 +49,7 @@ export function useStationBoard() {
       if (id !== requestId) return
       // 防止挂起标签页或长请求在午夜后仍展示昨天的数据。
       now.value = Date.now()
-      if (data.date !== clock.value.date) {
-        query(selected)
-        return
-      }
+      if (data.date !== clock.value.date) return
       if (!data.trains?.length) {
         ElMessage.warning('未查询到该车站当天的车次，请确认站名是否正确')
         return
@@ -59,6 +57,10 @@ export function useStationBoard() {
       result.value = data
     } catch (err) {
       if (id === requestId && err.code !== 'ERR_CANCELED') {
+        if (err.response?.status === 409) {
+          now.value = Date.now()
+          if (date !== clock.value.date) return
+        }
         error.value = err.response?.data?.message || (
           err.code === 'ECONNABORTED'
             ? '查询超时，请稍后重试'
@@ -82,13 +84,13 @@ export function useStationBoard() {
     if (station.value) query()
   }, { immediate: true })
 
-  watch(() => clock.value.date, () => {
-    const selected = result.value?.station || station.value
+  watch([() => route.query.station, () => clock.value.date], ([name], [previousName]) => {
+    if (name !== previousName) return
     result.value = null
     controller?.abort()
     requestId++
     loading.value = false
-    if (stationQueryName(selected)) query(selected)
+    if (typeof name === 'string' && stationQueryName(name)) query(name)
   })
 
   onBeforeUnmount(() => {
@@ -97,5 +99,5 @@ export function useStationBoard() {
     controller?.abort()
   })
 
-  return { station, clock, loading, result, error, query }
+  return { station, clock, timeZoneLabel, loading, result, error, query }
 }

@@ -22,7 +22,7 @@ const rows = computed(() => (result.value?.trains || []).map(row => {
   const speed = row.mileage != null && durationMinutes > 0
     ? row.mileage * 60 / durationMinutes
     : null
-  return { ...row, durationMinutes, speed }
+  return { ...row, rowKey: `${row.dataset || 'llt'}-${row.train}`, durationMinutes, speed }
 }))
 const sortedRows = computed(() => {
   const { key, order } = sortBy.value
@@ -67,7 +67,7 @@ const columns = computed(() => {
       title: '车次',
       width: trainWidth,
       sortable: true,
-      cellRenderer: ({ cellData }) => h(RouterLink, {
+      cellRenderer: ({ cellData, rowData }) => h(RouterLink, {
         class: 'cell-text train-link',
         to: {
           path: '/train',
@@ -75,6 +75,7 @@ const columns = computed(() => {
             train: cellData,
             date: result.value.date,
             source: 'llt',
+            dataset: rowData.dataset,
           },
         },
       }, () => cellData),
@@ -233,13 +234,23 @@ onBeforeUnmount(() => {
         </div>
         <div class="result-summary">
           <el-text v-if="result">
-            {{ result.date }} 始发；共 {{ result.total.toLocaleString() }} 趟。路路通版本： {{ result.version }}。
+            {{ result.date }} 始发；共 {{ result.total.toLocaleString() }} 趟。
+            <template v-if="result.version">路路通 {{ result.version }}。</template>
+            <template v-if="result.lcrVersion">老中铁路（离线）。</template>
           </el-text>
-          <el-text v-else>{{ date }} 始发；来源：路路通。</el-text>
+          <el-text v-else>{{ date }} 始发</el-text>
         </div>
         <el-button :loading="loading" @click="query">刷新</el-button>
       </div>
       <el-card shadow="never" class="results">
+        <el-alert
+          v-for="warning in result?.warnings || []"
+          :key="warning"
+          :title="warning"
+          type="warning"
+          show-icon
+          :closable="false"
+        />
         <el-alert
           v-if="error"
           :title="error"
@@ -268,7 +279,7 @@ onBeforeUnmount(() => {
             :height="height"
             :row-height="compactTable ? 60 : 48"
             :header-height="48"
-            row-key="train"
+            row-key="rowKey"
             fixed
             @column-sort="sortColumns"
             @scroll="rememberScroll"

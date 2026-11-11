@@ -174,3 +174,46 @@ test('列表 HTTP 接口验证输入、返回摘要并报告数据源故障', as
     await new Promise(resolve => server.close(resolve))
   }
 })
+
+test('离线列表保留同号记录，LCR 详情可独立查询且保留 GMT+8 与里程', async () => {
+  const train = 'C85'
+  const lcrStops = [
+    { station: '琅勃拉邦', departure: '19:35', departureDay: 0, mileage: 0 },
+    { station: '万象', arrival: '21:28', arrivalDay: 0, mileage: 239 },
+  ]
+  const database = { version: '20261010', trains: new Map([[train, { train, schedule: daily, stops }]]) }
+  const lcr = { version: '20261010', trains: new Map([[train, { train, schedule: daily, stops: lcrStops }]]) }
+  let unavailable = false
+  let reads = 0
+  const app = express()
+  app.use(createLltTrainsRouter(async () => {
+    reads++
+    if (unavailable) throw new Error('路路通暂不可用')
+    return database
+  }, async () => lcr))
+  const server = app.listen(0, '127.0.0.1')
+  await new Promise(resolve => server.once('listening', resolve))
+  try {
+    const base = `http://127.0.0.1:${server.address().port}`
+    const date = '2026-10-08'
+    const detail = `${base}/detail?date=${date}&train=${train}`
+    const list = await (await fetch(`${base}/?date=${date}`)).json()
+    assert.deepEqual(list.trains.map(row => [row.train, row.dataset]), [[train, undefined], [train, 'lcr']])
+    const combined = await (await fetch(detail)).json()
+    assert.equal(combined.source, '路路通')
+    assert.equal(combined.alternatives[0].defaultTimeZone, 'vientiane')
+    assert.equal(combined.alternatives[0].timeZone, 'beijing')
+    assert.deepEqual(combined.alternatives[0].stops, lcrStops)
+
+    unavailable = true
+    const readsBefore = reads
+    assert.deepEqual((await (await fetch(`${detail}&dataset=lcr`)).json()).stops, lcrStops)
+    assert.equal(reads, readsBefore)
+    assert.deepEqual((await (await fetch(detail)).json()).stops, lcrStops)
+    const degraded = await (await fetch(`${base}/?date=${date}`)).json()
+    assert.equal(degraded.total, 1)
+    assert.match(degraded.warnings[0], /路路通/)
+  } finally {
+    await new Promise(resolve => server.close(resolve))
+  }
+})

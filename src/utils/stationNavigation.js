@@ -9,7 +9,7 @@ export function stationLocation(name) {
 }
 
 export function stationTrainLocation(row, source, date) {
-  const offline = source === '路路通'
+  const offline = row.dataset === 'lcr' || source === '路路通'
   return {
     path: '/train',
     query: {
@@ -18,6 +18,7 @@ export function stationTrainLocation(row, source, date) {
       // 本站当天到发的列车可能在前一天或更早始发。
       date: row.trainDate || date,
       ...(offline ? { source: 'llt' } : {}),
+      ...(row.dataset === 'lcr' ? { dataset: 'lcr' } : {}),
     },
   }
 }

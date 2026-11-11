@@ -2,6 +2,7 @@ import express from 'express'
 import { rateLimit } from '../security.js'
 import { loadLltDatabase } from './lltskb.js'
 import { clockMinutes } from './trainClock.js'
+import { loadLcrOfflineDatabase } from '../db/lcrOffline.js'
 
 const dayMs = 86400000
 const categories = [
@@ -89,18 +90,33 @@ export function findLltTrainCandidates(database, train, date) {
   })
 }
 
-export function createLltTrainsRouter(loadDatabase = loadLltDatabase) {
+function offlineTrainDetail(item, train, date, database, dataset) {
+  const stops = item?.stops || []
+  return {
+    train: item?.train || train,
+    date,
+    source: dataset === 'lcr' ? '老中铁路（离线）' : '路路通',
+    ...(dataset === 'lcr' ? { dataset, timeZone: 'beijing', defaultTimeZone: 'vientiane' } : { mileageVersion: database.version }),
+    from: stops[0]?.station || '',
+    to: stops.at(-1)?.station || '',
+    stops,
+    warnings: [],
+  }
+}
+
+export function createLltTrainsRouter(loadDatabase = loadLltDatabase, loadLcr = loadLcrOfflineDatabase) {
   const router = express.Router()
   // 每个数据库版本仅保留最近 8 个日期的摘要，避免重复排序与无限增长。
   const summaries = new WeakMap()
   router.use(rateLimit(30, 60000))
   router.get('/detail', async (req, res) => {
-    const { train, date } = req.query
+    const { train, date, dataset } = req.query
     if (
       !validListDate(date)
       || typeof train !== 'string'
       || !/^[A-Z]?\d{1,5}[A-Z]?(?:\/[A-Z]?\d{1,5}[A-Z]?)*$/.test(train)
       || train.length > 40
+      || (dataset != null && dataset !== 'lcr')
     ) {
       return res.status(400).json({
         success: false,
@@ -108,33 +124,38 @@ export function createLltTrainsRouter(loadDatabase = loadLltDatabase) {
       })
     }
     try {
-      const database = await loadDatabase()
-      const candidates = findLltTrainCandidates(database, train, date)
+      const [llt, lcr] = await Promise.allSettled([
+        dataset === 'lcr' ? null : loadDatabase(),
+        loadLcr(),
+      ])
+      const lcrTrains = [...(lcr.value?.trains.values() ?? [])]
+        .filter(item => item.train === train && runsOnDate(item.schedule, date))
+        .map(item => offlineTrainDetail(item, train, date, lcr.value, 'lcr'))
+      if (dataset === 'lcr') {
+        if (lcr.status === 'rejected') throw lcr.reason
+        const [primary, ...alternatives] = lcrTrains
+        return res.json({ success: true, ...(primary ?? offlineTrainDetail(null, train, date, lcr.value, 'lcr')), alternatives })
+      }
+      if (llt.status === 'rejected' && !lcrTrains.length) throw llt.reason
+      const candidates = llt.value ? findLltTrainCandidates(llt.value, train, date) : []
       if (candidates.length > 1) {
         return res.status(409).json({
           success: false,
           message: '该日期存在多个同名车次，请从车次列表选择完整车次',
         })
       }
-      const item = candidates[0]
-      const stops = item?.stops || []
-      res.json({
-        success: true,
-        train: item?.train || train,
-        date,
-        source: '路路通',
-        mileageVersion: database.version,
-        from: stops[0]?.station || '',
-        to: stops.at(-1)?.station || '',
-        stops,
-        warnings: [],
-      })
+      if (!candidates.length && lcrTrains.length) {
+        const [primary, ...alternatives] = lcrTrains
+        return res.json({ success: true, ...primary, alternatives })
+      }
+      if (!candidates.length && lcr.status === 'rejected') throw lcr.reason
+      res.json({ success: true, ...offlineTrainDetail(candidates[0], train, date, llt.value, 'llt'), alternatives: lcrTrains })
     } catch (error) {
       res.status(502).json({
         success: false,
         message: error.name === 'TimeoutError'
           ? '离线时刻表下载超时，请稍后重试'
-          : '无法读取路路通离线时刻表，请检查后端网络后重试',
+          : '无法读取离线时刻表，请稍后重试',
       })
     }
   })
@@ -147,25 +168,39 @@ export function createLltTrainsRouter(loadDatabase = loadLltDatabase) {
       })
     }
     try {
-      const database = await loadDatabase()
-      let cache = summaries.get(database)
-      if (!cache) summaries.set(database, cache = new Map())
-      let result = cache.get(date)
-      if (!result) {
-        result = listLltTrains(database, date)
-        if (cache.size >= 8) cache.delete(cache.keys().next().value)
-        cache.set(date, result)
-      }
-      res.json({ success: true, ...result })
+      const [llt, lcr] = await Promise.allSettled([loadDatabase(), loadLcr()])
+      const domestic = llt.value ? summary(llt.value, date) : null
+      const lcrRows = lcr.value
+        ? summary(lcr.value, date).trains.map(row => ({ ...row, dataset: 'lcr' }))
+        : []
+      if (!domestic && !lcrRows.length) throw llt.reason
+      const trains = lcrRows.length ? [...(domestic?.trains ?? []), ...lcrRows].sort(compareTrains) : domestic.trains
+      const warnings = []
+      if (!domestic) warnings.push('路路通离线时刻表暂不可用')
+      if (lcr.status === 'rejected') warnings.push('老中铁路离线时刻表暂不可用')
+      res.json({
+        success: true, date, version: domestic?.version, total: trains.length, trains, warnings,
+        ...(lcrRows.length ? { lcrVersion: lcr.value.version } : {}),
+      })
     } catch (error) {
       res.status(502).json({
         success: false,
         message: error.name === 'TimeoutError'
           ? '离线时刻表下载超时，请稍后重试'
-          : '无法读取路路通离线时刻表，请检查后端网络后重试',
+          : '无法读取离线时刻表，请稍后重试',
       })
     }
   })
+
+  function summary(database, date) {
+    let cache = summaries.get(database)
+    if (!cache) summaries.set(database, cache = new Map())
+    if (cache.has(date)) return cache.get(date)
+    const result = listLltTrains(database, date)
+    if (cache.size >= 8) cache.delete(cache.keys().next().value)
+    cache.set(date, result)
+    return result
+  }
   return router
 }
 

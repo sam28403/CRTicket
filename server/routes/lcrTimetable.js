@@ -23,7 +23,7 @@ const stations = new Map([
 
 const validClock = value => typeof value === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(value)
 
-function normalizeLcrStops(rows, train) {
+export function normalizeLcrStops(rows, train) {
   if (!Array.isArray(rows) || rows.length < 2) return null
   const valid = rows.every((row, index) =>
     row?.country === 'LA' && row.utcOffset === '+07:00' && stations.has(row.code)
@@ -76,6 +76,15 @@ function parseLcrTimetable(data) {
   return { checkedAt, trains }
 }
 
+export async function fetchLcrTimetable(fetchImpl = fetch) {
+  const response = await fetchImpl(timetableUrl, {
+    signal: AbortSignal.timeout(5000),
+    redirect: 'error',
+  })
+  if (!response.ok) throw new Error('老中铁路时刻表下载失败')
+  return response.json()
+}
+
 export function createLcrTimetableLoader(fetchImpl = fetch, now = Date.now) {
   let cached
   let pending
@@ -89,12 +98,7 @@ export function createLcrTimetableLoader(fetchImpl = fetch, now = Date.now) {
     const refreshDay = Math.floor((time - refreshHourMs) / dayMs) * dayMs
     pending = (async () => {
       try {
-        const response = await fetchImpl(timetableUrl, {
-          signal: AbortSignal.timeout(5000),
-          redirect: 'error',
-        })
-        if (!response.ok) throw new Error('老中铁路时刻表下载失败')
-        const next = parseLcrTimetable(await response.json())
+        const next = parseLcrTimetable(await fetchLcrTimetable(fetchImpl))
         if (!cached || next.checkedAt >= cached.checkedAt) cached = next
         const publishedDay = Math.floor((cached.checkedAt - publishHourMs) / dayMs) * dayMs
         refreshAt = publishedDay >= refreshDay

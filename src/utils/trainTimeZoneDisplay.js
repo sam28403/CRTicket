@@ -1,17 +1,12 @@
 import { normalizeStationName } from './stationName.js'
 import { displayTrainCode } from './trainDisplay.js'
+import { isVientianeStation, shiftClock } from './stationTimeZone.js'
 
 export const trainTimeZones = [
   { value: 'local', label: '当地时间' },
   { value: 'beijing', label: '北京时间' },
   { value: 'vientiane', label: '万象时间' },
 ]
-
-const laosStations = new Set([
-  '磨丁', '纳堆', '纳磨', '孟赛', '孟阿', '琅勃拉邦', '卡西', '嘎西', '万荣',
-  '蓬洪', '蓬宋', '万象北', '万象', '万象南',
-])
-const minutesPerDay = 24 * 60
 
 export function hasTrainTimeZoneOptions(code) {
   const parts = displayTrainCode(code).toUpperCase().split('/')
@@ -20,15 +15,6 @@ export function hasTrainTimeZoneOptions(code) {
     const train = /^\d+$/.test(part) ? prefix + part : part
     return /^(D8[3-8]|Y2[5-8])$/.test(train)
   })
-}
-
-function shiftClock(clock, day, offset) {
-  const [hours, minutes] = clock.split(':').map(Number)
-  const shifted = hours * 60 + minutes + offset
-  const minuteOfDay = (shifted + minutesPerDay) % minutesPerDay
-  const hourText = String(Math.floor(minuteOfDay / 60)).padStart(2, '0')
-  const minuteText = String(minuteOfDay % 60).padStart(2, '0')
-  return { clock: `${hourText}:${minuteText}`, day: day + Math.floor(shifted / minutesPerDay) }
 }
 
 function shiftStop(stop, offset) {
@@ -62,7 +48,7 @@ export function trainStopsInTimeZone(stops, zone, sourceZone = 'beijing') {
   return stops.map((stop, index) => {
     const inLaos = mohan >= 0 && boten >= 0
       ? (boten > mohan ? index >= boten : index <= boten)
-      : laosStations.has(stations[index])
+      : isVientianeStation(stations[index])
     return zone === 'vientiane' || inLaos ? shiftStop(stop, -60) : stop
   })
 }

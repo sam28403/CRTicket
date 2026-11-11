@@ -29,7 +29,7 @@ const router = useRouter()
 const offlineMode = computed(() => route.query.source === 'llt')
 const offlineRecord = ref('')
 const selectedTimeZone = ref(null)
-const lcrTimeZone = computed(() => result.value?.timeZone === 'vientiane')
+const lcrTimeZone = computed(() => (result.value?.defaultTimeZone ?? result.value?.timeZone) === 'vientiane')
 const showTimeZone = computed(() => lcrTimeZone.value || hasTrainTimeZoneOptions(route.query.train))
 const timeZoneOptions = computed(() =>
   lcrTimeZone.value ? trainTimeZones.filter(option => option.value !== 'local') : trainTimeZones
@@ -115,9 +115,11 @@ async function query() {
     ElMessage.warning('请选择今天前 2 天至后 15 天内的始发日期')
     return
   }
-  if (offlineMode.value) offlineRecord.value = code
   const selectedDate = date.value
   const source = offlineMode.value ? 'llt' : undefined
+  const dataset = source && route.query.dataset === 'lcr' && trainQueryCode(offlineRecord.value) === entered
+    ? 'lcr' : undefined
+  if (offlineMode.value) offlineRecord.value = code
   train.value = displayTrainCode(code)
   loading.value = true
   error.value = ''
@@ -127,14 +129,14 @@ async function query() {
   const id = ++requestId
   try {
     // 同步网址时跳过路由监听的重查，保留当前请求和完整离线记录号。
-    previousRouteQuery = [code, selectedDate, source]
+    previousRouteQuery = [code, selectedDate, source, dataset]
     await router.replace({
       path: '/train',
-      query: { train: code, date: selectedDate, source },
+      query: { train: code, date: selectedDate, source, dataset },
     })
     if (id !== requestId) return
     const { data } = await api.get(source === 'llt' ? '/llt-trains/detail' : '/train-info', {
-      params: { train: code, date: selectedDate },
+      params: { train: code, date: selectedDate, dataset },
       timeout: timetableTimeout,
       signal: controller.signal,
     })
@@ -157,10 +159,10 @@ async function query() {
 }
 
 watch(
-  () => [route.path, route.query.train, route.query.date, route.query.source],
-  ([path, code, selectedDate, source]) => {
+  () => [route.path, route.query.train, route.query.date, route.query.source, route.query.dataset],
+  ([path, code, selectedDate, source, dataset]) => {
     if (path !== '/train') return
-    const routeQuery = [code, selectedDate, source]
+    const routeQuery = [code, selectedDate, source, dataset]
     // 缓存页面仍会收到其他路由的变化，返回同一查询时保留表单和结果。
     if (previousRouteQuery && routeQuery.every((value, index) => value === previousRouteQuery[index])) {
       return
@@ -229,7 +231,7 @@ onBeforeUnmount(() => {
             <div class="query-buttons">
               <el-button type="primary" native-type="submit" :loading="loading">查询</el-button>
               <el-button native-type="button" :disabled="switchingSource" @click="switchSource">
-                {{ offlineMode ? '切换为在线查询' : '切换为路路通离线' }}
+                {{ offlineMode ? '切换为在线查询' : '切换为离线查询' }}
               </el-button>
             </div>
           </el-form-item>
@@ -271,12 +273,13 @@ onBeforeUnmount(() => {
               {{ result.train }}　<StationLink :name="result.from" /> → <StationLink :name="result.to" />
             </strong>
             <el-text type="info" size="small">
-              查询日期：{{ result.date }}；车站数据：<el-link
+              查询日期：{{ result.date }}；车站数据：<a
                 v-if="result.sourceUrl"
+                class="result-source-link"
                 :href="result.sourceUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-              >{{ result.source }}</el-link><template v-else>{{ result.source }}</template>；车站数量：{{ result.stops.length }} 站；
+              >{{ result.source }}</a><template v-else>{{ result.source }}</template>；车站数量：{{ result.stops.length }} 站；
               <template v-if="result.mileageVersion"> 里程数据来源：路路通 {{ result.mileageVersion }}。</template>
             </el-text>
           </div>
@@ -412,6 +415,12 @@ onBeforeUnmount(() => {
   gap: 16px;
   flex-wrap: wrap;
   margin-bottom: 20px;
+}
+.result-source-link {
+  color: var(--el-color-primary);
+}
+.result-source-link:hover {
+  text-decoration: underline;
 }
 h1 {
   display: flex;

@@ -1,15 +1,25 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { stationBoardColumns, stationBoardRows, stationClock } from './stationBoard.js'
+import { stationBoardColumns, stationBoardRows } from './stationBoard.js'
 import { currentTrainIndex } from './stationBoardTime.js'
+import { stationClock } from './stationTimeZone.js'
 
-test('系统时钟固定北京时间，在午夜切换当天日期', () => {
+test('车站大屏按所在时区在午夜切换日期', () => {
   assert.deepEqual(stationClock(Date.parse('2026-10-11T15:59:59Z')), {
     date: '2026-10-11', time: '23:59:59', minutes: 1439, seconds: 86399,
   })
   assert.deepEqual(stationClock(Date.parse('2026-10-11T16:00:00Z')), {
     date: '2026-10-12', time: '00:00:00', minutes: 0, seconds: 0,
   })
+  for (const name of ['磨丁', '嘎西', '万象']) {
+    assert.deepEqual(stationClock(Date.parse('2026-10-11T16:59:59Z'), name), {
+      date: '2026-10-11', time: '23:59:59', minutes: 1439, seconds: 86399,
+    })
+    assert.deepEqual(stationClock(Date.parse('2026-10-11T17:00:00Z'), name), {
+      date: '2026-10-12', time: '00:00:00', minutes: 0, seconds: 0,
+    })
+  }
+  assert.equal(stationClock(Date.parse('2026-10-11T16:00:00Z'), '磨憨').date, '2026-10-12')
 })
 
 test('三个标签使用本站时间排序，始发终到及跨日事件分别筛选', () => {

@@ -6,9 +6,10 @@ import StationBoardTable from '@/components/StationBoardTable.vue'
 import { queryStationSearch } from '@/composables/useTicketShared.js'
 import { useStationBoard } from '@/composables/useStationBoard.js'
 import { boardTabs, stationBoardRows } from '@/utils/stationBoard.js'
+import { stationClock } from '@/utils/stationTimeZone.js'
 
 const StationLocationMap = defineAsyncComponent(() => import('@/components/StationLocationMap.vue'))
-const { station, clock, loading, result, error, query } = useStationBoard()
+const { station, clock, timeZoneLabel, loading, result, error, query } = useStationBoard()
 const activeTab = ref('all')
 const follow = ref(true)
 const table = ref(null)
@@ -17,9 +18,8 @@ const rows = computed(() => activeTab.value === 'map'
   ? []
   : stationBoardRows(result.value?.trains || [], activeTab.value))
 const updatedTime = computed(() => result.value
-  ? new Date(result.value.generatedAt).toLocaleTimeString('zh-CN', {
-    timeZone: 'Asia/Shanghai', hour12: false,
-  }) : '')
+  ? stationClock(Date.parse(result.value.generatedAt), result.value.station).time
+  : '')
 const warningSummary = computed(() => {
   if (!result.value?.warnings?.length) return ''
   return result.value.source === '路路通'
@@ -69,7 +69,7 @@ function queryOnEnter(event) {
           </el-form-item>
         </el-form>
         <div class="heading-actions">
-          <time class="system-clock">北京时间 {{ clock.date }} {{ clock.time }}</time>
+          <time class="system-clock">{{ timeZoneLabel }} {{ clock.date }} {{ clock.time }}</time>
           <el-button @click="$router.push('/train')">车次查询</el-button>
         </div>
       </div>
@@ -108,6 +108,7 @@ function queryOnEnter(event) {
               </template>
               · {{ result.source }}
               <template v-if="result.version"> {{ result.version }}</template>
+              <template v-if="result.hasLcrOffline">、老中铁路（离线）</template>
               · 更新于 {{ updatedTime }}
             </el-text>
             <div v-if="warningSummary" class="result-notes">

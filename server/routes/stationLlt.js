@@ -1,4 +1,5 @@
 import { normalizeStationName } from '../../src/utils/stationName.js'
+import { isVientianeStation, shiftClock } from '../../src/utils/stationTimeZone.js'
 import { runsOnDate } from './lltTrains.js'
 
 const dayMs = 86400000
@@ -26,19 +27,22 @@ function originDate(date, day) {
 
 export function listLltStation(database, station, date) {
   const rows = []
+  const offset = isVientianeStation(station) ? -60 : 0
   for (const { item, stop, stopIndex } of stationIndex(database).get(station) || []) {
     const arrivalDay = stop.arrivalDay || 0
     const departureDay = stop.departureDay ?? arrivalDay
+    const localArrival = stop.arrival ? shiftClock(stop.arrival, arrivalDay, offset) : null
+    const localDeparture = stop.departure ? shiftClock(stop.departure, departureDay, offset) : null
+    const arrivalDate = localArrival && originDate(date, localArrival.day)
+    const departureDate = localDeparture && originDate(date, localDeparture.day)
     const dates = new Set()
-    if (stop.arrival) dates.add(originDate(date, arrivalDay))
-    if (stop.departure) dates.add(originDate(date, departureDay))
+    if (arrivalDate) dates.add(arrivalDate)
+    if (departureDate) dates.add(departureDate)
     for (const trainDate of dates) {
       // 开行规则针对始发日期，不能直接拿本站当天检查隔日或多日列车。
       if (!runsOnDate(item.schedule, trainDate)) continue
-      const arrival = stop.arrival && originDate(date, arrivalDay) === trainDate
-        ? stop.arrival : null
-      const departure = stop.departure && originDate(date, departureDay) === trainDate
-        ? stop.departure : null
+      const arrival = arrivalDate === trainDate ? localArrival.clock : null
+      const departure = departureDate === trainDate ? localDeparture.clock : null
       rows.push({
         id: `llt-${item.train}-${trainDate}-${stopIndex}`,
         train: stop.train || item.train,
@@ -47,8 +51,8 @@ export function listLltStation(database, station, date) {
         trainDate,
         arrival,
         departure,
-        arrivalLabel: arrival || (stop.arrival ? `昨日 ${stop.arrival}` : '始发站'),
-        departureLabel: departure || (stop.departure ? `次日 ${stop.departure}` : '终到站'),
+        arrivalLabel: arrival || (localArrival ? `昨日 ${localArrival.clock}` : '始发站'),
+        departureLabel: departure || (localDeparture ? `次日 ${localDeparture.clock}` : '终到站'),
         stay: stop.stay,
         ticketGate: null,
         exit: null,

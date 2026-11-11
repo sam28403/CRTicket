@@ -1,4 +1,3 @@
-import { trainQueryRange } from './trainQueryDate.js'
 import { stationRowTiming } from './stationBoardTime.js'
 
 export const boardTabs = [
@@ -6,17 +5,6 @@ export const boardTabs = [
   { name: 'departure', label: '出发大屏' },
   { name: 'arrival', label: '到达大屏' },
 ]
-
-export function stationClock(now = Date.now()) {
-  const text = new Date(now + 8 * 3600000).toISOString()
-  return {
-    date: trainQueryRange(now).today,
-    time: text.slice(11, 19),
-    minutes: Number(text.slice(11, 13)) * 60 + Number(text.slice(14, 16)),
-    seconds: Number(text.slice(11, 13)) * 3600
-      + Number(text.slice(14, 16)) * 60 + Number(text.slice(17, 19)),
-  }
-}
 
 export function stationBoardRows(trains, tab) {
   return trains
