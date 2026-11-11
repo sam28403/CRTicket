@@ -105,7 +105,9 @@ async function renderMap() {
         if (params.seriesType !== 'effectScatter') return ''
         const stop = params.data
         const arrival = stop.isFirst ? '始发站' : (stop.arrival || '—')
-        const day = stop.arrival && stop.arrivalDay > 0 ? `（+${stop.arrivalDay} 天）` : ''
+        const day = stop.arrival && stop.arrivalDay
+          ? `（${stop.arrivalDay > 0 ? '+' : ''}${stop.arrivalDay} 天）`
+          : ''
         const departure = stop.isLast ? '终到站' : (stop.departure || '—')
         return `${stop.no}. ${stop.name}\n到达：${arrival}${day}\n出发：${departure}`
       }

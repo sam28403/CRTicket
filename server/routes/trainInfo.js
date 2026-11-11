@@ -5,6 +5,7 @@ import { isTrainQueryDateInRange } from '../../src/utils/trainQueryDate.js'
 import { normalizeStationName } from '../../src/utils/stationName.js'
 import { loadLltDatabase } from './lltskb.js'
 import { clockMinutes } from './trainClock.js'
+import { createLcrTimetableLoader, queryLcrTimetable } from './lcrTimetable.js'
 
 const origin = 'https://kyfw.12306.cn'
 const stationCodes = new Map(stationData.split('@').filter(Boolean).map(row => {
@@ -121,10 +122,29 @@ async function query12306(train, date, fetchImpl) {
   }
 }
 
-export async function queryTrainInfo(train, date, fetchImpl = fetch, loadDatabase = loadLltDatabase) {
+export async function queryTrainInfo(train, date, fetchImpl = fetch, loadDatabase = loadLltDatabase, loadLcr) {
+  const lcrRequest = loadLcr ? queryLcrTimetable(train, date, loadLcr) : []
   let online
   let onlineError
   try { online = await query12306(train, date, fetchImpl) } catch (error) { onlineError = error }
+  const lcrResults = await lcrRequest
+  if (lcrResults.length && !online?.stops.length) return combineTrainResults(lcrResults)
+
+  const domestic = await resolveDomesticTrain(train, date, online, onlineError, loadDatabase)
+  if (lcrResults.length && (train === 'C85' || train === 'C86')) {
+    const endpoints = [domestic.from, domestic.to].map(normalizeStationName)
+    if (endpoints.includes('昆明') && endpoints.includes('香格里拉')) {
+      return combineTrainResults([domestic, ...lcrResults])
+    }
+  }
+  return combineTrainResults([...lcrResults, domestic])
+}
+
+function combineTrainResults([first, ...alternatives]) {
+  return alternatives.length ? { ...first, alternatives } : first
+}
+
+async function resolveDomesticTrain(train, date, online, onlineError, loadDatabase) {
   let database
   try { database = await loadDatabase() } catch {
     if (onlineError) throw onlineError
@@ -155,6 +175,7 @@ export async function queryTrainInfo(train, date, fetchImpl = fetch, loadDatabas
 
 export function createTrainInfoRouter(fetchImpl = fetch, loadDatabase = loadLltDatabase) {
   const router = express.Router()
+  const loadLcr = createLcrTimetableLoader(fetchImpl)
   router.use(rateLimit(12, 60000))
   router.get('/', async (req, res) => {
     const train = typeof req.query.train === 'string' ? req.query.train.trim().toUpperCase() : req.query.train
@@ -162,7 +183,7 @@ export function createTrainInfoRouter(fetchImpl = fetch, loadDatabase = loadLltD
     const error = validateTrainQuery({ train, date })
     if (error) return res.status(400).json({ success: false, message: error })
     try {
-      res.json({ success: true, ...await queryTrainInfo(train, date, fetchImpl, loadDatabase) })
+      res.json({ success: true, ...await queryTrainInfo(train, date, fetchImpl, loadDatabase, loadLcr) })
     } catch (error) {
       const message = error.name === 'TimeoutError' ? '车次查询超时，请稍后重试' :
         error instanceof TypeError || error instanceof SyntaxError ? '无法获取车次数据，请检查后端网络或稍后重试' : error.message

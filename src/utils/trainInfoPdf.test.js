@@ -5,6 +5,7 @@ import { PDFDocument, PageSizes } from 'pdf-lib'
 import fontkit from '@pdf-lib/fontkit'
 import { buildTrainInfoPdf, planTrainPdf, trainPdfFilename, trainPdfRows, trainPdfTitle } from './trainInfoPdf.js'
 import { displayTrainCode, trainInfoForDisplay } from './trainDisplay.js'
+import { trainStopsInTimeZone } from './trainTimeZoneDisplay.js'
 
 const fontBytes = await readFile(new URL('../../public/google_sans_rounded_regular.ttf', import.meta.url))
 const document = await PDFDocument.create()
@@ -99,4 +100,34 @@ test('输出为可重新打开的 A4 PDF，页数符合排版，拒绝空结果'
   assert.equal(reopened.getPageCount(), 2)
   for (const page of reopened.getPages()) assert.deepEqual([page.getWidth(), page.getHeight()], PageSizes.A4)
   await assert.rejects(buildTrainInfoPdf({ stops: [] }, fontBytes), /没有可导出/)
+})
+
+test('所选时区的时刻与跨日标记进入 PDF，并为每页表格下方的注记留出空间', async () => {
+  const result = fixture(60)
+  result.stops[0].departure = '23:35'
+  result.stops[1].arrival = '00:15'
+  result.stops[1].departure = '00:20'
+  result.stops[1].departureDay = 1
+  const snapshot = {
+    ...result,
+    stops: trainStopsInTimeZone(result.stops, 'beijing', 'vientiane'),
+    timeZoneLabel: '北京时间',
+  }
+  const rows = trainPdfRows(snapshot)
+  assert.equal(rows[0][3], '00:35 +1')
+  assert.deepEqual(rows[1].slice(2, 4), ['01:15 +1', '01:20'])
+  assert.equal(result.stops[0].departure, '23:35')
+
+  for (const timeZoneLabel of ['当地时间', '北京时间', '万象时间']) {
+    const plan = planTrainPdf({ ...snapshot, timeZoneLabel }, font)
+    assert.deepEqual(plan.noteLines, [`*时刻表为${timeZoneLabel}，请注意乘车时间！`])
+    assert.equal(plan.pages.flat().length, 60)
+    for (const page of plan.pages) {
+      const tableBottom = plan.tableTop + plan.header.height + page.reduce((height, row) => height + row.height, 0)
+      assert.ok(tableBottom + 8 + plan.noteLineHeight <= PageSizes.A4[1] - 72)
+    }
+  }
+  assert.deepEqual(planTrainPdf(result, font).noteLines, [])
+  const output = await buildTrainInfoPdf(snapshot, fontBytes)
+  assert.ok((await PDFDocument.load(output.bytes)).getPageCount() > 1)
 })

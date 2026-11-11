@@ -10,6 +10,8 @@ const columnWidth = tableWidth / 6
 const bottomMargin = 72
 const titleTop = 78
 const titleSize = 24
+const noteSize = 11
+const noteGap = 8
 const headers = ['站序', '站名', '到站时间', '出发时间', '停留时间', '里程']
 let fontRequest
 
@@ -37,14 +39,22 @@ export function trainPdfFilename(result) {
 }
 
 export function trainPdfRows(result) {
-  return result.stops.map((stop, index) => [
-    String(stop.no || index + 1).padStart(2, '0'), stop.station,
-    stop.arrival || '----',
+  const formatTime = (clock, day) => {
+    if (!clock) return '----'
+    return result.timeZoneLabel && day ? `${clock} ${day > 0 ? '+' : ''}${day}` : clock
+  }
+  return result.stops.map((stop, index) => {
+    const arrival = formatTime(stop.arrival, stop.arrivalDay)
+    const departureDay = stop.departureDay === stop.arrivalDay && stop.arrival ? 0 : stop.departureDay
     // 模板的终到站出发时间与到达时间相同；始发到达、两端停留均为 ----。
-    stop.departure || (index === result.stops.length - 1 ? stop.arrival : null) || '----',
-    stop.stay == null ? '----' : `${stop.stay}分钟`,
-    stop.mileage == null ? '----' : `${stop.mileage} km`,
-  ])
+    const departure = !stop.departure && index === result.stops.length - 1
+      ? arrival : formatTime(stop.departure, departureDay)
+    return [
+      String(stop.no || index + 1).padStart(2, '0'), stop.station, arrival, departure,
+      stop.stay == null ? '----' : `${stop.stay}分钟`,
+      stop.mileage == null ? '----' : `${stop.mileage} km`,
+    ]
+  })
 }
 
 function wrapText(text, font, size, width) {
@@ -66,7 +76,12 @@ export function planTrainPdf(result, font) {
   const titleLines = wrapText(title, font, titleSize, tableWidth)
   const titleHeight = font.heightAtSize(titleSize)
   const tableTop = titleTop + titleLines.length * titleHeight + 4
-  const availableHeight = pageSize[1] - tableTop - bottomMargin
+  const noteLines = result.timeZoneLabel
+    ? wrapText(`*时刻表为${result.timeZoneLabel}，请注意乘车时间！`, font, noteSize, tableWidth)
+    : []
+  const noteLineHeight = font.heightAtSize(noteSize)
+  const noteHeight = noteLines.length ? noteGap + noteLines.length * noteLineHeight : 0
+  const availableHeight = pageSize[1] - tableTop - bottomMargin - noteHeight
   const rows = [headers, ...trainPdfRows(result)]
   const measure = size => rows.map(cells => {
     const sizes = cells.map((text, column) => column === 1 && [...String(text)].length === 5
@@ -108,7 +123,7 @@ export function planTrainPdf(result, font) {
     height += row.height
   }
   if (page.length) pages.push(page)
-  return { titleLines, titleHeight, tableTop, fontSize, header, pages }
+  return { titleLines, titleHeight, tableTop, fontSize, header, pages, noteLines, noteLineHeight }
 }
 
 export async function buildTrainInfoPdf(result, fontBytes) {
@@ -163,6 +178,13 @@ export async function buildTrainInfoPdf(result, fontBytes) {
         color: rgb(0, 0, 0),
       })
     }
+    plan.noteLines.forEach((line, index) => page.drawText(line, {
+      x: tableLeft,
+      y: tableBottom - noteGap - font.heightAtSize(noteSize, { descender: false }) - index * plan.noteLineHeight,
+      font,
+      size: noteSize,
+      color: rgb(0, 0, 0),
+    }))
   }
   return {
     bytes: await document.save(),

@@ -10,6 +10,7 @@ import api, { timetableTimeout } from '@/api.js'
 import { isTrainQueryDateInRange, trainQueryRange } from '@/utils/trainQueryDate.js'
 import { displayTrainCode, trainInfoForDisplay } from '@/utils/trainDisplay.js'
 import { trainQueryCode, trainQuerySourceLocation } from '@/utils/trainQuerySource.js'
+import { hasTrainTimeZoneOptions, trainStopsInTimeZone, trainTimeZones } from '@/utils/trainTimeZoneDisplay.js'
 import { getTrainNumberError } from '@/utils/ticketShared.js'
 
 defineOptions({ name: 'TrainQuery' })
@@ -20,11 +21,30 @@ const loading = ref(false)
 const switchingSource = ref(false)
 const exporting = ref(false)
 const error = ref('')
-const result = ref(null)
+const results = ref([])
+const selectedResult = ref(0)
+const result = computed(() => results.value[selectedResult.value] ?? null)
 const route = useRoute()
 const router = useRouter()
 const offlineMode = computed(() => route.query.source === 'llt')
 const offlineRecord = ref('')
+const selectedTimeZone = ref(null)
+const lcrTimeZone = computed(() => result.value?.timeZone === 'vientiane')
+const showTimeZone = computed(() => lcrTimeZone.value || hasTrainTimeZoneOptions(route.query.train))
+const timeZoneOptions = computed(() =>
+  lcrTimeZone.value ? trainTimeZones.filter(option => option.value !== 'local') : trainTimeZones
+)
+const timeZone = computed({
+  get: () => selectedTimeZone.value ?? (lcrTimeZone.value ? 'vientiane' : 'local'),
+  set: value => { selectedTimeZone.value = value },
+})
+const displayStops = computed(() => {
+  const stops = result.value?.stops || []
+  return showTimeZone.value ? trainStopsInTimeZone(stops, timeZone.value, result.value?.timeZone) : stops
+})
+watch([() => route.query.train, selectedResult, lcrTimeZone], () => {
+  selectedTimeZone.value = null
+})
 let controller
 let requestId = 0
 let previousRouteQuery
@@ -50,7 +70,10 @@ async function switchSource() {
 
 async function exportData() {
   if (!result.value?.stops.length || exporting.value) return
-  const snapshot = result.value
+  const timeZoneLabel = showTimeZone.value
+    ? timeZoneOptions.value.find(option => option.value === timeZone.value)?.label
+    : undefined
+  const snapshot = { ...result.value, stops: displayStops.value, timeZoneLabel }
   exporting.value = true
   try {
     const { downloadTrainInfoPdf } = await import('@/utils/trainInfoPdf.js')
@@ -98,7 +121,8 @@ async function query() {
   train.value = displayTrainCode(code)
   loading.value = true
   error.value = ''
-  result.value = null
+  results.value = []
+  selectedResult.value = 0
   controller = new AbortController()
   const id = ++requestId
   try {
@@ -115,7 +139,10 @@ async function query() {
       signal: controller.signal,
     })
     if (!data.success) throw new Error(data.message || '查询失败')
-    if (id === requestId) result.value = trainInfoForDisplay(data)
+    if (id === requestId) {
+      const { alternatives = [], ...primary } = data
+      results.value = [primary, ...alternatives].map(trainInfoForDisplay)
+    }
   } catch (err) {
     if (id === requestId && err.code !== 'ERR_CANCELED') {
       error.value = err.response?.data?.message || (
@@ -142,7 +169,8 @@ watch(
     controller?.abort()
     requestId++
     loading.value = false
-    result.value = null
+    results.value = []
+    selectedResult.value = 0
     error.value = ''
     const record = typeof code === 'string' ? code.trim().toUpperCase() : ''
     if (offlineMode.value) offlineRecord.value = record
@@ -205,6 +233,16 @@ onBeforeUnmount(() => {
               </el-button>
             </div>
           </el-form-item>
+          <el-form-item v-if="showTimeZone" class="query-time-zone">
+            <el-select v-model="timeZone" aria-label="时刻显示时区">
+              <el-option
+                v-for="option in timeZoneOptions"
+                :key="option.value"
+                :label="option.label"
+                :value="option.value"
+              />
+            </el-select>
+          </el-form-item>
         </el-form>
       </el-card>
 
@@ -220,16 +258,29 @@ onBeforeUnmount(() => {
           class="query-message"
         />
         <template v-if="result?.stops.length">
+          <el-select v-if="results.length > 1" v-model="selectedResult" class="result-select" aria-label="选择线路">
+            <el-option
+              v-for="(trip, index) in results"
+              :key="index"
+              :label="`${trip.from} → ${trip.to} ${trip.stops[0].departure || ''}（${trip.source}）`"
+              :value="index"
+            />
+          </el-select>
           <div class="result-heading">
             <strong>
               {{ result.train }}　<StationLink :name="result.from" /> → <StationLink :name="result.to" />
             </strong>
             <el-text type="info" size="small">
-              查询日期：{{ result.date }}；车站数据：{{ result.source }}；车站数量：{{ result.stops.length }} 站；
+              查询日期：{{ result.date }}；车站数据：<el-link
+                v-if="result.sourceUrl"
+                :href="result.sourceUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >{{ result.source }}</el-link><template v-else>{{ result.source }}</template>；车站数量：{{ result.stops.length }} 站；
               <template v-if="result.mileageVersion"> 里程数据来源：路路通 {{ result.mileageVersion }}。</template>
             </el-text>
           </div>
-          <el-table class="desktop-stops" :data="result.stops" stripe border style="width: 100%">
+          <el-table class="desktop-stops" :data="displayStops" stripe border style="width: 100%">
             <el-table-column prop="no" label="站序" width="70" align="center" />
             <el-table-column prop="train" label="车次" min-width="100" />
             <el-table-column prop="station" label="站名" min-width="120">
@@ -239,18 +290,26 @@ onBeforeUnmount(() => {
               <template #default="{ row, $index }">
                 {{ $index === 0 ? '始发站' : row.arrival || '—' }}
                 <el-tag
-                  v-if="$index > 0 && row.arrival && row.arrivalDay > 0"
+                  v-if="$index > 0 && row.arrival && row.arrivalDay"
                   size="small"
                   effect="plain"
                   class="arrival-day"
                 >
-                  +{{ row.arrivalDay }}
+                  {{ row.arrivalDay > 0 ? '+' : '' }}{{ row.arrivalDay }}
                 </el-tag>
               </template>
             </el-table-column>
             <el-table-column label="出发时间" min-width="100">
               <template #default="{ row, $index }">
                 {{ $index === result.stops.length - 1 ? '终到站' : row.departure || '—' }}
+                <el-tag
+                  v-if="showTimeZone && row.departure && row.departureDay && (!row.arrival || row.departureDay !== row.arrivalDay)"
+                  size="small"
+                  effect="plain"
+                  class="arrival-day"
+                >
+                  {{ row.departureDay > 0 ? '+' : '' }}{{ row.departureDay }}
+                </el-tag>
               </template>
             </el-table-column>
             <el-table-column label="停留时长" min-width="100">
@@ -261,7 +320,7 @@ onBeforeUnmount(() => {
             </el-table-column>
           </el-table>
           <ol class="mobile-stops" aria-label="列车经停信息">
-            <li v-for="(stop, index) in result.stops" :key="`${stop.no}-${index}`" class="mobile-stop">
+            <li v-for="(stop, index) in displayStops" :key="`${stop.no}-${index}`" class="mobile-stop">
               <div class="stop-heading">
                 <strong>
                   <span class="stop-number">{{ stop.no }}</span>
@@ -275,16 +334,29 @@ onBeforeUnmount(() => {
                   <dd>
                     {{ index === 0 ? '始发站' : stop.arrival || '—' }}
                     <el-tag
-                      v-if="index > 0 && stop.arrival && stop.arrivalDay > 0"
+                      v-if="index > 0 && stop.arrival && stop.arrivalDay"
                       size="small"
                       effect="plain"
                       class="arrival-day"
                     >
-                      +{{ stop.arrivalDay }}
+                      {{ stop.arrivalDay > 0 ? '+' : '' }}{{ stop.arrivalDay }}
                     </el-tag>
                   </dd>
                 </div>
-                <div><dt>出发时间</dt><dd>{{ index === result.stops.length - 1 ? '终到站' : stop.departure || '—' }}</dd></div>
+                <div>
+                  <dt>出发时间</dt>
+                  <dd>
+                    {{ index === result.stops.length - 1 ? '终到站' : stop.departure || '—' }}
+                    <el-tag
+                      v-if="showTimeZone && stop.departure && stop.departureDay && (!stop.arrival || stop.departureDay !== stop.arrivalDay)"
+                      size="small"
+                      effect="plain"
+                      class="arrival-day"
+                    >
+                      {{ stop.departureDay > 0 ? '+' : '' }}{{ stop.departureDay }}
+                    </el-tag>
+                  </dd>
+                </div>
                 <div><dt>停留时长</dt><dd>{{ stop.stay == null ? '—' : `${stop.stay} 分钟` }}</dd></div>
                 <div><dt>里程</dt><dd>{{ stop.mileage == null ? '暂无' : `${stop.mileage} km` }}</dd></div>
               </dl>
@@ -305,7 +377,7 @@ onBeforeUnmount(() => {
                 : '输入车次和始发日期查询时刻表'"
         />
       </el-card>
-      <TrainRouteMap v-if="result?.stops.length" :train="result.train" :stops="result.stops" />
+      <TrainRouteMap v-if="displayStops.length" :train="result.train" :stops="displayStops" />
     </main>
   </div>
 </template>
@@ -369,12 +441,19 @@ h1 {
 .query-form .query-action {
   width: auto;
 }
+.query-form .query-time-zone {
+  width: 140px;
+}
 .query-form :deep(.el-date-editor) {
   width: 100%;
 }
 .results {
   margin-top: 20px;
   min-height: 280px;
+}
+.result-select {
+  width: min(100%, 360px);
+  margin-bottom: 16px;
 }
 .query-message {
   margin: 16px 0;
