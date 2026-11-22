@@ -19,25 +19,42 @@ function moveDate(date, days) {
 const trains = []
 for (const [train, rule] of Object.entries(rules.trains)) {
   if (!/^[A-CE-Z]\d{1,5}$/.test(train)) throw new Error(`无效的 LCR 车次 ${train}`)
-  const { startDate = rules.startDate, endDate = rules.endDate, weekdays: days = weekdays } = rule
+  const {
+    startDate = rules.startDate,
+    endDate = rules.endDate,
+    weekdays: days = weekdays,
+    sourceTrain = train,
+  } = rule
   if (!validListDate(startDate) || !validListDate(endDate) || startDate > endDate
     || !days.length || days.some(day => !weekdays.includes(day))) {
     throw new Error(`${train} 的开行规则无效`)
   }
 
-  const records = feed.trains.filter(row => row.train === train)
+  const records = feed.trains.filter(row => row.train === sourceTrain)
+  const runningDays = new Set(days)
   const variants = new Map()
-  for (const weekday of new Set(days)) {
+  const missingDays = []
+  for (const weekday of runningDays) {
     const matches = new Map()
     for (const row of records.filter(item => item.weekdays?.includes(weekday))) {
       const stops = normalizeLcrStops(row.stops, train)
       if (!stops) throw new Error(`${train} ${weekday} 的站点或时刻无法导入`)
       matches.set(JSON.stringify(stops), stops)
     }
-    if (matches.size !== 1) throw new Error(`${train} ${weekday} 需要一套明确的时刻`)
+    if (!matches.size) {
+      missingDays.push(weekday)
+      continue
+    }
+    if (matches.size > 1) throw new Error(`${train} ${weekday} 需要一套明确的时刻`)
     const [[key, stops]] = matches
     if (!variants.has(key)) variants.set(key, { stops, days: [] })
     variants.get(key).days.push(weekday)
+  }
+  if (missingDays.length) {
+    if (runningDays.size !== weekdays.length || variants.size !== 1) {
+      throw new Error(`${train} ${missingDays.join('、')} 缺少明确的时刻`)
+    }
+    variants.values().next().value.days.push(...missingDays)
   }
   for (const { stops, days } of variants.values()) {
     const beijing = trainStopsInTimeZone(stops, 'beijing', 'vientiane')

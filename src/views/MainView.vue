@@ -65,7 +65,7 @@
         <el-form-item label="车次" prop="trainNo" :required="true">
           <el-input
               v-model="ticket.trainNo"
-              placeholder="例如：G25 或 1461"
+              placeholder="例如：G25 或 V6061"
           />
         </el-form-item>
 
@@ -191,8 +191,8 @@
         </el-form-item>
 
       </el-form>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261111</h3>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10119</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261122</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10120</h3>
 
       <div class="home-tools">
         <div id="home-mobile-navigation" class="home-mobile-navigation"></div>

@@ -190,10 +190,7 @@
       "schedule": {
         "startDate": "2026-11-01",
         "endDate": "2027-01-15",
-        "rule": {
-          "period": 7,
-          "mask": 103
-        }
+        "rule": null
       },
       "stops": [
         {
@@ -269,10 +266,7 @@
       "schedule": {
         "startDate": "2026-11-01",
         "endDate": "2027-01-15",
-        "rule": {
-          "period": 7,
-          "mask": 115
-        }
+        "rule": null
       },
       "stops": [
         {
@@ -348,10 +342,7 @@
       "schedule": {
         "startDate": "2026-11-01",
         "endDate": "2026-11-24",
-        "rule": {
-          "period": 7,
-          "mask": 120
-        }
+        "rule": null
       },
       "stops": [
         {
@@ -471,10 +462,7 @@
       "schedule": {
         "startDate": "2026-11-01",
         "endDate": "2026-11-24",
-        "rule": {
-          "period": 7,
-          "mask": 120
-        }
+        "rule": null
       },
       "stops": [
         {
@@ -579,6 +567,246 @@
         {
           "no": "10",
           "train": "K12",
+          "station": "磨丁",
+          "arrival": "14:24",
+          "departure": null,
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 406
+        }
+      ]
+    },
+    {
+      "train": "V159",
+      "schedule": {
+        "startDate": "2026-11-25",
+        "endDate": "2027-01-15",
+        "rule": null
+      },
+      "stops": [
+        {
+          "no": "01",
+          "train": "V159",
+          "station": "磨丁",
+          "arrival": null,
+          "departure": "15:10",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 0
+        },
+        {
+          "no": "02",
+          "train": "V159",
+          "station": "纳堆",
+          "arrival": "15:21",
+          "departure": "15:26",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 5,
+          "mileage": 12
+        },
+        {
+          "no": "03",
+          "train": "V159",
+          "station": "纳磨",
+          "arrival": "15:39",
+          "departure": "15:42",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 3,
+          "mileage": 28
+        },
+        {
+          "no": "04",
+          "train": "V159",
+          "station": "孟赛",
+          "arrival": "16:08",
+          "departure": "16:13",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 5,
+          "mileage": 67
+        },
+        {
+          "no": "05",
+          "train": "V159",
+          "station": "孟阿",
+          "arrival": "16:42",
+          "departure": "16:48",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 6,
+          "mileage": 113
+        },
+        {
+          "no": "06",
+          "train": "V159",
+          "station": "琅勃拉邦",
+          "arrival": "17:24",
+          "departure": "17:31",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 7,
+          "mileage": 167
+        },
+        {
+          "no": "07",
+          "train": "V159",
+          "station": "嘎西",
+          "arrival": "18:29",
+          "departure": "18:33",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 4,
+          "mileage": 239
+        },
+        {
+          "no": "08",
+          "train": "V159",
+          "station": "万荣",
+          "arrival": "19:00",
+          "departure": "19:06",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 6,
+          "mileage": 283
+        },
+        {
+          "no": "09",
+          "train": "V159",
+          "station": "蓬洪",
+          "arrival": "19:42",
+          "departure": "19:46",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 4,
+          "mileage": 342
+        },
+        {
+          "no": "10",
+          "train": "V159",
+          "station": "万象",
+          "arrival": "20:25",
+          "departure": null,
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 406
+        }
+      ]
+    },
+    {
+      "train": "V160",
+      "schedule": {
+        "startDate": "2026-11-25",
+        "endDate": "2027-01-15",
+        "rule": null
+      },
+      "stops": [
+        {
+          "no": "01",
+          "train": "V160",
+          "station": "万象",
+          "arrival": null,
+          "departure": "09:25",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": null,
+          "mileage": 0
+        },
+        {
+          "no": "02",
+          "train": "V160",
+          "station": "蓬洪",
+          "arrival": "10:04",
+          "departure": "10:08",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 4,
+          "mileage": 64
+        },
+        {
+          "no": "03",
+          "train": "V160",
+          "station": "万荣",
+          "arrival": "10:44",
+          "departure": "10:49",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 5,
+          "mileage": 123
+        },
+        {
+          "no": "04",
+          "train": "V160",
+          "station": "嘎西",
+          "arrival": "11:16",
+          "departure": "11:24",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 8,
+          "mileage": 167
+        },
+        {
+          "no": "05",
+          "train": "V160",
+          "station": "琅勃拉邦",
+          "arrival": "12:09",
+          "departure": "12:15",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 6,
+          "mileage": 239
+        },
+        {
+          "no": "06",
+          "train": "V160",
+          "station": "孟阿",
+          "arrival": "12:52",
+          "departure": "12:55",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 3,
+          "mileage": 293
+        },
+        {
+          "no": "07",
+          "train": "V160",
+          "station": "孟赛",
+          "arrival": "13:23",
+          "departure": "13:28",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 5,
+          "mileage": 339
+        },
+        {
+          "no": "08",
+          "train": "V160",
+          "station": "纳磨",
+          "arrival": "13:54",
+          "departure": "13:57",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 3,
+          "mileage": 378
+        },
+        {
+          "no": "09",
+          "train": "V160",
+          "station": "纳堆",
+          "arrival": "14:10",
+          "departure": "14:13",
+          "arrivalDay": 0,
+          "departureDay": 0,
+          "stay": 3,
+          "mileage": 394
+        },
+        {
+          "no": "10",
+          "train": "V160",
           "station": "磨丁",
           "arrival": "14:24",
           "departure": null,
