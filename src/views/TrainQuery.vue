@@ -211,7 +211,7 @@ onBeforeUnmount(() => {
             <el-input
               v-model="train"
               :disabled="loading"
-              :placeholder="offlineMode ? '输入离线库中的完整车次' : '例如 G1、D3068、1461'"
+              :placeholder="offlineMode ? '输入离线库中的完整车次' : '例如 G1、D3068、V6061'"
               clearable
               :maxlength="offlineMode ? 40 : 6"
             />

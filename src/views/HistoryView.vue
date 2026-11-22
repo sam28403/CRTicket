@@ -59,9 +59,9 @@
                   @sort-change="handleSortChange"
                   class="table"
               >
-                <el-table-column prop="date" label="日期" width="160" sortable/>
+                <el-table-column prop="date" label="日期" width="160" sortable="custom" />
                 <el-table-column prop="trainNo" label="车次" width="80" />
-                <el-table-column prop="price" label="票价" width="80" sortable/>
+                <el-table-column prop="price" label="票价" width="80" sortable="custom" />
                 <el-table-column prop="from" label="起点" width="120" />
                 <el-table-column prop="to" label="终点" width="120" />
                 <el-table-column prop="seatType" label="席位" width="120" />
@@ -191,6 +191,7 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.js'
 import api from '@/api.js'
 import { downloadTicketPNG, renderTicketImage } from '@/utils/ticketExport.js'
+import { getDepartureMinutes } from '@/utils/trainTime.js'
 import {
   buildTicketPayload,
   createDefaultTicket,
@@ -315,9 +316,16 @@ const sortedTableData = computed(() => {
   const direction = order === 'ascending' ? 1 : -1
   return [...tableData.value].sort((a, b) => {
     if (prop === 'date') {
-      const aTime = a.date ? new Date(String(a.date).replace(/年|月/g, '/').replace(/日/g, '')).getTime() : 0
-      const bTime = b.date ? new Date(String(b.date).replace(/年|月/g, '/').replace(/日/g, '')).getTime() : 0
-      return (aTime - bTime) * direction
+      const aDate = a.date ? new Date(String(a.date).replace(/年|月/g, '/').replace(/日/g, '')).getTime() : 0
+      const bDate = b.date ? new Date(String(b.date).replace(/年|月/g, '/').replace(/日/g, '')).getTime() : 0
+      if (aDate !== bDate) return (aDate - bDate) * direction
+
+      const aMinutes = getDepartureMinutes(a.time)
+      const bMinutes = getDepartureMinutes(b.time)
+      if (aMinutes === bMinutes) return 0
+      if (aMinutes === null) return 1
+      if (bMinutes === null) return -1
+      return (aMinutes - bMinutes) * direction
     }
 
     if (prop === 'price') {

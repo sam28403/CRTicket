@@ -21,7 +21,7 @@
 
         <el-col :xs="24" :sm="12">
           <el-form-item label="车次" prop="trainNo" :required="true">
-            <el-input v-model="ticket.trainNo" placeholder="例如：G25 或 1461" />
+            <el-input v-model="ticket.trainNo" placeholder="例如：G25 或 V6061" />
           </el-form-item>
         </el-col>
 

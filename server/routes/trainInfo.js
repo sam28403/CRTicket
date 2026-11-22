@@ -14,7 +14,7 @@ const stationCodes = new Map(stationData.split('@').filter(Boolean).map(row => {
 }))
 
 export function validateTrainQuery({ train, date }, now = Date.now()) {
-  if (typeof train !== 'string' || !/^[A-Z]?\d{1,5}$/.test(train)) return '请输入完整车次，例如 G1、D3068 或 1461'
+  if (typeof train !== 'string' || !/^[A-Z]?\d{1,5}$/.test(train)) return '请输入完整车次，例如 G1、D3068 或 V6061'
   if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return '请选择始发日期'
   const parsed = new Date(`${date}T00:00:00Z`)
   if (!Number.isFinite(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== date) return '始发日期无效'
