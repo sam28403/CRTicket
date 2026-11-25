@@ -66,6 +66,8 @@ npm run dev:full
 
 - [Wiki 使用手册](https://github.com/sam28403/CRTicket/wiki/User-Guide)
 - [Wiki 常见问题](https://github.com/sam28403/CRTicket/wiki/FAQ)
+- [余票监控的车次筛选](docs/user-guide.md#余票监控的车次筛选)
+- [老中铁路时刻表与时区显示](docs/lcr-timetable.md)
 - [构建与部署](docs/deployment.md)
 - [开发与项目结构](docs/development.md)
 - [更新日志维护](docs/changelog.md)

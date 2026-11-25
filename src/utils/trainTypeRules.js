@@ -11,10 +11,10 @@ export const trainTypeLabels = {
 
 export function isOrdinaryTrain(trainNo) {
   const normalized = String(trainNo || '').trim().toUpperCase()
-  if (/^(?:[ZTKNVLY]\d+|\d+)$/.test(normalized)) return true
+  // if (/^(?:[ZTKNVLY]\d+|\d+)$/.test(normalized)) return true
 
   // 新规则 1：用以下判断替换上方判断，D、C、S 的号段判断保持不变。
-  // if (/^[ZNVY]\d+$/.test(normalized)) return true
+  if (/^[ZNVY]\d+$/.test(normalized)) return true
 
   const dTrain = normalized.match(/^D(\d+)$/)
   if (dTrain) {

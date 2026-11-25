@@ -13,7 +13,7 @@ export function hasTrainTimeZoneOptions(code) {
   const prefix = parts[0].match(/^[A-Z]+/)?.[0] || ''
   return parts.some(part => {
     const train = /^\d+$/.test(part) ? prefix + part : part
-    return /^(D8[3-8]|Y2[5-8])$/.test(train)
+    return /^(D8[3-8]|Y102[5-8])$/.test(train)
   })
 }
 

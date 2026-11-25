@@ -3,10 +3,16 @@ import { test } from 'node:test'
 import { hasTrainTimeZoneOptions, trainStopsInTimeZone } from './trainTimeZoneDisplay.js'
 
 test('时区选项只匹配指定车次，支持组合车次和离线方案', () => {
-  for (const train of ['D83', 'D84/85', 'D86/D83B', 'd87', 'D88', 'Y25/Y28', 'Y26', 'Y27B', 'Y28']) {
+  for (const train of [
+    'D83', 'D84/85', 'D86/D83B', 'd87', 'D88',
+    'Y1025', 'Y1026', 'Y1027B', 'Y1028', 'Y1025/1028', 'Y1025/Y1028',
+  ]) {
     assert.equal(hasTrainTimeZoneOptions(train), true, train)
   }
-  for (const train of [undefined, 'D82', 'D830', 'G85', 'Y24', 'Y280']) {
+  for (const train of [
+    undefined, 'D82', 'D830', 'G85',
+    'Y25', 'Y26', 'Y27', 'Y28', 'Y25/28', 'Y27B', 'Y1024', 'Y1029', 'Y10280',
+  ]) {
     assert.equal(hasTrainTimeZoneOptions(train), false, train)
   }
 })
