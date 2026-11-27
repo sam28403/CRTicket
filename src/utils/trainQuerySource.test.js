@@ -49,6 +49,16 @@ test('输入新车次后切换离线不会套用旧记录', () => {
   assert.equal(location.query.train, 'G3')
 })
 
+test('从大屏选择的非首车次切换来源后保留所选车次和完整离线记录', () => {
+  const options = { train: 'G97', date, record: 'G100/97B' }
+  const online = trainQuerySourceLocation({ ...options, offline: false })
+  assert.deepEqual(online.query, { ...options, source: undefined })
+  const offline = trainQuerySourceLocation({ ...online.query, offline: true })
+  assert.deepEqual(offline.query, { ...options, source: 'llt' })
+  const unrelated = trainQuerySourceLocation({ ...options, train: 'G98', offline: true })
+  assert.deepEqual(unrelated.query, { train: 'G98', date, source: 'llt' })
+})
+
 test('在线来源将范围外日期改为今天，离线来源保留原日期', () => {
   const options = { train: 'D7976', date: '2000-01-01' }
   assert.equal(trainQuerySourceLocation({ ...options, offline: false }).query.date, date)

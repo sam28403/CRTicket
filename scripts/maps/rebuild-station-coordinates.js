@@ -10,6 +10,11 @@ const root = new URL('../../', import.meta.url)
 const auditRoot = new URL('data/maps/station-coordinate-audit/', root)
 const readJson = async url => JSON.parse((await fs.readFile(url, 'utf8')).replace(/^\uFEFF/, ''))
 const writeJson = (name, value) => fs.writeFile(new URL(name, auditRoot), `${JSON.stringify(value, null, 2)}\n`)
+const stationNodeUpdates = new Map()
+for (const file of ['chaoma-station-nodes.json', 'station-coordinate-updates-2026-11-27.json']) {
+  const { region, elements } = await readJson(new URL(`identity/${file}`, auditRoot))
+  for (const node of elements) stationNodeUpdates.set(`${region}/${node.type}/${node.id}`, node)
+}
 const roundCoordinates = value => value.map(number => Math.round(number * 1e7) / 1e7)
 const simplifications = await readJson(new URL('name-simplifications.json', auditRoot))
 const identitySource = await readJson(new URL('upstream/station-identifiers.json', auditRoot))
@@ -75,8 +80,12 @@ for (const region of ['CN', 'HK', 'LA']) {
   const timestamp = raw.osm3s.timestamp_osm_base
   if (!Number.isFinite(Date.parse(timestamp))) throw new Error(`${region} timestamp missing`)
   sources.push({ region, endpoint: receipt.endpoint, osmTimestamp: timestamp, areaTimestamp: raw.osm3s.timestamp_areas_base, retrievedAt: receipt.retrievedAt, count: counts[0].tags, sha256: receipt.sha256 })
-  for (const element of elements) {
-    const id = `${element.type}/${element.id}`
+  for (const snapshotElement of elements) {
+    const id = `${snapshotElement.type}/${snapshotElement.id}`
+    const update = stationNodeUpdates.get(`${region}/${id}`)
+    const element = update && Date.parse(update.timestamp) > Date.parse(timestamp)
+      ? { ...snapshotElement, ...update }
+      : snapshotElement
     const classification = classifyFacility(element.tags)
     indexHistorical(element, region, classification)
     if (records.has(id)) { records.get(id).regions.push(region); continue }

@@ -4,6 +4,9 @@ import { setTimeout as delay } from 'node:timers/promises'
 import { buffer } from 'node:stream/consumers'
 import yazl from 'yazl'
 import { createLltLoader, parseLltArchive, parseLltFiles, readLltNumber, readLltDate } from './lltskb.js'
+import { listLltStation } from './stationLlt.js'
+import { stationBoardRows } from '../../src/utils/stationBoard.js'
+import { stationTrainLocation } from '../../src/utils/stationNavigation.js'
 
 function dictionary(names) {
   const count = Buffer.alloc(2)
@@ -49,6 +52,49 @@ test('按 255 进制解析车次索引、站点索引和累计里程', async () 
   assert.deepEqual(stops.map(stop => stop.mileage), [0, 1023, 1318])
   assert.equal(stops[1].departure, '00:03')
   assert.deepEqual(stops.map(stop => stop.arrivalDay), [0, 0, 1])
+})
+
+test('归档中的分段车次用于逐站时刻、跨日大屏和完整记录跳转', async () => {
+  const files = fixture()
+  files['t.i'] = dictionary(['G100/97B'])
+  files['xw.dat'] = Buffer.from([
+    0, 1, 0, 0, 0, 48, 2,
+    0, 0, 0, 4, 3, 1,
+  ])
+  const database = await parseLltArchive(await zipFiles(files))
+  const item = database.trains.get('G100/97B')
+  assert.deepEqual(item.stops.map(stop => stop.train), ['G100', 'G97B', 'G97B'])
+  assert.equal(item.stops[1].arrivalTrain, 'G100')
+  assert.equal(item.stops[1].departureTrain, 'G97B')
+  item.schedule = { startDate: '2026-10-04', endDate: '2026-10-04' }
+
+  const arrivals = listLltStation(database, '车站1', '2026-10-04')
+  assert.equal(stationBoardRows(arrivals, 'arrival')[0].train, 'G100')
+  assert.equal(stationBoardRows(arrivals, 'all')[0].train, 'G100')
+  const departures = listLltStation(database, '车站1', '2026-10-05')
+  const [departure] = stationBoardRows(departures, 'departure')
+  assert.equal(departure.train, 'G97B')
+  assert.deepEqual(stationTrainLocation(departure, '路路通', '2026-10-05').query, {
+    train: 'G97', record: 'G100/97B', date: '2026-10-04', source: 'llt',
+  })
+})
+
+test('缺失、截断、越界或里程异常的分段保留完整车次', () => {
+  const files = fixture()
+  files['t.i'] = dictionary(['G100/G97'])
+  const valid = Buffer.from([0, 1, 0, 0, 0, 48, 2, 0, 0, 0, 4, 3, 1])
+  const invalidIndex = Buffer.from(valid)
+  invalidIndex[12] = 2
+  const invalidMileage = Buffer.from(valid)
+  invalidMileage.set([0, 0], 10)
+
+  for (const segments of [undefined, valid.subarray(0, -1), invalidIndex, invalidMileage]) {
+    const { trains } = parseLltFiles({ ...files, 'xw.dat': segments })
+    assert.ok(trains.get('G100/G97').stops.every(stop => stop.train === 'G100/G97'))
+  }
+  files['T0.dat'].set([0, 0], 36)
+  const { trains } = parseLltFiles({ ...files, 'xw.dat': valid })
+  assert.ok(trains.get('G100/G97').stops.every(stop => stop.train === 'G100/G97' && stop.mileage === null))
 })
 
 test('路路通解压拒绝超过单文件上限的条目', async () => {

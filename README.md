@@ -25,7 +25,7 @@ Android 客户端已独立维护，见 [CRTicket-Android](https://github.com/sam
 
 ## 快速启动
 
-需要 Node.js `>=22.12.0`，推荐 `26.x`。
+需要 Node.js `>=24.11.0`，推荐 `26.x`。
 
 ```bash
 npm install

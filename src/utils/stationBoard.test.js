@@ -51,6 +51,17 @@ test('可选列按当前标签实际提供的数据展示，缺失字段不默�
   ])
 })
 
+test('同日换号站的到达和出发大屏显示各自的车次', () => {
+  const rows = [{
+    train: 'G97', arrivalTrain: 'G100', departureTrain: 'G97', queryTrain: 'G100/G97',
+    arrival: '14:09', departure: '14:12',
+  }]
+  assert.equal(stationBoardRows(rows, 'arrival')[0].train, 'G100')
+  assert.equal(stationBoardRows(rows, 'departure')[0].train, 'G97')
+  assert.equal(stationBoardRows(rows, 'all')[0].train, 'G97')
+  assert.equal(stationBoardRows(rows, 'arrival')[0].queryTrain, 'G100/G97')
+})
+
 test('1200 趟车次按当前时间定位，兼容全天结束和空列表', () => {
   const rows = Array.from({ length: 1200 }, (_, index) => ({ timeSeconds: (index + 1) * 60 }))
   assert.equal(currentTrainIndex(rows, 720 * 60), 720)

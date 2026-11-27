@@ -26,7 +26,6 @@
 | `README.md`                                  | 项目简介、快速启动和详细文档入口。                   |
 | `scripts/run-full.js`                        | 同时启动 Vite 前端与 Express 后端的开发／预览进程管理脚本。      |
 | `.github/workflows/deploy-to-pages-repo.yml` | GitHub Actions 的 Pages 部署工作流。                             |
-| `.github/workflows/node-26.yml`              | Ubuntu／Windows 的 Node.js 26 安装、测试与构建兼容检查。         |
 | `.vscode/extensions.json`                    | 推荐的 VS Code 扩展列表。                                        |
 
 </details>

@@ -12,9 +12,13 @@
 
 坐标来自 OpenStreetMap 原始节点或完整几何，采用 WGS84 `[经度, 纬度]`。依据 OpenRailwayMap 的类型和状态规则，现役候选接受 **Type: train 或 suburban、State: present**；明确仅为地铁或有轨电车的对象及生命周期冲突对象不纳入。`present` 表示源标签状态，不单独证明某日期提供客运服务。数据遵循 [OpenStreetMap 的 ODbL 许可](https://www.openstreetmap.org/copyright)。
 
-2026-10-09 快照覆盖 CN、HK、LA，按 OSM 对象 ID 去重后保留 11,846 个符合条件的设施，查找表支持 28,403 个名称及别名；名称数量不是实际车站数，CN 已覆盖 HK，地域计数不可直接相加。另保留 75 个经核实的原有旧站名称，仅供 `/user` 历史轨迹使用。官方站名索引中仍有 47 项无法可靠定位，详见[核查报告](../data/maps/station-coordinate-audit/report.md)和[未解决站名清单](../data/maps/station-coordinate-audit/unresolved-official-stations.json)。
+2026-10-09 快照覆盖 CN、HK、LA，按 OSM 对象 ID 去重后保留 11,846 个符合条件的设施。当前查找表支持 28,449 个名称及别名，CN 已覆盖 HK，地域计数不可直接相加。另保留 75 个经核实的原有旧站名称，仅供 `/user` 历史轨迹使用。官方站名索引中仍有 44 项无法可靠定位，详见[核查报告](../data/maps/station-coordinate-audit/report.md)和[未解决站名清单](../data/maps/station-coordinate-audit/unresolved-official-stations.json)。
 
 同名站通过电报码、地域、线路证据或明确指定的 OSM 节点核对身份，不以旧坐标作为唯一选点依据，也不估算补齐未知坐标。新桥按指定的上海金山铁路节点定位；云山、西湖东以 `suburban` 类型纳入。完整源目录仍保留其它同名设施和无名称设施。
+
+2026-11-27 通过 OpenRailwayMap 复核安徽新增的 10 个车站。郑蒲港使用巢马高铁客运站节点 `11332813139`。郑蒲港、含山和马鞍山南的原始节点更新保存在 [`identity/chaoma-station-nodes.json`](../data/maps/station-coordinate-audit/identity/chaoma-station-nodes.json)，重建时仅在节点版本时间晚于中国区域快照时应用。
+
+同日核查后，用户确认同步 18 个坐标偏移超过 100 米的站点。其 OSM 节点坐标、版本及时间保存在 [`identity/station-coordinate-updates-2026-11-27.json`](../data/maps/station-coordinate-audit/identity/station-coordinate-updates-2026-11-27.json)，区域快照的对象和原始标签继续用于匹配。
 
 共用底图加载时仅展示海南省最大多边形（本岛），过滤广东省数据中的东沙多边形，并隐藏 ECharts 自动添加的南海诸岛插图。原始 `public/maps/` 边界文件保留，显示过滤集中在 `src/utils/maps/stationCoordinates.js` 中。
 

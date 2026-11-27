@@ -192,7 +192,7 @@
 
       </el-form>
       <h3 style="font-family: Consolas, 'Courier New', monospace">Version 261126</h3>
-      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10120</h3>
+      <h3 style="font-family: Consolas, 'Courier New', monospace">Station Version 10121</h3>
 
       <div class="home-tools">
         <div id="home-mobile-navigation" class="home-mobile-navigation"></div>

@@ -9,13 +9,17 @@ export const boardTabs = [
 export function stationBoardRows(trains, tab) {
   return trains
     .filter(row => tab === 'all' || Boolean(row[tab]))
-    .map(row => ({
-      ...row,
-      ...stationRowTiming(row, tab),
-      status: tab === 'arrival'
-        ? row.arrivalStatus : row.departureStatus || row.arrivalStatus,
-      stayLabel: row.stay == null ? '—' : `${row.stay} 分钟`,
-    }))
+    .map(row => {
+      const train = (tab === 'arrival' ? row.arrivalTrain : row.departureTrain) || row.train
+      return {
+        ...row,
+        train,
+        ...stationRowTiming({ ...row, train }, tab),
+        status: tab === 'arrival'
+          ? row.arrivalStatus : row.departureStatus || row.arrivalStatus,
+        stayLabel: row.stay == null ? '—' : `${row.stay} 分钟`,
+      }
+    })
     .sort((a, b) => a.timeSeconds - b.timeSeconds || a.train.localeCompare(b.train, 'en', { numeric: true }))
 }
 

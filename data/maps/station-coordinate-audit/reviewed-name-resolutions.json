@@ -113,6 +113,16 @@
     "sources": ["https://www.openstreetmap.org/node/1588514366"],
     "verificationFile": "raw/CN.json.gz"
   },
+  "郑蒲港": {
+    "selectedId": "node/11332813139",
+    "reason": "巢马高铁郑蒲港客运站在含山与马鞍山南之间，位于姥下河南侧。OpenRailwayMap 同名结果中，该节点标有 public_transport=station 和 train=yes，另一个同名节点为 node/9229648671。",
+    "sources": [
+      "https://api.openrailwaymap.org/v2/facility?name=%E9%83%91%E8%92%B2%E6%B8%AF",
+      "https://www.openstreetmap.org/node/11332813139",
+      "https://jsggzy.jszwfw.gov.cn/jyxx/003002/003002001/20210331/fe457d96-d863-4608-941b-ef7d10133164.html"
+    ],
+    "verificationFile": "identity/chaoma-station-nodes.json"
+  },
   "郏县": {
     "selectedId": "node/5575721523",
     "reason": "该项目的官方客运站名对应郑渝高铁郏县站，所选 OSM 节点邻近郑渝高速线；另一同名节点邻近禹郏铁路。",

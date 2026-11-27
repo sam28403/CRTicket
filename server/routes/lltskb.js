@@ -1,4 +1,5 @@
 import yauzl from 'yauzl'
+import { applyLltTrainSegments } from './lltTrainSegments.js'
 
 const base = 'http://down.lltskb.com'
 const archiveFallback = 'http://223.107.87.50:8011/an.db'
@@ -133,6 +134,7 @@ export function parseLltFiles(files) {
     }
   }
   if (trains.size !== trainNames.length) throw new Error('路路通车次字典与记录数量不一致')
+  applyLltTrainSegments(files['xw.dat'], trainNames, trains, readLltNumber)
   return { version, trains }
 }
 
@@ -149,7 +151,7 @@ export async function parseLltArchive(bytes, signal) {
     for await (const entry of archive.eachEntry()) {
       signal?.throwIfAborted()
       const name = entry.fileName
-      if (!/^(?:[st]\.i|t\.rule|ver\.txt|T(?:[0-9]|1[0-9])\.dat)$/.test(name)) continue
+      if (!/^(?:[st]\.i|t\.rule|ver\.txt|xw\.dat|T(?:[0-9]|1[0-9])\.dat)$/.test(name)) continue
       if (Object.hasOwn(files, name)) throw new Error('路路通数据包包含重复文件')
       if (entry.uncompressedSize > maxFileBytes) throw new Error('路路通数据文件过大')
       if (total + entry.uncompressedSize > maxUncompressedBytes) throw new Error('路路通解压数据过大')

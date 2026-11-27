@@ -234,7 +234,7 @@ onBeforeUnmount(() => {
         </div>
         <div class="result-summary">
           <el-text v-if="result">
-            {{ result.date }} 始发；共 {{ result.total.toLocaleString() }} 趟。
+            共 {{ result.total.toLocaleString() }} 趟。
             <template v-if="result.version">路路通 {{ result.version }}。</template>
             <template v-if="result.lcrVersion">老中铁路（离线）。</template>
           </el-text>

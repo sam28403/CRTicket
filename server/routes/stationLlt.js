@@ -43,9 +43,12 @@ export function listLltStation(database, station, date) {
       if (!runsOnDate(item.schedule, trainDate)) continue
       const arrival = arrivalDate === trainDate ? localArrival.clock : null
       const departure = departureDate === trainDate ? localDeparture.clock : null
+      const arrivalTrain = arrival ? stop.arrivalTrain : undefined
+      const departureTrain = departure ? stop.departureTrain : undefined
       rows.push({
         id: `llt-${item.train}-${trainDate}-${stopIndex}`,
-        train: stop.train || item.train,
+        train: departureTrain || arrivalTrain || stop.train || item.train,
+        ...(arrivalTrain || departureTrain ? { queryTrain: item.train, arrivalTrain, departureTrain } : {}),
         from: item.stops[0].station,
         to: item.stops.at(-1).station,
         trainDate,

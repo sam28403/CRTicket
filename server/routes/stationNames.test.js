@@ -4,6 +4,26 @@ import express from 'express'
 import { createStationRouter } from './station.js'
 import { parseStations } from '../../src/utils/stations.js'
 
+test('车站列表包含新增的安徽站点及其电报码', () => {
+  const stations = parseStations()
+  const expected = [
+    ['淮北西', 'KBU'],
+    ['马鞍山南', 'MNU'],
+    ['固镇南', 'GZU'],
+    ['含山', 'KJU'],
+    ['利辛', 'LPU'],
+    ['蒙城', 'MCU'],
+    ['双堆集', 'OJU'],
+    ['宿州西', 'OZU'],
+    ['颍泉北', 'YQU'],
+    ['郑蒲港', 'ZPU'],
+  ]
+
+  for (const [name, telecode] of expected) {
+    assert.ok(stations.some(station => station.name === name && station.telecode === telecode), name)
+  }
+})
+
 test('HTTP 接受推荐列表外站名，分别查询与缓存，空结果也按站名隔离', async () => {
   const names = ['列表外甲站', '列表外乙站']
   assert.ok(names.every(name => !parseStations().some(station => station.name === name)))

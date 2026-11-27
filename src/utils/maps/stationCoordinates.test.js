@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises'
 import { gunzipSync } from 'node:zlib'
 import { createHash } from 'node:crypto'
 import coordinates, { historicalStationCoordinates } from './stationCoordinates.js'
+import { stationMapLocation } from './stationLocationMap.js'
 import { acceptedRailwayTypes, classifyFacility, featureCoordinates } from '../../../scripts/maps/lib/railway-station-audit.js'
 
 const auditRoot = new URL('../../../data/maps/station-coordinate-audit/', import.meta.url)
@@ -59,6 +60,40 @@ test('每个名称坐标都有可追溯的 OSM 现役对象或明确的用户补
     assert.equal(record.state, 'present')
     assert.equal(classifyFacility(record.tags).eligible, true)
     assert.deepEqual(value, record.coordinates)
+  }
+})
+
+test('安徽新增的十个客运站均可定位，郑蒲港匹配巢马高铁节点', async () => {
+  const { elements } = await json('identity/chaoma-station-nodes.json')
+  const updatedNodes = new Map(elements.map(node => [node.id, node]))
+  const stationIds = {
+    淮北西: 11332278116, 宿州西: 11332278119, 双堆集: 11332278122,
+    固镇南: 11332278125, 蒙城: 11332278134, 利辛: 11332278137, 颍泉北: 12178090169,
+    含山: 11332813138, 郑蒲港: 11332813139, 马鞍山南: 11332813140,
+  }
+
+  for (const [name, id] of Object.entries(stationIds)) {
+    const sourceId = `node/${id}`
+    const node = updatedNodes.get(id) ?? rawById.get(sourceId)
+    assert.equal(provenance[name].selectedId, sourceId, name)
+    assert.deepEqual(stationMapLocation(name), [node.lat, node.lon], name)
+  }
+
+  assert.deepEqual(stationMapLocation('鄭蒲港'), stationMapLocation('郑蒲港'))
+  assert.ok(provenance['郑蒲港'].sourceIds.includes('node/9229648671'))
+})
+
+test('本次批准的 18 个站点使用更新坐标并保留原 OSM 站点对象和标签', async () => {
+  const { elements } = await json('identity/station-coordinate-updates-2026-11-27.json')
+  assert.equal(elements.length, 18)
+  assert.equal(new Set(elements.map(node => node.id)).size, 18)
+  for (const node of elements) {
+    const id = `${node.type}/${node.id}`
+    const original = rawById.get(id)
+    const name = original.tags['name:zh-Hans'] || original.tags['name:zh'] || original.tags.name
+    assert.equal(provenance[name].selectedId, id, name)
+    assert.deepEqual(stationMapLocation(name), [node.lat, node.lon], name)
+    assert.deepEqual(records.get(id).tags, original.tags, name)
   }
 })
 

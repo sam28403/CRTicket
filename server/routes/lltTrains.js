@@ -5,11 +5,8 @@ import { clockMinutes } from './trainClock.js'
 import { loadLcrOfflineDatabase } from '../db/lcrOffline.js'
 
 const dayMs = 86400000
-const categories = [
-  'G', 'D', 'C', 'S', 'Z', 'N', 'V', 'T', 'K', 'L', 'numeric', 'Y',
-]
 // 新规则 1：启用时替换上方 categories 定义。
-// const categories = ['G', 'D', 'C', 'S', 'Z', 'N', 'V', 'Y']
+   const categories = ['G', 'D', 'C', 'S', 'Z', 'N', 'V', 'Y']
 // 新规则 2：启用时替换上方 categories 定义。
 // const categories = ['X', 'G', 'T', 'K', 'D', 'C', 'S', 'Z', 'N', 'V', 'Y']
 

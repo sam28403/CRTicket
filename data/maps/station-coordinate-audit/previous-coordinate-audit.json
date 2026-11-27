@@ -9765,11 +9765,11 @@
       38.3062792
     ],
     "current": [
-      116.7619627,
-      38.3062792
+      116.760262,
+      38.3057666
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.159,
     "source": {
       "selectedId": "node/8927836153",
       "sourceIds": [
@@ -25530,11 +25530,11 @@
       31.8640865
     ],
     "current": [
-      117.4799073,
-      31.8640865
+      117.4808932,
+      31.8629194
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.16,
     "source": {
       "selectedId": "node/9242148038",
       "sourceIds": [
@@ -25993,11 +25993,11 @@
       23.8069818
     ],
     "current": [
-      116.1861424,
-      23.8069818
+      116.1854662,
+      23.8050608
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.224,
     "source": {
       "selectedId": "node/13061379941",
       "sourceIds": [
@@ -28442,11 +28442,11 @@
       32.8849409
     ],
     "current": [
-      115.7476278,
-      32.8849409
+      115.7461147,
+      32.8850586
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.142,
     "source": {
       "selectedId": "node/4592130192",
       "sourceIds": [
@@ -36949,18 +36949,18 @@
       31.6588708
     ],
     "current": [
-      118.0661422,
-      31.6588708
+      118.0662308,
+      31.6586556
     ],
     "status": "verified-within-50m",
-    "distanceKm": 0,
+    "distanceKm": 0.025,
     "source": {
       "selectedId": "node/11332813138",
       "sourceIds": [
         "node/11332813138"
       ],
       "reason": "unique-source-location",
-      "matchSource": "name"
+      "matchSource": "name:zh-Hans"
     }
   },
   {
@@ -39824,11 +39824,11 @@
       45.4080254
     ],
     "current": [
-      131.6184659,
-      45.4080254
+      131.61698,
+      45.4074417
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.133,
     "source": {
       "selectedId": "node/9137873807",
       "sourceIds": [
@@ -41610,11 +41610,11 @@
       36.2553507
     ],
     "current": [
-      111.5757497,
-      36.2553507
+      111.5751628,
+      36.2539765
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.162,
     "source": {
       "selectedId": "node/3012035857",
       "sourceIds": [
@@ -42243,11 +42243,11 @@
       22.9005046
     ],
     "current": [
-      113.6454624,
-      22.9004935
+      113.6466044,
+      22.9002372
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0.012,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.109,
     "source": {
       "selectedId": "node/7063140902",
       "sourceIds": [
@@ -48294,11 +48294,11 @@
       43.8563018
     ],
     "current": [
-      126.5714519,
-      43.8563018
+      126.5716289,
+      43.8577756
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.164,
     "source": {
       "selectedId": "node/7923463054",
       "sourceIds": [
@@ -51595,11 +51595,11 @@
       37.5218277
     ],
     "current": [
-      112.1916431,
-      37.5218277
+      112.1893257,
+      37.5206364
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.244,
     "source": {
       "selectedId": "node/3169909573",
       "sourceIds": [
@@ -58598,11 +58598,11 @@
       29.2339911
     ],
     "current": [
-      119.498656,
-      29.2339911
+      119.4988116,
+      29.2368091
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.314,
     "source": {
       "selectedId": "node/9302014474",
       "sourceIds": [
@@ -63856,11 +63856,11 @@
       37.8914593
     ],
     "current": [
-      110.9896671,
-      37.8914593
+      110.9895491,
+      37.889169
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.255,
     "source": {
       "selectedId": "node/4066594112",
       "sourceIds": [
@@ -70829,18 +70829,18 @@
       31.5946696
     ],
     "current": [
-      118.4986719,
-      31.5942195
+      118.4987174,
+      31.5946489
     ],
-    "status": "updated-50m-to-1km",
-    "distanceKm": 0.05,
+    "status": "verified-within-50m",
+    "distanceKm": 0.003,
     "source": {
       "selectedId": "node/11332813140",
       "sourceIds": [
         "node/11332813140"
       ],
       "reason": "unique-source-location",
-      "matchSource": "name"
+      "matchSource": "name:zh-Hans"
     }
   },
   {
@@ -78095,11 +78095,11 @@
       31.9934824
     ],
     "current": [
-      120.9519582,
-      31.9934824
+      120.951407,
+      31.9988607
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.6,
     "source": {
       "selectedId": "node/2990299387",
       "sourceIds": [
@@ -87073,11 +87073,11 @@
       36.0630982
     ],
     "current": [
-      120.3074598,
-      36.0630982
+      120.3076652,
+      36.0654076
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.257,
     "source": {
       "selectedId": "node/9255077341",
       "sourceIds": [
@@ -98128,11 +98128,11 @@
       36.9686194
     ],
     "current": [
-      110.7965585,
-      36.9686194
+      110.795786,
+      36.964539
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.459,
     "source": {
       "selectedId": "node/4074614572",
       "sourceIds": [
@@ -98233,11 +98233,11 @@
       29.5911043
     ],
     "current": [
-      111.3732713,
-      29.5911043
+      111.3676936,
+      29.5886925
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.602,
     "source": {
       "selectedId": "node/12981749290",
       "sourceIds": [
@@ -101517,11 +101517,11 @@
       42.48246
     ],
     "current": [
-      119.63528,
-      42.48246
+      119.6347275,
+      42.481376
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.129,
     "source": {
       "selectedId": "node/2348136437",
       "sourceIds": [
@@ -138939,11 +138939,11 @@
       23.7025746
     ],
     "current": [
-      102.0064557,
-      23.7025746
+      102.0063956,
+      23.7012936
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.143,
     "source": {
       "selectedId": "node/8344240485",
       "sourceIds": [
@@ -139286,11 +139286,11 @@
       36.4190637
     ],
     "current": [
-      118.0234864,
-      36.4190637
+      118.0214372,
+      36.4178464
     ],
-    "status": "verified-within-50m",
-    "distanceKm": 0,
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.228,
     "source": {
       "selectedId": "node/9246201049",
       "sourceIds": [
@@ -144768,27 +144768,31 @@
       118.3329098,
       31.5985068
     ],
-    "current": null,
-    "status": "ambiguous",
-    "distanceKm": null,
-    "candidates": [
-      {
-        "id": "node/9229648671",
-        "name": "郑蒲港",
-        "coordinates": [
-          118.3732867,
-          31.6757952
-        ]
-      },
-      {
-        "id": "node/11332813139",
-        "name": "郑蒲港",
-        "coordinates": [
-          118.3329098,
-          31.5985068
-        ]
+    "current": [
+      118.3332727,
+      31.5988469
+    ],
+    "status": "updated-50m-to-1km",
+    "distanceKm": 0.051,
+    "source": {
+      "selectedId": "node/11332813139",
+      "sourceIds": [
+        "node/9229648671",
+        "node/11332813139"
+      ],
+      "reason": "reviewed-station-line-identity",
+      "matchSource": "name:zh-Hans",
+      "evidence": {
+        "selectedId": "node/11332813139",
+        "reason": "巢马高铁郑蒲港客运站在含山与马鞍山南之间，位于姥下河南侧。OpenRailwayMap 同名结果中，该节点标有 public_transport=station 和 train=yes，另一个同名节点为 node/9229648671。",
+        "sources": [
+          "https://api.openrailwaymap.org/v2/facility?name=%E9%83%91%E8%92%B2%E6%B8%AF",
+          "https://www.openstreetmap.org/node/11332813139",
+          "https://jsggzy.jszwfw.gov.cn/jyxx/003002/003002001/20210331/fe457d96-d863-4608-941b-ef7d10133164.html"
+        ],
+        "verificationFile": "identity/chaoma-station-nodes.json"
       }
-    ]
+    }
   },
   {
     "name": "郑旺",

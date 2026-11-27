@@ -10,6 +10,7 @@ import api, { timetableTimeout } from '@/api.js'
 import { isTrainQueryDateInRange, trainQueryRange } from '@/utils/trainQueryDate.js'
 import { displayTrainCode, trainInfoForDisplay } from '@/utils/trainDisplay.js'
 import { trainQueryCode, trainQuerySourceLocation } from '@/utils/trainQuerySource.js'
+import { matchingTrainRecord } from '@/utils/trainQueryRecord.js'
 import { hasTrainTimeZoneOptions, trainStopsInTimeZone, trainTimeZones } from '@/utils/trainTimeZoneDisplay.js'
 import { getTrainNumberError } from '@/utils/ticketShared.js'
 
@@ -28,9 +29,13 @@ const route = useRoute()
 const router = useRouter()
 const offlineMode = computed(() => route.query.source === 'llt')
 const offlineRecord = ref('')
+const trainInputError = computed(() => {
+  const code = trainQueryCode(train.value)
+  return offlineMode.value && matchingTrainRecord(code, offlineRecord.value) ? '' : getTrainNumberError(code)
+})
 const selectedTimeZone = ref(null)
 const lcrTimeZone = computed(() => (result.value?.defaultTimeZone ?? result.value?.timeZone) === 'vientiane')
-const showTimeZone = computed(() => lcrTimeZone.value || hasTrainTimeZoneOptions(route.query.train))
+const showTimeZone = computed(() => lcrTimeZone.value || hasTrainTimeZoneOptions(route.query.record || route.query.train))
 const timeZoneOptions = computed(() =>
   lcrTimeZone.value ? trainTimeZones.filter(option => option.value !== 'local') : trainTimeZones
 )
@@ -56,6 +61,7 @@ async function switchSource() {
     date: date.value,
     offline: !offlineMode.value,
     offlineRecord: offlineRecord.value,
+    record: route.query.record,
   })
   if (location.query.date !== date.value) {
     ElMessage.info('所选日期超出在线查询范围，已切换到今天')
@@ -97,16 +103,12 @@ function disabledDate(value) {
 
 async function query() {
   if (loading.value) return
-  const entered = trainQueryCode(train.value)
-  const trainError = getTrainNumberError(entered)
-  if (trainError) {
-    ElMessage.warning(trainError)
+  const code = trainQueryCode(train.value)
+  const record = matchingTrainRecord(code, offlineRecord.value)
+  if (trainInputError.value) {
+    ElMessage.warning(trainInputError.value)
     return
   }
-  const code = offlineMode.value && offlineRecord.value
-    && !offlineRecord.value.includes('/') && entered === displayTrainCode(offlineRecord.value)
-    ? offlineRecord.value
-    : entered
   if (!date.value) {
     ElMessage.warning('请输入完整车次并选择始发日期')
     return
@@ -117,10 +119,11 @@ async function query() {
   }
   const selectedDate = date.value
   const source = offlineMode.value ? 'llt' : undefined
-  const dataset = source && route.query.dataset === 'lcr' && trainQueryCode(offlineRecord.value) === entered
+  const dataset = source && route.query.dataset === 'lcr' && record
     ? 'lcr' : undefined
-  if (offlineMode.value) offlineRecord.value = code
-  train.value = displayTrainCode(code)
+  offlineRecord.value = record
+  const recordHint = record && record !== code ? record : undefined
+  train.value = code
   loading.value = true
   error.value = ''
   results.value = []
@@ -129,21 +132,25 @@ async function query() {
   const id = ++requestId
   try {
     // 同步网址时跳过路由监听的重查，保留当前请求和完整离线记录号。
-    previousRouteQuery = [code, selectedDate, source, dataset]
+    previousRouteQuery = [code, selectedDate, source, dataset, recordHint]
     await router.replace({
       path: '/train',
-      query: { train: code, date: selectedDate, source, dataset },
+      query: { train: code, date: selectedDate, source, dataset, record: recordHint },
     })
     if (id !== requestId) return
     const { data } = await api.get(source === 'llt' ? '/llt-trains/detail' : '/train-info', {
-      params: { train: code, date: selectedDate, dataset },
+      params: { train: source ? record || code : code, date: selectedDate, dataset },
       timeout: timetableTimeout,
       signal: controller.signal,
     })
     if (!data.success) throw new Error(data.message || '查询失败')
     if (id === requestId) {
       const { alternatives = [], ...primary } = data
-      results.value = [primary, ...alternatives].map(trainInfoForDisplay)
+      results.value = [primary, ...alternatives].map(item => {
+        const segmented = item.stops.some(stop => stop.arrivalTrain || stop.departureTrain)
+        const displayCode = segmented && matchingTrainRecord(code, item.train) ? code : item.train
+        return trainInfoForDisplay({ ...item, train: displayCode })
+      })
     }
   } catch (err) {
     if (id === requestId && err.code !== 'ERR_CANCELED') {
@@ -159,10 +166,10 @@ async function query() {
 }
 
 watch(
-  () => [route.path, route.query.train, route.query.date, route.query.source, route.query.dataset],
-  ([path, code, selectedDate, source, dataset]) => {
+  () => [route.path, route.query.train, route.query.date, route.query.source, route.query.dataset, route.query.record],
+  ([path, code, selectedDate, source, dataset, hint]) => {
     if (path !== '/train') return
-    const routeQuery = [code, selectedDate, source, dataset]
+    const routeQuery = [code, selectedDate, source, dataset, hint]
     // 缓存页面仍会收到其他路由的变化，返回同一查询时保留表单和结果。
     if (previousRouteQuery && routeQuery.every((value, index) => value === previousRouteQuery[index])) {
       return
@@ -174,9 +181,10 @@ watch(
     results.value = []
     selectedResult.value = 0
     error.value = ''
-    const record = typeof code === 'string' ? code.trim().toUpperCase() : ''
-    if (offlineMode.value) offlineRecord.value = record
-    train.value = trainQueryCode(record)
+    const rawCode = typeof code === 'string' ? code.trim().toUpperCase() : ''
+    train.value = trainQueryCode(rawCode)
+    offlineRecord.value = matchingTrainRecord(train.value, hint)
+      || (source === 'llt' ? matchingTrainRecord(train.value, rawCode) : '')
     date.value = typeof selectedDate === 'string' ? selectedDate : trainQueryRange().today
     if (train.value && /^\d{4}-\d{2}-\d{2}$/.test(date.value)) query()
   },
@@ -207,7 +215,7 @@ onBeforeUnmount(() => {
       </div>
       <el-card shadow="never">
         <el-form class="query-form" label-position="top" @submit.prevent="query">
-          <el-form-item label="车次" :error="train ? getTrainNumberError(trainQueryCode(train)) : ''">
+          <el-form-item label="车次" :error="train ? trainInputError : ''">
             <el-input
               v-model="train"
               :disabled="loading"
@@ -273,7 +281,7 @@ onBeforeUnmount(() => {
               {{ result.train }}　<StationLink :name="result.from" /> → <StationLink :name="result.to" />
             </strong>
             <el-text type="info" size="small">
-              查询日期：{{ result.date }}；车站数据：<a
+              车站数据：<a
                 v-if="result.sourceUrl"
                 class="result-source-link"
                 :href="result.sourceUrl"

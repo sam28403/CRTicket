@@ -1,4 +1,4 @@
-const currentRule = /^(\d{4}|5\d{4}|[GCDZTKLYS]\d{1,4})$/i
+const currentRule = /^(\d{4}|5\d{4}|[GCDZTKYS]\d{1,4})$/i
 
 // 以下号段和辅助函数暂不启用。
 // 启用新规则时，先取消此块注释，再在 isValidTrainNumber 中只保留对应的 return。

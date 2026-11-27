@@ -6,9 +6,10 @@ test('车次规则接受四位数字、5开头的五位数字及指定字头的1
   for (const value of ['0000', '1461', '50000', '59999']) {
     assert.equal(getTrainNumberError(value), '', value)
   }
-  for (const prefix of 'GCDZTKLYSgcdztklys') {
+  for (const prefix of 'GCDZTKYSgcdztkys') {
     for (const number of ['1', '12', '123', '1234']) {
-      assert.equal(getTrainNumberError(`${prefix}${number}`), '')
+      const value = `${prefix}${number}`
+      assert.equal(getTrainNumberError(value), '', value)
     }
   }
 })
@@ -26,7 +27,7 @@ test('车次规则拒绝空值、超出长度、其他字头、空白、双车�
   assert.equal(getTrainNumberError(''), '请输入车次')
   for (const value of [
     '1', '123', '12345', '60000', '500000', 'G', 'G12345',
-    'X1', 'A1', ' G1', 'G1 ', 'G1\n', 'G1/G2', 'G1B', 1461,
+    'X1', 'A1', 'L1', 'l1234', ' G1', 'G1 ', 'G1\n', 'G1/G2', 'G1B', 1461,
     'N0', 'N01', 'N1999', 'N2000', 'N10000',
     'V0', 'V01', 'V5999', 'V6000', 'V6999', 'V7000', 'V7999', 'V8000',
     'V6501/V6504', 'V6501B',
@@ -36,7 +37,7 @@ test('车次规则拒绝空值、超出长度、其他字头、空白、双车�
 })
 
 test('表单校验和操作入口使用相同的车次错误提示', () => {
-  for (const value of ['', 'X1', 'G12345', 'G1', 'g1', '50001', 'N1', 'V6501', 'V6000']) {
+  for (const value of ['', 'X1', 'L1', 'G12345', 'G1', 'g1', '50001', 'N1', 'V6501', 'V6000']) {
     ticketRules.trainNo[0].validator({}, value, (error) => {
       assert.equal(error?.message || '', getTrainNumberError(value))
     })

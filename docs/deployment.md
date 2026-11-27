@@ -8,10 +8,10 @@
 
 ### 环境要求
 
-- Node.js：最低 `22.12.0`，推荐使用 `26.x`
+- Node.js 最低版本为 `24.11.0`，推荐使用 `26.x`。
 - npm：建议使用与 Node.js 配套的最新版本
 
-Node.js 26 的兼容检查覆盖依赖安装、全部 Node.js 回归测试、普通构建与 GitHub Pages 构建；后端使用的 `better-sqlite3` 保留在安装与测试范围内。`.github/workflows/node-26.yml` 在 Ubuntu 和 Windows 上执行这些检查，Pages 部署工作流也使用 Node.js 26。
+发布和 GitHub Pages 部署工作流均使用 Node.js 26。发布流程安装依赖、运行回归测试并构建前端，Pages 部署流程安装依赖并构建 Pages 产物。
 
 ### 安装依赖
 
